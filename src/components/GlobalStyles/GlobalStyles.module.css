@@ -8,3 +8,17 @@
 html {
     font-size: 62.5%;
 }
+
+body {
+    font-family: LexendRegular;
+}
+
+@font-face {
+    font-family: LexendRegular;
+    src: url('../../assets/font/Lexend-Regular.ttf');
+}
+
+@font-face {
+    font-family: LexendBold;
+    src: url('../../assets/font/Lexend-Bold.ttf');
+}
