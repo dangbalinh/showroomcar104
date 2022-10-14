@@ -1,5 +1,6 @@
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
+import style from './DefaultLayout.module.css'
 
 function DefaultLayout({children}) {
     return ( 
@@ -8,7 +9,7 @@ function DefaultLayout({children}) {
                 <Header />
             </div>
 
-            <div className="container">
+            <div className={style.container}>
                 {children}
             </div>
 
