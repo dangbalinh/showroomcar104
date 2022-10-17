@@ -3,7 +3,8 @@ const images = {
     bmwImg: require('./bmwcar.png'),
     infoImg: require('./imginfo.jpg'),
     clientImg: require('./clientimg.jpg'),
-    newsImg: require('./newsimg.png')
+    newsImg: require('./newsimg.png'),
+    newsItemImg: require('./newsItem.png'),
 };
 
 export default images;

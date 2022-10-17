@@ -121,16 +121,19 @@ function Home() {
                 className={style.news}
                 style={{
                     backgroundImage: `url(${images.newsImg})`,
-                    backgroundSize: "contain",
+                    backgroundSize: "cover",
                     backgroundPosition: "center",
-                    height: "1064px",
+                    height: "120vh",
                     backgroundRepeat: "no-repeat",
                 }}
             >
                 <div className={style.newsOverlay}>
                     <div className={style.newsHeading}>NEWS</div>
-                    <NewsItem />
-
+                    <div className={style.newsList}>
+                        <NewsItem />    
+                        <NewsItem />
+                        <NewsItem />
+                    </div>
                    </div>
             </div>
         </div>
