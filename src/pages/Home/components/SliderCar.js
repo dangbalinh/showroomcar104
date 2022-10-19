@@ -21,7 +21,7 @@ function SliderCar() {
 
     return (
         <Splide hasTrack={ false } options={options} aria-label="Slider Car">
-            <div className="custome-wrapper">
+            <div className="CarSlider__Costume">
                 <SplideTrack>
                     <SplideSlide>
                         <ItemCar name="BMW" />

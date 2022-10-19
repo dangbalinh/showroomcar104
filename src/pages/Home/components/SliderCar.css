@@ -26,13 +26,13 @@
 }
 */
 
-.splide__slide {
+.CarSlider__Costume .splide__slide {
     /* opacity: 0.5; */
     border: none !important;
     /* margin: 0 15px; */
 } 
 
-.splide__pagination {
+.CarSlider__Costume .splide__pagination {
     bottom: -5rem !important;
 }
 

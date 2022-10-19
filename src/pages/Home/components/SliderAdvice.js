@@ -10,7 +10,7 @@ function SliderAdvice() {
     const options = {
         rewind: true,
         type: "loop",
-        speed: 600,
+        speed: 1500,
         perPage: 3,
         perMove: 1,
         width: 1370,
@@ -52,12 +52,12 @@ function SliderAdvice() {
             </div>
 
             <div className="splide__arrows">
-                <button className="splide__arrow splide__arrow--prev">
+                <button className="splide__arrow splide__arrow--prev" id={style.iconPrev}>
                     {/* <WestIcon /> */}
-                    <EastIcon className={style.icon} />
+                    <EastIcon />
                 </button>
-                <button className="splide__arrow splide__arrow--next">
-                    <EastIcon className={style.icon} />
+                <button className="splide__arrow splide__arrow--next" id={style.iconNext}>
+                    <EastIcon />
                     {/* <WestIcon /> */}
                 </button>
             </div>
