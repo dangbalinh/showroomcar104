@@ -42,7 +42,9 @@ function Home() {
 
             <div className={style.suggest}>
                 <div className={style.suggestHeading}>OUR RECOMMENDATIONS</div>
-                <SliderCar />
+                <div className={style.suggestSlider}>
+                    <SliderCar />
+                </div>
                 <div className={style.line} />
             </div>
 
@@ -65,8 +67,8 @@ function Home() {
                 style={{
                     backgroundImage: `url(${images.clientImg})`,
                     backgroundSize: "cover",
-                    // paddingBottom: "60%",
-                    height: "100vh",
+                    paddingBottom: "52%",
+                    // height: "100vh",
                     backgroundRepeat: "no-repeat"
                 }}
             >
@@ -74,7 +76,9 @@ function Home() {
                     <div className={style.adviceHeading}>
                         Let our clients speak for us!
                     </div>
-                    <SliderAdvice />
+                    <div className={style.adviceSlider}>
+                        <SliderAdvice />
+                    </div>
                 </div>
             </div>
 
@@ -135,7 +139,7 @@ function Home() {
                         <NewsItem />
                     </div>
                    </div>
-            </div>
+            </div>  
         </div>
     );
 }

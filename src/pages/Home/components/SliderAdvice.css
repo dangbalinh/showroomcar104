@@ -1,0 +1,17 @@
+.AdviceSlider__custome .splide__slide.is-active {
+    transform: scale(1.2);
+}
+
+.AdviceSlider__custome {
+    display: flex;
+    height: 100%;
+}
+
+.splide__list {
+    align-items: center;
+}
+
+.AdviceSlider__splide {
+    height: 100%;
+    /* display: flex; */
+}
