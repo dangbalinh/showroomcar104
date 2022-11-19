@@ -35,7 +35,7 @@ function Contact() {
                 <div className={style.contactCountry}>
                     <div className={style.contactName}>
                         <FmdGoodOutlinedIcon sx={{color: "#AE0D0D", fontSize: 32,marginRight:1}}></FmdGoodOutlinedIcon>
-                        <h5>KING SPEED DA NANG</h5>
+                        <h5>KING SPEED VIỆT NAM</h5>
                     </div>
                     <div className={style.contactDetail}>
                         <PhoneIphoneIcon sx={{color: "#AE0D0D", fontSize: 20,marginRight:1}}></PhoneIphoneIcon>
