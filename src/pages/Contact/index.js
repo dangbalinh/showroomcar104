@@ -6,6 +6,7 @@ import WebIcon from '@mui/icons-material/Web';
 function Contact() {
     return (
         <div className={style.contactLayout}>
+            {/* Contact Branch */}
             <div className={style.contactBranch}>
                 <div className={style.contactItem}>
                     <div className={style.contactName}>
@@ -29,6 +30,7 @@ function Contact() {
                     <p className={style.contactLocation}>356 Dien Bien Phu Street, Thanh Khe District, Danang City.</p>
                 </div>
             </div>
+            {/* Contact Country */}
             <div>
                 <div className={style.contactCountry}>
                     <div className={style.contactName}>
@@ -47,7 +49,6 @@ function Contact() {
                         <WebIcon sx={{color: "#AE0D0D", fontSize: 20,marginRight:1}}></WebIcon>
                         <p>Website: <a href="KingSpeedvietnam.com.vn">KingSpeedvietnam.com.vn</a></p>
                     </div>
-                    
                 </div>
             </div>
                 
