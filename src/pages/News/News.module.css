@@ -1,0 +1,38 @@
+.container {
+  padding: 0 160px;
+  clear: both;
+}
+.newsSection {
+  display: flex;
+}
+
+.container h1 {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 58px;
+  letter-spacing: 0em;
+  color: #8a0000;
+}
+
+.section {
+  flex: 3;
+  margin-right: 25px;
+  margin-top: 86px;
+}
+
+.aside {
+  flex: 1;
+  margin-left: 25px;
+}
+.divider {
+  border-left: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.aside h3 {
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 36px;
+  margin-bottom: 50px;
+
+  color: #8a0000;
+}
