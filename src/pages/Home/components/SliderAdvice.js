@@ -17,12 +17,13 @@ function SliderAdvice() {
         // height: "100%",
         autoHeight: true,
         gap: "5.4rem",
-        fixedWidth: 420,
-        fixedHeight: 340,
+        fixedWidth: 400,
+        fixedHeight: 362,
         focus: "center",
         // autoplay: true,
         pauseOnHover: true,
         updateOnMove: true,
+        padding: 20,
         // fixedWidth: 250,
     };
 

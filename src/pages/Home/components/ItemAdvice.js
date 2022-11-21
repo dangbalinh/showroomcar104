@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import style from "./ItemAdvide.module.css";
 import images from "../../../assets/image";
 
