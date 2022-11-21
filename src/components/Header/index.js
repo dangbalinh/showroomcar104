@@ -1,11 +1,32 @@
 import './Header.module.css'
-
-function Header() {
-    return ( 
-        <div>
-            <h1>Header</h1>
+import {NavLink,Link} from 'react-router-dom'
+import classes from './Header.module.css'
+import {menuItems} from './menuItem.js'
+import logo from './logo.png'
+import Menu from './Menu'
+import InstagramIcon from '@mui/icons-material/Instagram';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import AutoComplete from './Autosearch/AutoComplete'
+import { autoCompleteData } from './Autosearch/Searchdata'
+function Header (){
+    return (<div >
+    <div className={classes.header}>
+        <Link to='/'><img src={logo} alt='logo'/></Link>
+        <ul className={classes.mainmenu}>
+        {menuItems.map((item) => 
+            (<Menu item={item}></Menu>)
+        )}
+        </ul>
+        <AutoComplete data={autoCompleteData}></AutoComplete>
+        <div className={classes.groupicon}>
+           <a href=''><InstagramIcon fontSize="large" className={classes.icon}/></a>
+           <a href=''><YouTubeIcon fontSize="large" className={classes.icon}/></a>
+           <a href=''><FacebookIcon fontSize="large"className={classes.icon}/></a>
         </div>
-     );
+    </div>
+    </div>);
+
 }
 
 export default Header;
