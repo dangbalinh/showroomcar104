@@ -3,9 +3,11 @@ import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import MailIcon from '@mui/icons-material/Mail';
 import WebIcon from '@mui/icons-material/Web';
+import Form from "../Form/index"
 function Contact() {
     return (
         <div className={style.contactLayout}>
+            <Form/>
             {/* Contact Branch */}
             <div className={style.contactBranch}>
                 <div className={style.contactItem}>
@@ -35,7 +37,7 @@ function Contact() {
                 <div className={style.contactCountry}>
                     <div className={style.contactName}>
                         <FmdGoodOutlinedIcon sx={{color: "#AE0D0D", fontSize: 32,marginRight:1}}></FmdGoodOutlinedIcon>
-                        <h5>KING SPEED VIỆT NAM</h5>
+                        <h5>KING SPEED VIET NAM</h5>
                     </div>
                     <div className={style.contactDetail}>
                         <PhoneIphoneIcon sx={{color: "#AE0D0D", fontSize: 20,marginRight:1}}></PhoneIphoneIcon>
