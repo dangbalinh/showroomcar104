@@ -1,0 +1,29 @@
+.VehicleContainer {
+    padding: 0;
+    margin: 100px;
+}
+.VehicleContainer ul {
+    
+    background-color: rgb(201, 193, 193);
+    text-align: center;
+   
+}
+.VehicleContainer li {
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    line-height: 40px;
+    
+
+}
+.VehicleContainer li a {
+    padding: 10px;
+    text-decoration: none;
+    background-color: red;
+    color: rgb(27, 3, 3);
+    display: block;
+}
+.VehicleContainer li a:hover {
+    background: #F1F1F1;
+    
+}
