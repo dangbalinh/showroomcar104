@@ -1,76 +1,67 @@
-import { EastOutlined, KeyboardBackspaceOutlined } from "@mui/icons-material";
-import { useState } from "react";
-import Carousel from "react-simply-carousel";
+import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
+import "@splidejs/react-splide/css";
 import ItemCar from "./ItemCar";
+import "./SliderCar.css";
+import WestIcon from "@mui/icons-material/West";
+import EastIcon from "@mui/icons-material/East";
 
-function ReactSimplyCarouselExample() {
-    const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+function SliderCar() {
+    const options = {
+        rewind: true,
+        type: "loop",
+        speed: 1200,
+        perPage: 4,
+        perMove: 1,
+        width: 1060,
+        isNavigation: true,
+        gap: "3rem"
+        // fixedWidth: 250,
+        // arrows: { prev: <WestIcon />, next: <EastIcon /> }
+    };
 
     return (
-        <div>
-            <Carousel   
-                disableNavIfEdgeActive={true}
-                activeSlideIndex={activeSlideIndex}
-                onRequestChange={setActiveSlideIndex}
-                itemsToShow={4}
-                itemsToScroll={1}
-                forwardBtnProps={{
-                    //here you can also pass className, or any other button element attributes
-                    style: {
-                        alignSelf: "center",
-                        background: "transparent",
-                        border: "2px solid #91534A",
-                        borderRadius: "50%",
-                        color: "#91534A",
-                        cursor: "pointer",
-                        width: 36,
-                        height: 36,
-                        lineHeight: 1,
-                        textAlign: "center",
-                        marginLeft: "40px"
-                    },
-                    children: <span>
-                        {/* <FontAwesomeIcon icon={faLongArrowAltRight} /> */}
-                        <EastOutlined style={{ fontSize: "24px" }} />
-                    </span>
-                }}
-                backwardBtnProps={{
-                    //here you can also pass className, or any other button element attributes
-                    style: {
-                        alignSelf: "center",
-                        background: "transparent",
-                        border: "2px solid #91534A",
-                        borderRadius: "50%",
-                        color: "#91534A",
-                        cursor: "pointer",
-                        width: 36,
-                        height: 36,
-                        lineHeight: 1,
-                        textAlign: "center",
-                        marginRight: "40px"
-                    },
-                    children: <span>
-                        {/* <FontAwesomeIcon icon={faLongArrowAltLeft} /> */}
-                        <KeyboardBackspaceOutlined style={{ fontSize: "24px"}} />
-                    </span>
-                }}
-                speed={400}
-                easing="linear"
-            >
-                <ItemCar name="BMW"/>
-                <ItemCar name="MER"/>
-                <ItemCar name="Porches"/>
-                <ItemCar name="Audi"/>
-                <ItemCar name="Honda"/>
-                <ItemCar name="BMW"/>
-                <ItemCar name="MER"/>
-                <ItemCar name="Porches"/>
-                <ItemCar name="Audi"/>
-                <ItemCar name="Honda"/> 
+        <Splide hasTrack={ false } options={options} aria-label="Slider Car">
+            <div className="CarSlider__Costume">
+                <SplideTrack>
+                    <SplideSlide>
+                        <ItemCar name="BMW" />
+                    </SplideSlide>
+                    <SplideSlide>
+                        <ItemCar name="Honda" />
+                    </SplideSlide>
+                    <SplideSlide>
+                        <ItemCar name="CRV" />
+                    </SplideSlide>
+                    <SplideSlide>
+                        <ItemCar name="VINFAST" />
+                    </SplideSlide>
+                    <SplideSlide>
+                        <ItemCar name="Roll Royce" />
+                    </SplideSlide>
+                    <SplideSlide>
+                        <ItemCar name="Bently" />
+                    </SplideSlide>
+                    <SplideSlide>
+                        <ItemCar name="Roll Royce" />
+                    </SplideSlide>
+                    <SplideSlide>
+                        <ItemCar name="Bently" />
+                    </SplideSlide>
+                </SplideTrack>
+            </div>
 
-            </Carousel>
-        </div>
+            <div className="splide__arrows">
+                <button className="splide__arrow splide__arrow--prev">
+                    {/* <WestIcon /> */}
+                    <EastIcon />
+                </button>
+                <button className="splide__arrow splide__arrow--next">
+                    <EastIcon />
+                    {/* <WestIcon /> */}
+                </button>
+            </div>
+        </Splide>
     );
 }
 
-export default ReactSimplyCarouselExample;
+export default SliderCar;
