@@ -5,7 +5,21 @@ import "./SliderCar.css";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 
+import { useEffect, useState } from 'react';
+import axios from "axios";
+
 function SliderCar() {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get('https://637c281172f3ce38ea9be907.mockapi.io/carapi/products',);
+            setData(response.data);
+        }
+        fetchData();
+    }, []);
+
+    console.log(data);
     const options = {
         rewind: true,
         type: "loop",
@@ -23,7 +37,7 @@ function SliderCar() {
         <Splide hasTrack={ false } options={options} aria-label="Slider Car">
             <div className="CarSlider__Costume">
                 <SplideTrack>
-                    <SplideSlide>
+                    {/* <SplideSlide>
                         <ItemCar name="BMW" />
                     </SplideSlide>
                     <SplideSlide>
@@ -46,7 +60,12 @@ function SliderCar() {
                     </SplideSlide>
                     <SplideSlide>
                         <ItemCar name="Bently" />
-                    </SplideSlide>
+                    </SplideSlide> */}
+                    {data.map((product) => (
+                        <SplideSlide key={product.id}>
+                            <ItemCar data={product} />
+                        </SplideSlide>
+                    ))}
                 </SplideTrack>
             </div>
 

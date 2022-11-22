@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import style from "./Home.module.css";
 import images from "../../assets/image";
-import React from "react";
+import React, { useState } from "react";
 import SliderCar from "./components/SliderCar";
 import SliderAdvice from "./components/SliderAdvice";
 import Vehicle from "./components/Vehicle";
@@ -9,8 +10,21 @@ import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
 import { TipsAndUpdatesOutlined } from "@mui/icons-material";
 import NewsItem from "./components/NewsItem";
+import { useEffect } from "react";
+
+import axios from "axios";
 
 function Home() {
+    // Test axios api
+    // axios({
+    //     method: 'GET',
+    //     url: 'https://637c281172f3ce38ea9be907.mockapi.io/carapi/products',
+    //     data: null
+    // })
+    // .then(res => data = res.data)
+    // .catch(err => console.log(err));
+
+    
     return (
         <div>
             <div className={style.showCar}>
