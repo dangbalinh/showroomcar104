@@ -1,7 +1,10 @@
+import detailInformationCar from "./Components/detailInformationCar";
+import formCommentCar from "./Components/formCommentCar";
 function DetailProduct() {
     return ( 
         <div>
-            <h1>DetailProduct page</h1>
+            <detailInformationCar/>
+            <formCommentCar/>
         </div>
      );
 }
