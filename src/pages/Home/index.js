@@ -3,6 +3,7 @@ import images from "../../assets/image";
 import React from "react";
 import SliderCar from "./components/SliderCar";
 import SliderAdvice from "./components/SliderAdvice";
+import Vehicle from "./components/Vehicle";
 
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
@@ -47,20 +48,12 @@ function Home() {
                 </div>
                 <div className={style.line} />
             </div>
-
-            {/* <div className={style.vehicle}>
-                <div className={style.vehicleHeading}>OUR VEHICLES</div>
-                <ul className={style.vehicleList}>
-                    <li className={style.styleVehicleItem}>TOYOTA</li>
-                    <li className={style.styleVehicleItem}>BMW</li>
-                    <li className={style.styleVehicleItem}>FORD</li>
-                    <li className={style.styleVehicleItem}>HONDA</li>
-                    <li className={style.styleVehicleItem}>HUYNDAI</li>
-                    <li className={style.styleVehicleItem}>MERCEDES</li>
-                    <li className={style.styleVehicleItem}>VINFAST</li>
-                    <li className={style.styleVehicleItem}>KIA</li>
-                </ul>
-            </div> */}
+            {/* Dang Ba Linh */}
+            <div className={style.Vehicle}>
+                <h1 className={style.VehicleHeading}>OUR VEHICLE</h1>
+                
+                <Vehicle/>  
+            </div>
 
             <div
                 className={style.advice}

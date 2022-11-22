@@ -208,3 +208,14 @@
     display: flex;
     justify-content: space-evenly;
 }
+.Vehicle {
+    
+    padding: 0;
+    background-color: #e6d7d7;
+}
+.VehicleHeading{
+    padding-top: 20px;
+    font-size: 50px;
+    text-align: center;
+    background-color: blue;
+}
