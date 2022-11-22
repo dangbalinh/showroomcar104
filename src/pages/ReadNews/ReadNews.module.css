@@ -1,9 +1,11 @@
 .container {
   padding: 0 160px;
+  clear: both;
   margin-bottom: 150px;
 }
 .newsSection {
   display: flex;
+  margin-top: 58px;
 }
 
 .container h1 {
@@ -17,7 +19,6 @@
 .section {
   flex: 3;
   margin-right: 25px;
-  margin-top: 86px;
 }
 
 .aside {
@@ -40,4 +41,39 @@
 .link {
   text-decoration: none;
   color: black;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 35px;
+  line-height: 42px;
+
+  color: #000000;
+}
+
+.date {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+
+  color: #b5b3b3;
+  margin: 50px 0;
+}
+
+.image {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.paragraphTitle {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.paragraphText {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
 }
