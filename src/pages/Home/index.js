@@ -3,6 +3,7 @@ import images from "../../assets/image";
 import React from "react";
 import SliderCar from "./components/SliderCar";
 import SliderAdvice from "./components/SliderAdvice";
+import Vehicle from "./components/Vehicle";
 
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
@@ -42,31 +43,25 @@ function Home() {
 
             <div className={style.suggest}>
                 <div className={style.suggestHeading}>OUR RECOMMENDATIONS</div>
-                <SliderCar />
+                <div className={style.suggestSlider}>
+                    <SliderCar />
+                </div>
                 <div className={style.line} />
             </div>
-
-            {/* <div className={style.vehicle}>
-                <div className={style.vehicleHeading}>OUR VEHICLES</div>
-                <ul className={style.vehicleList}>
-                    <li className={style.styleVehicleItem}>TOYOTA</li>
-                    <li className={style.styleVehicleItem}>BMW</li>
-                    <li className={style.styleVehicleItem}>FORD</li>
-                    <li className={style.styleVehicleItem}>HONDA</li>
-                    <li className={style.styleVehicleItem}>HUYNDAI</li>
-                    <li className={style.styleVehicleItem}>MERCEDES</li>
-                    <li className={style.styleVehicleItem}>VINFAST</li>
-                    <li className={style.styleVehicleItem}>KIA</li>
-                </ul>
-            </div> */}
+            {/* Dang Ba Linh */}
+            <div className={style.Vehicle}>
+                <h1 className={style.VehicleHeading}>OUR VEHICLE</h1>
+                
+                <Vehicle/>  
+            </div>
 
             <div
                 className={style.advice}
                 style={{
                     backgroundImage: `url(${images.clientImg})`,
                     backgroundSize: "cover",
-                    // paddingBottom: "60%",
-                    height: "100vh",
+                    paddingBottom: "52%",
+                    // height: "100vh",
                     backgroundRepeat: "no-repeat"
                 }}
             >
@@ -74,7 +69,9 @@ function Home() {
                     <div className={style.adviceHeading}>
                         Let our clients speak for us!
                     </div>
-                    <SliderAdvice />
+                    <div className={style.adviceSlider}>
+                        <SliderAdvice />
+                    </div>
                 </div>
             </div>
 
@@ -123,7 +120,7 @@ function Home() {
                     backgroundImage: `url(${images.newsImg})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    height: "120vh",
+                    height: "851px",
                     backgroundRepeat: "no-repeat",
                 }}
             >
@@ -134,8 +131,8 @@ function Home() {
                         <NewsItem />
                         <NewsItem />
                     </div>
-                   </div>
-            </div>
+                </div>
+            </div>  
         </div>
     );
 }
