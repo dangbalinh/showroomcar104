@@ -33,3 +33,11 @@
 .VehicleContainer li a:hover {
     color: aliceblue;
 }
+.ItemVehicleCar {
+    
+    /* background-color: purple; */
+    padding: 130px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 90px;
+}
