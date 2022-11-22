@@ -6,4 +6,4 @@ function moreDetailInformationCar() {
         </div>
     );
 }
-export default moreDetailInformationCar();
+export default moreDetailInformationCar;
