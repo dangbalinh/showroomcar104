@@ -1,4 +1,5 @@
 import style from "./Vehicle.module.css";
+import ItemVehicle from "./ItemVehicle";
 import images from "../../../assets/image";
 
 function Vehicle() {
@@ -14,7 +15,11 @@ function Vehicle() {
                <li><a href="#vinfast">VINFAST</a></li> 
                <li><a href="#kia">KIA</a></li>
             </ul>
+            <div className={style.ItemVehicleCar}>
+                
+            </div>
         </div>
+        
     );
 }
 export default Vehicle;
