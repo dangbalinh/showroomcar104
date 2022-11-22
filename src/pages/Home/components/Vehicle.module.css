@@ -22,7 +22,7 @@
     text-decoration: none;
     align-items: center;
     justify-content: center;
-    color: rgb(227, 0, 0);
+    color: rgb(158, 12, 12);
     font-size: large;
     font-weight: bold;
 }
@@ -32,4 +32,12 @@
 }
 .VehicleContainer li a:hover {
     color: aliceblue;
+}
+.ItemVehicleCar {
+    
+    /* background-color: purple; */
+    padding: 130px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 90px;
 }

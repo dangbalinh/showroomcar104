@@ -1,0 +1,33 @@
+.ItemVehicleContainer {
+    text-align: center;
+}
+.ItemVehicleContainer .nameCar  {
+    color: rgb(217, 31, 31);
+    font-size: large;
+    font-weight: bold;
+
+}
+.ItemVehicleContainer .moreDetailCar {
+    color: grey;
+    font-size: small;
+}
+.ItemVehicleContainer .buttonShowInformation {
+    margin: 20px;
+    width: 130px;
+    height: 50px;
+    border: 2px solid rgb(144, 15, 15);
+    border-radius: 4px;
+    text-align: center;
+    color: rgb(182, 0, 0);
+    font-size: 17px;
+    font-weight: bold;
+    transition: width 0.5s, height 1s;
+    cursor: pointer;
+}
+.ItemVehicleContainer .buttonShowInformation:hover {
+    
+    background-color: rgb(138, 11, 11);
+    color:white;
+    width: 135px;
+    height: 65px;
+}
