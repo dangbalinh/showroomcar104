@@ -127,7 +127,7 @@ function Home() {
                     backgroundImage: `url(${images.newsImg})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    height: "120vh",
+                    height: "851px",
                     backgroundRepeat: "no-repeat",
                 }}
             >
@@ -138,7 +138,7 @@ function Home() {
                         <NewsItem />
                         <NewsItem />
                     </div>
-                   </div>
+                </div>
             </div>  
         </div>
     );

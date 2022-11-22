@@ -19,11 +19,11 @@ function SliderAdvice() {
         gap: "5.4rem",
         fixedWidth: 400,
         fixedHeight: 362,
+        // padding: '5rem',
         focus: "center",
         // autoplay: true,
         pauseOnHover: true,
         updateOnMove: true,
-        padding: 20,
         // fixedWidth: 250,
     };
 

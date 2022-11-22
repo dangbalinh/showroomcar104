@@ -1,6 +1,11 @@
 .AdviceSlider__custome .splide__slide.is-active {
-    transform: scale(1.11);
+    /* transform: scale(1); */
     opacity: 1; 
+    /* width: 440px !important;
+    height: 398px !important; */
+}
+
+.AdviceSlider__custome .splide__slide.is-active {
 
 }
 
@@ -14,8 +19,7 @@
 
 .AdviceSlider__custome .splide__slide {
     /* margin: 0 20px; */
-    opacity: 0.6;
-    /* transform: scale(0.9); */
+    opacity: 0.5;
     /* transform: scale(0.9); */
     /* border: none !important;  */
 }
