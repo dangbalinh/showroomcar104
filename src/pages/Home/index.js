@@ -46,9 +46,10 @@ function Home() {
                 <SliderCar />
                 <div className={style.line} />
             </div>
-
+            {/* Dang Ba Linh */}
             <div className={style.Vehicle}>
-                <div className={style.VehicleHeading}>OUR VEHICLE</div>
+                <h1 className={style.VehicleHeading}>OUR VEHICLE</h1>
+                
                 <Vehicle/>  
             </div>
 

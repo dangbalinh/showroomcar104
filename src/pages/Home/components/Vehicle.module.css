@@ -1,29 +1,35 @@
 .VehicleContainer {
-    padding: 0;
-    margin: 100px;
 }
 .VehicleContainer ul {
-    
-    background-color: rgb(201, 193, 193);
-    text-align: center;
-   
+    border: 4px solid rgb(97, 10, 10);
+    margin: 30px auto;
+    list-style-type: none;
+    width: 1200px;
+    display: flex;
 }
-.VehicleContainer li {
-    display: inline-block;
-    width: 120px;
-    height: 40px;
-    line-height: 40px;
+.VehicleContainer ul li {
     
-
+    background-color: rgb(247, 238, 238);
+    width: 200px;
+    height: 100px;
+    /* display: flex; */
 }
 .VehicleContainer li a {
-    padding: 10px;
+    
+    display: flex;
+    width: 100%;
+    height: 100%;
     text-decoration: none;
-    background-color: red;
-    color: rgb(27, 3, 3);
-    display: block;
+    align-items: center;
+    justify-content: center;
+    color: rgb(227, 0, 0);
+    font-size: large;
+    font-weight: bold;
+}
+.VehicleContainer li:hover  {
+    background: #510d0d;
+    
 }
 .VehicleContainer li a:hover {
-    background: #F1F1F1;
-    
+    color: aliceblue;
 }

@@ -5,14 +5,14 @@ function Vehicle() {
     return (
         <div className={style.VehicleContainer}>
             <ul>
-               <li><a href="#">TOYOTA</a></li>
-               <li><a href="#">BWM</a></li>
-               <li><a href="#">FORD</a></li>
-               <li><a href="#">HONDA</a></li>
-               <li><a href="#">HUYNHDAI</a></li>
-               <li><a href="#">MERCEDEZ</a></li>
-               <li><a href="#">VINFAST</a></li> 
-               <li><a href="#">KIA</a></li>
+               <li><a href="#toyota">TOYOTA</a></li>
+               <li><a href="#bmw">BWM</a></li>
+               <li><a href="#ford">FORD</a></li>
+               <li><a href="#honda">HONDA</a></li>
+               <li><a href="#huyndai">HUYNHDAI</a></li>
+               <li><a href="#mercedez">MERCEDEZ</a></li>
+               <li><a href="#vinfast">VINFAST</a></li> 
+               <li><a href="#kia">KIA</a></li>
             </ul>
         </div>
     );
