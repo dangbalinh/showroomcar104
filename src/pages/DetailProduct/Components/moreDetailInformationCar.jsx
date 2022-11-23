@@ -1,8 +1,8 @@
-import style from "./moreDetailInformationCar";
+import style from "./moreDetailInformationCar.module.css";
 function moreDetailInformationCar() {
     return (
         <div>
-            Hello World
+            <p>Hello World</p>
         </div>
     );
 }
