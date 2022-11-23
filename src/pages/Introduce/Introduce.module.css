@@ -1,0 +1,21 @@
+.introContent {
+    margin: 160px;
+}
+.introTitle1 {
+    color: #AE0D0D;
+    font-size: 3.2rem;
+    font-weight: 600;   
+}
+.content {
+    font-size: 2.4rem;
+    margin: 70px 50px;
+}
+
+.introTitle2 {
+    color: #AE0D0D;
+    font-size: 2.8rem;
+}
+
+.content2 {
+    margin: 24px 0;
+}
