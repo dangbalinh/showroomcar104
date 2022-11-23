@@ -22,4 +22,5 @@ const publicRoutes = [
     {path: '/Login', component: Login},
 ]
 
-export {publicRoutes};
+
+export { publicRoutes };

@@ -1,0 +1,51 @@
+.contactLayout{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    
+}
+.contactItem{
+   margin-top: 20px;
+}
+.contactName{
+    display: flex;
+    font-size: 20px;
+    align-items: center;
+    text-transform: uppercase;
+}
+.contactLocation{
+     width: 280px;
+     margin-left: 40px;
+     font-size: 14px;
+     color: #777;
+}
+.contactBranch{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+.contactCountry{
+    width: 320px;
+    margin-top: 50px;
+}
+.contactDetail{
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #777;
+}
+.contactDetail a{
+    text-decoration: none;
+}
+
+@media(max-width: 739px){
+    .contactCountry{
+        margin-top: 20px;
+    }
+}
