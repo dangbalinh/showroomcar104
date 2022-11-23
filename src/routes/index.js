@@ -16,10 +16,11 @@ const publicRoutes = [
     {path: '/news', component: News},
     {path: '/introduce', component: Introduce},
     {path: '/readnews', component: ReadNews},
+    { path: "/readnews/:id", component: ReadNews },
     {path: '/form', component: Form},
     {path: '/detailproduct', component: DetailProduct},
     {path: '/register', component: Register},
-    {path: '/Login', component: Login},
+    {path: '/login', component: Login},
 ]
 
 
