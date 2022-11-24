@@ -4,7 +4,7 @@ import styles from "./SmallerCard.module.css";
 export default function SmallerCard({ image, title }) {
   return (
     <div className={styles.smallerCard}>
-      <img src={image} alt="news" className={styles.image} />
+      <img src={image} alt="news" />
       <p>{title}</p>
     </div>
   );
