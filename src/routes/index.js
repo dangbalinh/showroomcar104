@@ -8,6 +8,7 @@ import Introduce from "../pages/Introduce"
 import Form from "../pages/Form"
 import Register from "../pages/Register"
 import Login from "../pages/Login"
+import Search from "../pages/SearchResult"
 
 const publicRoutes = [
     {path: '/', component: Home},
@@ -19,7 +20,8 @@ const publicRoutes = [
     {path: '/form', component: Form},
     {path: '/detailproduct', component: DetailProduct},
     {path: '/register', component: Register},
-    {path: '/Login', component: Login},
+    {path: '/login', component: Login},
+    {path: '/search', component: Search},
 ]
 
 
