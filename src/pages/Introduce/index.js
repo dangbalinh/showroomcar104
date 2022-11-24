@@ -1,6 +1,6 @@
 import style from "./Introduce.module.css"
 function Introduce() {
-    return ( 
+    return (
         <div>
             <div className={style.introContent}>
                 <p className={style.introTitle1}>
