@@ -1,0 +1,135 @@
+.header {
+    height: 104px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid #000;
+}
+
+.header_image {
+    width: 100px;
+    object-fit: cover;
+}
+
+.header_heading {
+    font-size: 3.2rem;
+    color: #000;
+    margin-left: 20px;
+}
+
+/* Container */
+.container {
+    margin-top: 40px;
+}
+
+.addbtn {
+    border: none;
+    background-color: #57d084;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 1.6rem;
+    border-radius: 8px;
+    float: right;
+    margin: 36px 48px 24px 0;
+    cursor: pointer;
+}
+
+.addicon {
+    width: 20px !important;
+    height: 20px !important;
+    margin-top: -2px;
+    margin-right: 6px;
+    color: #fff;
+}
+
+
+/* Content */
+.funcContainer {
+    display: flex;
+    align-items: center;
+}
+
+.container_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    min-width: 220px;
+    border: 2px solid rgba(0, 0, 0, 0.23);
+    border-radius: 16px;
+    margin-left: 50px;
+}
+
+.input_wrap {
+    height: 100%;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    border-radius: 8px;
+    padding: 0 12px;
+}
+
+.input {
+    padding: 0;
+    max-width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.6rem;
+}
+
+.search_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    width: 52px;
+    border-radius: 20px;
+    background-color: #ddd;
+    margin-right: 8px;
+}
+
+.search_btn:hover {
+    cursor: pointer;
+    background-color: #e9e9e9;
+}
+
+.SearchIcon {
+    width: 2rem !important;
+    height: 2rem !important;
+}   
+
+.filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 32px !important;
+}
+
+.filter_wrap {
+    width: 100%;
+    height: 100%;
+    font-size: 1.6rem !important;
+}
+
+.menuItem {
+    font-size: 1.4rem !important;
+}
+
+/* Content car */
+.content {
+    margin-top: 16px;
+}
+
+.content_image {
+    width: 48px;
+    object-fit: cover;
+}

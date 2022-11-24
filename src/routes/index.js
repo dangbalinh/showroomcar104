@@ -6,6 +6,7 @@ import ReadNews from "../pages/ReadNews";
 import DetailProduct from "../pages/DetailProduct";
 import Introduce from "../pages/Introduce";
 import Form from "../pages/Form";
+import Admin from "../pages/Admin";
 
 const publicRoutes = [
   { path: "/", component: Home },
@@ -16,6 +17,7 @@ const publicRoutes = [
   { path: "/readnews/:id", component: ReadNews },
   { path: "/form", component: Form },
   { path: "/detailproduct", component: DetailProduct },
+  { path: "/admin/*", component: Admin },
 ];
 
 export { publicRoutes };

@@ -33,7 +33,7 @@ function Home() {
                     alt="Car"
                     className={style.showImg}
                 />
-                <a href="/detailproduct" className={style.showStarted}>
+                <a href="/introduce" className={style.showStarted}>
                     Get Started
                 </a>
                 <div className={style.showDescription}>

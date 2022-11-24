@@ -5,6 +5,7 @@ const images = {
     clientImg: require('./clientimg.jpg'),
     newsImg: require('./newsimg.png'),
     newsItemImg: require('./newsItem.png'),
+    logoImg: require('./carlogo.png'),
 };
 
 export default images;
