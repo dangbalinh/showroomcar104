@@ -13,15 +13,14 @@ function Form() {
     const [message, setMessage]=useState("");
     const[errorMobile, setErrorMobile]=useState("");
     const[errorEmail, setErrorEmail]=useState("");
-    const [isSubmit,setIsSubmit]=useState(true);
 
     const handleSubmit=function(e){
         e.preventDefault();
-        if(isSubmit===true){
-            alert(`Thông tin liên lạc: \nName: ${name}\nEmail: ${email}\nMobile: ${mobile}\nMessage: ${message}`)
+        if(errorEmail!=="" || errorMobile!==""){
+            alert("Thông tin liên lạc không hợp lệ! Vui lòng điền lại ở những ô màu đỏ!")
         }
         else{
-            alert("Thông tin liên lạc không hợp lệ! Vui lòng điền lại ở những ô màu đỏ!")
+            alert(`Thông tin liên lạc: \nName: ${name}\nEmail: ${email}\nMobile: ${mobile}\nMessage: ${message}`)
         }
     };
     const handleChange=function(e){
@@ -49,18 +48,22 @@ function Form() {
         else if(e.target.type==="tel" && Number.isInteger(Number(e.target.value))!==true){
             e.target.style.borderColor="red";
             setErrorMobile("Số điện thoại không hợp lệ!");
-            setIsSubmit(false);
+           
         }
         else if(e.target.type==="email" && checkEmailFormat(e.target.value)===false){
             e.target.style.borderColor="red";
             setErrorEmail("Email không hợp lệ!");
-            setIsSubmit(false);
+           
         }
         else{
             e.target.style.borderColor="#777777";
-            setErrorMobile("");
-            setErrorEmail("");
-            setIsSubmit(true);
+            if(e.target.type==="tel"){
+                setErrorMobile("");
+            }
+            if(e.target.type==="email"){
+                setErrorEmail("");
+            }
+           
         }
     }
 

@@ -1,0 +1,27 @@
+.AdviceSlider__custome .splide__slide.is-active {
+    opacity: 1; 
+    transition: all 0.3s linear;
+}
+
+
+.AdviceSlider__custome .splide__track {
+    height: 100%;
+}
+
+
+.AdviceSlider__custome .splide__slide {
+    opacity: 0.4;
+}
+
+.AdviceSlider__custome {
+    height: 100%;
+}
+
+.splide__list {
+    align-items: center;
+}
+
+.AdviceSlider__splide {
+    height: 100%;
+    /* display: flex; */
+}

@@ -1,0 +1,87 @@
+.container {
+  padding: 0 160px;
+  clear: both;
+  margin-bottom: 150px;
+}
+.newsSection {
+  display: flex;
+  margin-top: 58px;
+}
+
+.container h1 {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 58px;
+  letter-spacing: 0em;
+  color: #8a0000;
+}
+
+.section {
+  flex: 3;
+  margin-right: 25px;
+}
+
+.aside {
+  flex: 1;
+  margin-left: 25px;
+}
+.divider {
+  border-left: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+.aside h3 {
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 36px;
+  margin-bottom: 50px;
+
+  color: #8a0000;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 35px;
+  line-height: 42px;
+
+  color: #000000;
+}
+
+.date {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+
+  color: #b5b3b3;
+  margin: 50px 0;
+}
+
+.image {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.paragraphTitle {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  margin: 30px 0;
+}
+
+.paragraphText {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  margin: 10px 0;
+}
+
+.image + .paragraphText {
+  text-align: center;
+  font-style: italic;
+  font-size: 16px;
+}

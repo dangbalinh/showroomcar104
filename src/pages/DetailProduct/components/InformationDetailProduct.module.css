@@ -1,0 +1,49 @@
+.information{
+
+}
+.information__heading{
+    margin-left: 200px;
+    
+
+}
+.line {
+    width: 300px;
+    border: 2px solid black;
+}
+.information__content{
+    display: flex;
+}
+.buy button{
+    margin-left: 600px;
+    width: 150px;
+    height: 50px;
+    color: red;
+    border: 2px solid red;
+    border-radius: 30px;
+}
+.information__heading__carName {
+    /* background-color: aqua; */
+    margin-left: 60px;
+    display: block;
+    color: red;
+    font-size: 30px;
+}
+.information__heading__priceCar {
+    color: black;
+    padding: 10px;
+    margin-left: 60px;
+
+}
+.information__content__info {
+    margin-left: 200px;
+}
+.information__content__info p {
+    color: gray;
+    padding: 10px;
+}
+
+.informaton__content__img img {
+    margin-left: 200px;
+    width: 614px;
+    
+}
