@@ -1,12 +1,16 @@
-import detailInformationCar from "./Components/detailInformationCar";
-import formCommentCar from "./Components/formCommentCar";
-function DetailProduct() {
-    return ( 
-        <div>
-            <detailInformationCar/>
-            <formCommentCar/>
-        </div>
-     );
-}
+import FormDetailProduct from "./components/FormDetailProduct";
+import InformationDetailProduct from "./components/InformationDetailProduct";
 
-export default DetailProduct;
+function detailproduct () {
+    return (
+
+        <div>
+            <FormDetailProduct/>
+            <h1>Hello world</h1>
+            <h2>What do you do</h2>
+            <InformationDetailProduct/>
+            
+        </div>
+    );
+}
+export default detailproduct;
