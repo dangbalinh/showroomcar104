@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import classes from './Register.module.css'
 import { Link, Navigate } from 'react-router-dom'
-
+import axios from 'axios'
 
 const Register = () => {
     
@@ -108,6 +108,13 @@ const Register = () => {
         return data;
       }
     */
+    const sendRequest = async()=>{
+        const res = await axios
+        .get("https://showroomcar104.onrender.com/cars")
+        .catch((err)=>console.log(err))
+        const data = await res.data;
+        return data;
+      }
     const handleSubmit = (e) => {
         if(isSubscribed==false || errors.nameError!=""|| errors.emailError!=""|| errors.passwordError!="")
         {
@@ -116,10 +123,12 @@ const Register = () => {
         } else {
         e.preventDefault();
         console.log(inputs);
-        /*sendRequestSU()
-        .then((data)=>localStorage.setItem("userId",data.user._id))
-        .then(()=>dispath(authAction.login()))
-        .then(()=>navigate("/blogs"));*/
+        //testApi
+        sendRequest()
+        .then ((data)=>console.log(data.filter(dt =>{
+          const regex = new RegExp("o",'gi');
+          return dt.ten.match(regex);
+        })))
         }
     }
     
@@ -153,7 +162,7 @@ const Register = () => {
                 <p style={{ textAlign:"center", fontSize:"16px"}}>
                     <button className={classes.button} id="sub_btn" type="submit"
                     onClick={handleSubmit}>Register</button><br/>
-                    Already had a account? Go to <Link to="/">Login</Link>
+                    Already had a account? Go to <Link to="/login">Login</Link>
                 </p>
             </form>
         </div>
