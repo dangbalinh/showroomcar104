@@ -5,7 +5,9 @@
 
 .showImg {
     width: 100%;
-    /* height: 861px; */
+    height: 820px;
+    object-fit: cover;
+    background-position: center;
 }
 
 .showStarted {
