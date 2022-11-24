@@ -2,13 +2,14 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import classes from "../Header.module.css"
 import { useState, useRef,useEffect  } from "react";
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 
 const AutoComplete = ( {data} ) => {
     const [suggestiondata, setSuggestiondata] = useState();
     const [suggestions, setSuggestions] = useState();
     const [suggestionsActive, setSuggestionsActive] = useState(false);
     const [value, setValue] = useState("");
+    const navigate = useNavigate();
 
     const sendRequest = async()=>{
       const res = await axios
@@ -78,12 +79,19 @@ const AutoComplete = ( {data} ) => {
           </ul>
         );
       };
-
+const handleKeyDown = (event) => {
+        if (event.key === 'Enter'&&event.target.value.length>1) {
+          const searchUrl=encodeURI(event.target.value);
+          console.log(searchUrl);
+          navigate(`/search?find=${searchUrl}`)
+        }
+      }
   return (
     <div className={classes.wrapper}>
       <input type="text" placeholder="Search.."
        value={value}
        onChange={handleChange}
+       onKeyDown={handleKeyDown}
     ></input>     
     {suggestionsActive && <Suggestions />}
     <SearchRoundedIcon fontSize="large" className={classes.icons}/>

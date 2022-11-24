@@ -15,7 +15,7 @@ const Register = () => {
         name:"",email:"",password:""
       })
       const [errors, setErrors] = useState({
-        nameError:" ",emailError:" ",passwordError:" "
+        nameError:" ",emailError:" ",passwordError:" ",confirmError:" "
       })
     const handleChange = (e) =>{
         setInputs((prev)=>{
@@ -27,6 +27,7 @@ const Register = () => {
 
       }
     const handleBlur=function(e){
+      
         if(e.target.type==="email")
         {
             if(checkEmailFormat(e.target.value)===false||e.target.value==="")
@@ -49,7 +50,7 @@ const Register = () => {
               })
             }
         }
-        if(e.target.type==="password")
+        if(e.target.name==="password")
         {
             if(e.target.value.length<6||e.target.value==="")
             {e.target.style.borderColor="red"; 
@@ -67,6 +68,28 @@ const Register = () => {
                 return{
                 ...prev,
                 passwordError:""
+              }
+              })
+            }
+        }
+        if(e.target.name==="password2")
+        {
+            if(e.target.value!==inputs.password)
+            {e.target.style.borderColor="red"; 
+            setErrors((prev)=>{
+                return{
+                ...prev,
+                confirmError:"The password is incorrect."
+              }
+              })
+            }
+            else
+            {
+            e.target.style.borderColor="#fff"
+            setErrors((prev)=>{
+                return{
+                ...prev,
+                confirmError:""
               }
               })
             }
@@ -116,7 +139,7 @@ const Register = () => {
         return data;
       }
     const handleSubmit = (e) => {
-        if(isSubscribed==false || errors.nameError!=""|| errors.emailError!=""|| errors.passwordError!="")
+        if(isSubscribed==false || errors.nameError!=""|| errors.emailError!=""|| errors.passwordError!=""||errors.confirmError!="")
         {
             e.preventDefault();
             alert("Register failed!");
@@ -136,12 +159,14 @@ const Register = () => {
     <div className={classes.register}>
             <h2>Create your personal account</h2>
             <form className={classes.form}>
+                
                 <p>
-                    <label>Username</label><br/>
-                    <input className={classes.input} value={inputs.name}
+                    <label>Name</label><br/>
+                    <input className={classes.input} value={inputs.name} 
                     type="text" name="name" onChange={handleChange} onBlur={handleBlur} required />
                     <p style={{color: "red", padding: "10px"}}>{errors.nameError}</p>
                 </p>
+                
                 <p>
                     <label>Email address</label><br/>
                     <input className={classes.input} value={inputs.email}
@@ -153,6 +178,12 @@ const Register = () => {
                     <input className={classes.input} value={inputs.password}
                     type="password" name="password" onChange={handleChange} onBlur={handleBlur} required />
                     <p style={{color: "red", padding: "10px"}}>{errors.passwordError}</p>
+                </p>
+                <p>
+                    <label>Confirm Password</label><br/>
+                    <input className={classes.input} 
+                    type="password" name="password2" onBlur={handleBlur} required />
+                    <p style={{color: "red", padding: "10px"}}>{errors.confirmError}</p>
                 </p>
                 <p>
                     <input style={{ margin:"0 15px" }}type="checkbox" name="checkbox" id="checkbox" 
