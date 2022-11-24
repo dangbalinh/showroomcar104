@@ -116,11 +116,12 @@ const Login = () => {
                     <input className={classes.input} value={inputs.password}
                     type="password" name="password" onChange={handleChange} onBlur={handleBlur} required />
                     <p style={{color: "red", padding: "10px"}}>{errors.passwordError}</p>
+                    <Link to="/">Forget password?</Link>
                 </p>
                 <p style={{ textAlign:"center", fontSize:"16px"}}>
                     <button className={classes.button} id="sub_btn" type="submit"
                     onClick={handleSubmit}>Login</button><br/>
-                    <Link to="/">Forget password?</Link>
+                    Haven't had an account? Go to <Link to="/register">Register</Link>
                 </p>
             </form>
         </div>
