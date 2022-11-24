@@ -10,7 +10,7 @@ function SliderAdvice() {
     const options = {
         rewind: true,
         type: "loop",
-        speed: 1500,
+        speed: 1600,
         perPage: 3,
         perMove: 1,
         width: 1370,
