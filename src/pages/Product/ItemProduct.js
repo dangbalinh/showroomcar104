@@ -10,7 +10,7 @@ function ItemProduct(props){
                         src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/Mer%2FMercedes%20C300%20AMG%202022.png?alt=media&token=0660fb7e-a6e4-4b5b-ab8e-d072cb293f2a"
                         alt=""
                     />
-                    <a className={styles.linkDiscover} href="/contact">Details</a>
+                    <a className={styles.linkDiscover} href="/detailproduct">Details</a>
                 </div>
             </div>
         </>
