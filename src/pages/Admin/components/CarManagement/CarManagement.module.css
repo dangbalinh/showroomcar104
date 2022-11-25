@@ -133,3 +133,18 @@
     width: 48px;
     object-fit: cover;
 }
+
+/* Modal */
+.modalBtn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 24px 0 0;
+}
+
+.modalIcon {
+    width: 80px !important;
+    height: 80px !important;
+    color: #f88686;
+    margin-bottom: 12px;
+}
