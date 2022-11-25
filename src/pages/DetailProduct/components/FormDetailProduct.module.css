@@ -1,0 +1,24 @@
+.formInputComment {
+    margin-left: 150px;
+    margin-right: 150px;
+    margin-top: 50px;
+    background-color: rgb(180, 208, 232);
+}
+.formInputComment .Comment {
+    padding: 10px;
+    color: black;
+    font-size: large;
+    font-weight: bolder;
+    
+}
+.carComment {
+    background-color: aliceblue;
+    margin: 50px;
+    height: 150px;
+    /* display: flex; */
+    /* text-align: center; */
+}
+.carComment img {
+    width: 100px;
+    border-radius: 50%;
+}
