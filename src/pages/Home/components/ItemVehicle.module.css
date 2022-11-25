@@ -1,8 +1,13 @@
 .itemCarContainer {
     text-align: center;
 }
+@font-face {
+    font-family: myItemFont;
+    src: url(/home/linh/Code/showroomcar104/src/assets/font/CorporateALightRegular.otf);
+}
 .itemCarContainer .carName  {
     color: rgb(217, 31, 31);
+    font-family: myItemFont;
     font-size: large;
     font-weight: bold;
 
