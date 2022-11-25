@@ -1,5 +1,7 @@
 .itemCarContainer {
     text-align: center;
+    /* width: 200px; */
+    /* background-color: green; */
 }
 @font-face {
     font-family: myItemFont;
@@ -15,6 +17,12 @@
 .itemCarContainer .carInfo {
     color: grey;
     font-size: small;
+    font-family: myItemFont;
+}
+.itemCarContainer img {
+    width: 250px;
+    height: 100px;
+    transition: 0.4s;
 }
 .itemCarContainer .buttonDiscoverMore {
     margin: 20px;
@@ -34,4 +42,8 @@
     color:white;
     width: 135px;
     height: 65px;
+}
+.itemCarContainer img:hover {
+    width: 270px;
+    height: 110px;
 }
