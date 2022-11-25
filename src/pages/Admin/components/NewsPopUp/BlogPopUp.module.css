@@ -1,7 +1,7 @@
 .bPopup {
-    position: fixed;
+    position: absolute;
     text-align: left;
-    width: 800px;
+    width: 744px;
     /* height: 993px; */
     background: #ffffff;
     box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.2);
@@ -20,7 +20,7 @@
     font-size: 2rem;
 }
 
-.bPopup label {
+.bPopup > label {
     margin-top: 20px;
     font-weight: 500;
     font-size: 16px;
@@ -28,13 +28,12 @@
     margin-bottom: 5px;
 }
 
-.bPopup input {
-    height: 48px;
-    width: 95%;
+.bPopup > input {
+    height: 52px;
+    width: 100%;
     padding-left: 10px;
     border-radius: 8px;
     outline: none;
-    margin-top: 6px;
 }
 
 .bPopup > input[type="file"] {
@@ -123,8 +122,8 @@
     right: 0;
     margin-top: 50px;
     margin-right: 50px;
-    width: 28px !important;
-    height: 28px !important;
+    width: 2.4rem !important;
+    height: 2.4rem !important;
     color: gray;
     width: fit-content;
     cursor: pointer;

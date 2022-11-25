@@ -9,6 +9,7 @@ import Form from "../pages/Form";
 import Admin from "../pages/Admin";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import NotFound from "../pages/NotFound";
 
 const publicRoutes = [
     { path: "/", component: Home },
@@ -21,7 +22,8 @@ const publicRoutes = [
     { path: "/detailproduct", component: DetailProduct },
     { path: "/register", component: Register },
     { path: "/login", component: Login },
-    { path: "/admin/*", component: Admin }
+    { path: "/admin/*", component: Admin },
+    { path: "/*", component: NotFound },
 ];
 
 export { publicRoutes };
