@@ -13,7 +13,7 @@ function ItemVehicle(pros) {
         <div className={style.itemCarContainer}>
             <p className={style.carName}>{carName}</p>
             <p className={style.carInfo}>{carInfo}</p>
-            <img src={images.bmwImg} alt="BMW car" width={250}/>
+            <img src={images.bmwImg} alt="BMW car" style={{width: 340}}/>
             <Link to="/detailproduct">
                 <button className={style.buttonDiscoverMore}>Discover More</button>
             </Link>
