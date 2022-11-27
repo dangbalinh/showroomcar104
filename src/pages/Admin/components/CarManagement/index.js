@@ -3,11 +3,13 @@ import styles from "./CarManagement.module.css";
 import "./CarManagement.css";
 
 import { styled } from "@mui/material/styles";
-import AddIcon from "@mui/icons-material/Add";
-import SearchIcon from "@mui/icons-material/Search";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditIcon from "@mui/icons-material/Edit";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import {
+    Add,
+    Search,
+    Edit,
+    ErrorOutline,
+    DeleteOutline
+} from "@mui/icons-material";
 import { useState, useEffect, memo } from "react";
 import {
     IconButton,
@@ -20,22 +22,24 @@ import {
     InputLabel,
     FormControl,
     Box,
-    Typography
+    Typography,
+    Stack,
+    Pagination
 } from "@mui/material";
+
+import BlogPopUp from "../BlogPopUp";
 import HandleApi from "../../../../Apis/HandleApi";
 import Swal from "sweetalert2";
-
-import axios from "axios";
-import BlogPopUp from "../BlogPopUp";
 
 function CarManagement() {
     const [typeCar, setTypeCar] = useState("All");
     const [data, setData] = useState([]);
-    const [placeholder, setPlaceholder] = useState("Tìm kiếm...");
+    const [dataLength, setDataLength] = useState();
+    const [pageIndex, setPageIndex] = useState(0)
     const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
     const [updatePost, setUpdatePost] = useState({});
-    const [IdDelete, setIdDelete] = useState(-1);
+    const [Id, setId] = useState(0);
 
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
@@ -51,26 +55,16 @@ function CarManagement() {
         ""
     ];
 
-    const fakeAPI =
-        "https://637c281172f3ce38ea9be907.mockapi.io/carapi/products";
-
-    const API = "https://showroomcar104.onrender.com/cars";
+    const pageSize = 15;
 
     // Get API
     useEffect(() => {
-        const fetchData = async () => {
-            await axios({
-                method: "GET",
-                url: fakeAPI
-            }).then((response) => setData(response.data));
-        };
+        HandleApi.getCarByPageIndex(pageIndex).then((res) => {
+            setData(res.cars);
+            setDataLength(res.totalCars);
+        });
+    }, [pageIndex]);
 
-        fetchData();
-        // HandleApi.getAllproducts().then((res) => {
-        //     setData(res);
-        //     console.log(res);
-        //   });
-    }, []);
 
     useEffect(() => {
         switch (typeCar) {
@@ -86,6 +80,8 @@ function CarManagement() {
             default:
                 break;
         }
+        console.log(dataLength);
+        console.log(Math.ceil(dataLength / pageSize));
     }, [data, typeCar]);
 
     // Handle event
@@ -93,24 +89,20 @@ function CarManagement() {
         setTypeCar(event.target.value);
     };
 
-    const handleCreateItem = (e) => {};
-
     const handleDeleteItem = async (id) => {
-        await axios({
-            method: "DELETE",
-            url: `${fakeAPI}/${id}`
-        })
+        HandleApi.deleteCar(id)
             .then((res) => {
+                console.log(id);
                 setOpenDeleteModal(false);
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Xóa xe thành công!  ",
+                    title: "Xóa dữ liệu xe thành công!",
                     showConfirmButton: false,
                     timer: 1500
                 });
                 console.log(data);
-                setData(data.filter((item) => item.id !== id));
+                setData(data.filter((item) => item._id !== id));
             })
             .catch((err) => {
                 Swal.fire({
@@ -123,14 +115,23 @@ function CarManagement() {
             });
     };
 
-    // const handleDeleteItem = async (id) => {
-    //     await axios({
-    //         method: "DELETE",
-    //         url: `${fakeAPI}/${id}`
-    //     });
-    //             setData(data.filter((item) => item.id !== id));
+    const handleClickUpdate = async (id) => {
+        console.log(id);
+        HandleApi.getCarById(id)
+            .then(async (res) => {
+                await setUpdatePost(res);
+                await setType("update");
+                console.log(updatePost);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
-    // };
+    const handlePageChange = (e, p) => {
+        console.log("Index", p);
+        setPageIndex(p-1);
+    };
 
     // Custome CSS MUI
     const ItemMain = styled(Paper)(({ theme }) => ({
@@ -182,14 +183,11 @@ function CarManagement() {
                                 <input
                                     typeCar="text"
                                     className={styles.input}
-                                    placeholder={placeholder}
-                                    onChange={(e) =>
-                                        setPlaceholder(e.target.value)
-                                    }
+                                    placeholder="Tìm kiếm"
                                 />
                             </div>
                             <div className={styles.search_btn}>
-                                <SearchIcon className={styles.SearchIcon} />
+                                <Search className={styles.SearchIcon} />
                             </div>
                         </div>
                         <FormControl
@@ -216,7 +214,7 @@ function CarManagement() {
                                     value="All"
                                     selected
                                 >
-                                    All
+                                    Tất cả
                                 </MenuItem>
                                 <MenuItem
                                     className={styles.menuItem}
@@ -248,14 +246,14 @@ function CarManagement() {
 
                     <Button
                         sx={{
-                            height: 34,
+                            height: 40,
                             fontSize: 14,
                             textTransform: "none",
                             marginLeft: "80px"
                         }}
                         variant="contained"
                         color="success"
-                        startIcon={<AddIcon />}
+                        startIcon={<Add />}
                         onClick={() => setType("create")}
                     >
                         Thêm sản phẩm
@@ -314,24 +312,24 @@ function CarManagement() {
                                                 justifyContent: "space-between",
                                                 marginLeft: "-24px"
                                             }}
-                                            onClick={() => setType("update")}
+                                            onClick={() => {
+                                                handleClickUpdate(item._id);
+                                            }}
                                         >
-                                            <EditIcon
-                                                sx={{ fontSize: "18px" }}
-                                            />{" "}
+                                            <Edit sx={{ fontSize: "18px" }} />{" "}
                                             Sửa
                                         </IconButton>
                                         <IconButton
                                             size="medium"
                                             color="error"
                                             onClick={() => {
-                                                // handleDeleteItem(item.id)
-                                                console.log(item.id);
+                                                // handleDeleteItem(item._id)
+                                                console.log(item._id);
                                                 setOpenDeleteModal(true);
-                                                setIdDelete(item.id);
+                                                setId(item._id);
                                             }}
                                         >
-                                            <DeleteOutlineIcon
+                                            <DeleteOutline
                                                 sx={{ fontSize: "22px" }}
                                             />
                                         </IconButton>
@@ -342,12 +340,12 @@ function CarManagement() {
                                             }
                                         >
                                             <Box sx={styleModal}>
-                                                <ErrorOutlineIcon
+                                                <ErrorOutline
                                                     className={styles.modalIcon}
                                                 />
                                                 <Typography
                                                     id="modal-modal-title"
-                                                    fontSize="20px"
+                                                    fontSize="22px"
                                                     fontWeight="600"
                                                     color="#d32f2f"
                                                     textAlign="center"
@@ -357,7 +355,7 @@ function CarManagement() {
                                                 </Typography>
                                                 <Typography
                                                     id="modal-modal-description"
-                                                    sx={{ mt: 2 }}
+                                                    sx={{ mt: 2, mb: 1 }}
                                                     fontSize="16px"
                                                     textAlign="center"
                                                 >
@@ -371,9 +369,7 @@ function CarManagement() {
                                                         variant="contained"
                                                         color="error"
                                                         onClick={() =>
-                                                            handleDeleteItem(
-                                                                IdDelete
-                                                            )
+                                                            handleDeleteItem(Id)
                                                         }
                                                         sx={{
                                                             fontSize: "14px",
@@ -389,9 +385,7 @@ function CarManagement() {
                                                             setOpenDeleteModal(
                                                                 false
                                                             );
-                                                            console.log(
-                                                                IdDelete
-                                                            );
+                                                            console.log(Id);
                                                         }}
                                                         sx={{
                                                             fontSize: "14px",
@@ -408,6 +402,20 @@ function CarManagement() {
                             </Grid>
                         ))}
                     </Box>
+                </div>
+
+                <div className={styles.pagination}>
+                    <Stack spacing={2}>
+                        <Pagination
+                            size="large"
+                            color="primary"
+                            count={Math.ceil(dataLength / pageSize)}
+                            showFirstButton
+                            showLastButton
+                            sx={{ margin: "32px 0 56px" }}
+                            onChange={handlePageChange}
+                        />
+                    </Stack>
                 </div>
             </div>
             <BlogPopUp

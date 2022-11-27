@@ -6,7 +6,7 @@
     background: #ffffff;
     box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.2);
     border-radius: 16px;
-    padding: 52px 48px;
+    padding: 52px 52px 40px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -30,11 +30,11 @@
 
 .bPopup input {
     height: 48px;
-    width: 95%;
-    padding-left: 10px;
+    width: 100%;
+    padding: 0 10px;
     border-radius: 8px;
     outline: none;
-    margin-top: 6px;
+    margin: 6px 0 16px;
 }
 
 .bPopup > input[type="file"] {
@@ -132,4 +132,9 @@
 
 .bPopup__close:hover {
     color: rgb(70, 70, 70);
+}
+
+.btn {
+    display: flex; 
+    justify-content: flex-end;
 }

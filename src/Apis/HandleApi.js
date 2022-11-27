@@ -1,59 +1,60 @@
+/* eslint-disable import/no-anonymous-default-export */
 import axiosInstance from './axiosInstance';
 
-const getAllProducts = async (data) => {
-  return await axiosInstance.get('/products');
+const getAllCar = async () => {
+  return await axiosInstance.get('/cars');
 };
 
-const getProductsSearch = async (data) => {
-  return await axiosInstance.post(`/products/search`, data);
+const getCarByPageIndex = async (index) => {
+  return await axiosInstance.get(`/cars?pageIndex=${index}`);
+};
+
+// const getSevenNewCar = async () => {
+//   return await axiosInstance.get('/cars');
+// };
+
+const getCarSearch = async (data) => {
+  return await axiosInstance.post(`/cars/search`, data);
 };
 
 
-const getPostById = async (data) => {
-  return await axiosInstance.get(`/products/${data.postId}`);
+const getCarById = async (id) => {
+  return await axiosInstance.get(`/cars/${id}`);
 };
 
-const getProductsByTitle = async (data) => {
-  return await axiosInstance.post('/products/getproductsByTitle', data);
+const getCarByTitle = async (data) => {
+  return await axiosInstance.post('/cars/getCarByTitle', data);
 };
 
-const getEnoughproductsByTitle = async (data) => {
-  return await axiosInstance.post('/products/getEnoughproductsByTitle', data);
+const getEnoughCarByTitle = async (data) => {
+  return await axiosInstance.post('/cars/getEnoughCarByTitle', data);
 };
 
-const getProductsByLabel = async (data) => {
-  return await axiosInstance.post('/products/getproductsByLabel', data);
+const getCarByLabel = async (data) => {
+  return await axiosInstance.post('/cars/getCarByLabel', data);
 };
 
-const uploadImageToFirebase = async (data) => {
-  return await axiosInstance.post('/products/upload', data.image, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+const createCar = async (data) => {
+  return await axiosInstance.post('/cars', data);
 };
 
-const createPost = async (data) => {
-  return await axiosInstance.post('/products', data);
+const updateCar = async (id, data) => {
+  return await axiosInstance.put(`/cars/${id}`, data);
 };
 
-const updatePost = async (data) => {
-  return await axiosInstance.put('/products', data);
-};
-
-const deletePost = async (data) => {
-  return await axiosInstance.post('/products/delete', data);
+const deleteCar = async (id) => {
+  return await axiosInstance.delete(`/cars/${id}`);
 };
 
 export default {
-  getAllProducts,
-  getProductsSearch,
-  getPostById,
-  getProductsByTitle,
-  getEnoughproductsByTitle,
-  getProductsByLabel,
-  uploadImageToFirebase,
-  createPost,
-  updatePost,
-  deletePost,
+  getAllCar,
+  getCarSearch,
+  getCarById,
+  getCarByPageIndex, 
+  getCarByTitle,
+  getEnoughCarByTitle,
+  getCarByLabel,
+  createCar,
+  updateCar,
+  deleteCar,
 };
