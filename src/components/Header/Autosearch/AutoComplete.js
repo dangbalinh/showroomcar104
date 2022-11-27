@@ -15,7 +15,7 @@ const AutoComplete = ( {data} ) => {
       const res = await axios
       .get("https://showroomcar104.onrender.com/cars")
       .catch((err)=>console.log(err))
-      const data = await res.data;
+      const data = await res.data.cars;
       console.log(data);
       return data;
     }
@@ -72,7 +72,7 @@ const AutoComplete = ( {data} ) => {
                   onClick={handleClick2}
                   className={classes.submenu}
                 >
-                  <Link to="/detailproduct" style={{color: "black", textDecoration:"none"}}>{suggestion.ten}</Link>
+                  <Link to={`/readnews/${suggestion._id}`} style={{color: "black", textDecoration:"none"}}>{suggestion.ten}</Link>
                 </li>
               );
             })}
@@ -83,6 +83,7 @@ const handleKeyDown = (event) => {
         if (event.key === 'Enter'&&event.target.value.length>1) {
           const searchUrl=encodeURI(event.target.value);
           console.log(searchUrl);
+          setSuggestionsActive(false);
           navigate(`/search?find=${searchUrl}`)
         }
       }

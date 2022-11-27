@@ -1,9 +1,10 @@
 .carContainer {
     width: 242px;
     height: 360px;
-    background-color: #fff;
+    background-color: rgb(255, 255, 255);
     border-radius: 16px;
     margin: 40px;
+    box-shadow: 4px 4px 8px 0 rgba(0, 0, 0, 0.2)
     /* margin: 0 26px; */
     /* transition: 4s all linear; */
 }
@@ -13,6 +14,7 @@
     font-weight: 700;
     text-align: center;
     padding: 30px 0;
+    height: 30%;
 }
 
 .carImg {
@@ -27,7 +29,7 @@
     height: 42px;
     font-size: 18px;
     color: #fff;
-    background-color: #91534A;
+    background-color: #8A0000;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -38,5 +40,41 @@
 
 .MainSearch
 {
-    margin-left: 50px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4rem;
+}
+
+.pagination button {
+    width: 40px;
+    height: 40px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: #8A0000;
+    border-color: #8A0000;
+    background-color: #ffffff;
+    width: 56px;
+    margin: 0 30px ;
+}
+
+.pagination button:hover {
+    font-weight: 900;
+    border-color: #ffffff;
+    background: #8A0000;
+    color: #ffffff;
 }
