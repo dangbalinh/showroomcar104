@@ -12,7 +12,6 @@
     background-color: rgb(247, 238, 238);
     width: 200px;
     height: 100px;
-    /* display: flex; */
 }
 .VehicleContainer li a {
     
@@ -25,6 +24,7 @@
     color: rgb(158, 12, 12);
     font-size: large;
     font-weight: bold;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .VehicleContainer li:hover  {
     background: #510d0d;
@@ -33,9 +33,9 @@
 .VehicleContainer li a:hover {
     color: aliceblue;
 }
+
 .ItemVehicleCar {
     
-    /* background-color: purple; */
     padding: 130px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
