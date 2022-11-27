@@ -22,8 +22,8 @@ const getCarById = async (id) => {
   return await axiosInstance.get(`/cars/${id}`);
 };
 
-const getCarByTitle = async (data) => {
-  return await axiosInstance.post('/cars/getCarByTitle', data);
+const getCarByBrand = async (brand) => {
+  return await axiosInstance.get(`/cars?thuonghieu=${brand}`);
 };
 
 const getEnoughCarByTitle = async (data) => {
@@ -51,7 +51,7 @@ export default {
   getCarSearch,
   getCarById,
   getCarByPageIndex, 
-  getCarByTitle,
+  getCarByBrand,
   getEnoughCarByTitle,
   getCarByLabel,
   createCar,
