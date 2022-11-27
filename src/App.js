@@ -1,10 +1,11 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import DefaultLayout from "./Layout/DefaultLayout";
 import { publicRoutes } from './routes'
+// import { Fraction } from 'react's
 
 function App() {
+
   return (
-    <Router>
       <div className="App">
         <Routes>
           {
@@ -21,7 +22,6 @@ function App() {
           }
         </Routes>
       </div>
-    </Router>
   );
 }
 

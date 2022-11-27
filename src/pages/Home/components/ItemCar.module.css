@@ -3,23 +3,26 @@
     height: 360px;
     background-color: #fff;
     border-radius: 16px;
-    margin: 0 26px;
+    /* margin: 0 26px; */
+    /* transition: 4s all linear; */
 }
 
 .carName {
     font-size: 3rem;
     font-weight: 700;
     text-align: center;
-    margin: 30px 0 50px;
+    padding: 30px 0 0 0;
+    min-height: 105px;
 }
 
 .carImg {
     width: 100%;
+    height: 142px;
     object-fit: contain;
 }
 
 .carLink {
-    margin: 50px auto 0;
+    margin: 36px auto 0;
     width: 146px;
     height: 42px;
     font-size: 18px;
@@ -31,3 +34,4 @@
     border-radius: 10px;
     text-decoration: none;
 }
+

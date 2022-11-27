@@ -1,0 +1,23 @@
+.smallerCard {
+  display: flex;
+  padding: 15px;
+  box-shadow: 5px 4px 18px 0px #00000040;
+  margin-bottom: 40px;
+  height: 150px;
+  width: 200px;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.smallerCard img {
+  height: 80px;
+  object-fit: cover;
+}
+
+.smallerCard p {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 29px;
+}
