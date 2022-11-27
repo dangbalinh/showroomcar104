@@ -240,17 +240,14 @@ function CarManagement() {
                                 onChange={handleInputChange}
                             />
                           
-                                <button
-                                    className={styles.clear}
-                                    onClick={handleClear}
-                                >
-                                    {/* Clear icon */}
-                                    <Cancel className={styles.clearIcon} />
-                                </button>
+                            {!!searchValue && (<button
+                                className={styles.clear}
+                                onClick={handleClear}
+                            >
+                                {/* Clear icon */}
+                                <Cancel className={styles.clearIcon} />
+                            </button>)}
               
-
-                          
-
                             <button
                                 className={styles.searchBtn}
                                 onMouseDown={(e) => e.preventDefault()}
