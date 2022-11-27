@@ -59,6 +59,8 @@ function CarManagement() {
         ""
     ];
 
+    const valueSelect = ["Honda", "Toyota", "Vinfast", "Mercedes", "BMW", "Kia"];
+
     const pageSize = 15;
 
     // Get API
@@ -69,16 +71,29 @@ function CarManagement() {
         });
     }, [pageIndex]);
 
+    // handle Filter select
     useEffect(() => {
         switch (typeCar) {
             case "All":
                 setNewData(data);
                 break;
             case "Honda":
-                setNewData(data.filter((item) => item.thuonghieu === "Honda"));
+                HandleApi.getCarByBrand("Honda").then(res => setNewData(res.cars));
                 break;
             case "Toyota":
-                setNewData(data.filter((item) => item.thuonghieu === "Toyota"));
+                HandleApi.getCarByBrand("Toyota").then(res => setNewData(res.cars));
+                break;
+            case "Mercedes":
+                HandleApi.getCarByBrand("Mercedes").then(res => setNewData(res.cars));
+                break;
+            case "Vinfast":
+                HandleApi.getCarByBrand("Vinfast").then(res => setNewData(res.cars));
+                break;
+            case "Kia":
+                HandleApi.getCarByBrand("Kia").then(res => setNewData(res.cars));
+                break;
+            case "BMW":
+                HandleApi.getCarByBrand("BMW").then(res => setNewData(res.cars));
                 break;
             default:
                 break;
@@ -135,6 +150,7 @@ function CarManagement() {
         setPageIndex(p - 1);
     };
 
+    // handle search event
     useEffect(() => {
         console.log(searchValue);
         if (searchValue.trim() !== "") {
@@ -200,6 +216,16 @@ function CarManagement() {
         p: 8
     };
 
+    const MenuSelectProps = {
+        PaperProps: {
+            style: {
+              maxHeight: 150,
+              overflowX: "scroll"
+            //   width: 250,
+            },
+          },
+    }
+
     return (
         <div>
             <header className={styles.header}>
@@ -213,23 +239,6 @@ function CarManagement() {
             <div className={styles.container}>
                 <div className={styles.container_header}>
                     <div className={styles.funcContainer}>
-                        {/* <div className={styles.search}>
-                            <div className={styles.input_wrap}>
-                                <input
-                                    className={styles.input}
-                                    typeCar="text"
-                                    spellCheck={false}
-                                    placeholder="Tìm kiếm xe"
-                                    onChange={handleInputChange}
-                                />
-                            </div>
-                            <div className={styles.clear_btn}>
-                                <Cancel className={styles.clearIcon} />
-                            </div>
-                            <div className={styles.search_btn} onClick={handleSearch}>
-                                <Search className={styles.SearchIcon} />
-                            </div>
-                        </div> */}
                         <div className={styles.search}>
                             <input
                                 ref={inputRef}
@@ -239,15 +248,16 @@ function CarManagement() {
                                 spellCheck={false}
                                 onChange={handleInputChange}
                             />
-                          
-                            {!!searchValue && (<button
-                                className={styles.clear}
-                                onClick={handleClear}
-                            >
-                                {/* Clear icon */}
-                                <Cancel className={styles.clearIcon} />
-                            </button>)}
-              
+
+                            {!!searchValue && (
+                                <button
+                                    className={styles.clear}
+                                    onClick={handleClear}
+                                >
+                                    <Cancel className={styles.clearIcon} />
+                                </button>
+                            )}
+
                             <button
                                 className={styles.searchBtn}
                                 onMouseDown={(e) => e.preventDefault()}
@@ -267,11 +277,12 @@ function CarManagement() {
                                 Hãng xe
                             </InputLabel>
                             <Select
+                                className={styles.filter_wrap}
                                 labelId="input-label"
                                 label="typecar"
                                 defaultValue={typeCar}
-                                className={styles.filter_wrap}
                                 value={typeCar}
+                                MenuProps={MenuSelectProps}
                                 onChange={handleChange}
                             >
                                 <MenuItem
@@ -281,7 +292,7 @@ function CarManagement() {
                                 >
                                     Tất cả
                                 </MenuItem>
-                                <MenuItem
+                                {/* <MenuItem
                                     className={styles.menuItem}
                                     value="Honda"
                                 >
@@ -295,16 +306,21 @@ function CarManagement() {
                                 </MenuItem>
                                 <MenuItem
                                     className={styles.menuItem}
-                                    value="Kia SUV"
+                                    value="Vinfast"
                                 >
-                                    Kia SUV
+                                    Vinfast
                                 </MenuItem>
                                 <MenuItem
                                     className={styles.menuItem}
-                                    value="brand 1"
+                                    value="Mercedes"
                                 >
-                                    Brand 1
-                                </MenuItem>
+                                    Mercedes
+                                </MenuItem> */}
+                                {valueSelect.map((item, index) => (
+                                    <MenuItem key={index} value={item} className={styles.menuItem}>
+                                        {item}
+                                    </MenuItem>
+                                ))}
                             </Select>
                         </FormControl>
                     </div>
