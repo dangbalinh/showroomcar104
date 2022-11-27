@@ -2,7 +2,6 @@ import style from "./Introduce.module.css"
 function Introduce() {
     return ( 
         <div className={style.introBackground}>
-            <div className={style.introContent}>
                 <p className={style.introTitle1}>
                     KING SPEED
                 </p> 
@@ -13,7 +12,7 @@ function Introduce() {
                     ủy quyền chính thức của tâp đoàn King Speed tại Việt Nam, cung cấp xe 
                     hơi King Speed  chính hãng và các dịch vụ liên quan đến xe King Speed 
                     nhằm thỏa mãn nhu cầu sử dụng các thương hiệu cao cấp đang tăng trưởng 
-                    tại Việt Nam.Việt Nam là một trong những thị trường đang tăng trưởng quan 
+                    tại Việt Nam. Việt Nam là một trong những thị trường đang tăng trưởng quan 
                     trọng nhất của tập đoàn King Speed trong khu vực. Vì vậy, chúng tôi đã 
                     khẳng định thêm vị thế của King Speed trong trị trường bằng cách phát 
                     triển liên tục mạng lưới bán hàng và dịch vụ để đáp ứng nhu cầu hiện tại 

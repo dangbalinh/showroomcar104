@@ -1,15 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import GLobalStyles from './components/GlobalStyles';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter as Router } from "react-router-dom";
+import App from "./App";
+import GLobalStyles from "./components/GlobalStyles";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <GLobalStyles>
-      <App />
-    </GLobalStyles>
-  </React.StrictMode>
+    <Router>
+        <React.StrictMode>
+            <GLobalStyles>
+                <App />
+            </GLobalStyles>
+        </React.StrictMode>
+    </Router>
 );
 
 // If you want to start measuring performance in your app, pass a function

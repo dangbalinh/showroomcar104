@@ -1,0 +1,59 @@
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 25px;
+}
+
+/* .layout {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: space-evenly;
+    justify-content: center;
+} */
+
+.identity {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    justify-content: center;
+    
+}
+
+.info {
+    margin-left: 16px;
+}
+
+.image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.name {
+    color: #000;
+    font-size: 3.6rem;
+    font-weight: 600;
+}
+
+.description {
+    color: #858181;
+    font-size: 1.8rem;
+    font-weight: 400;
+}
+
+.advice {
+    max-width: 325px;
+    color: #878684;
+    font-size: 1.6rem;
+    font-weight: 300;
+    margin: 37px auto 0;
+}
+
+.line {
+    width: 340px;
+    height: 2px;
+    background-color: #A30000;
+    margin: 70px auto 0;
+}

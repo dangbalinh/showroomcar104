@@ -1,0 +1,45 @@
+/* Slider */
+.splide__arrow {
+    color: #8A0000 !important;
+    background-color: transparent;
+    border: 1px solid #8A0000;
+    width: 3.2rem;
+    height: 3.2rem;
+}
+
+.splide__arrow svg {
+    fill: #8A0000;
+    width: 2rem;
+    height: 2rem;
+}
+
+.splide__arrow--next {
+    right: -6em;
+}
+
+.splide__arrow--prev {
+    left: -6em;
+}
+
+/* .splide__slide.is-active {
+    opacity: 1;
+}
+*/
+
+.CarSlider__Costume .splide__slide {
+    /* opacity: 0.5; */
+    border: none !important;
+    /* margin: 0 15px; */
+} 
+
+.CarSlider__Costume .splide__pagination {
+    bottom: -5rem !important;
+}
+
+.splide__pagination__page.is-active {
+    background: #8A0000 !important;
+}
+
+.splide__pagination__page {
+    background: #fff !important;
+}

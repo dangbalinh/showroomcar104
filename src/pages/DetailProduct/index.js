@@ -1,9 +1,14 @@
-function DetailProduct() {
-    return ( 
-        <div>
-            <h1>DetailProduct page</h1>
-        </div>
-     );
-}
+import FormDetailProduct from "./components/FormDetailProduct";
+import InformationDetailProduct from "./components/InformationDetailProduct";
 
-export default DetailProduct;
+function detailproduct () {
+    return (
+
+        <div>
+            <InformationDetailProduct/>
+            <FormDetailProduct/>
+            
+        </div>
+    );
+}
+export default detailproduct;

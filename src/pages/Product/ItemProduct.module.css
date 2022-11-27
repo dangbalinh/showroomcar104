@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.productImg {
+  width: 100%;
+  object-fit: fill;
+  transition: all linear 0.2s;
+  cursor: pointer;
+}
+.productImg:hover {
+  transform: scale(1.06);
+}
+.itemProduct {
+  width: 340px;
+  height: 355px;
+}
+
+.itemProduct__Title {
+  font-size: 16px;
+  text-align: center;
+  color: #990000;
+  margin-bottom: 6px;
+}
+
+.itemProduct__Price {
+  text-align: center;
+  color: #a9a9a9;
+  font-size: 15px;
+}
+
+.linkDiscover {
+  display: inline-block;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: red;
+  outline: 1px solid red;
+  border-radius: 5px;
+  padding: 10px 30px;
+  position: relative;
+  font-weight: bold;
+  overflow: hidden;
+  transition: color 1s;
+  margin: 0 120px;
+}
+
+.linkDiscover:hover {
+  color: #fff;
+}
+
+.linkDiscover::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50px;
+  width: 200%;
+  height: 100%;
+  background-color: #990000;
+  transform: scaleX(0) skewX(35deg);
+  transform-origin: left;
+  z-index: -1;
+  transition: transform 0.6s;
+}
+
+.linkDiscover:hover::before {
+  transform: scaleX(1) skewX(35deg);
+}
