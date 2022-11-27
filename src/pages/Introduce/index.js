@@ -1,7 +1,7 @@
 import style from "./Introduce.module.css"
 function Introduce() {
     return ( 
-        <div>
+        <div className={style.introBackground}>
             <div className={style.introContent}>
                 <p className={style.introTitle1}>
                     KING SPEED
