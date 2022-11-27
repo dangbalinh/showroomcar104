@@ -12,11 +12,6 @@ function SliderCar() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        // const fetchData = async () => {
-        //     const response = await axios.get('https://637c281172f3ce38ea9be907.mockapi.io/carapi/products',);
-        //     setData(response.data);
-        // }
-        // fetchData();
         HandleApi.getAllCar().then((res) => {
             setData(res.cars);
           });
