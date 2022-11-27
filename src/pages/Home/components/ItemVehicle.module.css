@@ -1,49 +1,38 @@
 .itemCarContainer {
     text-align: center;
-    /* width: 200px; */
-    /* background-color: green; */
-}
-@font-face {
+  }
+  @font-face {
     font-family: myItemFont;
-    src: url(/home/linh/Code/showroomcar104/src/assets/font/CorporateALightRegular.otf);
-}
-.itemCarContainer .carName  {
+    src: url("../../../assets/font/CorporateALightRegular.otf");
+  }
+  .itemCarContainer .carName {
     color: rgb(217, 31, 31);
     font-family: myItemFont;
     font-size: large;
     font-weight: bold;
-
-}
-.itemCarContainer .carInfo {
+  }
+  .itemCarContainer .carInfo {
     color: grey;
     font-size: small;
-    font-family: myItemFont;
-}
-.itemCarContainer img {
-    width: 250px;
-    height: 100px;
-    transition: 0.4s;
-}
-.itemCarContainer .buttonDiscoverMore {
-    margin: 20px;
-    width: 130px;
-    height: 50px;
-    border: 2px solid rgb(144, 15, 15);
-    border-radius: 4px;
-    text-align: center;
-    color: rgb(182, 0, 0);
-    font-size: 17px;
-    font-weight: bold;
-    transition: width 0.5s, height 1s;
-    cursor: pointer;
-}
-.itemCarContainer .buttonDiscoverMore:hover { 
-    background-color: rgb(138, 11, 11);
-    color:white;
-    width: 135px;
-    height: 65px;
-}
-.itemCarContainer img:hover {
-    width: 270px;
-    height: 110px;
-}
+  }
+  .itemCarContainer .buttonDiscoverMore {
+      margin: 20px;
+      width: 130px;
+      height: 50px;
+      border: 2px solid rgb(144, 15, 15);
+      border-radius: 0.25em;
+      text-align: center;
+      color: rgb(182, 0, 0);
+      font-size: 17px;
+      font-weight: bold;
+      box-shadow: 0 0 0.2em red;
+      text-shadow: 0 0 0.5em rgb(218, 161, 161);
+      transition: 0.6s;
+      cursor: pointer;
+  }
+  .itemCarContainer .buttonDiscoverMore:hover { 
+      background-color: rgb(138, 11, 11);
+      color:white;
+      text-shadow: 0 0 0.5em white;
+  }
+  
