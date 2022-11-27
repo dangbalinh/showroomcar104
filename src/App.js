@@ -4,7 +4,7 @@ import { publicRoutes } from './routes'
 // import { Fraction } from 'react's
 
 function App() {
-
+  
   return (
       <div className="App">
         <Routes>

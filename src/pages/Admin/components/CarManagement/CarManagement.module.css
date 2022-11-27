@@ -45,7 +45,7 @@
 }
 
 
-/* Content */
+/* Header container */
 .funcContainer {
     display: flex;
     align-items: center;
@@ -56,7 +56,7 @@
     align-items: center;
     justify-content: space-evenly;
 }
-
+/* 
 .search {
     display: flex;
     align-items: center;
@@ -86,15 +86,35 @@
     font-size: 1.6rem;
 }
 
+input::placeholder {
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.clear_btn {
+
+}
+
+.clearIcon:hover {
+    color: rgb(115, 115, 115) !important;
+}
+
+.clearIcon {
+    width: 16px;
+    height: 16px;
+    color: #bbb;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
 .search_btn {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 42px;
-    width: 52px;
+    width: 48px;
     border-radius: 20px;
     background-color: #ddd;
-    margin-right: 8px;
+    margin-right: 6px;
 }
 
 .search_btn:hover {
@@ -105,8 +125,95 @@
 .SearchIcon {
     width: 2rem !important;
     height: 2rem !important;
-}   
+}   */
 
+/* Search input */
+.search {
+    --search-border-radius: 92px;
+    --search-height: 58px;
+    --search-top-spacer: 12px;
+    --search-button-width: 52px;
+    position: relative;
+    width: 360px;
+    height: var(--search-height);
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(22 24 35 / 6%);
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    
+
+    /* Khi focus vào thẻ con input thì css sẽ ảnh hưởng lên thẻ cha
+    &:focus-within {
+        border-color: rgba(22, 24, 35, 0.2);
+    } */
+}
+
+.search::before {
+    content: '';
+    width: 1px;
+    display: block;
+    position: absolute;
+    right: var(--search-button-width);
+    top: var(--search-top-spacer);
+    background-color: rgba(22, 24, 35, 0.12);
+    height: calc(var(--search-height) - var(--search-top-spacer) * 2);
+}
+
+.search input {
+        flex: 1;
+        height: 100%;
+        background-color: transparent;
+        color: var(--black);
+        font-size: 1.6rem;
+        font-weight: 400;
+        padding: 2px 0;
+        caret-color: rgb(254, 44, 85);
+        border: none;
+        outline: none;
+}
+
+.clear {
+    position: absolute;
+    right: calc(var(--search-button-width) + 18px);
+    font-size: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(22, 24, 35, 0.34);
+    border: none;
+}
+
+.searchBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--search-button-width);
+    height: 100%;
+    padding: 13px;
+    margin-right: -16px;
+    border: none;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    color: rgba(22, 24, 35, 0.34);
+}
+
+.searchBtn:hover {
+    background-color: rgba(22, 24, 35, 0.03);
+    cursor: pointer;
+}
+
+.searchBtn:active {
+    background-color: rgba(22, 24, 35, 0.06);
+}
+
+.searchIcon {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+/* Filter css */
 .filter {
     display: flex;
     align-items: center;

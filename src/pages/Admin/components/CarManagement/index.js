@@ -8,9 +8,11 @@ import {
     Search,
     Edit,
     ErrorOutline,
-    DeleteOutline
+    DeleteOutline,
+    Cancel,
+    RestartAlt
 } from "@mui/icons-material";
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo, useRef } from "react";
 import {
     IconButton,
     Modal,
@@ -35,13 +37,15 @@ function CarManagement() {
     const [typeCar, setTypeCar] = useState("All");
     const [data, setData] = useState([]);
     const [dataLength, setDataLength] = useState();
-    const [pageIndex, setPageIndex] = useState(0)
+    const [pageIndex, setPageIndex] = useState(0);
+    const [searchValue, setSearchValue] = useState("");
     const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
     const [updatePost, setUpdatePost] = useState({});
     const [Id, setId] = useState(0);
-
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+    const inputRef = useRef();
 
     const gridColumn = [0.7, 1, 2, 1.5, 1.8, 2.5, 1.5, 1];
     const gridTitle = [
@@ -65,7 +69,6 @@ function CarManagement() {
         });
     }, [pageIndex]);
 
-
     useEffect(() => {
         switch (typeCar) {
             case "All":
@@ -81,10 +84,9 @@ function CarManagement() {
                 break;
         }
         console.log(dataLength);
-        console.log(Math.ceil(dataLength / pageSize));
     }, [data, typeCar]);
 
-    // Handle event
+    // handle event
     const handleChange = (event) => {
         setTypeCar(event.target.value);
     };
@@ -129,8 +131,41 @@ function CarManagement() {
     };
 
     const handlePageChange = (e, p) => {
-        console.log("Index", p);
-        setPageIndex(p-1);
+        console.log("PageIndex: ", p);
+        setPageIndex(p - 1);
+    };
+
+    useEffect(() => {
+        console.log(searchValue);
+        if (searchValue.trim() !== "") {
+            HandleApi.getCarByName(searchValue).then(async (res) => {
+                await setData(res.cars);
+                await setDataLength(data.length);
+            });
+        } else {
+            HandleApi.getCarByPageIndex(pageIndex).then((res) => {
+                setData(res.cars);
+                setDataLength(res.totalCars);
+            });
+        }
+    }, [searchValue]);
+
+    const handleInputChange = (e) => {
+        setSearchValue(e.target.value);
+    };
+
+    const handleSearch = async () => {
+        if (searchValue.trim() !== "") {
+            HandleApi.getCarByName(searchValue).then(async (res) => {
+                await setData(res.cars);
+                await setDataLength(data.length);
+            });
+        }
+    };
+
+    const handleClear = () => {
+        setSearchValue("");
+        inputRef.current.focus();
     };
 
     // Custome CSS MUI
@@ -178,17 +213,50 @@ function CarManagement() {
             <div className={styles.container}>
                 <div className={styles.container_header}>
                     <div className={styles.funcContainer}>
-                        <div className={styles.search}>
+                        {/* <div className={styles.search}>
                             <div className={styles.input_wrap}>
                                 <input
-                                    typeCar="text"
                                     className={styles.input}
-                                    placeholder="Tìm kiếm"
+                                    typeCar="text"
+                                    spellCheck={false}
+                                    placeholder="Tìm kiếm xe"
+                                    onChange={handleInputChange}
                                 />
                             </div>
-                            <div className={styles.search_btn}>
+                            <div className={styles.clear_btn}>
+                                <Cancel className={styles.clearIcon} />
+                            </div>
+                            <div className={styles.search_btn} onClick={handleSearch}>
                                 <Search className={styles.SearchIcon} />
                             </div>
+                        </div> */}
+                        <div className={styles.search}>
+                            <input
+                                ref={inputRef}
+                                value={searchValue}
+                                type="text"
+                                placeholder="Tìm kiếm xe"
+                                spellCheck={false}
+                                onChange={handleInputChange}
+                            />
+                          
+                                <button
+                                    className={styles.clear}
+                                    onClick={handleClear}
+                                >
+                                    {/* Clear icon */}
+                                    <Cancel className={styles.clearIcon} />
+                                </button>
+              
+
+                          
+
+                            <button
+                                className={styles.searchBtn}
+                                onMouseDown={(e) => e.preventDefault()}
+                            >
+                                <Search className={styles.searchIcon} />
+                            </button>
                         </div>
                         <FormControl
                             className={styles.filter}
