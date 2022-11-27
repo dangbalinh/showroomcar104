@@ -6,6 +6,7 @@ const images = {
     newsImg: require('./newsimg.png'),
     newsItemImg: require('./newsItem.png'),
     logoImg: require('./carlogo.png'),
+    notFoundGif: require('./notfound.gif'),
 };
 
 export default images;

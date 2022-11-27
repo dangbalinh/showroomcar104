@@ -1,16 +1,17 @@
 import styles from "./ItemProduct.module.css"
-function ItemProduct(props){
+function ItemProduct({data}){
+    console.log(data);
     return(
         <>
             <div className={styles.listProducts}>
                 <div className={styles.itemProduct}>
-                    <h3 className={styles.itemProduct__Title}>Mercedes-Benz E Class</h3>
-                    <p className={styles.itemProduct__Price}>Giá: 3.000.000.000 đ</p>
+                    <h3 className={styles.itemProduct__Title}>{data.ten}</h3>
+                    <p className={styles.itemProduct__Price}>{"Giá: "+data.gia + " VNĐ"}</p>
                     <img className={styles.productImg}
-                        src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/Mer%2FMercedes%20C300%20AMG%202022.png?alt=media&token=0660fb7e-a6e4-4b5b-ab8e-d072cb293f2a"
-                        alt=""
+                        src={data.hinhanh}
+                        alt="carimg"
                     />
-                    <a className={styles.linkDiscover} href="/contact">Details</a>
+                    <a className={styles.linkDiscover} href="/detailproduct">Details</a>
                 </div>
             </div>
         </>

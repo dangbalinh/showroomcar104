@@ -15,15 +15,6 @@ import { useEffect } from "react";
 import axios from "axios";
 
 function Home() {
-    // Test axios api
-    // axios({
-    //     method: 'GET',
-    //     url: 'https://637c281172f3ce38ea9be907.mockapi.io/carapi/products',
-    //     data: null
-    // })
-    // .then(res => data = res.data)
-    // .catch(err => console.log(err));
-
     
     return (
         <div>
