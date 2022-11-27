@@ -1,15 +1,9 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  // baseURL: `http://localhost:5000/`,
-  baseURL: process.env.REACT_APP_BACKEND_URL,
+  baseURL: "https://showroomcar104.onrender.com/",
+    // baseURL: process.env.REACT_APP_BASE_URL,
 });
-
-// axiosInstance.interceptors.request.use(function (config) {
-//     return config;
-//   }, function (error) {
-//     return Promise.reject(error);
-//   });
 
 axiosInstance.interceptors.response.use(
   function (response) {

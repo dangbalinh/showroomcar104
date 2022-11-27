@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function AdminSidebar() {
-    const [funcActive, setFuncActive] = useState(-1);
+    const [funcActive, setFuncActive] = useState(0);
 
     const AdminFunc = [
         "Quản lý ô tô",
@@ -49,18 +49,20 @@ function AdminSidebar() {
                 </div>
             </div>
             <ul className={styles.sidebar_content}>
-                {AdminFunc.map((func, index) =>
+                {AdminFunc.map((func, index) => (
                     <li className={styles.sidebar_item} key={index}>
                         <Link
                             to={AdminLink[index]}
-                            className={`${styles.item_link} ${index === funcActive ? styles.isActive : ''}`}
+                            className={`${styles.item_link} ${
+                                index === funcActive ? styles.isActive : ""
+                            }`}
                             onClick={() => setFuncActive(index)}
                         >
                             {funcIcon[index]}
                             {func}
                         </Link>
                     </li>
-                )}
+                ))}
             </ul>
             <div className={styles.logout}>
                 <button type="button" className={styles.logout_btn}>
