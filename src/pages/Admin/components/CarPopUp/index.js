@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import styles from "./BlogPopUp.module.css";
-import { Link } from "react-router-dom";
+import styles from "./CarPopUp.module.css";
+import './CarPopUp.css'
 import CancelIcon from "@mui/icons-material/Cancel";
 import Swal from "sweetalert2";
 import { Box } from "@mui/system";
 import { Grid, Button } from "@mui/material";
 import HandleApi from "../../../../Apis/HandleApi";
 
-function BlogPopup({ type, setType, updatePost, setUpdatePost }) {
+function CarPopup({ type, setType, updatePost, setUpdatePost }) {
     const [thumbnail, setThumbnail] = useState();
     const [carName, setCarName] = useState();
     const [brand, setBrand] = useState();
@@ -86,18 +85,36 @@ function BlogPopup({ type, setType, updatePost, setUpdatePost }) {
         "Giá xe",
         "Động cơ",
         "Số chỗ ngồi",
-        "Kích thước",
+        "Kích thước (AxBxC)",
         "Nguồn gốc",
-        "Tốc độ tối đa",
-        "Dung tích",
-        "Tiêu hao nhiên liệu",
+        "Tốc độ tối đa (Km/h)",
+        "Dung tích (cc)",
+        "Tiêu hao nhiên liệu (l/100km)",
         "Công suất tối đa",
         "Màu sắc",
         "Năm sản xuất",
         "Mô tả"
     ];
 
-    const inputValue = [carName, thumbnail, brand, price, engine, seat, size, origin, speed, capacity, fuel, power, color, year, desc];
+    const inputType = ["text", "text", "text", "number", "text", "number", "text", "text", "text", "text", "text", "text", "text", "number", "text"];
+
+    const inputValue = [
+        carName,
+        thumbnail,
+        brand,
+        price,
+        engine,
+        seat,
+        size,
+        origin,
+        speed,
+        capacity,
+        fuel,
+        power,
+        color,
+        year,
+        desc
+    ];
 
     // object data
     const data = {
@@ -118,7 +135,17 @@ function BlogPopup({ type, setType, updatePost, setUpdatePost }) {
         vantoctoida: speed
     };
 
-    const handleCreatePost = async () => {
+    const handleBlur = (e) => {
+        if (e.target.value === "") {
+            // setErrorName("Vui lòng nhập dữ liệu ");
+            e.target.style.borderColor = "red";
+        } else {
+            e.target.style.borderColor = "#000";
+        }
+    };
+
+    const handleCreatePost = async (e) => {
+        e.preventDefault();
         HandleApi.createCar(data)
             .then(async (res) => {
                 await Swal.fire({
@@ -186,51 +213,62 @@ function BlogPopup({ type, setType, updatePost, setUpdatePost }) {
                     <h3>Thêm sản phẩm</h3>
                     <br />
                     <Box sx={{ flexGrow: 1 }}>
-                        <Grid container>
-                            {inputId.map((item, index) => (
-                                <Grid key={index} item xs={4}>
-                                    <label htmlFor={item[index]}>{textValue[index]}</label>
-                                    <br />
-                                    <input
-                                        id={item[index]}
-                                        type="text"
-                                        placeholder={placeHolder[index]}
-                                        onChange={(e) =>
-                                            useStateEvent[index](e.target.value)
-                                        }
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
+                        <form onSubmit={handleCreatePost}>
+                            <Grid container>
+                                {inputId.map((item, index) => (
+                                    <Grid key={index} item xs={4} sx={{ height: "93px"}}>
+                                        <label htmlFor={item[index]} className={styles.label}>
+                                            {textValue[index]}
+                                        </label>
+                                        <br />
+                                        <input
+                                            id={item[index]}
+                                            name={item[index]}
+                                            type={inputType[index]}
+                                            required
+                                            placeholder={placeHolder[index]}
+                                            onChange={(e) =>
+                                                useStateEvent[index](
+                                                    e.target.value
+                                                )
+                                            }
+                                            onBlur={handleBlur}
+                                        />
+                                        {/* <div>{errorName}</div> */}
+                                    </Grid>
+                                ))}
+                            </Grid>
+                            <div className={styles.btn}>
+                                <Button
+                                    variant="contained"
+                                    color="success"
+                                    size="large"
+                                    sx={{
+                                        fontSize: "14px",
+                                        width: "160px",
+                                        margin: "24px 0 0"
+                                    }}
+                                    type={"submit"}
+                                    // onClick={handleCreatePost}
+                                >
+                                    Thêm dữ liệu
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="warning"
+                                    size="large"
+                                    sx={{
+                                        fontSize: "14px",
+                                        width: "100px",
+                                        margin: "24px 36px 0 20px"
+                                    }}
+                                    onClick={() => setType("")}
+                                >
+                                    Hủy
+                                </Button>
+                            </div>
+                        </form>
                     </Box>
-                    <div className={styles.btn}>
-                        <Button
-                            variant="contained"
-                            color="success"
-                            size="large"
-                            sx={{
-                                fontSize: "14px",
-                                width: "160px",
-                                margin: "24px 0 0"
-                            }}
-                            onClick={handleCreatePost}
-                        >
-                            Thêm dữ liệu
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="warning"
-                            size="large"
-                            sx={{
-                                fontSize: "14px",
-                                width: "100px",
-                                margin: "24px 36px 0 20px"
-                            }}
-                            onClick={() => setType("")}
-                        >
-                            Hủy
-                        </Button>
-                    </div>
                 </div>
             )}
             {type === "update" && (
@@ -243,9 +281,11 @@ function BlogPopup({ type, setType, updatePost, setUpdatePost }) {
 
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container>
-                        {inputId.map((item, index) => (
+                            {inputId.map((item, index) => (
                                 <Grid key={index} item xs={4}>
-                                    <label htmlFor={item[index]}>{textValue[index]}</label>
+                                    <label htmlFor={item[index]}>
+                                        {textValue[index]}
+                                    </label>
                                     <br />
                                     <input
                                         id={item[index]}
@@ -293,4 +333,4 @@ function BlogPopup({ type, setType, updatePost, setUpdatePost }) {
     );
 }
 
-export default BlogPopup;
+export default CarPopup;

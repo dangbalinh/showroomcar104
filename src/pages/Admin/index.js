@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import { Grid, Paper, Box } from "@mui/material";
 import AdminSidebar from "./components/AdminSidebar";
 import CarManagement from "./components/CarManagement";
+import NewsManagement from "./components/NewsManagement"
 import { Routes, Route } from "react-router-dom";
 
 function Admin() {
@@ -23,9 +24,13 @@ function Admin() {
                     <Item>
                         <Routes>
                             <Route
-                                path="/car-management"
+                                path="/"
                                 element={<CarManagement />}
                                 exactly
+                            />
+                            <Route
+                                path="/news-management"
+                                element={<NewsManagement />}
                             />
                         </Routes>
                     </Item>
