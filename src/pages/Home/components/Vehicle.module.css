@@ -1,7 +1,9 @@
 .VehicleContainer {
 }
 .VehicleContainer ul {
-    border: 4px solid rgb(97, 10, 10);
+    border: 4px solid rgb(199, 191, 191);
+    border-style: outset;
+    border-radius: 2px;
     margin: 30px auto;
     list-style-type: none;
     width: 1200px;
@@ -9,9 +11,10 @@
 }
 .VehicleContainer ul li {
     
-    background-color: rgb(247, 238, 238);
+    background-color: rgb(236, 236, 236);
     width: 200px;
     height: 100px;
+    transition: 0.5s;
 }
 .VehicleContainer li a {
     
@@ -27,17 +30,26 @@
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .VehicleContainer li:hover  {
-    background: #510d0d;
+    background: #d4d4d4;
     
 }
-.VehicleContainer li a:hover {
-    color: aliceblue;
+.imageCar {
+    width: 70px;
+    height: 70px;
+    transition: 0.6s;
 }
+.imageCar:hover {
+    width: 90px;
+    height: 90px;
+}
+/* .VehicleContainer li a:hover {
+    color: aliceblue;
+} */
 
 .ItemVehicleCar {
     
-    padding: 130px;
+    padding: 100px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 90px;
+    gap: 30px;
 }

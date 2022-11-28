@@ -1,5 +1,6 @@
 .itemCarContainer {
     text-align: center;
+    /* background-color: aqua; */
   }
   @font-face {
     font-family: myItemFont;
@@ -25,8 +26,9 @@
       color: rgb(182, 0, 0);
       font-size: 17px;
       font-weight: bold;
-      box-shadow: 0 0 0.2em red;
+      
       text-shadow: 0 0 0.5em rgb(218, 161, 161);
+      transition: 0.6s;
       transition: 0.6s;
       cursor: pointer;
   }
@@ -34,5 +36,6 @@
       background-color: rgb(138, 11, 11);
       color:white;
       text-shadow: 0 0 0.5em white;
+      box-shadow: 0 0 0.5em red;
   }
-  
+

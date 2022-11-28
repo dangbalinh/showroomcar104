@@ -1,7 +1,5 @@
 .formInputComment {
-    margin-left: 150px;
-    margin-right: 150px;
-    margin-top: 50px;
+    margin: 50px 150px 50px 150px;
     background-color: rgb(180, 208, 232);
     padding: 20px;
 }
@@ -43,7 +41,7 @@
     grid-template-rows: 1fr;
     gap: 10px;
     border-radius: 5px;
-    background-color: rgb(171, 161, 175);
+    background-color: rgb(79, 79, 104);
 }
 .inputInfo .titleComment {
     margin-bottom: 20px;

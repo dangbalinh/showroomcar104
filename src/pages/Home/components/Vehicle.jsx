@@ -1,5 +1,6 @@
 import style from "./Vehicle.module.css";
 import ItemVehicle from "./ItemVehicle";
+import images from "../../../assets/image";
 import { useState } from "react";
 import axios from "axios";
 function Vehicle() {
@@ -21,35 +22,45 @@ function Vehicle() {
     const names = [
     {
         name:'TOYOTA',
-        branch: 'toyota'
+        branch: 'toyota',
+        img: images.logoToyota
+        
+        
     },
     {
         name:'BWM',
-        branch: 'bwm'
+        branch: 'bwm',
+        img: images.logoBWM
     },
     {
         name: 'FORD',
-        branch: 'ford'
+        branch: 'ford',
+        img: images.logoFord
     },
     {
         name:'HONDA',
-        branch: 'Honda'
+        branch: 'Honda',
+        img: images.logoHonda
     },
     {
         name: 'HUYNHDAI',
-        branch: 'huynhdai'
+        branch: 'huynhdai',
+        img: images.logoHuynhdai
     },
     {
         name:'MERCEDEZ',
-        branch: 'mercedez'
+        branch: 'mercedez',
+        img: images.logoMescedez
     },
     {
         name:'VINFAST',
-        branch: 'vinfast'
+        branch: 'vinfast',
+        img: images.logoVinfast
     },
     {
         name:'KIA',
-        branch: 'kia'
+        branch: 'kia',
+        img: images.logoKia
     },
 ]
     for( let i = 0; i <= 5; i++)
@@ -57,7 +68,7 @@ function Vehicle() {
     return (    
         <div className={style.VehicleContainer}>
             <ul>
-                {names.map((car) => <li><a href="/" onClick={() => selectCar(car.branch)}>{car.name}</a></li>)}     
+                {names.map((car) => <li><a href="/" onClick={() => selectCar(car.branch)}><img src={car.img} alt="Toyota" className={style.imageCar}></img></a></li>)}     
             </ul>
             <div className={style.ItemVehicleCar}>
                 {contentVehicle}
