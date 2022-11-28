@@ -22,7 +22,7 @@ function AdminSidebar() {
         "Thống kê, báo cáo"
     ];
     const AdminLink = [
-        "/admin/car-management",
+        "/admin",
         "/admin/customer-management",
         "/admin/staff-management",
         "/admin/news-management",

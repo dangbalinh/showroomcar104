@@ -1,6 +1,6 @@
 import images from "../../../../assets/image";
-import styles from "./CarManagement.module.css";
-import "./CarManagement.css";
+import styles from "./NewsManagement.module.css";
+import "./NewsManagement.css";
 
 import { styled } from "@mui/material/styles";
 import {
@@ -29,11 +29,11 @@ import {
     Pagination
 } from "@mui/material";
 
-import CarPopUp from "../CarPopUp";
+import NewsPopUp from "../NewsPopUp"
 import HandleApi from "../../../../Apis/HandleApi";
 import Swal from "sweetalert2";
 
-function CarManagement() {
+function NewsManagement() {
     const [typeCar, setTypeCar] = useState("All");
     const [data, setData] = useState([]);
     const [dataLength, setDataLength] = useState();
@@ -47,15 +47,13 @@ function CarManagement() {
 
     const inputRef = useRef();
 
-    const gridColumn = [0.7, 1, 2, 1.5, 1.8, 2.5, 1.5, 1];
+    const gridColumn = [1, 1, 3, 4, 1.5, 1.5];
     const gridTitle = [
         "STT",
         "Ảnh",
-        "Tên xe",
-        "Thương hiệu",
-        "Giá",
-        "Động cơ",
-        "Số chỗ ngồi",
+        "Chủ đề",
+        "Nội dung",
+        "Ngày đăng",
         ""
     ];
 
@@ -218,7 +216,7 @@ function CarManagement() {
         textAlign: "center",
         color: "#000",
         boxShadow: "none",
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: "600"
     }));
 
@@ -261,7 +259,7 @@ function CarManagement() {
                     className={styles.header_image}
                     alt="Header img"
                 />
-                <h1 className={styles.header_heading}>Quản lý ô tô</h1>
+                <h1 className={styles.header_heading}>Quản lý tin tức</h1>
             </header>
             <div className={styles.container}>
                 <div className={styles.container_header}>
@@ -271,7 +269,7 @@ function CarManagement() {
                                 ref={inputRef}
                                 value={searchValue}
                                 type="text"
-                                placeholder="Tìm kiếm xe"
+                                placeholder="Tìm kiếm tin tức"
                                 spellCheck={false}
                                 onChange={handleInputChange}
                             />
@@ -344,7 +342,7 @@ function CarManagement() {
                         startIcon={<Add />}
                         onClick={() => setType("create")}
                     >
-                        Thêm sản phẩm
+                        Thêm tin tức
                     </Button>
                 </div>
 
@@ -361,7 +359,7 @@ function CarManagement() {
                         {/* Render data */}
                         {newData?.map((item, index) => (
                             <Grid container key={index}>
-                                <Grid item xs={0.7}>
+                                <Grid item xs={1}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
                                 <Grid item xs={1}>
@@ -373,22 +371,16 @@ function CarManagement() {
                                         />
                                     </Item>
                                 </Grid>
-                                <Grid item xs={2}>
+                                <Grid item xs={3}>
                                     <Item>{item.ten}</Item>
                                 </Grid>
-                                <Grid item xs={1.5}>
+                                <Grid item xs={4}>
                                     <Item>{item.thuonghieu}</Item>
                                 </Grid>
-                                <Grid item xs={1.8}>
+                                <Grid item xs={1.5}>
                                     <Item>{item.gia + " VNĐ"}</Item>
                                 </Grid>
-                                <Grid item xs={2.5}>
-                                    <Item>{item.dongco}</Item>
-                                </Grid>
                                 <Grid item xs={1.5}>
-                                    <Item>{item.socho}</Item>
-                                </Grid>
-                                <Grid item xs={1}>
                                     <Item>
                                         <IconButton
                                             color="primary"
@@ -398,7 +390,6 @@ function CarManagement() {
                                                 borderRadius: "4px",
                                                 border: "1px solid #1976D2",
                                                 justifyContent: "space-between",
-                                                marginLeft: "-24px"
                                             }}
                                             onClick={() => {
                                                 handleClickUpdate(item._id);
@@ -506,7 +497,7 @@ function CarManagement() {
                     </Stack>
                 </div>
             </div>
-            <CarPopUp
+            <NewsPopUp
                 type={type !== "" ? type : ""}
                 setType={setType}
                 updatePost={updatePost}
@@ -516,4 +507,4 @@ function CarManagement() {
     );
 }
 
-export default memo(CarManagement);
+export default memo(NewsManagement);
