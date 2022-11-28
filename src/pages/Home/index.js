@@ -56,7 +56,6 @@ function Home() {
             {/* Dang Ba Linh */}
             <div className={style.Vehicle}>
                 <h1 className={style.VehicleHeading}>OUR VEHICLE</h1>
-                
                 <Vehicle/>  
             </div>
 
