@@ -1,5 +1,6 @@
 import style from './InformationDetailProduct.module.css';
 import images from '../../../assets/image';
+import HandleApi from '../../../Apis/HandleApi';
 function InformationDetailProduct(pros) {
     
     return (

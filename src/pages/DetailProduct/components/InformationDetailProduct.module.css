@@ -14,12 +14,16 @@
     display: flex;
 }
 .buy button{
+    margin-top: 100px;
     margin-left: 600px;
-    width: 150px;
+    width: 250px;
     height: 50px;
-    color: red;
     border: 2px solid red;
-    border-radius: 30px;
+    border-radius: 10px;
+    font-size: large;
+    font-weight: bold;
+    color: whitesmoke;
+    background-color: rgb(150, 13, 13);
 }
 .information__heading__carName {
     /* background-color: aqua; */
@@ -43,7 +47,8 @@
 }
 
 .informaton__content__img img {
-    margin-left: 200px;
+    margin-left: 150px;
     width: 614px;
+    height: 350px;
     
 }
