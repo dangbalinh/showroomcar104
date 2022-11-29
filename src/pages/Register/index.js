@@ -148,7 +148,7 @@ const Register = () => {
         console.log(inputs);
         //testApi
         sendRequest()
-        .then ((data)=>console.log(data.filter(dt =>{
+        .then ((data)=>console.log(data.cars.filter(dt =>{
           const regex = new RegExp("o",'gi');
           return dt.ten.match(regex);
         })))
@@ -157,33 +157,34 @@ const Register = () => {
     
   return (
     <div className={classes.register}>
-            <h2>Create your personal account</h2>
+            <div className={classes.registerlayout}>
+            <div className={classes.registerimg}></div>
             <form className={classes.form}>
-                
+              <h2>Create your personal account</h2>
                 <p>
                     <label>Name</label><br/>
                     <input className={classes.input} value={inputs.name} 
                     type="text" name="name" onChange={handleChange} onBlur={handleBlur} required />
-                    <p style={{color: "red", padding: "10px"}}>{errors.nameError}</p>
+                    <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.nameError}</p>
                 </p>
                 
                 <p>
                     <label>Email address</label><br/>
                     <input className={classes.input} value={inputs.email}
                     type="email" name="email" onChange={handleChange} onBlur={handleBlur} required />
-                    <p style={{color: "red", padding: "10px"}}>{errors.emailError}</p>
+                    <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.emailError}</p>
                 </p>
                 <p>
                     <label>Password</label><br/>
                     <input className={classes.input} value={inputs.password}
                     type="password" name="password" onChange={handleChange} onBlur={handleBlur} required />
-                    <p style={{color: "red", padding: "10px"}}>{errors.passwordError}</p>
+                    <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.passwordError}</p>
                 </p>
                 <p>
                     <label>Confirm Password</label><br/>
                     <input className={classes.input} 
                     type="password" name="password2" onBlur={handleBlur} required />
-                    <p style={{color: "red", padding: "10px"}}>{errors.confirmError}</p>
+                    <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.confirmError}</p>
                 </p>
                 <p>
                     <input style={{ margin:"0 15px" }}type="checkbox" name="checkbox" id="checkbox" 
@@ -196,6 +197,7 @@ const Register = () => {
                     Already had a account? Go to <Link to="/login">Login</Link>
                 </p>
             </form>
+            </div>
         </div>
   )
 }

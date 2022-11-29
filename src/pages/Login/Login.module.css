@@ -19,14 +19,17 @@
 .form {
     width: 30%;;
     display: inline-block;
-    background: #e7e7e7;
-    border: 1px solid #ddd;
+    background: rgba(255, 255, 255, .5);
     border-radius: 22px;
     padding: 2rem;
     margin: 2rem 0 1rem 0;
     text-align: left;
     font-size: 20px;
     position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.form Link {
+    text-align: right;
 }
 .form span{
     font-size: 15px;

@@ -4,12 +4,14 @@ import { useState, useRef,useEffect  } from "react";
 import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom';
 
+
 const AutoComplete = ( {data} ) => {
     const [suggestiondata, setSuggestiondata] = useState();
     const [suggestions, setSuggestions] = useState();
     const [suggestionsActive, setSuggestionsActive] = useState(false);
     const [value, setValue] = useState("");
     const navigate = useNavigate();
+    const typingTimeoutRef = useRef(null);
 
     const sendRequest = async()=>{
       const res = await axios
@@ -27,16 +29,23 @@ const AutoComplete = ( {data} ) => {
     const handleChange = (e) => {
         const query = e.target.value.toLowerCase();
         setValue(query);
-        if (query.length > 1) {
-          const filterSuggestions = suggestiondata.filter(dt =>{
-            const regex = new RegExp(`${query}`,'gi');
-            return dt.ten.match(regex);
-          });
-          setSuggestions(filterSuggestions);
-          setSuggestionsActive(true);
-        } else {
-          setSuggestionsActive(false);
+        
+        if(typingTimeoutRef.current){
+          clearTimeout(typingTimeoutRef.current);
         }
+        typingTimeoutRef.current = setTimeout(()=>{
+          if (query.length > 1) {
+            const filterSuggestions = suggestiondata.filter(dt =>{
+              const regex = new RegExp(`${query}`,'gi');
+              return dt.ten.match(regex);
+            });
+            setSuggestions(filterSuggestions);
+            setSuggestionsActive(true);
+            console.log(query);
+          } else {
+            setSuggestionsActive(false);
+          }
+        },300)
       };
 
       const handleClick2 = (e) => {

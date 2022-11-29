@@ -24,6 +24,11 @@ function Header (){
            <a href=''><YouTubeIcon fontSize="large" className={classes.icon}/></a>
            <a href=''><FacebookIcon fontSize="large"className={classes.icon}/></a>
         </div>
+        <div className={classes.todashboard}>
+            <Link to={true? "/login":"/admin"}  style={{ color: 'inherit', textDecoration: 'inherit'}}>
+            Go to dashboard
+            </Link>
+        </div>
     </div>
     </div>);
 
