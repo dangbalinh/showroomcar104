@@ -10,7 +10,6 @@ import {
     ErrorOutline,
     DeleteOutline,
     Cancel,
-    RestartAlt
 } from "@mui/icons-material";
 import { useState, useEffect, memo, useRef } from "react";
 import {
@@ -41,7 +40,7 @@ function CarManagement() {
     const [searchValue, setSearchValue] = useState("");
     const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
-    const [updatePost, setUpdatePost] = useState({});
+    const [updateCar, setUpdateCar] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
@@ -84,7 +83,7 @@ function CarManagement() {
             case "All":
                 setNewData(data);
                 HandleApi.getAllCar().then((res) =>
-                    setDataLength(res.totalCars)
+                    setDataLength(res.totalCars),
                 );
                 break;
             case "Honda":
@@ -163,14 +162,26 @@ function CarManagement() {
         console.log(id);
         HandleApi.getCarById(id)
             .then(async (res) => {
-                await setUpdatePost(res);
+                await setUpdateCar(res);
                 await setType("update");
-                console.log(updatePost);
+                console.log(updateCar);
             })
             .catch((err) => {
                 console.log(err);
             });
     };
+
+    const handleReadInfo = async (id) => {
+        HandleApi.getCarById(id)
+        .then(async (res) => {
+            await setUpdateCar(res);
+            await setType("read");
+            console.log(updateCar);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
 
     const handlePageChange = (e, p) => {
         console.log("PageIndex: ", p);
@@ -374,13 +385,13 @@ function CarManagement() {
                                     </Item>
                                 </Grid>
                                 <Grid item xs={2}>
-                                    <Item>{item.ten}</Item>
+                                    <Item sx={{ cursor: "pointer"}} onClick={() => handleReadInfo(item._id)}>{item.ten}</Item>
                                 </Grid>
                                 <Grid item xs={1.5}>
                                     <Item>{item.thuonghieu}</Item>
                                 </Grid>
                                 <Grid item xs={1.8}>
-                                    <Item>{item.gia + " VNĐ"}</Item>
+                                    <Item>{item.gia.toLocaleString() + " VNĐ"}</Item>
                                 </Grid>
                                 <Grid item xs={2.5}>
                                     <Item>{item.dongco}</Item>
@@ -509,8 +520,8 @@ function CarManagement() {
             <CarPopUp
                 type={type !== "" ? type : ""}
                 setType={setType}
-                updatePost={updatePost}
-                setUpdatePost={setUpdatePost}
+                updateCar={updateCar}
+                setUpdateCar={setUpdateCar}
             />
         </div>
     );
