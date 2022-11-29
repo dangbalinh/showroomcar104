@@ -17,7 +17,7 @@
     font-weight: bold;
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
     padding-bottom: 10px;
-    font-size: 2rem;
+    font-size: 2.2rem;
 }
 
 .bPopup label {
@@ -136,7 +136,15 @@
     color: rgb(70, 70, 70);
 }
 
+.readImg {
+    width: 100%;
+    object-fit: cover;
+    margin: 40px 0 32px;
+}
+
+/* Button */
 .btn {
     display: flex; 
     justify-content: flex-end;
+    margin-top: 20px;
 }

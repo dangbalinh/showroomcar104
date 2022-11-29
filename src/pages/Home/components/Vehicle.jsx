@@ -16,6 +16,8 @@ function Vehicle() {
             
         // });
     }
+
+
     const selectCar = (pro) => {
         getItemCar(pro);
     }
