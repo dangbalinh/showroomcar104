@@ -1,74 +1,61 @@
 import style from "./Vehicle.module.css";
 import ItemVehicle from "./ItemVehicle";
 import images from "../../../assets/image";
-import { useState } from "react";
-import axios from "axios";
+import HandleApi from "../../../Apis/HandleApi";
+import { useState, useEffect } from "react";
 function Vehicle() {
-    // const [car,setCar] = useState('toyota');
-    const [car,setCar] = useState({name: "TOYOTA", branch: "toyota"});
+    const [data,setData] = useState([]);
+    const [branch,setBranch] = useState("Toyota");
     const contentVehicle = [];
-    async function getItemCar(pro)
-    {
-        axios.get('https://showroomcar104.onrender.com/cars/637f96758e796c683c506c38')
-        .then((response) => { setCar(response.data);
-        }).catch(err => console.log(err))
-        // array.forEach(element => {
-            
-        // });
-    }
-    const selectCar = (pro) => {
-        getItemCar(pro);
+    useEffect(() => {
+        HandleApi.getCarByBrand(branch).then((res) => {
+          setData(res.cars)
+        })
+        .catch(err => console.log(err));
+      }, [branch])
+    function selectBranchCar(x) {
+        setBranch(x);
     }
     const names = [
     {
-        name:'TOYOTA',
-        branch: 'toyota',
-        img: images.logoToyota
-        
-        
+        branch: 'Toyota',
+        img: images.logoToyota      
     },
     {
-        name:'BWM',
-        branch: 'bwm',
+        branch: 'Bwm',
         img: images.logoBWM
     },
     {
-        name: 'FORD',
-        branch: 'ford',
+        branch: 'Ford',
         img: images.logoFord
     },
     {
-        name:'HONDA',
         branch: 'Honda',
         img: images.logoHonda
     },
     {
-        name: 'HUYNHDAI',
-        branch: 'huynhdai',
+        branch: 'Huynhdai',
         img: images.logoHuynhdai
     },
     {
-        name:'MERCEDEZ',
-        branch: 'mercedez',
+        branch: 'Mercedez',
         img: images.logoMescedez
     },
     {
-        name:'VINFAST',
-        branch: 'vinfast',
+        branch: 'Vinfast',
         img: images.logoVinfast
     },
     {
-        name:'KIA',
-        branch: 'kia',
+        branch: 'Kia',
         img: images.logoKia
     },
 ]
     for( let i = 0; i <= 5; i++)
-        contentVehicle.push(<ItemVehicle carName={car.name} carPrice={car.price} />);
+        contentVehicle.push(<ItemVehicle carName={data.name} carPrice={data.price} />);
     return (    
         <div className={style.VehicleContainer}>
             <ul>
-                {names.map((car) => <li><a href="/" onClick={() => selectCar(car.branch)}><img src={car.img} alt="Toyota" className={style.imageCar}></img></a></li>)}     
+                {names.map((car) => <li onClick={() => selectBranchCar(car.branch)}><img src={car.img} alt="Toyota" className={style.imageCar}></img></li>)}     
             </ul>
             <div className={style.ItemVehicleCar}>
                 {contentVehicle}
