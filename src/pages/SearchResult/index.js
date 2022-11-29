@@ -4,14 +4,15 @@ import { useEffect,useState } from 'react';
 import CarCard from './CarCard';
 import axios from 'axios';
 import style from './Search.module.css'
-import { useNavigate } from 'react-router-dom';
+import Pagination from './Pagination';
+
 const Search = () => {
     const [searchParams] = useSearchParams();
     const [cars, setCars] = useState();
     const [currentPage, setCurrentPage] = useState(parseInt(0))
-    const [postPerPage, setPostPerPage] = useState(4)
-    const [first, setfirst] = useState()
-    const navigate = useNavigate();
+    const [postPerPage, setPostPerPage] = useState(8)
+    const [loading, setLoading] = useState(true)
+
     let p = currentPage+1;
 
   const test=encodeURI(searchParams.get('find')); 
@@ -20,30 +21,28 @@ const Search = () => {
     const res = await axios
     .get(`https://showroomcar104.onrender.com/cars?ten=${test}&pageIndex=${currentPage}&pageSize=${postPerPage}`)
     .catch((err)=>console.log(err))
-    const data = await res.data.cars;
+    setLoading(false);
+    const data = await res.data;
+    console.log(data);
     return data;
   }
 
-  const sendRequestcheck = async()=>{
-    const res = await axios
-    .get(`https://showroomcar104.onrender.com/cars?ten=${test}&pageIndex=${p}&pageSize=${postPerPage}`)
-    .catch((err)=>console.log(err))
-    const data = await res.data.cars;
-    return data;
-  }
-
-  useEffect(()=>setCurrentPage(0),[test])
+  useEffect(()=>{
+    setCurrentPage(0);
+    setLoading(true);
+  },[test])
   useEffect(()=>{
     sendRequest()
     .then((data)=>setCars(data))
-    sendRequestcheck()
-    .then((data)=>setfirst(data))
+    console.log(cars);
   },[test,currentPage,postPerPage])
+
+
 
   //let p = currentPage+1;
 
   const handleClick =  (e)=>{
-      if(e.target.name=="back"&&currentPage!==0)
+      if(e.target.name=="back")
       {
         //navigate(`/search?find=${searchParams.get('find')}&page=${currentPage-1}`)
         setCurrentPage((prev)=>prev-1)
@@ -53,27 +52,35 @@ const Search = () => {
         
         //navigate(`/search?find=${searchParams.get('find')}&page=${currentPage+1}`)
         setCurrentPage((prev)=>prev+1)
-        console.log(first);
       }
 
   }
   //()=>{currentPage!==0? setCurrentPage((prev)=>prev-1):""}
   return (
+    <div>
+    {loading? <h1>loading</h1> : 
     <div style={{textAlign:"center"}}>
-    {cars && cars.length!==0?<h1 style={{marginTop:'40px', fontSize:'40px'}}>Search result for "{searchParams.get('find')}"</h1>
+    {cars.cars && cars.totalCarsFilter!==0?<h1 style={{marginTop:'40px', fontSize:'40px'}}>Search result for "{searchParams.get('find')}"</h1>
     :<h1 style={{marginTop:'40px', fontSize:'40px'}}>No result for "{searchParams.get('find')}"</h1>}
     <div className={style.MainSearch} style={{display:"flex",padding:"20px",flexWrap:"wrap"}}>
-        {cars && cars.map((car,index)=>
+        {cars.cars && cars.cars.map((car,index)=>
         <CarCard data={car}/>)}
     </div>
-        {cars&& cars.length!==0?
+        {cars.cars&& cars.totalCarsFilter!==0?
         <div className={style.pagination}>
-        <button onClick={handleClick} name="back">Back</button>
-        <h2 style={{fontSize:"24px"}}>{p}</h2>
-        <button onClick={handleClick} disabled={first && (first.length!==0? false :true)} name="next">Next</button>
+        <button onClick={handleClick} disabled={((currentPage!=0)? false :true)} name="back">Back</button>
+        <Pagination
+          totalPosts={cars.totalCarsFilter}
+          postsPerPage={postPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
+        <button onClick={handleClick} disabled={((currentPage+1<cars.totalCarsFilter/postPerPage)? false :true)} name="next">Next</button>
         </div> : <></>
         }
+    </div>}
     </div>
   )
 }
 export default Search
+//<h2 style={{fontSize:"24px"}} >{p}/{Math.ceil(cars.totalCarsFilter/postPerPage)}</h2>
