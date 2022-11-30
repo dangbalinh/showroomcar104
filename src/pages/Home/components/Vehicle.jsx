@@ -56,7 +56,7 @@ function Vehicle() {
     return (    
         <div className={style.VehicleContainer}>
             <ul>
-                {names.map((car) => <li onClick={() => selectBranchCar(car.branch)}><img src={car.img} alt="Toyota" className={style.imageCar}></img></li>)}     
+                {names.map((car) => <li onClick={() => selectBranchCar(car.branch)}><img src={car.img} alt="" className={style.imageCar}></img></li>)}     
             </ul>
             <div className={style.ItemVehicleCar}>
                 {contentCar}
