@@ -13,35 +13,35 @@ export const menuItems = [
     submenu: [
       {
         title: "BMW",
-        url: "/",
+        url: "/product/BMW",
       },
       {
         title: "Mercedes-benz",
-        url: "/",
+        url: "/product/Mercedes-Benz",
       },
       {
         title: "Ford",
-        url: "/",
+        url: "/product/Ford",
       },
       {
         title: "Kia",
-        url: "/",
+        url: "/product/Kia",
       },
       {
         title: "Vinfast",
-        url: "/",
+        url: "/product/Vinfast",
       },
       {
         title: "Toyota",
-        url: "/",
+        url: "/product/Toyota",
       },
       {
         title: "Huyndai",
-        url: "/",
+        url: "/product/Huyndai",
       },
       {
         title: "Honda",
-        url: "/",
+        url: "/product/HonDa1",
       },
     ],
   },

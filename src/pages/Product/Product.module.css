@@ -1,6 +1,9 @@
 .nameType {
   margin-left: 160px;
   padding: 40px 0;
+  font-size: 3rem;
+  text-decoration: underline;
+  letter-spacing: 4px;
 }
 
 .containerLayout {
@@ -8,7 +11,10 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 20px 160px;
-  background: url("https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/Mer%2F800px-Mercedes-Logo%201.png?alt=media&token=853ae274-95ed-489e-8465-7690228f5a8d")
-    no-repeat center;
-  background-size: contain;
+}
+
+.productContainer {
+  min-height: 700px;
+  background: linear-gradient(to top, #b4babe 0%, #eef2f3 40%);
+  padding-top: 156px;
 }

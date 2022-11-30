@@ -5,7 +5,7 @@
 }
 .productImg {
   width: 100%;
-  object-fit: fill;
+  object-fit: cover;
   transition: all linear 0.2s;
   cursor: pointer;
 }
@@ -18,7 +18,7 @@
 }
 
 .itemProduct__Title {
-  font-size: 16px;
+  font-size: 2rem;
   text-align: center;
   color: #990000;
   margin-bottom: 6px;
@@ -26,8 +26,8 @@
 
 .itemProduct__Price {
   text-align: center;
-  color: #a9a9a9;
-  font-size: 15px;
+  color: #655e5e;
+  font-size: 1.4rem;
 }
 
 .linkDiscover {
@@ -42,12 +42,13 @@
   position: relative;
   font-weight: bold;
   overflow: hidden;
-  transition: color 1s;
-  margin: 0 120px;
+  transition: color 0.5s;
+  margin: 10px 110px;
 }
 
 .linkDiscover:hover {
-  color: #fff;
+  color: white;
+  background-color: #990000;
 }
 
 .linkDiscover::before {
@@ -57,11 +58,11 @@
   left: -50px;
   width: 200%;
   height: 100%;
-  background-color: #990000;
+
   transform: scaleX(0) skewX(35deg);
   transform-origin: left;
-  z-index: -1;
-  transition: transform 0.6s;
+  z-index: -2;
+  transition: transform 0.3s;
 }
 
 .linkDiscover:hover::before {
