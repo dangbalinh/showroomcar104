@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 function Vehicle() {
     const [data,setData] = useState([]);
     const [branch,setBranch] = useState("Toyota");
-    const contentVehicle = [];
+    const contentCar = [];
     useEffect(() => {
         HandleApi.getCarByBrand(branch).then((res) => {
           setData(res.cars)
@@ -51,14 +51,14 @@ function Vehicle() {
     },
 ]
     for( let i = 0; i <= 5; i++)
-        contentVehicle.push(<ItemVehicle carName={data.name} carPrice={data.price} />);
+        contentCar.push(<ItemVehicle carName={data.name} carPrice={data.price} />);
     return (    
         <div className={style.VehicleContainer}>
             <ul>
                 {names.map((car) => <li onClick={() => selectBranchCar(car.branch)}><img src={car.img} alt="Toyota" className={style.imageCar}></img></li>)}     
             </ul>
             <div className={style.ItemVehicleCar}>
-                {contentVehicle}
+                {contentCar}
             </div>
         </div>
         
