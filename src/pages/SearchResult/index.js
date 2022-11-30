@@ -57,7 +57,7 @@ const Search = () => {
   }
   //()=>{currentPage!==0? setCurrentPage((prev)=>prev-1):""}
   return (
-    <div>
+    <div className={style.SearchPage}>
     {loading? <h1>loading</h1> : 
     <div style={{textAlign:"center"}}>
     {cars.cars && cars.totalCarsFilter!==0?<h1 style={{marginTop:'40px', fontSize:'40px'}}>Search result for "{searchParams.get('find')}"</h1>
