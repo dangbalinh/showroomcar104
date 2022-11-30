@@ -292,7 +292,7 @@ function NewsManagement() {
                         </div>
                         <FormControl
                             className={styles.filter}
-                            sx={{ m: 1, minWidth: 120 }}
+                            sx={{ m: 1, minWidth: 220, height: 44 }}
                             size="medium"
                         >
                             <InputLabel
@@ -348,7 +348,7 @@ function NewsManagement() {
 
                 <div className={styles.content}>
                     <Box sx={{ flexGrow: 1 }}>
-                        <Grid container>
+                        <Grid container sx={{ padding: '0 0 8px' }}>
                             {gridTitle.map((title, index) => (
                                 <Grid item xs={gridColumn[index]} key={index}>
                                     <ItemMain>{title}</ItemMain>
@@ -384,19 +384,12 @@ function NewsManagement() {
                                     <Item>
                                         <IconButton
                                             color="primary"
-                                            sx={{
-                                                width: 70,
-                                                height: 34,
-                                                borderRadius: "4px",
-                                                border: "1px solid #1976D2",
-                                                justifyContent: "space-between",
-                                            }}
+                                            size="medium"
                                             onClick={() => {
                                                 handleClickUpdate(item._id);
                                             }}
                                         >
-                                            <Edit sx={{ fontSize: "18px" }} />{" "}
-                                            Sửa
+                                            <Edit sx={{ fontSize: "22px" }} />{" "}
                                         </IconButton>
                                         <IconButton
                                             size="medium"

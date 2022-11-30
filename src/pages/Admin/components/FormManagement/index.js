@@ -1,6 +1,6 @@
 import images from "../../../../assets/image";
-import styles from "./CarManagement.module.css";
-import "./CarManagement.css";
+import styles from "./FormManagement.module.css";
+import "./FormManagement.css";
 
 import { styled } from "@mui/material/styles";
 import {
@@ -10,6 +10,7 @@ import {
     ErrorOutline,
     DeleteOutline,
     Cancel,
+    RestartAlt
 } from "@mui/icons-material";
 import { useState, useEffect, memo, useRef } from "react";
 import {
@@ -28,11 +29,11 @@ import {
     Pagination
 } from "@mui/material";
 
-import CarPopUp from "../CarPopUp";
+import FormPopUp from "../FormPopUp"
 import HandleApi from "../../../../Apis/HandleApi";
 import Swal from "sweetalert2";
 
-function CarManagement() {
+function FormManagement() {
     const [typeCar, setTypeCar] = useState("All");
     const [data, setData] = useState([]);
     const [dataLength, setDataLength] = useState();
@@ -40,21 +41,19 @@ function CarManagement() {
     const [searchValue, setSearchValue] = useState("");
     const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
-    const [updateCar, setUpdateCar] = useState({});
+    const [updatePost, setUpdatePost] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
     const inputRef = useRef();
 
-    const gridColumn = [0.7, 1, 2, 1.5, 1.8, 2.5, 1.5, 1];
+    const gridColumn = [1, 2, 1.5, 2, 4.5, 1];
     const gridTitle = [
         "STT",
-        "Ảnh",
-        "Tên xe",
-        "Thương hiệu",
-        "Giá",
-        "Động cơ",
-        "Số chỗ ngồi",
+        "Họ tên",
+        "SĐT",
+        "Email",
+        "Tin nhắn",
         ""
     ];
 
@@ -83,7 +82,7 @@ function CarManagement() {
             case "All":
                 setNewData(data);
                 HandleApi.getAllCar().then((res) =>
-                    setDataLength(res.totalCars),
+                    setDataLength(res.totalCars)
                 );
                 break;
             case "Honda":
@@ -160,33 +159,32 @@ function CarManagement() {
 
     const handleClickUpdate = async (id) => {
         console.log(id);
-        HandleApi.getCarById(id)
+        HandleApi.getCarById(id)    
             .then(async (res) => {
-                await setUpdateCar(res);
+                await setUpdatePost(res);
                 await setType("update");
-                console.log(updateCar);
+                console.log(updatePost);
             })
             .catch((err) => {
                 console.log(err);
             });
     };
-
-    const handleReadInfo = async (id) => {
-        HandleApi.getCarById(id)
-            .then(async (res) => {
-                await setUpdateCar(res);
-                await setType("read");
-                console.log(updateCar);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
 
     const handlePageChange = (e, p) => {
         console.log("PageIndex: ", p);
         setPageIndex(p - 1);
     };
+
+    const handleReadInfo = async (id) => {
+        HandleApi.getCarById(id)
+            .then(async (res) => {
+                await setUpdatePost(res);
+                await setType("read");
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
 
     // handle search event
     useEffect(() => {
@@ -229,7 +227,7 @@ function CarManagement() {
         textAlign: "center",
         color: "#000",
         boxShadow: "none",
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: "600"
     }));
 
@@ -271,6 +269,7 @@ function CarManagement() {
         }
     }
 
+
     return (
         <div>
             <header className={styles.header}>
@@ -279,7 +278,7 @@ function CarManagement() {
                     className={styles.header_image}
                     alt="Header img"
                 />
-                <h1 className={styles.header_heading}>Quản lý ô tô</h1>
+                <h1 className={styles.header_heading}>Quản lý Form phản hồi</h1>
             </header>
             <div className={styles.container}>
                 <div className={styles.container_header}>
@@ -289,7 +288,7 @@ function CarManagement() {
                                 ref={inputRef}
                                 value={searchValue}
                                 type="text"
-                                placeholder="Tìm kiếm xe"
+                                placeholder="Tìm kiếm tin tức"
                                 spellCheck={false}
                                 onChange={handleInputChange}
                             />
@@ -323,7 +322,7 @@ function CarManagement() {
                             </InputLabel>
                             <Select
                                 className={styles.filter_wrap}
-                                labelId="input--"
+                                labelId="input-label"
                                 label="typecar"
                                 defaultValue={typeCar}
                                 value={typeCar}
@@ -362,13 +361,13 @@ function CarManagement() {
                         startIcon={<Add />}
                         onClick={() => setType("create")}
                     >
-                        Thêm sản phẩm
+                        Thêm tin tức
                     </Button>
                 </div>
 
                 <div className={styles.content}>
-                    <Box sx={{ flexGrow: 1, padding: '0 12px' }}>
-                        <Grid container sx={{ padding: '0 0 8px' }}>
+                    <Box sx={{ flexGrow: 1 }}>
+                        <Grid container>
                             {gridTitle.map((title, index) => (
                                 <Grid item xs={gridColumn[index]} key={index}>
                                     <ItemMain>{title}</ItemMain>
@@ -379,10 +378,10 @@ function CarManagement() {
                         {/* Render data */}
                         {newData?.map((item, index) => (
                             <Grid container key={index}>
-                                <Grid item xs={0.7}>
+                                <Grid item xs={1}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
-                                <Grid item xs={1}>
+                                <Grid item xs={2}>
                                     <Item>
                                         <img
                                             src={item.hinhanh}
@@ -391,42 +390,17 @@ function CarManagement() {
                                         />
                                     </Item>
                                 </Grid>
-                                <Grid item xs={2}>
-                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.ten}</Item>
-                                </Grid>
                                 <Grid item xs={1.5}>
+                                    <Item>{item.ten}</Item>
+                                </Grid>
+                                <Grid item xs={2}>
                                     <Item>{item.thuonghieu}</Item>
                                 </Grid>
-                                <Grid item xs={1.8}>
-                                    <Item>{item.gia.toLocaleString() + " VNĐ"}</Item>
-                                </Grid>
-                                <Grid item xs={2.5}>
-                                    <Item>{item.dongco}</Item>
-                                </Grid>
-                                <Grid item xs={1.5}>
-                                    <Item>{item.socho}</Item>
+                                <Grid item xs={4.5}>
+                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.gia + " VNĐ"}</Item>
                                 </Grid>
                                 <Grid item xs={1}>
-                                    {/* Update, delete button */}
                                     <Item>
-                                        <IconButton
-                                            color="primary"
-                                            size="medium"
-                                            // sx={{
-                                            //     width: 35,
-                                            //     height: 34,
-                                            //     borderRadius: "4px",
-                                            //     border: "1px solid #1976D2",
-                                            //     justifyContent: "space-between",
-                                            //     marginLeft: "-24px"
-                                            // }}
-                                            onClick={() => {
-                                                handleClickUpdate(item._id);
-                                            }}
-                                        >
-                                            <Edit sx={{ fontSize: "22px" }} />
-                                        </IconButton>
-
                                         <IconButton
                                             size="medium"
                                             color="error"
@@ -526,14 +500,14 @@ function CarManagement() {
                     </Stack>
                 </div>
             </div>
-            <CarPopUp
+            <FormPopUp
                 type={type !== "" ? type : ""}
                 setType={setType}
-                updateCar={updateCar}
-                setUpdateCar={setUpdateCar}
+                updatePost={updatePost}
+                setUpdatePost={setUpdatePost}
             />
         </div>
     );
 }
 
-export default memo(CarManagement);
+export default memo(FormManagement);

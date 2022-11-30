@@ -61,7 +61,7 @@
 .search {
     --search-border-radius: 4px;
     --search-height: 44px;
-    --search-top-spacer: 12px;
+    --search-top-spacer: 8px;
     --search-button-width: 52px;
     position: relative;
     width: 360px;
