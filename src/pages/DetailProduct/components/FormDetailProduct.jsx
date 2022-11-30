@@ -7,8 +7,11 @@ function FormDetailProduct() {
             <p className={style.Comment}>Comment</p>
             <div className={style.carComment}>
                 <img src={images.infoImg} alt="info client" />
-                <p className={style.nameInfo}>PERSON A</p>
-                <p className={style.commentInfo}>This car is great</p>
+                <div>
+                    <p className={style.nameInfo}>PERSON A</p>
+                    <p className={style.commentInfo}>This car is great</p>
+                </div>
+               
             </div>
             <div className={style.inputInfo}>
                 <p className={style.titleComment}>Your comment</p>
