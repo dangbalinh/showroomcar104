@@ -18,7 +18,7 @@ fieldset {
 }
 
 .MuiPaginationItem-root.Mui-selected {
-    background-color: #6fb7ff !important;
+    background-color: #2e7d32 !important;
 }
 
 .MuiPagination-ul {
@@ -39,7 +39,7 @@ fieldset {
     box-shadow: none !important;
 }
 
-/* Override SweerAlert lib */
+/* Override SweetAlert lib */
 .swal2-popup {
     width: 380px !important;
     height: 260px !important;

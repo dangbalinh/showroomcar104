@@ -24,7 +24,7 @@ const publicRoutes = [
     { path: "/register", component: Register },
     { path: "/login", component: Login },
     { path: '/search', component: Search},
-    { path: "/admin/*", component: Admin },
+    { path: "/admin/*", component: Admin, layout: null },
     { path: "/*", component: NotFound },
 ];
 

@@ -173,14 +173,14 @@ function CarManagement() {
 
     const handleReadInfo = async (id) => {
         HandleApi.getCarById(id)
-        .then(async (res) => {
-            await setUpdateCar(res);
-            await setType("read");
-            console.log(updateCar);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+            .then(async (res) => {
+                await setUpdateCar(res);
+                await setType("read");
+                console.log(updateCar);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     const handlePageChange = (e, p) => {
@@ -264,6 +264,13 @@ function CarManagement() {
         }
     };
 
+    const nameActive = {
+        "cursor": 'pointer',
+        "&:active": {
+            color: 'red',
+        }
+    }
+
     return (
         <div>
             <header className={styles.header}>
@@ -305,7 +312,7 @@ function CarManagement() {
                         </div>
                         <FormControl
                             className={styles.filter}
-                            sx={{ m: 1, minWidth: 120 }}
+                            sx={{ m: 1, minWidth: 220, height: 44 }}
                             size="medium"
                         >
                             <InputLabel
@@ -316,7 +323,7 @@ function CarManagement() {
                             </InputLabel>
                             <Select
                                 className={styles.filter_wrap}
-                                labelId="input-label"
+                                labelId="input--"
                                 label="typecar"
                                 defaultValue={typeCar}
                                 value={typeCar}
@@ -360,8 +367,8 @@ function CarManagement() {
                 </div>
 
                 <div className={styles.content}>
-                    <Box sx={{ flexGrow: 1 }}>
-                        <Grid container>
+                    <Box sx={{ flexGrow: 1, padding: '0 12px' }}>
+                        <Grid container sx={{ padding: '0 0 8px' }}>
                             {gridTitle.map((title, index) => (
                                 <Grid item xs={gridColumn[index]} key={index}>
                                     <ItemMain>{title}</ItemMain>
@@ -385,7 +392,7 @@ function CarManagement() {
                                     </Item>
                                 </Grid>
                                 <Grid item xs={2}>
-                                    <Item sx={{ cursor: "pointer"}} onClick={() => handleReadInfo(item._id)}>{item.ten}</Item>
+                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.ten}</Item>
                                 </Grid>
                                 <Grid item xs={1.5}>
                                     <Item>{item.thuonghieu}</Item>
@@ -403,21 +410,22 @@ function CarManagement() {
                                     <Item>
                                         <IconButton
                                             color="primary"
-                                            sx={{
-                                                width: 70,
-                                                height: 34,
-                                                borderRadius: "4px",
-                                                border: "1px solid #1976D2",
-                                                justifyContent: "space-between",
-                                                marginLeft: "-24px"
-                                            }}
+                                            size="medium"
+                                            // sx={{
+                                            //     width: 35,
+                                            //     height: 34,
+                                            //     borderRadius: "4px",
+                                            //     border: "1px solid #1976D2",
+                                            //     justifyContent: "space-between",
+                                            //     marginLeft: "-24px"
+                                            // }}
                                             onClick={() => {
                                                 handleClickUpdate(item._id);
                                             }}
                                         >
-                                            <Edit sx={{ fontSize: "18px" }} />{" "}
-                                            Sửa
+                                            <Edit sx={{ fontSize: "22px" }} />
                                         </IconButton>
+
                                         <IconButton
                                             size="medium"
                                             color="error"
