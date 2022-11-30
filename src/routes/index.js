@@ -15,7 +15,7 @@ import Search from "../pages/SearchResult"
 const publicRoutes = [
     { path: "/", component: Home },
     { path: "/contact", component: Contact },
-    { path: "/product", component: Product },
+    { path: "/product/:carBrand", component: Product },
     { path: "/news", component: News },
     { path: "/introduce", component: Introduce },
     { path: "/readnews", component: ReadNews },
