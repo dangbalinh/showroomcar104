@@ -81,7 +81,7 @@ const AutoComplete = ( {data} ) => {
                   onClick={handleClick2}
                   className={classes.submenu}
                 >
-                  <Link to={`/readnews/${suggestion._id}`} style={{color: "black", textDecoration:"none"}}>{suggestion.ten}</Link>
+                  <Link to={`/detailproduct/${suggestion._id}`} style={{color: "black", textDecoration:"none"}}>{suggestion.ten}</Link>
                 </li>
               );
             })}
