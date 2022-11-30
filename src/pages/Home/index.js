@@ -19,11 +19,9 @@ function Home() {
     return (
         <div>
             <div className={style.showCar}>
-                <img
-                    src={images.sliderImg}
-                    alt="Car"
-                    className={style.showImg}
-                />
+                <img src={images.carXImg} alt="Car" className={style.showImg}/>
+                  
+                
                 <a href="/introduce" className={style.showStarted}>
                     Get Started
                 </a>
