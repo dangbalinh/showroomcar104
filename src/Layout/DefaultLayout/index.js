@@ -1,19 +1,19 @@
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import style from './DefaultLayout.module.css'
+import styles from './DefaultLayout.module.css'
 
 function DefaultLayout({children}) {
     return ( 
         <div>
-            <div className="header">
+            <div className={styles.header}>
                 <Header />
             </div>
 
-            <div className={style.container}>
+            <div className={styles.container}>
                 {children}
             </div>
 
-            <div className="footer">
+            <div className={styles.footer}>
                 <Footer />
             </div>
         </div>

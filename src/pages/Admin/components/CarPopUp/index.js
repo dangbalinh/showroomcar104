@@ -216,176 +216,188 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
     return (
         <>
             {type === "create" && (
-                <div className={styles.bPopup}>
-                    <CancelIcon
-                        className={styles.bPopup__close}
-                        onClick={() => setType("")}
-                    />
-                    <h3>Thêm sản phẩm</h3>
-                    <br />
-                    <Box sx={{ flexGrow: 1 }}>
-                        <form onSubmit={handleCreateCar}>
+                <div>
+                    <div className={styles.overlay}></div>
+                    <div className={styles.bPopup}>
+                        <CancelIcon
+                            className={styles.bPopup__close}
+                            onClick={() => setType("")}
+                        />
+                        <h3>Thêm sản phẩm</h3>
+                        <br />
+                        <Box sx={{ flexGrow: 1 }}>
+                            <form onSubmit={handleCreateCar}>
+                                <Grid container>
+                                    {inputId.map((item, index) => (
+                                        <Grid key={index} item xs={4} sx={{ height: "93px" }}>
+                                            <label htmlFor={item[index]} className={styles.label}>
+                                                {textValue[index]}
+                                            </label>
+                                            <br />
+                                            <input
+                                                id={item[index]}
+                                                name={item[index]}
+                                                type={inputType[index]}
+                                                required
+                                                placeholder={placeHolder[index]}
+                                                onChange={(e) =>
+                                                    useStateEvent[index](
+                                                        e.target.value
+                                                    )
+                                                }
+                                                onBlur={handleBlur}
+                                            />
+                                            {/* <div>{errorName}</div> */}
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                                <div className={styles.btn}>
+                                    <Button
+                                        variant="contained"
+                                        color="success"
+                                        size="large"
+                                        sx={{
+                                            fontSize: "14px",
+                                            width: "160px",
+                                            margin: "24px 0 0"
+                                        }}
+                                        type={"submit"}
+                                    // onClick={handleCreateCar}
+                                    >
+                                        Thêm dữ liệu
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        color="error"
+                                        size="large"
+                                        sx={{
+                                            fontSize: "14px",
+                                            width: "100px",
+                                            margin: "24px 36px 0 20px"
+                                        }}
+                                        onClick={() => setType("")}
+                                    >
+                                        Hủy
+                                    </Button>
+                                </div>
+                            </form>
+                        </Box>
+                    </div>
+
+                </div>
+            )}
+            {type === "update" && (
+                <div>
+                    <div className={styles.overlay}></div>
+
+                    <div className={styles.bPopup}>
+                        <CancelIcon
+                            className={styles.bPopup__close}
+                            onClick={() => setType("")}
+                        />
+                        <h3>Cập nhật dữ liệu xe</h3>
+
+                        <Box sx={{ flexGrow: 1, marginTop: '20px' }}>
                             <Grid container>
                                 {inputId.map((item, index) => (
-                                    <Grid key={index} item xs={4} sx={{ height: "93px" }}>
-                                        <label htmlFor={item[index]} className={styles.label}>
+                                    <Grid key={index} item xs={4} sx={{ height: '93px' }}>
+                                        <label htmlFor={item[index]}>
                                             {textValue[index]}
                                         </label>
                                         <br />
                                         <input
                                             id={item[index]}
-                                            name={item[index]}
-                                            type={inputType[index]}
-                                            required
-                                            placeholder={placeHolder[index]}
+                                            type="text"
+                                            value={inputValue[index]}
                                             onChange={(e) =>
-                                                useStateEvent[index](
-                                                    e.target.value
-                                                )
+                                                useStateEvent[index](e.target.value)
                                             }
-                                            onBlur={handleBlur}
                                         />
-                                        {/* <div>{errorName}</div> */}
                                     </Grid>
                                 ))}
                             </Grid>
-                            <div className={styles.btn}>
-                                <Button
-                                    variant="contained"
-                                    color="success"
-                                    size="large"
-                                    sx={{
-                                        fontSize: "14px",
-                                        width: "160px",
-                                        margin: "24px 0 0"
-                                    }}
-                                    type={"submit"}
-                                // onClick={handleCreateCar}
-                                >
-                                    Thêm dữ liệu
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    color="warning"
-                                    size="large"
-                                    sx={{
-                                        fontSize: "14px",
-                                        width: "100px",
-                                        margin: "24px 36px 0 20px"
-                                    }}
-                                    onClick={() => setType("")}
-                                >
-                                    Hủy
-                                </Button>
-                            </div>
-                        </form>
-                    </Box>
-                </div>
-            )}
-            {type === "update" && (
-                <div className={styles.bPopup}>
-                    <CancelIcon
-                        className={styles.bPopup__close}
-                        onClick={() => setType("")}
-                    />
-                    <h3>Cập nhật dữ liệu xe</h3>
-
-                    <Box sx={{ flexGrow: 1, marginTop: '20px' }}>
-                        <Grid container>
-                            {inputId.map((item, index) => (
-                                <Grid key={index} item xs={4} sx={{ height: '93px' }}>
-                                    <label htmlFor={item[index]}>
-                                        {textValue[index]}
-                                    </label>
-                                    <br />
-                                    <input
-                                        id={item[index]}
-                                        type="text"
-                                        value={inputValue[index]}
-                                        onChange={(e) =>
-                                            useStateEvent[index](e.target.value)
-                                        }
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </Box>
-                    <div className={styles.btn}>
-                        <Button
-                            variant="contained"
-                            color="success"
-                            size="large"
-                            sx={{
-                                fontSize: "14px",
-                                width: "160px",
-                            }}
-                            onClick={handleUpdateCar}
-                        >
-                            Cập nhật
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="warning"
-                            size="large"
-                            sx={{
-                                fontSize: "14px",
-                                width: "100px",
-                                margin: "0 36px 0 20px"
-                            }}
-                            onClick={() => setType("")}
-                        >
-                            Hủy
-                        </Button>
+                        </Box>
+                        <div className={styles.btn}>
+                            <Button
+                                variant="contained"
+                                color="success"
+                                size="large"
+                                sx={{
+                                    fontSize: "14px",
+                                    width: "160px",
+                                }}
+                                onClick={handleUpdateCar}
+                            >
+                                Cập nhật
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="error"
+                                size="large"
+                                sx={{
+                                    fontSize: "14px",
+                                    width: "100px",
+                                    margin: "0 36px 0 20px"
+                                }}
+                                onClick={() => setType("")}
+                            >
+                                Hủy
+                            </Button>
+                        </div>
                     </div>
                 </div>
             )}
             {type === "read" && (
-                <div className={styles.bPopup}>
-                    <CancelIcon
-                        className={styles.bPopup__close}
-                        onClick={() => setType("")}
-                    />
-                    <h3>Thông tin chi tiết</h3>
-
-                    <Box sx={{ flexGrow: 1, marginTop: "24px" }}>
-                        <Grid container>
-                            <Grid item xs={6}>
-                                {/* <div className={styles.infoCar}> */}
-                                <Item sx={{ fontWeight: "bold" }}>{"Tên xe: " + updateCar.ten}</Item>
-                                <Item>{"Thương hiệu: " + updateCar.thuonghieu}</Item>
-                                <Item>{"Động cơ: " + updateCar.dongco}</Item>
-                                <Item>{"Số chỗ ngồi: " + updateCar.socho}</Item>
-                                <Item>{"Kích thước: " + updateCar.kichthuoc}</Item>
-                                <Item>{"Vận tốc tối đa: " + updateCar.vantoctoida}</Item>
-                                <Item>{"Dung tích: " + updateCar.dungtich}</Item>
-                                <Item>{"Tiêu hao nhiên liệu: " + updateCar.tieuhaonhienlieu}</Item>
-                                <Item>{"Công suất cực đại: " + updateCar.congsuatcucdai}</Item>
-                                <Item>{"Màu sắc: " + updateCar.mausac}</Item>
-                                {/* </div> */}
-                            </Grid>
-                            <Grid item xs={6}>
-                                <img src={updateCar.hinhanh} className={styles.readImg}></img>
-                                <Item sx={{ textAlign: 'center', fontSize: '28px', color: "red", fontWeight: "bold" }}>
-                                    {"Giá: " + updateCar.gia.toLocaleString() + " VNĐ"}
-                                </Item>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                    <div className={styles.btn}>
-                        <Button
-                            variant="contained"
-                            color="warning"
-                            size="large"
-                            sx={{
-                                fontSize: "14px",
-                                width: "100px",
-                                margin: "24px 36px 0 20px"
-                            }}
+                <div>
+                    <div className={styles.overlay}></div>
+                    <div className={styles.bPopup}>
+                        <CancelIcon
+                            className={styles.bPopup__close}
                             onClick={() => setType("")}
-                        >
-                            Hủy
-                        </Button>
+                        />
+                        <h3>Thông tin chi tiết</h3>
+
+                        <Box sx={{ flexGrow: 1, marginTop: "24px" }}>
+                            <Grid container>
+                                <Grid item xs={6}>
+                                    {/* <div className={styles.infoCar}> */}
+                                    <Item sx={{ fontWeight: "bold" }}>{"Tên xe: " + updateCar.ten}</Item>
+                                    <Item>{"Thương hiệu: " + updateCar.thuonghieu}</Item>
+                                    <Item>{"Động cơ: " + updateCar.dongco}</Item>
+                                    <Item>{"Số chỗ ngồi: " + updateCar.socho}</Item>
+                                    <Item>{"Kích thước: " + updateCar.kichthuoc}</Item>
+                                    <Item>{"Vận tốc tối đa: " + updateCar.vantoctoida}</Item>
+                                    <Item>{"Dung tích: " + updateCar.dungtich}</Item>
+                                    <Item>{"Tiêu hao nhiên liệu: " + updateCar.tieuhaonhienlieu}</Item>
+                                    <Item>{"Công suất cực đại: " + updateCar.congsuatcucdai}</Item>
+                                    <Item>{"Màu sắc: " + updateCar.mausac}</Item>
+                                    {/* </div> */}
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <img src={updateCar.hinhanh} className={styles.readImg}></img>
+                                    <Item sx={{ textAlign: 'center', fontSize: '24px', color: "red", fontWeight: "bold" }}>
+                                        {"Giá: " + updateCar.gia.toLocaleString() + " VNĐ"}
+                                    </Item>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                        <div className={styles.btn}>
+                            <Button
+                                variant="contained"
+                                color="error"
+                                size="large"
+                                sx={{
+                                    fontSize: "14px",
+                                    width: "100px",
+                                    margin: "24px -10px -12px 0"
+                                }}
+                                onClick={() => setType("")}
+                            >
+                                Hủy
+                            </Button>
+                        </div>
                     </div>
+
                 </div>
             )}
         </>

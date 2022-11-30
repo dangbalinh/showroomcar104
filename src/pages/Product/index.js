@@ -2,22 +2,25 @@ import styles from "./Product.module.css"
 import ItemProduct from "./ItemProduct";
 import HandleApi from "../../Apis/HandleApi"
 import { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom'
 
 function Product() {
   const [data, setData] = useState([]);
+  const { carBrand } = useParams();
+
+console.log(carBrand);
 
   useEffect(() => {
-    HandleApi.getCarByBrand("HonDa1").then((res) => {
+    HandleApi.getCarByBrand(carBrand).then((res) => {
       console.log(res);
       setData(res.cars)
     })
     .catch(err => console.log(err));
   }, [])
-
-console.log(data);
+  console.log(data);
     return ( 
-      <>
-        <h1 className={styles.nameType}>Honda</h1>
+      <div className={styles.productContainer} >
+        <h1 className={styles.nameType}>{carBrand}</h1>
         <div className={styles.containerLayout}>
               {data.map((item, index) => (
                 <div  key={index}>
@@ -25,7 +28,7 @@ console.log(data);
                 </div>
               ))}
         </div>
-      </>
+      </div>
      );
 }
 

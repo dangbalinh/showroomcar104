@@ -8,8 +8,10 @@ const Dropdown = ({ submenus, dropdownstate }) => {
       >
         {submenus.map((submenu) => (
           <li className={classes.submenu}>
-            <Link style={{}}
-            to={submenu.url}>{submenu.title}</Link>
+            {/* <Link style={{}}
+            to={submenu.url}>{submenu.title}</Link> */}
+
+            <a href={submenu.url}>{submenu.title}</a>
           </li>
         ))}
       </ul>
