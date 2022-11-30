@@ -9,14 +9,15 @@ import { Routes, Route } from "react-router-dom";
 function Admin() {
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-        color: theme.palette.text.secondary
+        color: theme.palette.text.secondary,
+        maxWidth: '100%',
     }));
 
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container>
                 <Grid item xs={2.5}>
-                    <Item>
+                    <Item sx={{ position: 'fixed', top: 0, left: 0, bottom: 0, minWidth: '318px' }}>
                         <AdminSidebar />
                     </Item>
                 </Grid>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import styles from "./CarPopUp.module.css";
-import './CarPopUp.css'
+import styles from "./NewsPopUp.module.css";
+import './NewsPopUp.css'
 import CancelIcon from "@mui/icons-material/Cancel";
 import Swal from "sweetalert2";
 import { Box } from "@mui/system";
@@ -205,127 +205,136 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
     return (
         <>
             {type === "create" && (
-                <div className={styles.bPopup}>
-                    <CancelIcon
-                        className={styles.bPopup__close}
-                        onClick={() => setType("")}
-                    />
-                    <h3>Thêm sản phẩm</h3>
-                    <br />
-                    <Box sx={{ flexGrow: 1 }}>
-                        <form onSubmit={handleCreatePost}>
+                <div>
+                    <div className={styles.overlay}></div>
+
+                    <div className={styles.bPopup}>
+                        <CancelIcon
+                            className={styles.bPopup__close}
+                            onClick={() => setType("")}
+                        />
+                        <h3>Thêm sản phẩm</h3>
+                        <br />
+                        <Box sx={{ flexGrow: 1 }}>
+                            <form onSubmit={handleCreatePost}>
+                                <Grid container>
+                                    {inputId.map((item, index) => (
+                                        <Grid key={index} item xs={4} sx={{ height: "93px" }}>
+                                            <label htmlFor={item[index]} className={styles.label}>
+                                                {textValue[index]}
+                                            </label>
+                                            <br />
+                                            <input
+                                                id={item[index]}
+                                                name={item[index]}
+                                                type={inputType[index]}
+                                                required
+                                                placeholder={placeHolder[index]}
+                                                onChange={(e) =>
+                                                    useStateEvent[index](
+                                                        e.target.value
+                                                    )
+                                                }
+                                                onBlur={handleBlur}
+                                            />
+                                            {/* <div>{errorName}</div> */}
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                                <div className={styles.btn}>
+                                    <Button
+                                        variant="contained"
+                                        color="success"
+                                        size="large"
+                                        sx={{
+                                            fontSize: "14px",
+                                            width: "160px",
+                                            margin: "24px 0 0"
+                                        }}
+                                        type={"submit"}
+                                    // onClick={handleCreatePost}
+                                    >
+                                        Thêm dữ liệu
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        color="warning"
+                                        size="large"
+                                        sx={{
+                                            fontSize: "14px",
+                                            width: "100px",
+                                            margin: "24px 36px 0 20px"
+                                        }}
+                                        onClick={() => setType("")}
+                                    >
+                                        Hủy
+                                    </Button>
+                                </div>
+                            </form>
+                        </Box>
+                    </div>
+
+                </div>
+            )}
+            {type === "update" && (
+                <div>
+                    <div className={styles.overlay}></div>
+
+                    <div className={styles.bPopup}>
+                        <CancelIcon
+                            className={styles.bPopup__close}
+                            onClick={() => setType("")}
+                        />
+                        <h3>Cập nhật dữ liệu xe</h3>
+
+                        <Box sx={{ flexGrow: 1 }}>
                             <Grid container>
                                 {inputId.map((item, index) => (
-                                    <Grid key={index} item xs={4} sx={{ height: "93px"}}>
-                                        <label htmlFor={item[index]} className={styles.label}>
+                                    <Grid key={index} item xs={4}>
+                                        <label htmlFor={item[index]}>
                                             {textValue[index]}
                                         </label>
                                         <br />
                                         <input
                                             id={item[index]}
-                                            name={item[index]}
-                                            type={inputType[index]}
-                                            required
-                                            placeholder={placeHolder[index]}
+                                            type="text"
+                                            value={inputValue[index]}
                                             onChange={(e) =>
-                                                useStateEvent[index](
-                                                    e.target.value
-                                                )
+                                                useStateEvent[index](e.target.value)
                                             }
-                                            onBlur={handleBlur}
                                         />
-                                        {/* <div>{errorName}</div> */}
                                     </Grid>
                                 ))}
                             </Grid>
-                            <div className={styles.btn}>
-                                <Button
-                                    variant="contained"
-                                    color="success"
-                                    size="large"
-                                    sx={{
-                                        fontSize: "14px",
-                                        width: "160px",
-                                        margin: "24px 0 0"
-                                    }}
-                                    type={"submit"}
-                                    // onClick={handleCreatePost}
-                                >
-                                    Thêm dữ liệu
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    color="warning"
-                                    size="large"
-                                    sx={{
-                                        fontSize: "14px",
-                                        width: "100px",
-                                        margin: "24px 36px 0 20px"
-                                    }}
-                                    onClick={() => setType("")}
-                                >
-                                    Hủy
-                                </Button>
-                            </div>
-                        </form>
-                    </Box>
-                </div>
-            )}
-            {type === "update" && (
-                <div className={styles.bPopup}>
-                    <CancelIcon
-                        className={styles.bPopup__close}
-                        onClick={() => setType("")}
-                    />
-                    <h3>Cập nhật dữ liệu xe</h3>
-
-                    <Box sx={{ flexGrow: 1 }}>
-                        <Grid container>
-                            {inputId.map((item, index) => (
-                                <Grid key={index} item xs={4}>
-                                    <label htmlFor={item[index]}>
-                                        {textValue[index]}
-                                    </label>
-                                    <br />
-                                    <input
-                                        id={item[index]}
-                                        type="text"
-                                        value={inputValue[index]}
-                                        onChange={(e) =>
-                                            useStateEvent[index](e.target.value)
-                                        }
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </Box>
-                    <div className={styles.btn}>
-                        <Button
-                            variant="contained"
-                            color="success"
-                            size="large"
-                            sx={{
-                                fontSize: "14px",
-                                width: "160px",
-                                margin: "24px 0 0"
-                            }}
-                            onClick={handleUpdatePost}
-                        >
-                            Cập nhật
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="warning"
-                            size="large"
-                            sx={{
-                                fontSize: "14px",
-                                width: "100px",
-                                margin: "24px 36px 0 20px"
-                            }}
-                            onClick={() => setType("")}
-                        >
-                            Hủy
-                        </Button>
+                        </Box>
+                        <div className={styles.btn}>
+                            <Button
+                                variant="contained"
+                                color="success"
+                                size="large"
+                                sx={{
+                                    fontSize: "14px",
+                                    width: "160px",
+                                    margin: "24px 0 0"
+                                }}
+                                onClick={handleUpdatePost}
+                            >
+                                Cập nhật
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="warning"
+                                size="large"
+                                sx={{
+                                    fontSize: "14px",
+                                    width: "100px",
+                                    margin: "24px 36px 0 20px"
+                                }}
+                                onClick={() => setType("")}
+                            >
+                                Hủy
+                            </Button>
+                        </div>
                     </div>
                 </div>
             )}
