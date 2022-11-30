@@ -21,9 +21,9 @@ const publicRoutes = [
     { path: "/readnews", component: ReadNews },
     { path: "/form", component: Form },
     { path: "/detailproduct/:productId", component: DetailProduct },
-    { path: "/register", component: Register },
-    { path: "/login", component: Login },
-    { path: '/search', component: Search},
+    { path: "/register/*", component: Register, layout: null },
+    { path: "/login", component: Login, layout: null },
+    { path: '/search', component: Search },
     { path: "/admin/*", component: Admin, layout: null },
     { path: "/*", component: NotFound },
 ];

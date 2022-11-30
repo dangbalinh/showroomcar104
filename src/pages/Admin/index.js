@@ -1,10 +1,11 @@
 import styles from "./Admin.module.css";
 import { styled } from "@mui/material/styles";
 import { Grid, Paper, Box } from "@mui/material";
+import { Routes, Route } from "react-router-dom";
 import AdminSidebar from "./components/AdminSidebar";
 import CarManagement from "./components/CarManagement";
 import NewsManagement from "./components/NewsManagement"
-import { Routes, Route } from "react-router-dom";
+import FormManagement from "./components/FormManagement";
 
 function Admin() {
     const Item = styled(Paper)(({ theme }) => ({
@@ -32,6 +33,10 @@ function Admin() {
                             <Route
                                 path="/news-management"
                                 element={<NewsManagement />}
+                            />
+                            <Route
+                                path="/form-management"
+                                element={<FormManagement />}
                             />
                         </Routes>
                     </Item>
