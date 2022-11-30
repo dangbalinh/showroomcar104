@@ -3,9 +3,9 @@ function Introduce() {
     return ( 
         <div className={style.introBackground}>
             <div className={style.introContent}>
-                <p className={style.introTitle1}>
-                    KING SPEED
-                </p> 
+                <h1 className={style.introTitle1}>
+                    <span>K</span>I<span>NG SPEED</span>    
+                </h1> 
                 <p className={style.content}>
                     Lời đầu tiên cho phép King Speed Việt Nam được gửi tới quý khách hàng của King Speed 
                     một lời chào trân trọng, lời chúc sức khỏe, an khang và thịnh vượng. 
