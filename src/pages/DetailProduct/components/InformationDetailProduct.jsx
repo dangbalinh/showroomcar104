@@ -1,33 +1,44 @@
 import style from './InformationDetailProduct.module.css';
 import images from '../../../assets/image';
 import HandleApi from '../../../Apis/HandleApi';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom'
+import { useState } from 'react';
+
 function InformationDetailProduct(pros) {
-    
+    const { productId } = useParams();
+    const [data, setData] = useState([]);
+    console.log(productId);
+    useEffect(() => {
+        HandleApi.getCarById(productId).then(res => setData(res));
+        console.log(data);
+    }, [])
     return (
         <div className={style.information}>
             <div className={style.information__heading}>
-                <h1 className={style.information__heading__carName}>BWM X3</h1>
+                <h1 className={style.information__heading__carName}>{data.ten}</h1>
                 <hr className={style.line}/>
-                <h2 className={style.information__heading__priceCar}>2.959.000</h2>
+                <h2 className={style.information__heading__priceCar}>{data.gia + " VNĐ"}</h2>
                 <hr className={style.line}/>
             </div>
             <div className={style.information__content}>
                 <div className={style.information__content__info}>
-                    <p className={style.information__content__carName}>Tên xe: BWM X M Sport 2022</p>
-                    <p className={style.information__content__branch}>Thương hiệu: BWM</p>
-                    <p className={style.information__content__origin}>UNITED STATES OF AMERICA</p>
-                    <p className={style.information__content__trademark}>Kiểu dáng: SUV</p>
-                    <p className={style.information__content__numberSeats}>Số chô: 5</p>
-                    <p className={style.information__content__engine}>Động cơ: "B48252hp Xăng 2.0L Twin Power Turbo</p>
-                    <p className={style.information__content__gear}>Hộp số: Tự động 8 cấp Steptronic</p>
-                    <p className={style.information__content__speedUp}>Tăng tốc(0-100): 6.4s</p>
-                    <p className={style.information__content__consumeEnergy}>Tiêu thụ nhiên liệu trung bình(L/100): 7.4L</p>
-                    <p className={style.information__content__size}>Kích thước(Dài/Rộng/Cao): 4708-1891-1676</p>
-                    <p className={style.information__content__baseLength}>Chiều dài cơ sở: 2864(mm)</p>
-                    <p className={style.information__content__equip}>Trang bị: "M-Sport" thể thao</p>
+                    <p className={style.information__content__carName}>{"Tên xe: " + data.ten}</p>
+                    <p className={style.information__content__branch}>{"Thương hiệu: " + data.thuonghieu}</p>
+                    <p className={style.information__content__origin}>{"Nguồn gốc: " + data.nguongoc}</p>
+                    <p className={style.information__content__trademark}>{"Dung tích: " + data.dungtich}</p>
+                    <p className={style.information__content__numberSeats}>{"Số chỗ: " + data.socho}</p>
+                    <p className={style.information__content__engine}>{"Động cơ: " + data.dongco}</p>
+                    <p className={style.information__content__gear}>{"Màu sắc: " + data.mausac}</p>
+                    <p className={style.information__content__speedUp}>{"Vận tốc tối đa: " + data.vantoctoida}</p>
+                    <p className={style.information__content__speedUp}>{"Công suất tối đa: " + data.congsuattoida}</p>
+                    <p className={style.information__content__consumeEnergy}>{"Tiêu hao nhiên liệu (l/100km): " + data.tieuhaonhienlieu}</p>
+                    <p className={style.information__content__size}>{"Kích thước (dài x rộng x cao): " + data.kichthuoc}</p>
+                    <p className={style.information__content__baseLength}>{"Năm sản xuất: " + data.namsanxuat}</p>
+                    <p className={style.information__content__equip}>{"Mô tả: " + data.mota}</p>
                 </div>  
                 <div className={style.informaton__content__img}>
-                    <img src={images.bmwImg} alt="BMW M3" />
+                    <img src={data.hinhanh} alt="BMW M3" />
                 </div>
             </div>
             <div className={style.buy}>

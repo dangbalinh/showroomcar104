@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import classes from './Login.module.css'
 import { Link, Navigate } from 'react-router-dom'
-
+import ForgetPass from './ForgetPass/ForgetPass'
 
 
 const Login = () => {
-    
+    const [modal, setModal] = useState(false)  
+
     const checkEmailFormat=(email)=>{
         const re =/\S+@\S+\.\S+/;
         return re.test(email);
@@ -104,20 +105,22 @@ const Login = () => {
     
   return (
     <div className={classes.register}>
-            <h2>Login</h2>
+            <h1>Login</h1>
             <form className={classes.form}>
                 <p>
                     <label>Email address</label><br/>
                     <input className={classes.input} value={inputs.email}
                     type="email" name="email" onChange={handleChange} onBlur={handleBlur} required />
-                    <p style={{color: "red", padding: "10px"}}>{errors.emailError}</p>
+                    <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.emailError}</p>
                 </p>
-                <p>
+                <p  className={classes.forgetchoice} >
                     <label>Password</label><br/>
                     <input className={classes.input} value={inputs.password}
                     type="password" name="password" onChange={handleChange} onBlur={handleBlur} required />
-                    <p style={{color: "red", padding: "10px"}}>{errors.passwordError}</p>
-                    <Link to="/">Forget password?</Link>
+                    <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.passwordError}</p>
+                    <div className={classes.direct}>
+                    <p onClick={()=>setModal(true)}>Forget password?</p>
+                    </div>
                 </p>
                 <p style={{ textAlign:"center", fontSize:"16px"}}>
                     <button className={classes.button} id="sub_btn" type="submit"
@@ -125,6 +128,12 @@ const Login = () => {
                     Haven't had an account? Go to <Link to="/register">Register</Link>
                 </p>
             </form>
+            {modal && <ForgetPass closewindow={setModal}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            inputs={inputs}
+            errors={errors}
+            ></ForgetPass>}
         </div>
   )
 }

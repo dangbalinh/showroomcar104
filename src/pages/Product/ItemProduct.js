@@ -11,7 +11,7 @@ function ItemProduct({data}){
                         src={data.hinhanh}
                         alt="carimg"
                     />
-                    <a className={styles.linkDiscover} href="/detailproduct">Details</a>
+                    <a className={styles.linkDiscover} href={`/detailproduct/${data._id}`}>Details</a>
                 </div>
             </div>
         </>

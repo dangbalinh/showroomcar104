@@ -1,7 +1,7 @@
 import style from "./Introduce.module.css"
 function Introduce() {
-    return (
-        <div>
+    return ( 
+        <div className={style.introBackground}>
             <div className={style.introContent}>
                 <p className={style.introTitle1}>
                     KING SPEED
@@ -53,6 +53,7 @@ function Introduce() {
                         lòng khi sử dụng sản phẩm và dịch vụ của King Speed tại Việt Nam.
                     </p> 
                 </p>         
+
             </div>
         </div>
      );

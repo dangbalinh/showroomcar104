@@ -12,21 +12,29 @@
     padding: 90px 0; 
 }
 .register h2{
-    color: #fff;
+    color: #8A0000;
     font-size: xx-large;
     position: relative;
+    margin-bottom: 20px;
+}
+
+.registerlayout{
+    width: 70%;
+    margin: auto;
+    background-color: rgba(255, 255, 255, .5);
+    /*border: 0.5px solid #8A0000;*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 22px;
+    display: flex;
 }
 .form {
-    width: 30%;;
+    width: 50%;;
     display: inline-block;
-    background: #e7e7e7;
-    border: 1px solid #ddd;
     border-radius: 22px;
-    padding: 2rem;
+    padding: 0 60px;
     margin: 2rem 0 1rem 0;
     text-align: left;
     font-size: 20px;
-    position: relative;
 }
 .form span{
     font-size: 15px;
@@ -35,7 +43,14 @@
 .form label{
     margin-top: 20px;
 }
-
+.registerimg{
+    width: 50%;
+    background-image: url(../../assets/image/newsimg.png);
+    background-repeat: no-repeat;
+    background-size:cover;
+    border-radius: 22px 0 0 22px ;
+    background-position: 50%;
+}
 .input {
     margin: 20px 0 0 0;
     max-width: 100%;
@@ -63,4 +78,3 @@
 .button:hover{
     background: #de4545;
 }
-

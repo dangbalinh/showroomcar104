@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import styles from "./NewsPopUp.module.css";
-import './NewsPopUp.css'
+import styles from "./FormPopUp.module.css";
+import './FormPopUp.css'
 import CancelIcon from "@mui/icons-material/Cancel";
 import Swal from "sweetalert2";
 import { Box } from "@mui/system";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Paper } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
 import HandleApi from "../../../../Apis/HandleApi";
 
-function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
+function FormPopup({ type, setType, updatePost, setUpdatePost }) {
     const [thumbnail, setThumbnail] = useState();
     const [carName, setCarName] = useState();
     const [brand, setBrand] = useState();
@@ -165,7 +167,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
 
     const handleUpdatePost = async () => {
         console.log(updatePost._id);
-        HandleApi.updateCar(updatePost._id, data)
+        HandleApi.updatePost(updatePost._id, data)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -201,6 +203,18 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
             setSpeed(updatePost.vantoctoida);
         }
     }, [updatePost]);
+
+
+    // CSS MUI GRID ITEM
+    const Item = styled(Paper)(({ theme }) => ({
+        backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+        padding: theme.spacing(1),
+        textAlign: "left",
+        color: "#000",
+        boxShadow: "none",
+        fontSize: 16,
+        // marginLeft: "20px",
+    }));
 
     return (
         <>
@@ -258,7 +272,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                     </Button>
                                     <Button
                                         variant="contained"
-                                        color="error"
+                                        color="warning"
                                         size="large"
                                         sx={{
                                             fontSize: "14px",
@@ -323,7 +337,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                             </Button>
                             <Button
                                 variant="contained"
-                                color="error"
+                                color="warning"
                                 size="large"
                                 sx={{
                                     fontSize: "14px",
@@ -338,8 +352,46 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                     </div>
                 </div>
             )}
+            {type === "read" && (
+                <div>
+                    <div className={styles.overlay}></div>
+                    <div className={styles.bPopup}>
+                        <CancelIcon
+                            className={styles.bPopup__close}
+                            onClick={() => setType("")}
+                        />
+                        <h3>Tin nhắn</h3>
+
+                        <Box sx={{ flexGrow: 1, marginTop: "24px" }}>
+                            <Grid container>
+                                <Grid item xs={12}>
+                                    {/* <div className={styles.infoCar}> */}
+                                    <Item sx={{ fontWeight: "bold" }}>{"Tên xe: " + updatePost.ten}</Item>
+                                    {/* </div> */}
+                                </Grid>
+                            </Grid>
+                        </Box>
+                        <div className={styles.btn}>
+                            <Button
+                                variant="contained"
+                                color="error"
+                                size="large"
+                                sx={{
+                                    fontSize: "14px",
+                                    width: "100px",
+                                    margin: "24px -10px -12px 0"
+                                }}
+                                onClick={() => setType("")}
+                            >
+                                Hủy
+                            </Button>
+                        </div>
+                    </div>
+
+                </div>
+            )}
         </>
     );
 }
 
-export default NewsPopup;
+export default FormPopup;

@@ -4,7 +4,7 @@ import ItemCar from "./ItemCar";
 import "./SliderCar.css";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
-
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import HandleApi from "../../../Apis/HandleApi";
 
@@ -12,11 +12,6 @@ function SliderCar() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        // const fetchData = async () => {
-        //     const response = await axios.get('https://637c281172f3ce38ea9be907.mockapi.io/carapi/products',);
-        //     setData(response.data);
-        // }
-        // fetchData();
         HandleApi.getAllCar().then((res) => {
             setData(res.cars);
           });
@@ -40,9 +35,9 @@ function SliderCar() {
             <div className="CarSlider__Costume">
                 <SplideTrack>
                     {data.map((product) => (
-                        <SplideSlide key={product.id}>
-                            <ItemCar data={product} />
-                        </SplideSlide>
+                            <SplideSlide key={product.id}>
+                                <ItemCar data={product} />
+                            </SplideSlide>
                     ))}
                 </SplideTrack>
             </div>

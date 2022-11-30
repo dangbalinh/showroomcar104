@@ -15,6 +15,7 @@ function Vehicle() {
       }, [branch])
     function selectBranchCar(x) {
         setBranch(x);
+
     }
     const names = [
     {

@@ -1,54 +1,70 @@
-.b-popup {
-    position: absolute;
-    text-align: left;
-    width: 744px;
-    /* height: 993px; */
-    background: #FFFFFF;
-    box-shadow: 0px 20px 50px rgba(18, 17, 39, 0.08);
-    border-radius: 16px;
-    padding: 52px 48px;
+.overlay {
+    background-color: #000;
+    opacity: 0.65;
+    position: fixed;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
+    transition: all 0.3s linear;
+}
+
+.bPopup {
+    position: fixed;
+    text-align: left;
+    width: 900px;
+    /* height: 993px; */
+    background: #ffffff;
+    box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    padding: 52px 52px 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 999;
-  }
-  
-  .b-popup > h3 {
+}
+
+.bPopup > h3 {
     font-weight: bold;
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
     padding-bottom: 10px;
-  }
-  
-  .b-popup > label {
-    margin-top: 20px;
+    font-size: 2rem;
+}
+
+.bPopup label {
     font-weight: 500;
     font-size: 16px;
     color: #121127;
     margin-bottom: 5px;
-  }
-  
-  .b-popup > input {
-    height: 52px;
+}
+
+.bPopup input {
+    height: 48px;
     width: 100%;
-    padding-left: 10px;
+    max-width: 90% !important;
+    padding: 0 10px;
     border-radius: 8px;
+    border: 1.5px solid;
+    /* border-color: red; */
     outline: none;
-  }
-  
-  .b-popup > input[type="file"] {
+    margin: 6px 0 0;
+}
+
+.bPopup > input[type="file"] {
     padding-left: 0;
     border-radius: 0;
-  }
-  
-  .b-popup__label-wrap {
+}   
+
+.bPopup__label-wrap {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-  }
-  
-  .b-popup__label {
+}
+
+.bPopup__label {
     border: 1px solid rgba(18, 17, 39, 0.12);
     border-radius: 100px;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     color: #121127;
     font-weight: 600;
     font-size: 12px;
@@ -56,35 +72,35 @@
     margin-bottom: 10px;
     padding: 10px 20px;
     cursor: pointer;
-  }
-  
-  .b-popup__label-active {
-    background-color: #F2F3FF;
-    border: 2px solid #DEE0FA;
+}
+
+.bPopup__label-active {
+    background-color: #f2f3ff;
+    border: 2px solid #dee0fa;
     border-radius: 100px;
     font-weight: 600;
     font-size: 12px;
     margin-left: 10px;
     margin-bottom: 10px;
     padding: 10px 20px;
-    color: #27A8D6;
+    color: #27a8d6;
     cursor: pointer;
-  }
-  
-  .b-popup > p {
+}
+
+.bPopup > p {
     margin: 20px 0;
-    color: #FF5F40;
+    color: #ff5f40;
     font-weight: 500;
     font-size: 16px;
-  }
-  
-  .b-popup__button {
+}
+
+.bPopup__button {
     display: flex;
     align-items: center;
-  }
-  
-  .b-popup__button button {
-    background-color: #88D6A3;
+}
+
+.bPopup__button button {
+    background-color: #88d6a3;
     border-radius: 8px;
     padding: 14px 32px;
     width: 133px;
@@ -98,10 +114,10 @@
     color: #fff;
     font-weight: bold;
     margin-right: 40px;
-  }
-  
-  .b-popup__button a {
-    background-color: #AFAFAF;
+}
+
+.bPopup__button a {
+    background-color: #afafaf;
     border-radius: 8px;
     width: 96px;
     height: 48px;
@@ -112,21 +128,26 @@
     padding: 14px 32px;
     color: #fff;
     text-decoration: none;
-  }
-  
-  
-  .b-popup__close {
+}
+
+.bPopup__close {
     position: absolute;
     top: 0;
     right: 0;
-    margin-top: 50px;
-    margin-right: 50px;
-    font-size: 30px;
-    color:gray;
+    margin-top: 12px;
+    margin-right: 10px;
+    width: 28px !important;
+    height: 28px !important;
+    color: #d32f2f;
     width: fit-content;
     cursor: pointer;
-  }
-  
-  .b-popup__close:hover {
-    color:rgb(70, 70, 70);
-  }
+}
+
+.bPopup__close:hover {
+    color: rgb(70, 70, 70);
+}
+
+.btn {
+    display: flex; 
+    justify-content: flex-end;
+}

@@ -11,21 +11,23 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 import Search from "../pages/SearchResult"
+import PassReset from "../pages/Login/ForgetPass/PassReset";
 
 const publicRoutes = [
     { path: "/", component: Home },
     { path: "/contact", component: Contact },
-    { path: "/product", component: Product },
+    { path: "/product/:carBrand", component: Product },
     { path: "/news", component: News },
     { path: "/introduce", component: Introduce },
-    { path: "/readnews/:id", component: ReadNews },
+    { path: "/readnews", component: ReadNews },
     { path: "/form", component: Form },
-    { path: "/detailproduct", component: DetailProduct },
-    { path: "/register", component: Register },
-    { path: "/login", component: Login },
-    { path: '/search', component: Search},
-    { path: "/admin/*", component: Admin },
+    { path: "/detailproduct/:productId", component: DetailProduct },
+    { path: "/register/*", component: Register, layout: null },
+    { path: "/login", component: Login, layout: null },
+    { path: '/search', component: Search },
+    { path: "/admin/*", component: Admin, layout: null },
     { path: "/*", component: NotFound },
+    { path: "/passreset/:id/:token", component: PassReset },
 ];
 
 export {

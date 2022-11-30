@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import styles from "./NewsPopUp.module.css";
-import './NewsPopUp.css'
+import styles from "./CarPopUp.module.css";
+import './CarPopUp.css'
 import CancelIcon from "@mui/icons-material/Cancel";
 import Swal from "sweetalert2";
 import { Box } from "@mui/system";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, Paper } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import HandleApi from "../../../../Apis/HandleApi";
 
-function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
+function CarPopup({ type, setType, updateCar, setUpdateCar }) {
     const [thumbnail, setThumbnail] = useState();
     const [carName, setCarName] = useState();
     const [brand, setBrand] = useState();
@@ -144,7 +145,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
         }
     };
 
-    const handleCreatePost = async (e) => {
+    const handleCreateCar = async (e) => {
         e.preventDefault();
         HandleApi.createCar(data)
             .then(async (res) => {
@@ -163,9 +164,9 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
             });
     };
 
-    const handleUpdatePost = async () => {
-        console.log(updatePost._id);
-        HandleApi.updateCar(updatePost._id, data)
+    const handleUpdateCar = async () => {
+        console.log(updateCar._id);
+        HandleApi.updateCar(updateCar._id, data)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -174,7 +175,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                setUpdatePost({});
+                setUpdateCar({});
                 window.location.reload();
             })
             .catch((err) => {
@@ -183,31 +184,40 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
     };
 
     useEffect(() => {
-        if (updatePost !== {}) {
-            setCarName(updatePost.ten);
-            setPrice(updatePost.gia);
-            setThumbnail(updatePost.hinhanh);
-            setBrand(updatePost.thuonghieu);
-            setSeat(updatePost.socho);
-            setEngine(updatePost.dongco);
-            setPower(updatePost.congsuatcucdai);
-            setCapacity(updatePost.dungtich);
-            setYear(updatePost.namsanxuat);
-            setFuel(updatePost.tieuhaonhienlieu);
-            setSize(updatePost.kichthuoc);
-            setColor(updatePost.mausac);
-            setDesc(updatePost.mota);
-            setOrigin(updatePost.nguongoc);
-            setSpeed(updatePost.vantoctoida);
+        if (updateCar !== {}) {
+            setCarName(updateCar.ten);
+            setPrice(updateCar.gia);
+            setThumbnail(updateCar.hinhanh);
+            setBrand(updateCar.thuonghieu);
+            setSeat(updateCar.socho);
+            setEngine(updateCar.dongco);
+            setPower(updateCar.congsuatcucdai);
+            setCapacity(updateCar.dungtich);
+            setYear(updateCar.namsanxuat);
+            setFuel(updateCar.tieuhaonhienlieu);
+            setSize(updateCar.kichthuoc);
+            setColor(updateCar.mausac);
+            setDesc(updateCar.mota);
+            setOrigin(updateCar.nguongoc);
+            setSpeed(updateCar.vantoctoida);
         }
-    }, [updatePost]);
+    }, [updateCar]);
+
+    const Item = styled(Paper)(({ theme }) => ({
+        backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+        padding: theme.spacing(1),
+        textAlign: "left",
+        color: "#000",
+        boxShadow: "none",
+        fontSize: 16,
+        // marginLeft: "20px",
+    }));
 
     return (
         <>
             {type === "create" && (
                 <div>
                     <div className={styles.overlay}></div>
-
                     <div className={styles.bPopup}>
                         <CancelIcon
                             className={styles.bPopup__close}
@@ -216,7 +226,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                         <h3>Thêm sản phẩm</h3>
                         <br />
                         <Box sx={{ flexGrow: 1 }}>
-                            <form onSubmit={handleCreatePost}>
+                            <form onSubmit={handleCreateCar}>
                                 <Grid container>
                                     {inputId.map((item, index) => (
                                         <Grid key={index} item xs={4} sx={{ height: "93px" }}>
@@ -252,7 +262,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                             margin: "24px 0 0"
                                         }}
                                         type={"submit"}
-                                    // onClick={handleCreatePost}
+                                    // onClick={handleCreateCar}
                                     >
                                         Thêm dữ liệu
                                     </Button>
@@ -287,10 +297,10 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                         />
                         <h3>Cập nhật dữ liệu xe</h3>
 
-                        <Box sx={{ flexGrow: 1 }}>
+                        <Box sx={{ flexGrow: 1, marginTop: '20px' }}>
                             <Grid container>
                                 {inputId.map((item, index) => (
-                                    <Grid key={index} item xs={4}>
+                                    <Grid key={index} item xs={4} sx={{ height: '93px' }}>
                                         <label htmlFor={item[index]}>
                                             {textValue[index]}
                                         </label>
@@ -315,9 +325,8 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                 sx={{
                                     fontSize: "14px",
                                     width: "160px",
-                                    margin: "24px 0 0"
                                 }}
-                                onClick={handleUpdatePost}
+                                onClick={handleUpdateCar}
                             >
                                 Cập nhật
                             </Button>
@@ -328,7 +337,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                 sx={{
                                     fontSize: "14px",
                                     width: "100px",
-                                    margin: "24px 36px 0 20px"
+                                    margin: "0 36px 0 20px"
                                 }}
                                 onClick={() => setType("")}
                             >
@@ -338,8 +347,61 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                     </div>
                 </div>
             )}
+            {type === "read" && (
+                <div>
+                    <div className={styles.overlay}></div>
+                    <div className={styles.bPopup}>
+                        <CancelIcon
+                            className={styles.bPopup__close}
+                            onClick={() => setType("")}
+                        />
+                        <h3>Thông tin chi tiết</h3>
+
+                        <Box sx={{ flexGrow: 1, marginTop: "24px" }}>
+                            <Grid container>
+                                <Grid item xs={6}>
+                                    {/* <div className={styles.infoCar}> */}
+                                    <Item sx={{ fontWeight: "bold" }}>{"Tên xe: " + updateCar.ten}</Item>
+                                    <Item>{"Thương hiệu: " + updateCar.thuonghieu}</Item>
+                                    <Item>{"Động cơ: " + updateCar.dongco}</Item>
+                                    <Item>{"Số chỗ ngồi: " + updateCar.socho}</Item>
+                                    <Item>{"Kích thước: " + updateCar.kichthuoc}</Item>
+                                    <Item>{"Vận tốc tối đa: " + updateCar.vantoctoida}</Item>
+                                    <Item>{"Dung tích: " + updateCar.dungtich}</Item>
+                                    <Item>{"Tiêu hao nhiên liệu: " + updateCar.tieuhaonhienlieu}</Item>
+                                    <Item>{"Công suất cực đại: " + updateCar.congsuatcucdai}</Item>
+                                    <Item>{"Màu sắc: " + updateCar.mausac}</Item>
+                                    {/* </div> */}
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <img src={updateCar.hinhanh} className={styles.readImg}></img>
+                                    <Item sx={{ textAlign: 'center', fontSize: '24px', color: "red", fontWeight: "bold" }}>
+                                        {"Giá: " + updateCar.gia.toLocaleString() + " VNĐ"}
+                                    </Item>
+                                </Grid>
+                            </Grid>
+                        </Box>
+                        <div className={styles.btn}>
+                            <Button
+                                variant="contained"
+                                color="error"
+                                size="large"
+                                sx={{
+                                    fontSize: "14px",
+                                    width: "100px",
+                                    margin: "24px -10px -12px 0"
+                                }}
+                                onClick={() => setType("")}
+                            >
+                                Hủy
+                            </Button>
+                        </div>
+                    </div>
+
+                </div>
+            )}
         </>
     );
 }
 
-export default NewsPopup;
+export default CarPopup;
