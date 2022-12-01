@@ -1,0 +1,83 @@
+.UserPage{
+    margin-top: 100px;
+}
+.UserSide{
+    padding-top: 15px;
+    text-align: center;
+}
+
+.UserSide p{
+    color: white;
+    font-size: 25px;
+    margin:15px 0;
+}
+
+.UserSide .SideMail{
+    color: rgb(241, 179, 179);
+    font-size: 15px;
+}
+.UserSide .button {
+    margin-top: 2rem;
+    padding: .6rem;
+    width: 85%;
+    font-size: 20px;
+    background: #ffffff;
+    border: none;
+    color: #8A0000;
+    transition: all .5s;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.UserSide .button:hover{
+    background: #966e6e;
+}
+/*--------------------------------------*/
+.OrderSide{
+    margin: 10px  ;
+}
+
+.OrderSide p{
+   text-align: center; 
+   font-size: 15px;
+}
+.OrderSide h2{
+    font-size: 30px;
+    margin: 30px 0;
+}
+.OrderSide img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+
+/*-------------------------------------*/
+.DetailCard{
+    background: rgb(255,255,255);
+background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.9082983535210959) 28%, rgba(91,0,0,1) 50%, rgba(138,0,0,1) 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    padding-bottom: 50px;
+    margin: 20px;
+}
+.DetailCard h2{
+    text-align: center;
+    font-size: xx-large;
+}
+
+.DetailCard p{
+    font-size: 15px;
+}
+.DetailCard img {
+    height: 60px;
+    width: auto;
+}
+.DetailCard .DetailImg{
+    margin: 15px;
+}
+
+.DetailCard .asa
+{
+    background-color: aqua;
+}
