@@ -1,6 +1,7 @@
 const images = {
     carXImg: require('./carX.jpg'),
     carYImg: require('./carY.jpg'),
+    carZImg: require('./carZ.jpg'),
     sliderImg: require('./slider.png'),
     bmwImg: require('./bmwcar.png'),
     infoImg: require('./imginfo.jpg'),
