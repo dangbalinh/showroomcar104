@@ -12,6 +12,7 @@ import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 import Search from "../pages/SearchResult"
 import PassReset from "../pages/Login/ForgetPass/PassReset";
+import UserInfoPage from "../pages/UserInfoPage";
 
 const publicRoutes = [
     { path: "/", component: Home },
@@ -27,7 +28,9 @@ const publicRoutes = [
     { path: '/search', component: Search },
     { path: "/admin/*", component: Admin, layout: null },
     { path: "/*", component: NotFound },
-    { path: "/passreset/:id/:token", component: PassReset },
+    { path: "/passreset/:token", component: PassReset,layout:null },
+    { path: "/user", component: UserInfoPage },
+
 ];
 
 export {

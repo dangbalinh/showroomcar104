@@ -17,6 +17,11 @@ function Header (){
         {menuItems.map((item) => 
             (<Menu item={item}></Menu>)
         )}
+        <li className={classes.menu}>
+        <NavLink to='/user'
+           className={({isActive}) => (isActive ? classes.active : classes.item)}
+           end>user</NavLink>
+        </li>
         </ul>
         <AutoComplete data={autoCompleteData}></AutoComplete>
         <div className={classes.groupicon}>
