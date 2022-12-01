@@ -1,8 +1,9 @@
 .container {
-  padding: 0 160px;
+  padding: 160px;
   clear: both;
   margin-bottom: 150px;
 }
+
 .newsSection {
   display: flex;
   margin-top: 58px;
@@ -25,6 +26,7 @@
   flex: 1;
   margin-left: 25px;
 }
+
 .divider {
   border-left: 1px solid rgba(0, 0, 0, 0.8);
 }
@@ -80,7 +82,7 @@
   margin: 10px 0;
 }
 
-.image + .paragraphText {
+.image+.paragraphText {
   text-align: center;
   font-style: italic;
   font-size: 16px;

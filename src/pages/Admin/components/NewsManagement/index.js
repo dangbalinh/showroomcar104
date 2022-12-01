@@ -31,6 +31,7 @@ import {
 
 import NewsPopUp from "../NewsPopUp"
 import HandleApi from "../../../../Apis/HandleApi";
+import HandleNewsApi from "../../../../Apis/HandleNewsApi"
 import Swal from "sweetalert2";
 
 function NewsManagement() {
@@ -39,7 +40,6 @@ function NewsManagement() {
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
     const [searchValue, setSearchValue] = useState("");
-    const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
     const [updatePost, setUpdatePost] = useState({});
     const [Id, setId] = useState(0);
@@ -47,84 +47,26 @@ function NewsManagement() {
 
     const inputRef = useRef();
 
-    const gridColumn = [1, 1, 3, 4, 1.5, 1.5];
+    const gridColumn = [1, 2, 2, 4, 1, 1, 1];
     const gridTitle = [
         "STT",
         "Ảnh",
-        "Chủ đề",
-        "Nội dung",
+        "Tiêu đề",
+        "Mô tả",
         "Ngày đăng",
+        "Chi tiết",
         ""
     ];
 
-    const valueSelect = [
-        "Honda",
-        "Toyota",
-        "Vinfast",
-        "Mercedes",
-        "BMW",
-        "Kia"
-    ];
-
-    const pageSize = 15;
+    const pageSize = 5;
 
     // Get API
     useEffect(() => {
-        HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-            setData(res.cars);
-            setDataLength(res.totalCars);
+        HandleNewsApi.getNewsByPageIndex(pageIndex).then((res) => {
+            setData(res.news);
+            setDataLength(res.totalNews);
         });
     }, [pageIndex]);
-
-    // handle Filter select
-    useEffect(() => {
-        switch (typeCar) {
-            case "All":
-                setNewData(data);
-                HandleApi.getAllCar().then((res) =>
-                    setDataLength(res.totalCars)
-                );
-                break;
-            case "Honda":
-                HandleApi.getCarByBrand("Honda").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Toyota":
-                HandleApi.getCarByBrand("Toyota").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Mercedes":
-                HandleApi.getCarByBrand("Mercedes").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Vinfast":
-                HandleApi.getCarByBrand("Vinfast").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Kia":
-                HandleApi.getCarByBrand("Kia").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "BMW":
-                HandleApi.getCarByBrand("BMW").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            default:
-                break;
-        }
-    }, [data, typeCar]);
 
     // handle event
     const handleChange = (event) => {
@@ -132,14 +74,14 @@ function NewsManagement() {
     };
 
     const handleDeleteItem = async (id) => {
-        HandleApi.deleteCar(id)
+        HandleNewsApi.deleteNews(id)
             .then((res) => {
                 console.log(id);
                 setOpenDeleteModal(false);
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Xóa dữ liệu xe thành công!",
+                    title: "Xóa tin tức thành công!",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -150,7 +92,7 @@ function NewsManagement() {
                 Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: "Xóa bài viết thất bại!",
+                    title: "Xóa tin tức thất bại!",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -176,21 +118,6 @@ function NewsManagement() {
     };
 
     // handle search event
-    useEffect(() => {
-        console.log(searchValue);
-        if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
-                await setDataLength(data.length);
-            });
-        } else {
-            HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-                setData(res.cars);
-                setDataLength(res.totalCars);
-            });
-        }
-    }, [searchValue]);
-
     const handleInputChange = (e) => {
         setSearchValue(e.target.value);
     };
@@ -290,44 +217,6 @@ function NewsManagement() {
                                 <Search className={styles.searchIcon} />
                             </button>
                         </div>
-                        <FormControl
-                            className={styles.filter}
-                            sx={{ m: 1, minWidth: 220, height: 44 }}
-                            size="medium"
-                        >
-                            <InputLabel
-                                sx={{ fontSize: "14px", fontWeight: "600" }}
-                                id="input-label"
-                            >
-                                Hãng xe
-                            </InputLabel>
-                            <Select
-                                className={styles.filter_wrap}
-                                labelId="input-label"
-                                label="typecar"
-                                defaultValue={typeCar}
-                                value={typeCar}
-                                MenuProps={MenuSelectProps}
-                                onChange={handleChange}
-                            >
-                                <MenuItem
-                                    className={styles.menuItem}
-                                    value="All"
-                                    selected
-                                >
-                                    Tất cả
-                                </MenuItem>
-                                {valueSelect.map((item, index) => (
-                                    <MenuItem
-                                        key={index}
-                                        value={item}
-                                        className={styles.menuItem}
-                                    >
-                                        {item}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
                     </div>
 
                     <Button
@@ -357,30 +246,37 @@ function NewsManagement() {
                         </Grid>
 
                         {/* Render data */}
-                        {newData?.map((item, index) => (
+                        {data?.map((item, index) => (
                             <Grid container key={index}>
                                 <Grid item xs={1}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
-                                <Grid item xs={1}>
+                                <Grid item xs={2}>
                                     <Item>
                                         <img
-                                            src={item.hinhanh}
+                                            src={item.image}
                                             className={styles.content_image}
-                                            alt="Car"
+                                            alt="news"
                                         />
                                     </Item>
                                 </Grid>
-                                <Grid item xs={3}>
-                                    <Item>{item.ten}</Item>
+                                <Grid item xs={2}>
+                                    <Item>{item.title}</Item>
                                 </Grid>
                                 <Grid item xs={4}>
-                                    <Item>{item.thuonghieu}</Item>
+                                    <Item>{item.description}</Item>
                                 </Grid>
-                                <Grid item xs={1.5}>
-                                    <Item>{item.gia + " VNĐ"}</Item>
+                                <Grid item xs={1}>
+                                    <Item>{item.dateSource}</Item>
                                 </Grid>
-                                <Grid item xs={1.5}>
+                                <Grid item xs={1}>
+                                    <Item>
+                                        <Button>
+                                            Chi tiết
+                                        </Button>
+                                    </Item>
+                                </Grid>
+                                <Grid item xs={1}>
                                     <Item>
                                         <IconButton
                                             color="primary"
@@ -423,7 +319,7 @@ function NewsManagement() {
                                                     textAlign="center"
                                                 >
                                                     Bạn có chắc chắn muốn xóa dữ
-                                                    liệu xe này?
+                                                    liệu tin tức này?
                                                 </Typography>
                                                 <Typography
                                                     id="modal-modal-description"

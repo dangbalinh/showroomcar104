@@ -5,134 +5,64 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import Swal from "sweetalert2";
 import { Box } from "@mui/system";
 import { Grid, Button } from "@mui/material";
-import HandleApi from "../../../../Apis/HandleApi";
+import HandleNewsApi from "../../../../Apis/HandleNewsApi";
 
 function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
-    const [thumbnail, setThumbnail] = useState();
-    const [carName, setCarName] = useState();
-    const [brand, setBrand] = useState();
-    const [price, setPrice] = useState();
-    const [engine, setEngine] = useState();
-    const [seat, setSeat] = useState();
-    const [power, setPower] = useState();
-    const [capacity, setCapacity] = useState();
-    const [fuel, setFuel] = useState();
-    const [speed, setSpeed] = useState();
-    const [origin, setOrigin] = useState();
-    const [color, setColor] = useState();
-    const [desc, setDesc] = useState();
-    const [year, setYear] = useState();
-    const [size, setSize] = useState();
+    const [image, setImage] = useState();
+    const [title, setTitle] = useState();
+    const [description, setDescription] = useState();
+    const [dateSource, setDateSource] = useState();
+    const [detail, setDetail] = useState();
 
     const inputId = [
-        "name",
-        "thumbnail",
-        "brand",
-        "price",
-        "engine",
-        "seat",
-        "size",
-        "origin",
-        "speed",
-        "capacity",
-        "fuel",
-        "power",
-        "color",
-        "year",
-        "desc"
+        "image",
+        "title",
+        "description",
+        "dateSource",
+        "detail",
     ];
 
     const useStateEvent = [
-        setCarName,
-        setThumbnail,
-        setBrand,
-        setPrice,
-        setEngine,
-        setSeat,
-        setSize,
-        setOrigin,
-        setSpeed,
-        setCapacity,
-        setFuel,
-        setPower,
-        setColor,
-        setYear,
-        setDesc
+        setImage,
+        setTitle,
+        setDescription,
+        setDateSource,
+        setDetail
     ];
 
     const placeHolder = [
-        "Nhập tên xe",
-        "Nhập hình ảnh",
-        "Nhập thương hiệu",
-        "Nhập giá xe",
-        "Nhập động cơ",
-        "Nhập số chỗ ngồi",
-        "Nhập kích thước",
-        "Nhập nguồn gốc",
-        "Nhập tốc độ tối đa",
-        "Nhập dung tích",
-        "Nhập tiêu hao nhiên liệu",
-        "Nhập công suất tối đa",
-        "Nhập màu sắc xe",
-        "Nhập năm sản xuất",
-        "Nhập mô tả"
+        "Nhập link ảnh",
+        "Nhập tiêu đề",
+        "Nhập mô tả",
+        "Nhập ngày đăng",
+        "Nhập chi tiết",
     ];
 
     const textValue = [
-        "Tên xe",
-        "Hình ảnh",
-        "Thương hiệu",
-        "Giá xe",
-        "Động cơ",
-        "Số chỗ ngồi",
-        "Kích thước (AxBxC)",
-        "Nguồn gốc",
-        "Tốc độ tối đa (Km/h)",
-        "Dung tích (cc)",
-        "Tiêu hao nhiên liệu (l/100km)",
-        "Công suất tối đa",
-        "Màu sắc",
-        "Năm sản xuất",
-        "Mô tả"
+        "Link ảnh",
+        "Tiêu đề",
+        "Mô tả",
+        "Ngày đăng",
+        "Chi tiết",
     ];
 
-    const inputType = ["text", "text", "text", "number", "text", "number", "text", "text", "text", "text", "text", "text", "text", "number", "text"];
+    const inputType = ["text", "text", "text", "text", "text"]
 
     const inputValue = [
-        carName,
-        thumbnail,
-        brand,
-        price,
-        engine,
-        seat,
-        size,
-        origin,
-        speed,
-        capacity,
-        fuel,
-        power,
-        color,
-        year,
-        desc
+        image,
+        title,
+        description,
+        dateSource,
+        detail
     ];
 
     // object data
     const data = {
-        ten: carName,
-        thuonghieu: brand,
-        hinhanh: thumbnail,
-        gia: Number(price),
-        dongco: engine,
-        socho: Number(seat),
-        kichthuoc: size,
-        nguongoc: origin,
-        dungtich: capacity,
-        congsuatcucdai: power,
-        mausac: color,
-        tieuhaonhienlieu: fuel,
-        mota: desc,
-        namsanxuat: Number(year),
-        vantoctoida: speed
+        image: image,
+        title: title,
+        description: description,
+        dateSource: dateSource,
+        detail: detail,
     };
 
     const handleBlur = (e) => {
@@ -146,7 +76,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
 
     const handleCreatePost = async (e) => {
         e.preventDefault();
-        HandleApi.createCar(data)
+        HandleNewsApi.createNews(data)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -165,7 +95,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
 
     const handleUpdatePost = async () => {
         console.log(updatePost._id);
-        HandleApi.updateCar(updatePost._id, data)
+        HandleNewsApi.updateNews(updatePost._id, data)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -184,21 +114,11 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
 
     useEffect(() => {
         if (updatePost !== {}) {
-            setCarName(updatePost.ten);
-            setPrice(updatePost.gia);
-            setThumbnail(updatePost.hinhanh);
-            setBrand(updatePost.thuonghieu);
-            setSeat(updatePost.socho);
-            setEngine(updatePost.dongco);
-            setPower(updatePost.congsuatcucdai);
-            setCapacity(updatePost.dungtich);
-            setYear(updatePost.namsanxuat);
-            setFuel(updatePost.tieuhaonhienlieu);
-            setSize(updatePost.kichthuoc);
-            setColor(updatePost.mausac);
-            setDesc(updatePost.mota);
-            setOrigin(updatePost.nguongoc);
-            setSpeed(updatePost.vantoctoida);
+            setTitle(updatePost.title);
+            setImage(updatePost.title);
+            setDescription(updatePost.description);
+            setDateSource(updatePost.dateSource);
+            setDetail(updatePost.detail);
         }
     }, [updatePost]);
 
@@ -213,7 +133,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                             className={styles.bPopup__close}
                             onClick={() => setType("")}
                         />
-                        <h3>Thêm sản phẩm</h3>
+                        <h3>Thêm tin tức</h3>
                         <br />
                         <Box sx={{ flexGrow: 1 }}>
                             <form onSubmit={handleCreatePost}>
@@ -285,7 +205,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                             className={styles.bPopup__close}
                             onClick={() => setType("")}
                         />
-                        <h3>Cập nhật dữ liệu xe</h3>
+                        <h3>Cập nhật dữ liệu tin tức</h3>
 
                         <Box sx={{ flexGrow: 1 }}>
                             <Grid container>
