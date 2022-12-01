@@ -1,40 +1,58 @@
-import HeroSlider, {Slide} from 'hero-slider';
+import HeroSlider, {Slide , Overlay} from 'hero-slider';
+import style from './SliderImage.module.css';
+import Wrapper from './Wrapper';
 import images from '../../../assets/image';
 function SliderImage() {
     return(
         <HeroSlider
-            slidingAnimation="left_to_right"
-            orientation="horizontal"
-            initialSlide={1}
-            onBeforeChange={(previousSlide,nextSlide) => console.log("onBeforeChange",previousSlide,nextSlide)}    
-            onChange={nextSlide => console.log("onChange",nextSlide)}
-            onAfterChange={nextSlide => console.log("onAfterChange",nextSlide)}
-            style = {{
-                backgroundColor: "rgba(0,0,0,0.33)"
-            }}
-            settings={{
-                slidingDuration: 100,
-                // slidingDelay: 100,
-                shouldAutoplay: true,
-                shouldDisplayButtons: true,
-                autoplayDuration: 100,
-                height: "100vh"
-            }}       
+        height={"100vh"}
+        autoplay controller={{
+          initialSlide: 1,
+          slidingDuration: 400,
+          slidingDelay: 200,
+          onSliding: (nextSlide) =>
+            console.debug("onSliding(nextSlide): ", nextSlide),
+          onBeforeSliding: (previousSlide, nextSlide) =>
+            console.debug(
+              "onBeforeSliding(previousSlide, nextSlide): ",
+              previousSlide,
+              nextSlide
+            ),
+          onAfterSliding: (nextSlide) =>
+            console.debug("onAfterSliding(nextSlide): ", nextSlide)
+        }}
         >
+        <Overlay>
+            <Wrapper>
+                <a href="/introduce" className={style.showStarted}>
+                    Get Started
+                </a>
+                <div className={style.showDescription}>
+                    Twenty-four years in the market - helping people save money
+                    and time all around the states.
+                </div>
+            </Wrapper>
+        </Overlay>
             <Slide
+                
+                shouldRenderMask
+                label="County Clare - Ireland"
                 background={{
+                    
                     backgroundImageSrc: images.carXImg,
-                    backgroundAttachment: "fixed"
-                }}/>
+                }}
+                />
             <Slide
+                shouldRenderMask
+                label="County Clare - Ireland"
                 background={{
                     backgroundImageSrc: images.carYImg,
-                    backgroundAttachment: "fixed"
                 }}/>
             <Slide
+                shouldRenderMask
+                label="County Clare - Ireland"
                 background={{
-                    backgroundImageSrc: images.sliderImg,
-                    backgroundAttachment: "fixed"
+                    backgroundImageSrc: images.carZImg,
                 }}/>
             
         </HeroSlider>

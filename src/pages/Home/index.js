@@ -19,17 +19,8 @@ function Home() {
     
     return (
         <div>
-            <div className={style.showCar}>
-                {/* <img src={images.carXImg} alt="Car" className={style.showImg}/> */}
-                  
+            <div className={style.showCar}>                  
                 <SliderImage/>
-                <a href="/introduce" className={style.showStarted}>
-                    Get Started
-                </a>
-                <div className={style.showDescription}>
-                    Twenty-four years in the market - helping people save money
-                    and time all around the states.
-                </div>
             </div>
 
             <div className={style.contact}>
