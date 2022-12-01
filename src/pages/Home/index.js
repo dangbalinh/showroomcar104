@@ -6,6 +6,7 @@ import SliderCar from "./components/SliderCar";
 import SliderAdvice from "./components/SliderAdvice";
 import Vehicle from "./components/Vehicle";
 import BackToTopButton from "./components/BackToTopButton";
+import SliderImage from "./components/SliderImage";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
 import { TipsAndUpdatesOutlined } from "@mui/icons-material";
@@ -19,9 +20,9 @@ function Home() {
     return (
         <div>
             <div className={style.showCar}>
-                <img src={images.carXImg} alt="Car" className={style.showImg}/>
+                {/* <img src={images.carXImg} alt="Car" className={style.showImg}/> */}
                   
-                
+                <SliderImage/>
                 <a href="/introduce" className={style.showStarted}>
                     Get Started
                 </a>
