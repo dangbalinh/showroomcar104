@@ -1,30 +1,28 @@
 import images from "../../../../assets/image";
 import styles from "./FormManagement.module.css";
 import "./FormManagement.css";
-
 import { styled } from "@mui/material/styles";
 import {
-    Add,
-    Search,
-    Edit,
     ErrorOutline,
     DeleteOutline,
-    Cancel,
-    RestartAlt
 } from "@mui/icons-material";
-import { useState, useEffect, memo, useRef } from "react";
+import { useState, useEffect, memo } from "react";
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 import {
     IconButton,
     Modal,
-    MenuItem,
     Button,
     Grid,
     Paper,
-    Select,
+    TextField,
     Box,
     Typography,
     Stack,
-    Pagination
+    Pagination,
+    InputLabel,
 } from "@mui/material";
 
 import FormPopUp from "../FormPopUp"
@@ -36,13 +34,13 @@ function FormManagement() {
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
     const [type, setType] = useState("");
-    const [searchValue, setSearchValue] = useState("");
+    const [selectedDay, setSelectedDay] = useState();
     const [newData, setNewData] = useState([]);
     const [updatePost, setUpdatePost] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
-    const inputRef = useRef();
+    const pageSize = 15;
 
     const gridColumn = [1, 2, 1.5, 2, 4.5, 1];
     const gridTitle = [
@@ -53,8 +51,6 @@ function FormManagement() {
         "Tin nhắn",
         ""
     ];
-
-    const pageSize = 15;
 
     // Get API
     useEffect(() => {
@@ -108,35 +104,9 @@ function FormManagement() {
             });
     }
 
-    useEffect(() => {
-        HandleApiForm.getAllForm().then(res => setData(res.forms))
-    }, []);
-
-
-    // handle search event
-    // useEffect(() => {
-    //     console.log(searchValue);
-    //     if (searchValue.trim() !== "") {
-    //         HandleApiForm.getCarByName(searchValue).then(async (res) => {
-    //             await setData(res.cars);
-    //             await setDataLength(data.length);
-    //         });
-    //     } else {
-    //         HandleApiForm.getCarByPageIndex(pageIndex).then((res) => {
-    //             setData(res.cars);
-    //             setDataLength(res.totalCars);
-    //         });
-    //     }
-    // }, [searchValue]);
-
-    const handleInputChange = (e) => {
-        setSearchValue(e.target.value);
-    };
-
-    const handleClear = () => {
-        setSearchValue("");
-        inputRef.current.focus();
-    };
+    const handleDayChange = (e) => {
+        setSelectedDay(e);
+    }
 
     // Custome CSS MUI
     const ItemMain = styled(Paper)(({ theme }) => ({
@@ -177,7 +147,6 @@ function FormManagement() {
         }
     }
 
-
     return (
         <div>
             <header className={styles.header}>
@@ -191,32 +160,16 @@ function FormManagement() {
             <div className={styles.container}>
                 <div className={styles.container_header}>
                     <div className={styles.funcContainer}>
-                        <div className={styles.search}>
-                            <input
-                                ref={inputRef}
-                                value={searchValue}
-                                type="text"
-                                placeholder="Tìm kiếm form"
-                                spellCheck={false}
-                                onChange={handleInputChange}
-                            />
-
-                            {!!searchValue && (
-                                <button
-                                    className={styles.clear}
-                                    onClick={handleClear}
-                                >
-                                    <Cancel className={styles.clearIcon} />
-                                </button>
-                            )}
-
-                            <button
-                                className={styles.searchBtn}
-                                onMouseDown={(e) => e.preventDefault()}
-                            >
-                                <Search className={styles.searchIcon} />
-                            </button>
-                        </div>
+                        <LocalizationProvider dateAdapter={AdapterDayjs} >
+                            <Stack spacing={3}>
+                                <DesktopDatePicker 
+                                    inputFormat="DD/MM/YYYY"
+                                    value={selectedDay}
+                                    onChange={handleDayChange}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+                            </Stack>
+                        </LocalizationProvider>
                     </div>
                 </div>
 
