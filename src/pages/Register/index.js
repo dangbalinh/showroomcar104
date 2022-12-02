@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import classes from './Register.module.css'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const Register = () => {
+  const navigate = useNavigate();
     
     const checkEmailFormat=(email)=>{
         const re =/\S+@\S+\.\S+/;
@@ -52,7 +54,7 @@ const Register = () => {
         }
         if(e.target.name==="password")
         {
-            if(e.target.value.length<6||e.target.value==="")
+            if(e.target.value.length<8||e.target.value==="")
             {e.target.style.borderColor="red"; 
             setErrors((prev)=>{
                 return{
@@ -131,11 +133,21 @@ const Register = () => {
         return data;
       }
     */
-    const sendRequest = async()=>{
+      const sendRequestSU = async ()=>{
         const res = await axios
-        .get("https://showroomcar104.onrender.com/cars")
-        .catch((err)=>console.log(err))
+        .post(`https://showroomcar104.onrender.com/users`,{
+          name:String(inputs.name),
+          email:String(inputs.email),
+          password:String(inputs.password)
+        })
+        .catch((err)=>{
+          Swal.fire({
+            icon: 'error',
+            title: 'Your email existed!',
+          });
+          console.log(err);})
         const data = await res.data;
+        console.log(data);
         return data;
       }
     const handleSubmit = (e) => {
@@ -144,15 +156,15 @@ const Register = () => {
             e.preventDefault();
             alert("Register failed!");
         } else {
-        e.preventDefault();
-        console.log(inputs);
-        //testApi
-        sendRequest()
-        .then ((data)=>console.log(data.cars.filter(dt =>{
-          const regex = new RegExp("o",'gi');
-          return dt.ten.match(regex);
-        })))
-        }
+          e.preventDefault();
+          sendRequestSU()
+          .then((data)=>{
+            localStorage.setItem("user",JSON.stringify(data.user));
+            localStorage.setItem("token",JSON.stringify(data.token));
+          })
+          .then(()=>{const id = localStorage.getItem("userId"); console.log(id);})
+          .then(()=>navigate("/"));
+          }
     }
     
   return (

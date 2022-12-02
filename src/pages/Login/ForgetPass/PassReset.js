@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
 import classes from '../Login.module.css'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useParams } from 'react-router-dom'
+import Swal from 'sweetalert2'
+
 
 const PassReset = () => {
+  const navigate = useNavigate();
+  const token = useParams().token.toString();
+  console.log(token);
     const [inputs, setInputs] = useState({
         password:""
       })
@@ -66,25 +72,22 @@ const PassReset = () => {
             }
         }
     }
-    /*const sendRequestSU = async ()=>{
-        const res = await axios
-        .post(`someapihere/signup`,{
-          name:String(inputs.name),
-          email:String(inputs.email),
-          password:String(inputs.password)
+    const authAxios = axios.create({
+      baseURL: 'https://showroomcar104.onrender.com/users',
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
+    const sendRequestSU = async ()=>{
+        const res = await authAxios
+        .put(`/resetPassword`,{
+          password:String(inputs.password),
+          verifyToken:String(token)
         })
         .catch((err)=>console.log(err))
     
         const data = await res.data;
         console.log(data);
-        return data;
-      }
-    */
-    const sendRequest = async()=>{
-        const res = await axios
-        .get("https://showroomcar104.onrender.com/cars")
-        .catch((err)=>console.log(err))
-        const data = await res.data;
         return data;
       }
     const handleSubmit = (e) => {
@@ -93,14 +96,16 @@ const PassReset = () => {
             e.preventDefault();
             alert("Register failed!");
         } else {
-        e.preventDefault();
-        console.log(inputs);
-        //testApi
-        sendRequest()
-        .then ((data)=>console.log(data.cars.filter(dt =>{
-          const regex = new RegExp("o",'gi');
-          return dt.ten.match(regex);
-        })))
+          e.preventDefault();
+          sendRequestSU()
+          .then((data)=>{ console.log(data);
+          })
+          .then(()=>Swal.fire({
+            icon: 'success',
+            title: 'Congrats',
+            text: 'Your email has been changed',
+          }))
+          .then(()=>navigate("/login"));
         }
     }
     

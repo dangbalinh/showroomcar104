@@ -28,7 +28,7 @@ const publicRoutes = [
     { path: '/search', component: Search },
     { path: "/admin/*", component: Admin, layout: null },
     { path: "/*", component: NotFound },
-    { path: "/passreset/:token", component: PassReset,layout:null },
+    { path: "/resetpass/:token", component: PassReset,layout:null },
     { path: "/user", component: UserInfoPage },
 
 ];

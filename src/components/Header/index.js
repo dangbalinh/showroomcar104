@@ -17,22 +17,24 @@ function Header (){
         {menuItems.map((item) => 
             (<Menu item={item}></Menu>)
         )}
+        {("user" in localStorage)? 
         <li className={classes.menu}>
         <NavLink to='/user'
            className={({isActive}) => (isActive ? classes.active : classes.item)}
-           end>user</NavLink>
+           end>USER</NavLink>
+        </li> :
+        <li className={classes.menu}>
+        <NavLink to='/login'
+           className={({isActive}) => (isActive ? classes.active : classes.item)}
+           end>LOGIN</NavLink>
         </li>
+        }
         </ul>
         <AutoComplete data={autoCompleteData}></AutoComplete>
         <div className={classes.groupicon}>
            <a href=''><InstagramIcon fontSize="large" className={classes.icon}/></a>
            <a href=''><YouTubeIcon fontSize="large" className={classes.icon}/></a>
            <a href=''><FacebookIcon fontSize="large"className={classes.icon}/></a>
-        </div>
-        <div className={classes.todashboard}>
-            <Link to={true? "/login":"/admin"}  style={{ color: 'inherit', textDecoration: 'inherit'}}>
-            Go to dashboard
-            </Link>
         </div>
     </div>
     </div>);

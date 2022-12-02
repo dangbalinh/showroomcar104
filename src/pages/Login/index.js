@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import classes from './Login.module.css'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ForgetPass from './ForgetPass/ForgetPass'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 
 const Login = () => {
     const [modal, setModal] = useState(false)  
-
+    const navigate = useNavigate();
     const checkEmailFormat=(email)=>{
         const re =/\S+@\S+\.\S+/;
         return re.test(email);
@@ -53,7 +55,7 @@ const Login = () => {
         }
         if(e.target.type==="password")
         {
-            if(e.target.value.length<6||e.target.value==="")
+            if(e.target.value.length<8||e.target.value==="")
             {e.target.style.borderColor="red"; 
             setErrors((prev)=>{
                 return{
@@ -75,19 +77,22 @@ const Login = () => {
         }
         
     }
-    /*const sendRequestSU = async ()=>{
+    const sendRequestSU = async ()=>{
         const res = await axios
-        .post(`someapihere/signup`,{
+        .post(`https://showroomcar104.onrender.com/users/login`,{
           email:String(inputs.email),
           password:String(inputs.password)
         })
-        .catch((err)=>console.log(err))
-    
+        .catch((err)=>{
+          Swal.fire({
+          icon: 'error',
+          title: 'Your email or password is not correct',
+        });
+        console.log(err);})
         const data = await res.data;
         console.log(data);
         return data;
       }
-    */
     const handleSubmit = (e) => {
         if(errors.emailError!=""|| errors.passwordError!="")
         {
@@ -95,11 +100,12 @@ const Login = () => {
             alert("Login failed!");
         } else {
         e.preventDefault();
-        console.log(inputs);
-        /*sendRequestSU()
-        .then((data)=>localStorage.setItem("userId",data.user._id))
-        .then(()=>dispath(authAction.login()))
-        .then(()=>navigate("/dashboard"));*/
+        sendRequestSU()
+        .then((data)=>{
+          localStorage.setItem("user",JSON.stringify(data.user));
+          localStorage.setItem("token",JSON.stringify(data.token));
+        })
+        .then(()=>navigate("/"));
         }
     }
     
