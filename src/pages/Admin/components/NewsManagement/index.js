@@ -10,19 +10,14 @@ import {
     ErrorOutline,
     DeleteOutline,
     Cancel,
-    RestartAlt
 } from "@mui/icons-material";
 import { useState, useEffect, memo, useRef } from "react";
 import {
     IconButton,
     Modal,
-    MenuItem,
     Button,
     Grid,
     Paper,
-    Select,
-    InputLabel,
-    FormControl,
     Box,
     Typography,
     Stack,
@@ -35,7 +30,6 @@ import HandleNewsApi from "../../../../Apis/HandleNewsApi"
 import Swal from "sweetalert2";
 
 function NewsManagement() {
-    const [typeCar, setTypeCar] = useState("All");
     const [data, setData] = useState([]);
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
@@ -44,6 +38,9 @@ function NewsManagement() {
     const [updatePost, setUpdatePost] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const inputRef = useRef();
 
@@ -68,10 +65,6 @@ function NewsManagement() {
         });
     }, [pageIndex]);
 
-    // handle event
-    const handleChange = (event) => {
-        setTypeCar(event.target.value);
-    };
 
     const handleDeleteItem = async (id) => {
         HandleNewsApi.deleteNews(id)
@@ -101,7 +94,7 @@ function NewsManagement() {
 
     const handleClickUpdate = async (id) => {
         console.log(id);
-        HandleApi.getCarById(id)
+        HandleNewsApi.getNewsById(id)
             .then(async (res) => {
                 await setUpdatePost(res);
                 await setType("update");
@@ -166,16 +159,6 @@ function NewsManagement() {
         border: "2px solid #000",
         boxShadow: 24,
         p: 8
-    };
-
-    const MenuSelectProps = {
-        PaperProps: {
-            style: {
-                maxHeight: 150,
-                overflowX: "scroll"
-                //   width: 250,
-            }
-        }
     };
 
     return (
@@ -271,9 +254,38 @@ function NewsManagement() {
                                 </Grid>
                                 <Grid item xs={1}>
                                     <Item>
-                                        <Button>
-                                            Chi tiết
-                                        </Button>
+                                        <Button variant="contained" size="large" onClick={handleOpen}>Xem chi tiết</Button>
+                                        <Modal
+                                            open={open}
+                                            onClose={handleClose}
+                                        >
+                                            <Box sx={[styleModal, { width: "80vw", height: "80vh", overflow: "scroll" }]}>
+                                                <Typography variant="h4" sx={{
+                                                    fontWeight: "bold",
+                                                    paddingBottom: "10px",
+                                                    fontSize: "2.4rem",
+                                                    textAlign: "center",
+                                                }}>
+                                                    Chi tiết
+                                                </Typography>
+                                                <Grid container>
+                                                    <Grid container sx={{ padding: '0 0 8px' }}>
+                                                        <Grid item xs={2}><ItemMain>Type</ItemMain></Grid>
+                                                        <Grid item xs={10}><ItemMain>Content</ItemMain></Grid>
+                                                    </Grid>
+                                                    {item.detail?.map((d, index) => {
+                                                        return (<Grid key={index} container>
+                                                            <Grid item xs={2}>
+                                                                <Item>{d.type}</Item>
+                                                            </Grid>
+                                                            <Grid item xs={10}>
+                                                                <Item>{d.content}</Item>
+                                                            </Grid>
+                                                        </Grid>)
+                                                    })}
+                                                </Grid>
+                                            </Box>
+                                        </Modal>
                                     </Item>
                                 </Grid>
                                 <Grid item xs={1}>
