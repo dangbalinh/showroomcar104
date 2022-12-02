@@ -1,6 +1,8 @@
 import React,{useState} from 'react'
 import { Link } from 'react-router-dom'
 import classes  from '../Login.module.css'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
 
 const ForgetPass = (props) => {
@@ -21,7 +23,29 @@ const ForgetPass = (props) => {
         return data;
       }
     */
-   const [message, setMessage] = useState(false)
+   const [message, setMessage] = useState()
+      
+      const sendRequestSU = async ()=>{
+        const res = await axios
+        .post(`https://showroomcar104.onrender.com/users/forgotPassword`,{
+          email:String(props.inputs.email)
+        })
+        .catch((err)=>{
+          console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Your email is not exists',
+          })
+        })
+        const data = await res.data;
+        if (data.status == 201) {
+          setInputs({email:""});}
+        else {
+          console.log(data.message);
+        }
+        return data;
+      }
     const handleClick = () => {
         props.closewindow(false);
     }
@@ -31,12 +55,12 @@ const ForgetPass = (props) => {
             e.preventDefault();
             alert("submit failed!");
         } else {
-            e.preventDefault();
-            setMessage(true);
-            console.log(props.inputs);
-        /*sendRequestSU()
-        .then((data)=>localStorage.setItem("userId",data.user._id))
-        .then(()=>navigate("/dashboard"));*/
+          e.preventDefault();
+          sendRequestSU()
+          .then((data)=>{
+            setMessage(data.message)
+          })
+          .then(()=>{const id = localStorage.getItem("userId"); console.log(id);})
         }
 
     }
@@ -54,8 +78,8 @@ const ForgetPass = (props) => {
                     type="email" name="email" value={props.inputs.email} required />
                     <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{props.errors.emailError}</p>
                 </p>
-                {message && <p style={{color: "green"}} >
-                    SENT! PLEASE CHECK YOUR EMAIL
+                {message && <p style={{color: "green", fontSize:"15px"}} >
+                {message}
                 </p>}
                 <p style={{ textAlign:"center", fontSize:"16px"}}>
                     <button className={classes.button} id="sub_btn" type="submit" onClick={submitEmail}

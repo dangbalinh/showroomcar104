@@ -1,10 +1,7 @@
 import './Footer.module.css'
 import Stack from '@mui/material/Stack';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import classes from "./Footer.module.css"
 import Lct from './Location.js';
-import logo from '../Header/logo.png'
-import SavedSearchIcon from '@mui/icons-material/SavedSearch';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import EmailIcon from '@mui/icons-material/Email';
 import LanguageIcon from '@mui/icons-material/Language';
@@ -12,6 +9,7 @@ import TimerIcon from '@mui/icons-material/Timer';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import { Link } from 'react-router-dom';
 
 function Footer() {
     return ( 
@@ -52,12 +50,19 @@ function Footer() {
         <a href=''><YouTubeIcon  style={{ color: 'white', fontSize:'25px' }}/></a>
         <a href=''><FacebookIcon  style={{ color: 'white', fontSize:'25px' }}/></a>
         </div>
+        <div className={classes.todashboard}>
+            <Link to="/admin"  style={{ color: 'inherit', textDecoration: 'inherit'}}>
+            Go to dashboard
+            </Link>
         </div>
-
-        
+        </div>
         </div>
       </div>
      );
 }
 
 export default Footer;
+
+/*<a href={true? "/login":"/admin"}  style={{ color: 'inherit', textDecoration: 'inherit'}}>
+            Go to dashboard
+            </a>*/

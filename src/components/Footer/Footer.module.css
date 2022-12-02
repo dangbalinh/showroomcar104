@@ -78,3 +78,10 @@
 .contact p:nth-child(2) {
   margin-bottom: 10px;
 }
+
+.todashboard {
+  color: #ffffff;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
