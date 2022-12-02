@@ -20,7 +20,7 @@ const publicRoutes = [
     { path: "/product/:carBrand", component: Product },
     { path: "/news", component: News },
     { path: "/introduce", component: Introduce },
-    { path: "/readnews", component: ReadNews },
+    { path: "/readnews/:id", component: ReadNews },
     { path: "/form", component: Form },
     { path: "/detailproduct/:productId", component: DetailProduct },
     { path: "/register/*", component: Register, layout: null },
