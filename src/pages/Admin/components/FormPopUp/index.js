@@ -366,7 +366,7 @@ function FormPopup({ type, setType, updatePost, setUpdatePost }) {
                             <Grid container>
                                 <Grid item xs={12}>
                                     {/* <div className={styles.infoCar}> */}
-                                    <Item sx={{ fontWeight: "bold" }}>{"Tên xe: " + updatePost.ten}</Item>
+                                    <Item sx={{ fontWeight: "bold", fontSize: "18px" }}>{"Chi tiết tin nhắn: " + updatePost.message}</Item>
                                     {/* </div> */}
                                 </Grid>
                             </Grid>
@@ -379,7 +379,7 @@ function FormPopup({ type, setType, updatePost, setUpdatePost }) {
                                 sx={{
                                     fontSize: "14px",
                                     width: "100px",
-                                    margin: "24px -10px -12px 0"
+                                    margin: "68px -10px -12px 0"
                                 }}
                                 onClick={() => setType("")}
                             >
