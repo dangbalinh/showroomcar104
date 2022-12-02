@@ -20,7 +20,7 @@
 }
 
 .btnIcon {
-    width: 48px;
-    height: 40px;
+    width: 48px !important;
+    height: 40px !important;
     color: #ad3030;
 }
