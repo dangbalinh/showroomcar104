@@ -60,7 +60,6 @@ const ForgetPass = (props) => {
           .then((data)=>{
             setMessage(data.message)
           })
-          .then(()=>{const id = localStorage.getItem("userId"); console.log(id);})
         }
 
     }
