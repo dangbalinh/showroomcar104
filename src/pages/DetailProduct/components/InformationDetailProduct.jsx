@@ -31,7 +31,7 @@ function InformationDetailProduct(pros) {
                     <p className={style.information__content__engine}>{"Động cơ: " + data.dongco}</p>
                     <p className={style.information__content__gear}>{"Màu sắc: " + data.mausac}</p>
                     <p className={style.information__content__speedUp}>{"Vận tốc tối đa: " + data.vantoctoida}</p>
-                    <p className={style.information__content__speedUp}>{"Công suất tối đa: " + data.congsuattoida}</p>
+                    <p className={style.information__content__speedUp}>{"Công suất tối đa: " + data.congsuatcucdai}</p>
                     <p className={style.information__content__consumeEnergy}>{"Tiêu hao nhiên liệu (l/100km): " + data.tieuhaonhienlieu}</p>
                     <p className={style.information__content__size}>{"Kích thước (dài x rộng x cao): " + data.kichthuoc}</p>
                     <p className={style.information__content__baseLength}>{"Năm sản xuất: " + data.namsanxuat}</p>

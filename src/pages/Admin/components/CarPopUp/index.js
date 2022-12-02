@@ -93,7 +93,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
         "Kích thước (AxBxC)",
         "Nguồn gốc",
         "Tốc độ tối đa (Km/h)",
-        "Dung tích (cc)",
+        "Dung tích",
         "Tiêu hao nhiên liệu (l/100km)",
         "Công suất tối đa",
         "Màu sắc",

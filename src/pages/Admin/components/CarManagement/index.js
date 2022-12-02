@@ -317,7 +317,7 @@ function CarManagement() {
                             size="medium"
                         >
                             <InputLabel
-                                sx={{ fontSize: "14px", fontWeight: "600" }}
+                                sx={{ fontSize: "14px", fontWeight: "600", left: "10px" }}
                                 id="input-label"
                             >
                                 Hãng xe
