@@ -21,8 +21,6 @@ import {
     Grid,
     Paper,
     Select,
-    InputLabel,
-    FormControl,
     Box,
     Typography,
     Stack,
@@ -30,17 +28,16 @@ import {
 } from "@mui/material";
 
 import FormPopUp from "../FormPopUp"
-import HandleApi from "../../../../Apis/HandleApi";
+import HandleApiForm from "../../../../Apis/HandleApiForm";
 import Swal from "sweetalert2";
 
 function FormManagement() {
-    const [typeCar, setTypeCar] = useState("All");
     const [data, setData] = useState([]);
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
+    const [type, setType] = useState("");
     const [searchValue, setSearchValue] = useState("");
     const [newData, setNewData] = useState([]);
-    const [type, setType] = useState("");
     const [updatePost, setUpdatePost] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -51,88 +48,26 @@ function FormManagement() {
     const gridTitle = [
         "STT",
         "Họ tên",
-        "SĐT",
+        "Số điện thoại",
         "Email",
         "Tin nhắn",
         ""
-    ];
-
-    const valueSelect = [
-        "Honda",
-        "Toyota",
-        "Vinfast",
-        "Mercedes",
-        "BMW",
-        "Kia"
     ];
 
     const pageSize = 15;
 
     // Get API
     useEffect(() => {
-        HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-            setData(res.cars);
-            setDataLength(res.totalCars);
+        HandleApiForm.getFormByPageIndex(pageIndex).then((res) => {
+            setData(res.forms);
+            setDataLength(res.totalForms);
         });
     }, [pageIndex]);
 
-    // handle Filter select
-    useEffect(() => {
-        switch (typeCar) {
-            case "All":
-                setNewData(data);
-                HandleApi.getAllCar().then((res) =>
-                    setDataLength(res.totalCars)
-                );
-                break;
-            case "Honda":
-                HandleApi.getCarByBrand("Honda").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Toyota":
-                HandleApi.getCarByBrand("Toyota").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Mercedes":
-                HandleApi.getCarByBrand("Mercedes").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Vinfast":
-                HandleApi.getCarByBrand("Vinfast").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Kia":
-                HandleApi.getCarByBrand("Kia").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "BMW":
-                HandleApi.getCarByBrand("BMW").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            default:
-                break;
-        }
-    }, [data, typeCar]);
-
     // handle event
-    const handleChange = (event) => {
-        setTypeCar(event.target.value);
-    };
 
     const handleDeleteItem = async (id) => {
-        HandleApi.deleteCar(id)
+        HandleApiForm.deleteCar(id)
             .then((res) => {
                 console.log(id);
                 setOpenDeleteModal(false);
@@ -157,26 +92,13 @@ function FormManagement() {
             });
     };
 
-    const handleClickUpdate = async (id) => {
-        console.log(id);
-        HandleApi.getCarById(id)    
-            .then(async (res) => {
-                await setUpdatePost(res);
-                await setType("update");
-                console.log(updatePost);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-
     const handlePageChange = (e, p) => {
         console.log("PageIndex: ", p);
         setPageIndex(p - 1);
     };
 
     const handleReadInfo = async (id) => {
-        HandleApi.getCarById(id)
+        HandleApiForm.getFormById(id)
             .then(async (res) => {
                 await setUpdatePost(res);
                 await setType("read");
@@ -186,33 +108,29 @@ function FormManagement() {
             });
     }
 
-    // handle search event
     useEffect(() => {
-        console.log(searchValue);
-        if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
-                await setDataLength(data.length);
-            });
-        } else {
-            HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-                setData(res.cars);
-                setDataLength(res.totalCars);
-            });
-        }
-    }, [searchValue]);
+        HandleApiForm.getAllForm().then(res => setData(res.forms))
+    }, []);
+
+
+    // handle search event
+    // useEffect(() => {
+    //     console.log(searchValue);
+    //     if (searchValue.trim() !== "") {
+    //         HandleApiForm.getCarByName(searchValue).then(async (res) => {
+    //             await setData(res.cars);
+    //             await setDataLength(data.length);
+    //         });
+    //     } else {
+    //         HandleApiForm.getCarByPageIndex(pageIndex).then((res) => {
+    //             setData(res.cars);
+    //             setDataLength(res.totalCars);
+    //         });
+    //     }
+    // }, [searchValue]);
 
     const handleInputChange = (e) => {
         setSearchValue(e.target.value);
-    };
-
-    const handleSearch = async () => {
-        if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
-                await setDataLength(data.length);
-            });
-        }
     };
 
     const handleClear = () => {
@@ -252,16 +170,6 @@ function FormManagement() {
         p: 8
     };
 
-    const MenuSelectProps = {
-        PaperProps: {
-            style: {
-                maxHeight: 150,
-                overflowX: "scroll"
-                //   width: 250,
-            }
-        }
-    };
-
     const nameActive = {
         "cursor": 'pointer',
         "&:active": {
@@ -288,7 +196,7 @@ function FormManagement() {
                                 ref={inputRef}
                                 value={searchValue}
                                 type="text"
-                                placeholder="Tìm kiếm tin tức"
+                                placeholder="Tìm kiếm form"
                                 spellCheck={false}
                                 onChange={handleInputChange}
                             />
@@ -309,60 +217,7 @@ function FormManagement() {
                                 <Search className={styles.searchIcon} />
                             </button>
                         </div>
-                        <FormControl
-                            className={styles.filter}
-                            sx={{ m: 1, minWidth: 220, height: 44 }}
-                            size="medium"
-                        >
-                            <InputLabel
-                                sx={{ fontSize: "14px", fontWeight: "600" }}
-                                id="input-label"
-                            >
-                                Hãng xe
-                            </InputLabel>
-                            <Select
-                                className={styles.filter_wrap}
-                                labelId="input-label"
-                                label="typecar"
-                                defaultValue={typeCar}
-                                value={typeCar}
-                                MenuProps={MenuSelectProps}
-                                onChange={handleChange}
-                            >
-                                <MenuItem
-                                    className={styles.menuItem}
-                                    value="All"
-                                    selected
-                                >
-                                    Tất cả
-                                </MenuItem>
-                                {valueSelect.map((item, index) => (
-                                    <MenuItem
-                                        key={index}
-                                        value={item}
-                                        className={styles.menuItem}
-                                    >
-                                        {item}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
                     </div>
-
-                    <Button
-                        sx={{
-                            height: 40,
-                            fontSize: 14,
-                            textTransform: "none",
-                            marginLeft: "80px"
-                        }}
-                        variant="contained"
-                        color="success"
-                        startIcon={<Add />}
-                        onClick={() => setType("create")}
-                    >
-                        Thêm tin tức
-                    </Button>
                 </div>
 
                 <div className={styles.content}>
@@ -376,28 +231,22 @@ function FormManagement() {
                         </Grid>
 
                         {/* Render data */}
-                        {newData?.map((item, index) => (
+                        {data?.map((item, index) => (
                             <Grid container key={index}>
                                 <Grid item xs={1}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
                                 <Grid item xs={2}>
-                                    <Item>
-                                        <img
-                                            src={item.hinhanh}
-                                            className={styles.content_image}
-                                            alt="Car"
-                                        />
-                                    </Item>
+                                    <Item>{item.name}</Item>
                                 </Grid>
                                 <Grid item xs={1.5}>
-                                    <Item>{item.ten}</Item>
+                                    <Item>{item.mobile}</Item>
                                 </Grid>
                                 <Grid item xs={2}>
-                                    <Item>{item.thuonghieu}</Item>
+                                    <Item>{item.email}</Item>
                                 </Grid>
                                 <Grid item xs={4.5}>
-                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.gia + " VNĐ"}</Item>
+                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.message}</Item>
                                 </Grid>
                                 <Grid item xs={1}>
                                     <Item>
