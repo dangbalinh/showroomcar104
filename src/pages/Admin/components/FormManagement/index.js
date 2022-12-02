@@ -1,138 +1,69 @@
 import images from "../../../../assets/image";
 import styles from "./FormManagement.module.css";
 import "./FormManagement.css";
-
 import { styled } from "@mui/material/styles";
 import {
-    Add,
-    Search,
-    Edit,
     ErrorOutline,
     DeleteOutline,
-    Cancel,
-    RestartAlt
 } from "@mui/icons-material";
-import { useState, useEffect, memo, useRef } from "react";
+import { useState, useEffect, memo } from "react";
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 import {
     IconButton,
     Modal,
-    MenuItem,
     Button,
     Grid,
     Paper,
-    Select,
-    InputLabel,
-    FormControl,
+    TextField,
     Box,
     Typography,
     Stack,
-    Pagination
+    Pagination,
+    InputLabel,
 } from "@mui/material";
 
 import FormPopUp from "../FormPopUp"
-import HandleApi from "../../../../Apis/HandleApi";
+import HandleApiForm from "../../../../Apis/HandleApiForm";
 import Swal from "sweetalert2";
 
 function FormManagement() {
-    const [typeCar, setTypeCar] = useState("All");
     const [data, setData] = useState([]);
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
-    const [searchValue, setSearchValue] = useState("");
-    const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
+    const [selectedDay, setSelectedDay] = useState();
+    const [newData, setNewData] = useState([]);
     const [updatePost, setUpdatePost] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
-    const inputRef = useRef();
+    const pageSize = 15;
 
     const gridColumn = [1, 2, 1.5, 2, 4.5, 1];
     const gridTitle = [
         "STT",
         "Họ tên",
-        "SĐT",
+        "Số điện thoại",
         "Email",
         "Tin nhắn",
         ""
     ];
 
-    const valueSelect = [
-        "Honda",
-        "Toyota",
-        "Vinfast",
-        "Mercedes",
-        "BMW",
-        "Kia"
-    ];
-
-    const pageSize = 15;
-
     // Get API
     useEffect(() => {
-        HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-            setData(res.cars);
-            setDataLength(res.totalCars);
+        HandleApiForm.getFormByPageIndex(pageIndex).then((res) => {
+            setData(res.forms);
+            setDataLength(res.totalForms);
         });
     }, [pageIndex]);
 
-    // handle Filter select
-    useEffect(() => {
-        switch (typeCar) {
-            case "All":
-                setNewData(data);
-                HandleApi.getAllCar().then((res) =>
-                    setDataLength(res.totalCars)
-                );
-                break;
-            case "Honda":
-                HandleApi.getCarByBrand("Honda").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Toyota":
-                HandleApi.getCarByBrand("Toyota").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Mercedes":
-                HandleApi.getCarByBrand("Mercedes").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Vinfast":
-                HandleApi.getCarByBrand("Vinfast").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Kia":
-                HandleApi.getCarByBrand("Kia").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "BMW":
-                HandleApi.getCarByBrand("BMW").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            default:
-                break;
-        }
-    }, [data, typeCar]);
-
     // handle event
-    const handleChange = (event) => {
-        setTypeCar(event.target.value);
-    };
 
     const handleDeleteItem = async (id) => {
-        HandleApi.deleteCar(id)
+        HandleApiForm.deleteCar(id)
             .then((res) => {
                 console.log(id);
                 setOpenDeleteModal(false);
@@ -157,26 +88,13 @@ function FormManagement() {
             });
     };
 
-    const handleClickUpdate = async (id) => {
-        console.log(id);
-        HandleApi.getCarById(id)    
-            .then(async (res) => {
-                await setUpdatePost(res);
-                await setType("update");
-                console.log(updatePost);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
-
     const handlePageChange = (e, p) => {
         console.log("PageIndex: ", p);
         setPageIndex(p - 1);
     };
 
     const handleReadInfo = async (id) => {
-        HandleApi.getCarById(id)
+        HandleApiForm.getFormById(id)
             .then(async (res) => {
                 await setUpdatePost(res);
                 await setType("read");
@@ -186,39 +104,9 @@ function FormManagement() {
             });
     }
 
-    // handle search event
-    useEffect(() => {
-        console.log(searchValue);
-        if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
-                await setDataLength(data.length);
-            });
-        } else {
-            HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-                setData(res.cars);
-                setDataLength(res.totalCars);
-            });
-        }
-    }, [searchValue]);
-
-    const handleInputChange = (e) => {
-        setSearchValue(e.target.value);
-    };
-
-    const handleSearch = async () => {
-        if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
-                await setDataLength(data.length);
-            });
-        }
-    };
-
-    const handleClear = () => {
-        setSearchValue("");
-        inputRef.current.focus();
-    };
+    const handleDayChange = (e) => {
+        setSelectedDay(e);
+    }
 
     // Custome CSS MUI
     const ItemMain = styled(Paper)(({ theme }) => ({
@@ -252,23 +140,12 @@ function FormManagement() {
         p: 8
     };
 
-    const MenuSelectProps = {
-        PaperProps: {
-            style: {
-                maxHeight: 150,
-                overflowX: "scroll"
-                //   width: 250,
-            }
-        }
-    };
-
     const nameActive = {
         "cursor": 'pointer',
         "&:active": {
             color: 'red',
         }
     }
-
 
     return (
         <div>
@@ -283,86 +160,17 @@ function FormManagement() {
             <div className={styles.container}>
                 <div className={styles.container_header}>
                     <div className={styles.funcContainer}>
-                        <div className={styles.search}>
-                            <input
-                                ref={inputRef}
-                                value={searchValue}
-                                type="text"
-                                placeholder="Tìm kiếm tin tức"
-                                spellCheck={false}
-                                onChange={handleInputChange}
-                            />
-
-                            {!!searchValue && (
-                                <button
-                                    className={styles.clear}
-                                    onClick={handleClear}
-                                >
-                                    <Cancel className={styles.clearIcon} />
-                                </button>
-                            )}
-
-                            <button
-                                className={styles.searchBtn}
-                                onMouseDown={(e) => e.preventDefault()}
-                            >
-                                <Search className={styles.searchIcon} />
-                            </button>
-                        </div>
-                        <FormControl
-                            className={styles.filter}
-                            sx={{ m: 1, minWidth: 220, height: 44 }}
-                            size="medium"
-                        >
-                            <InputLabel
-                                sx={{ fontSize: "14px", fontWeight: "600" }}
-                                id="input-label"
-                            >
-                                Hãng xe
-                            </InputLabel>
-                            <Select
-                                className={styles.filter_wrap}
-                                labelId="input-label"
-                                label="typecar"
-                                defaultValue={typeCar}
-                                value={typeCar}
-                                MenuProps={MenuSelectProps}
-                                onChange={handleChange}
-                            >
-                                <MenuItem
-                                    className={styles.menuItem}
-                                    value="All"
-                                    selected
-                                >
-                                    Tất cả
-                                </MenuItem>
-                                {valueSelect.map((item, index) => (
-                                    <MenuItem
-                                        key={index}
-                                        value={item}
-                                        className={styles.menuItem}
-                                    >
-                                        {item}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                        <LocalizationProvider dateAdapter={AdapterDayjs} >
+                            <Stack spacing={3}>
+                                <DesktopDatePicker 
+                                    inputFormat="DD/MM/YYYY"
+                                    value={selectedDay}
+                                    onChange={handleDayChange}
+                                    renderInput={(params) => <TextField {...params} />}
+                                />
+                            </Stack>
+                        </LocalizationProvider>
                     </div>
-
-                    <Button
-                        sx={{
-                            height: 40,
-                            fontSize: 14,
-                            textTransform: "none",
-                            marginLeft: "80px"
-                        }}
-                        variant="contained"
-                        color="success"
-                        startIcon={<Add />}
-                        onClick={() => setType("create")}
-                    >
-                        Thêm tin tức
-                    </Button>
                 </div>
 
                 <div className={styles.content}>
@@ -376,28 +184,22 @@ function FormManagement() {
                         </Grid>
 
                         {/* Render data */}
-                        {newData?.map((item, index) => (
+                        {data?.map((item, index) => (
                             <Grid container key={index}>
                                 <Grid item xs={1}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
                                 <Grid item xs={2}>
-                                    <Item>
-                                        <img
-                                            src={item.hinhanh}
-                                            className={styles.content_image}
-                                            alt="Car"
-                                        />
-                                    </Item>
+                                    <Item>{item.name}</Item>
                                 </Grid>
                                 <Grid item xs={1.5}>
-                                    <Item>{item.ten}</Item>
+                                    <Item>{item.mobile}</Item>
                                 </Grid>
                                 <Grid item xs={2}>
-                                    <Item>{item.thuonghieu}</Item>
+                                    <Item>{item.email}</Item>
                                 </Grid>
                                 <Grid item xs={4.5}>
-                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.gia + " VNĐ"}</Item>
+                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.message}</Item>
                                 </Grid>
                                 <Grid item xs={1}>
                                     <Item>

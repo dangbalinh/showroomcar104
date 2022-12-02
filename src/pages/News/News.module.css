@@ -3,6 +3,7 @@
   padding: 0 160px;
   margin-bottom: 150px;
 }
+
 .newsSection {
   display: flex;
 }
@@ -21,21 +22,8 @@
   margin-top: 86px;
 }
 
-.aside {
-  flex: 1;
-  margin-left: 25px;
-}
 .divider {
   border-left: 1px solid rgba(0, 0, 0, 0.8);
-}
-
-.aside h3 {
-  font-weight: 800;
-  font-size: 30px;
-  line-height: 36px;
-  margin-bottom: 50px;
-
-  color: #8a0000;
 }
 
 .link {

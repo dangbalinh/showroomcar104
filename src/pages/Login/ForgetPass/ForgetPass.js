@@ -40,7 +40,8 @@ const ForgetPass = (props) => {
         })
         const data = await res.data;
         if (data.status == 201) {
-          setInputs({email:""});}
+          console.log(data.message);
+        }
         else {
           console.log(data.message);
         }

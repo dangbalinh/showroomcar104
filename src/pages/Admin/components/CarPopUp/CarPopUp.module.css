@@ -12,7 +12,7 @@
 .bPopup {
     position: fixed;
     text-align: left;
-    width: 900px;
+    min-width: 900px;
     /* height: 993px; */
     background: #ffffff;
     box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.2);
@@ -169,5 +169,5 @@
 .btn {
     display: flex; 
     justify-content: flex-end;
-    margin-top: 20px;
+    margin-top: 12px;
 }

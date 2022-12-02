@@ -1,9 +1,9 @@
 import styles from "./ReadNews.module.css";
-import SmallerCard from "../News/components/SmallerCard";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import dataNews from "./mockData.json";
 import { useLayoutEffect } from "react";
+import NewsSidebar from "../News/components/NewsSidebar";
+import HandleNewsApi from "../../Apis/HandleNewsApi";
 
 // scroll to top when navigate
 const Wrapper = ({ children }) => {
@@ -17,13 +17,11 @@ const Wrapper = ({ children }) => {
 function ReadNews() {
   const location = useLocation();
   const [detail, setDetail] = useState(null);
-  const [data, setData] = useState(null);
   const { id } = useParams();
 
+
   useEffect(() => {
-    setData(dataNews);
-    var result = dataNews.find((d) => d.index == id);
-    setDetail(result);
+    HandleNewsApi.getNewsById(id).then(res => setDetail(res))
   }, [location.pathname, id]);
 
   return (
@@ -65,26 +63,7 @@ function ReadNews() {
             )}
           </section>
           <div class={styles.divider}></div>
-          <aside className={styles.aside}>
-            <h3>Most read</h3>
-            {data == null ? (
-              <div>loading</div>
-            ) : (
-              <div>
-                {data.slice(0, 5).map((news, index) => {
-                  return (
-                    <Link
-                      to={`/readnews/${news.index}`}
-                      key={index}
-                      className={styles.link}
-                    >
-                      <SmallerCard image={news.image} title={news.title} />
-                    </Link>
-                  );
-                })}
-              </div>
-            )}
-          </aside>
+          <NewsSidebar />
         </div>
       </div>
     </Wrapper>
