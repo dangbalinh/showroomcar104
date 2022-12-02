@@ -24,6 +24,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
     const [desc, setDesc] = useState();
     const [year, setYear] = useState();
     const [size, setSize] = useState();
+    const [quantity, setQuantity] = useState();
 
     const inputId = [
         "name",
@@ -40,7 +41,8 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
         "power",
         "color",
         "year",
-        "desc"
+        "desc",
+        "quantity"
     ];
 
     const useStateEvent = [
@@ -58,7 +60,8 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
         setPower,
         setColor,
         setYear,
-        setDesc
+        setDesc,
+        setQuantity,
     ];
 
     const placeHolder = [
@@ -76,7 +79,8 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
         "Nhập công suất tối đa",
         "Nhập màu sắc xe",
         "Nhập năm sản xuất",
-        "Nhập mô tả"
+        "Nhập mô tả",
+        "Nhập số lượng xe",
     ];
 
     const textValue = [
@@ -94,10 +98,11 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
         "Công suất tối đa",
         "Màu sắc",
         "Năm sản xuất",
-        "Mô tả"
+        "Mô tả",
+        "Số lượng xe"
     ];
 
-    const inputType = ["text", "text", "text", "number", "text", "number", "text", "text", "text", "text", "text", "text", "text", "number", "text"];
+    const inputType = ["text", "text", "text", "number", "text", "number", "text", "text", "text", "text", "text", "text", "text", "number", "text", "number"];
 
     const inputValue = [
         carName,
@@ -114,7 +119,8 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
         power,
         color,
         year,
-        desc
+        desc,
+        quantity,
     ];
 
     // object data
@@ -133,7 +139,8 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
         tieuhaonhienlieu: fuel,
         mota: desc,
         namsanxuat: Number(year),
-        vantoctoida: speed
+        vantoctoida: speed,
+        soluong: Number(quantity),
     };
 
     const handleBlur = (e) => {
@@ -200,6 +207,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
             setDesc(updateCar.mota);
             setOrigin(updateCar.nguongoc);
             setSpeed(updateCar.vantoctoida);
+            setQuantity(updateCar.soluong);
         }
     }, [updateCar]);
 
@@ -227,9 +235,9 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                         <br />
                         <Box sx={{ flexGrow: 1 }}>
                             <form onSubmit={handleCreateCar}>
-                                <Grid container>
+                                <Grid container sx={{ width: "1120px", marginTop: "16px"}}>
                                     {inputId.map((item, index) => (
-                                        <Grid key={index} item xs={4} sx={{ height: "93px" }}>
+                                        <Grid key={index} item xs={3} sx={{ height: "93px" }}>
                                             <label htmlFor={item[index]} className={styles.label}>
                                                 {textValue[index]}
                                             </label>
@@ -298,16 +306,16 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                         <h3>Cập nhật dữ liệu xe</h3>
 
                         <Box sx={{ flexGrow: 1, marginTop: '20px' }}>
-                            <Grid container>
+                            <Grid container sx={{ width: "1120px", marginTop: "16px"}}>
                                 {inputId.map((item, index) => (
-                                    <Grid key={index} item xs={4} sx={{ height: '93px' }}>
+                                    <Grid key={index} item xs={3} sx={{ height: '93px' }}>
                                         <label htmlFor={item[index]}>
                                             {textValue[index]}
                                         </label>
                                         <br />
                                         <input
                                             id={item[index]}
-                                            type="text"
+                                            type={inputType[index]}
                                             value={inputValue[index]}
                                             onChange={(e) =>
                                                 useStateEvent[index](e.target.value)
@@ -371,6 +379,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                                     <Item>{"Tiêu hao nhiên liệu: " + updateCar.tieuhaonhienlieu}</Item>
                                     <Item>{"Công suất cực đại: " + updateCar.congsuatcucdai}</Item>
                                     <Item>{"Màu sắc: " + updateCar.mausac}</Item>
+                                    <Item>{"Số lượng xe: " + updateCar.soluong}</Item>
                                     {/* </div> */}
                                 </Grid>
                                 <Grid item xs={6}>

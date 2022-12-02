@@ -46,7 +46,7 @@ function CarManagement() {
 
     const inputRef = useRef();
 
-    const gridColumn = [0.7, 1, 2, 1.5, 1.8, 2.5, 1.5, 1];
+    const gridColumn = [0.5, 0.8, 1.8, 1.5, 1.8, 2.4, 1.2, 1, 1];
     const gridTitle = [
         "STT",
         "Ảnh",
@@ -55,6 +55,7 @@ function CarManagement() {
         "Giá",
         "Động cơ",
         "Số chỗ ngồi",
+        "Số lượng",
         ""
     ];
 
@@ -239,7 +240,7 @@ function CarManagement() {
         textAlign: "center",
         color: "#000",
         boxShadow: "none",
-        fontSize: 16
+        fontSize: 16,
     }));
 
     const styleModal = {
@@ -379,10 +380,10 @@ function CarManagement() {
                         {/* Render data */}
                         {newData?.map((item, index) => (
                             <Grid container key={index}>
-                                <Grid item xs={0.7}>
+                                <Grid item xs={0.5}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
-                                <Grid item xs={1}>
+                                <Grid item xs={0.8}>
                                     <Item>
                                         <img
                                             src={item.hinhanh}
@@ -391,7 +392,7 @@ function CarManagement() {
                                         />
                                     </Item>
                                 </Grid>
-                                <Grid item xs={2}>
+                                <Grid item xs={1.8}>
                                     <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.ten}</Item>
                                 </Grid>
                                 <Grid item xs={1.5}>
@@ -400,11 +401,14 @@ function CarManagement() {
                                 <Grid item xs={1.8}>
                                     <Item>{item.gia.toLocaleString() + " VNĐ"}</Item>
                                 </Grid>
-                                <Grid item xs={2.5}>
+                                <Grid item xs={2.4}>
                                     <Item>{item.dongco}</Item>
                                 </Grid>
-                                <Grid item xs={1.5}>
+                                <Grid item xs={1.2}>
                                     <Item>{item.socho}</Item>
+                                </Grid>
+                                <Grid item xs={1}>
+                                    <Item>{item.soluong}</Item>
                                 </Grid>
                                 <Grid item xs={1}>
                                     {/* Update, delete button */}
@@ -420,6 +424,7 @@ function CarManagement() {
                                             //     justifyContent: "space-between",
                                             //     marginLeft: "-24px"
                                             // }}
+                                            sx={{ padding: "8px 6px"}}
                                             onClick={() => {
                                                 handleClickUpdate(item._id);
                                             }}
