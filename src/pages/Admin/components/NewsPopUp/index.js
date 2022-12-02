@@ -4,7 +4,7 @@ import './NewsPopUp.css'
 import CancelIcon from "@mui/icons-material/Cancel";
 import Swal from "sweetalert2";
 import { Box } from "@mui/system";
-import { Grid, Button, Modal, IconButton, Typography, styled, Paper, Select, MenuItem, TextField } from "@mui/material";
+import { Grid, Button, Modal, IconButton, Typography, styled, Paper, Select, MenuItem, TextField, FormControl, InputLabel } from "@mui/material";
 import HandleNewsApi from "../../../../Apis/HandleNewsApi";
 import { AddCircleOutline, DeleteOutline } from "@mui/icons-material";
 
@@ -115,6 +115,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
             setImage(updatePost.image);
             setDescription(updatePost.description);
             setDateSource(updatePost.dateSource);
+            setAuthor(updatePost.author);
             setDetail(updatePost.detail);
         }
     }, [updatePost]);
@@ -128,17 +129,16 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
         if (detail === undefined) {
             setDetail([])
         } else {
-            setDetail([...detail, { type: tag, content: content, id: Date.now() }]);
+            setDetail([...detail, { type: tag, content: content, index: Date.now() }]);
             setContent('');
         }
     }
 
     const handleDeleteDetail = (id) => {
-        setDetail(detail.filter(i => i.id !== id))
+        setDetail(detail.filter(i => i.index !== id))
     }
 
     const handleUpdatePost = async () => {
-        console.log(updatePost._id);
         HandleNewsApi.updateNews(updatePost._id, data)
             .then(async (res) => {
                 await Swal.fire({
@@ -225,17 +225,25 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                     <Grid item xs={4} sx={{ height: "93px" }}>
                                         <label className={styles.label}>Chi tiết</label>
                                         <br />
-                                        <Button variant="contained" size="large" onClick={handleOpen}>Thêm chi tiết</Button>
+                                        <Button variant="outlined" size="large" onClick={handleOpen} sx={{ width: "90%", padding: "13px", marginTop: "8px" }}>Thêm chi tiết</Button>
                                         <Modal
                                             open={open}
                                             onClose={handleClose}
                                         >
-                                            <Box sx={[styleModal, { width: "80vw", height: "80vh", overflow: "scroll" }]}>
+                                            <Box sx={[styleModal, { width: "60vw", height: "60vh", overflow: "scroll" }]}>
+                                                <CancelIcon
+                                                    className={styles.bPopup__close}
+                                                    onClick={handleClose}
+                                                />
                                                 <Typography variant="h4" sx={{
                                                     fontWeight: "bold",
                                                     paddingBottom: "10px",
                                                     fontSize: "2.4rem",
                                                     textAlign: "center",
+                                                    color: "rgba(0, 0, 0, 0.6)",
+                                                    fontFamily: "LexendRegular",
+                                                    width: "100%",
+                                                    borderBottom: "1px solid rgba(0, 0, 0, 0.5)"
                                                 }}>
                                                     Chi tiết
                                                 </Typography>
@@ -247,17 +255,20 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                     </Grid>
                                                     <Grid container>
                                                         <Grid item xs={2}>
-                                                            <Select
-                                                                labelId="demo-simple-select-label"
-                                                                id="demo-simple-select"
-                                                                value={tag}
-                                                                label="Age"
-                                                                onChange={handleChange}
-                                                            >
-                                                                <MenuItem value="img">img</MenuItem>
-                                                                <MenuItem value="p">p</MenuItem>
-                                                                <MenuItem value="h3">h3</MenuItem>
-                                                            </Select>
+                                                            <FormControl fullWidth>
+                                                                <InputLabel sx={{ fontSize: "14px" }} id="demo-simple-select-label">Type</InputLabel>
+                                                                <Select
+                                                                    labelId="demo-simple-select-label"
+                                                                    id="demo-simple-select"
+                                                                    value={tag}
+                                                                    label="Type"
+                                                                    onChange={handleChange}
+                                                                >
+                                                                    <MenuItem sx={{ fontSize: "14px" }} value="img">img</MenuItem>
+                                                                    <MenuItem sx={{ fontSize: "14px" }} value="p">p</MenuItem>
+                                                                    <MenuItem sx={{ fontSize: "14px" }} value="h2">h2</MenuItem>
+                                                                </Select>
+                                                            </FormControl>
                                                         </Grid>
                                                         <Grid item xs={9}>
                                                             <TextField
@@ -291,7 +302,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                                     size="medium"
                                                                     color="error"
                                                                     onClick={() => {
-                                                                        handleDeleteDetail(d.id)
+                                                                        handleDeleteDetail(d.index)
                                                                     }}
                                                                 >
                                                                     <DeleteOutline
@@ -350,14 +361,17 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                         <div className={styles.bPopup}>
                             <CancelIcon
                                 className={styles.bPopup__close}
-                                onClick={() => setType("")}
+                                onClick={() => {
+                                    setDetail([])
+                                    setType("")
+                                }}
                             />
                             <h3>Cập nhật dữ liệu tin tức</h3>
-
+                            <br />
                             <Box sx={{ flexGrow: 1 }}>
                                 <Grid container>
                                     {inputId.map((item, index) => (
-                                        <Grid key={index} item xs={4}>
+                                        <Grid key={index} item xs={4} sx={{ height: "93px" }}>
                                             <label htmlFor={item[index]}>
                                                 {textValue[index]}
                                             </label>
@@ -372,6 +386,100 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                             />
                                         </Grid>
                                     ))}
+                                    <Grid item xs={4} sx={{ height: "93px" }}>
+                                        <label className={styles.label}>Chi tiết</label>
+                                        <br />
+                                        <Button variant="outlined" size="large" onClick={handleOpen} sx={{ width: "90%", padding: "13px", marginTop: "8px" }}>Sửa chi tiết</Button>
+                                        <Modal
+                                            open={open}
+                                            onClose={handleClose}
+                                        >
+                                            <Box sx={[styleModal, { width: "60vw", height: "60vh", overflow: "scroll" }]}>
+                                                <CancelIcon
+                                                    className={styles.bPopup__close}
+                                                    onClick={handleClose}
+                                                />
+                                                <Typography variant="h4" sx={{
+                                                    fontWeight: "bold",
+                                                    paddingBottom: "10px",
+                                                    fontSize: "2.4rem",
+                                                    textAlign: "center",
+                                                    color: "rgba(0, 0, 0, 0.6)",
+                                                    fontFamily: "LexendRegular",
+                                                    width: "100%",
+                                                    borderBottom: "1px solid rgba(0, 0, 0, 0.5)"
+                                                }}>
+                                                    Chi tiết
+                                                </Typography>
+                                                <Grid container>
+                                                    <Grid container sx={{ padding: '0 0 8px' }}>
+                                                        <Grid item xs={2}><ItemMain>Type</ItemMain></Grid>
+                                                        <Grid item xs={8}><ItemMain>Content</ItemMain></Grid>
+                                                        <Grid item xs={2}>{" "}</Grid>
+                                                    </Grid>
+                                                    <Grid container>
+                                                        <Grid item xs={2}>
+                                                            <FormControl fullWidth>
+                                                                <InputLabel sx={{ fontSize: "14px" }} id="demo-simple-select-label">Type</InputLabel>
+                                                                <Select
+                                                                    labelId="demo-simple-select-label"
+                                                                    id="demo-simple-select"
+                                                                    value={tag}
+                                                                    label="Type"
+                                                                    onChange={handleChange}
+                                                                >
+                                                                    <MenuItem sx={{ fontSize: "14px" }} value="img">img</MenuItem>
+                                                                    <MenuItem sx={{ fontSize: "14px" }} value="p">p</MenuItem>
+                                                                    <MenuItem sx={{ fontSize: "14px" }} value="h2">h2</MenuItem>
+                                                                </Select>
+                                                            </FormControl>
+                                                        </Grid>
+                                                        <Grid item xs={9}>
+                                                            <TextField
+                                                                sx={{ width: "100%" }}
+                                                                type="text"
+                                                                required
+                                                                placeholder="Nhập nội dung"
+                                                                value={content}
+                                                                onChange={(e) =>
+                                                                    setContent(e.target.value)
+                                                                }
+                                                                onBlur={handleBlur}
+                                                            />
+                                                        </Grid>
+                                                        <Grid item xs={1}>
+                                                            <IconButton onClick={addDetail}>
+                                                                <AddCircleOutline sx={{ fontSize: "25px" }} />
+                                                            </IconButton>
+                                                        </Grid>
+                                                    </Grid>
+                                                    {detail?.map((d, index) => {
+                                                        return (<Grid key={index} container>
+                                                            <Grid item xs={2}>
+                                                                <Item>{d.type}</Item>
+                                                            </Grid>
+                                                            <Grid item xs={8}>
+                                                                <Item>{d.content}</Item>
+                                                            </Grid>
+                                                            <Grid item xs={1}>
+                                                                <IconButton
+                                                                    size="medium"
+                                                                    color="error"
+                                                                    onClick={() => {
+                                                                        handleDeleteDetail(d.index)
+                                                                    }}
+                                                                >
+                                                                    <DeleteOutline
+                                                                        sx={{ fontSize: "22px" }}
+                                                                    />
+                                                                </IconButton>
+                                                            </Grid>
+                                                        </Grid>)
+                                                    })}
+                                                </Grid>
+                                            </Box>
+                                        </Modal>
+                                    </Grid>
                                 </Grid>
                             </Box>
                             <div className={styles.btn}>
@@ -397,7 +505,10 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                         width: "100px",
                                         margin: "24px 36px 0 20px"
                                     }}
-                                    onClick={() => setType("")}
+                                    onClick={() => {
+                                        setDetail([])
+                                        setType("")
+                                    }}
                                 >
                                     Hủy
                                 </Button>

@@ -25,17 +25,17 @@
     animation: fadeIn 0.3s linear;
 }
 
-@keyframes fadeIn
- {
+@keyframes fadeIn {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
- }
+}
 
-.bPopup > h3 {
+.bPopup>h3 {
     font-weight: bold;
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
     padding-bottom: 10px;
@@ -62,10 +62,10 @@
     margin: 6px 0 0;
 }
 
-.bPopup > input[type="file"] {
+.bPopup>input[type="file"] {
     padding-left: 0;
     border-radius: 0;
-}   
+}
 
 .bPopup__label-wrap {
     display: flex;
@@ -99,7 +99,7 @@
     cursor: pointer;
 }
 
-.bPopup > p {
+.bPopup>p {
     margin: 20px 0;
     color: #ff5f40;
     font-weight: 500;
@@ -167,7 +167,7 @@
 
 /* Button */
 .btn {
-    display: flex; 
+    display: flex;
     justify-content: flex-end;
     margin-top: 20px;
 }

@@ -73,7 +73,7 @@
     background-color: rgb(22 24 35 / 6%);
     border: 1.5px solid transparent;
     border-radius: 4px;
-    
+
 
     /* Khi focus vào thẻ con input thì css sẽ ảnh hưởng lên thẻ cha
     &:focus-within {
@@ -93,16 +93,16 @@
 }
 
 .search input {
-        flex: 1;
-        height: 100%;
-        background-color: transparent;
-        color: var(--black);
-        font-size: 1.6rem;
-        font-weight: 400;
-        padding: 2px 0;
-        caret-color: rgb(254, 44, 85);
-        border: none;
-        outline: none;
+    flex: 1;
+    height: 100%;
+    background-color: transparent;
+    color: var(--black);
+    font-size: 1.6rem;
+    font-weight: 400;
+    padding: 2px 0;
+    caret-color: rgb(254, 44, 85);
+    border: none;
+    outline: none;
 }
 
 .clear {
@@ -172,6 +172,35 @@
 }
 
 /* Modal */
+
+.overlay {
+    background-color: #000;
+    opacity: 0.65;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: all 0.3s linear;
+}
+
+.bPopup {
+    position: fixed;
+    text-align: left;
+    width: 80vw;
+    height: 80vh;
+    background: #ffffff;
+    box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 52px 52px 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    animation: fadeIn 0.3s linear;
+    overflow: scroll;
+}
+
 .modalBtn {
     display: flex;
     justify-content: flex-end;
@@ -184,4 +213,17 @@
     height: 80px !important;
     color: #f88686;
     margin-bottom: 12px;
+}
+
+.bPopup__close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 12px;
+    margin-right: 10px;
+    width: 28px !important;
+    height: 28px !important;
+    color: #d32f2f;
+    width: fit-content;
+    cursor: pointer;
 }

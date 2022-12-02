@@ -5,13 +5,11 @@ import "./NewsManagement.css";
 import { styled } from "@mui/material/styles";
 import {
     Add,
-    Search,
     Edit,
     ErrorOutline,
     DeleteOutline,
-    Cancel,
 } from "@mui/icons-material";
-import { useState, useEffect, memo, useRef } from "react";
+import { useState, useEffect, memo } from "react";
 import {
     IconButton,
     Modal,
@@ -23,9 +21,9 @@ import {
     Stack,
     Pagination
 } from "@mui/material";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 import NewsPopUp from "../NewsPopUp"
-import HandleApi from "../../../../Apis/HandleApi";
 import HandleNewsApi from "../../../../Apis/HandleNewsApi"
 import Swal from "sweetalert2";
 
@@ -33,21 +31,23 @@ function NewsManagement() {
     const [data, setData] = useState([]);
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
-    const [searchValue, setSearchValue] = useState("");
     const [type, setType] = useState("");
     const [updatePost, setUpdatePost] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const [selectedDetail, setSelectedDetail] = useState(null);
+    const [openDetailModal, setOpenDetailModal] = useState(false);
 
-    const inputRef = useRef();
+    const handleOpenDetailModal = (detail) => {
+        setOpenDetailModal(true);
+        setSelectedDetail(detail)
+    }
 
-    const gridColumn = [1, 2, 2, 4, 1, 1, 1];
+    const gridColumn = [1, 1, 1, 2, 4, 1, 1, 1];
     const gridTitle = [
         "STT",
         "Ảnh",
+        "Tác giả",
         "Tiêu đề",
         "Mô tả",
         "Ngày đăng",
@@ -69,7 +69,6 @@ function NewsManagement() {
     const handleDeleteItem = async (id) => {
         HandleNewsApi.deleteNews(id)
             .then((res) => {
-                console.log(id);
                 setOpenDeleteModal(false);
                 Swal.fire({
                     position: "center",
@@ -78,7 +77,6 @@ function NewsManagement() {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                console.log(data);
                 setData(data.filter((item) => item._id !== id));
             })
             .catch((err) => {
@@ -93,12 +91,10 @@ function NewsManagement() {
     };
 
     const handleClickUpdate = async (id) => {
-        console.log(id);
         HandleNewsApi.getNewsById(id)
             .then(async (res) => {
                 await setUpdatePost(res);
                 await setType("update");
-                console.log(updatePost);
             })
             .catch((err) => {
                 console.log(err);
@@ -106,27 +102,7 @@ function NewsManagement() {
     };
 
     const handlePageChange = (e, p) => {
-        console.log("PageIndex: ", p);
         setPageIndex(p - 1);
-    };
-
-    // handle search event
-    const handleInputChange = (e) => {
-        setSearchValue(e.target.value);
-    };
-
-    const handleSearch = async () => {
-        if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
-                await setDataLength(data.length);
-            });
-        }
-    };
-
-    const handleClear = () => {
-        setSearchValue("");
-        inputRef.current.focus();
     };
 
     // Custome CSS MUI
@@ -161,6 +137,47 @@ function NewsManagement() {
         p: 8
     };
 
+    const RenderDetailModel = ({ detail }) => {
+        return (<div>
+            <div className={styles.overlay}></div>
+            <div className={styles.bPopup}>
+                <CancelIcon
+                    className={styles.bPopup__close}
+                    onClick={() => setOpenDetailModal(false)}
+                />
+                <Typography variant="h4" sx={{
+                    fontWeight: "bold",
+                    paddingBottom: "20px",
+                    marginBottom: "20px",
+                    fontSize: "2.4rem",
+                    textAlign: "center",
+                    color: "rgba(0, 0, 0, 0.6)",
+                    fontFamily: "LexendRegular",
+                    width: "100%",
+                    borderBottom: "1px solid rgba(0, 0, 0, 0.5)"
+                }}>
+                    Chi tiết
+                </Typography>
+                <Grid container>
+                    <Grid container sx={{ padding: '0 0 8px' }}>
+                        <Grid item xs={2}><ItemMain>Type</ItemMain></Grid>
+                        <Grid item xs={10}><ItemMain>Content</ItemMain></Grid>
+                    </Grid>
+                    {detail.map((d, index) => {
+                        return (<Grid key={index} container>
+                            <Grid item xs={2}>
+                                <Item>{d.type}</Item>
+                            </Grid>
+                            <Grid item xs={10}>
+                                <Item>{d.content}</Item>
+                            </Grid>
+                        </Grid>)
+                    })}
+                </Grid>
+            </div>
+        </div>)
+    }
+
     return (
         <div>
             <header className={styles.header}>
@@ -173,41 +190,11 @@ function NewsManagement() {
             </header>
             <div className={styles.container}>
                 <div className={styles.container_header}>
-                    <div className={styles.funcContainer}>
-                        <div className={styles.search}>
-                            <input
-                                ref={inputRef}
-                                value={searchValue}
-                                type="text"
-                                placeholder="Tìm kiếm tin tức"
-                                spellCheck={false}
-                                onChange={handleInputChange}
-                            />
-
-                            {!!searchValue && (
-                                <button
-                                    className={styles.clear}
-                                    onClick={handleClear}
-                                >
-                                    <Cancel className={styles.clearIcon} />
-                                </button>
-                            )}
-
-                            <button
-                                className={styles.searchBtn}
-                                onMouseDown={(e) => e.preventDefault()}
-                            >
-                                <Search className={styles.searchIcon} />
-                            </button>
-                        </div>
-                    </div>
-
                     <Button
                         sx={{
                             height: 40,
                             fontSize: 14,
                             textTransform: "none",
-                            marginLeft: "80px"
                         }}
                         variant="contained"
                         color="success"
@@ -234,7 +221,7 @@ function NewsManagement() {
                                 <Grid item xs={1}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
-                                <Grid item xs={2}>
+                                <Grid item xs={1}>
                                     <Item>
                                         <img
                                             src={item.image}
@@ -242,6 +229,9 @@ function NewsManagement() {
                                             alt="news"
                                         />
                                     </Item>
+                                </Grid>
+                                <Grid item xs={1}>
+                                    <Item>{item.author}</Item>
                                 </Grid>
                                 <Grid item xs={2}>
                                     <Item>{item.title}</Item>
@@ -254,38 +244,7 @@ function NewsManagement() {
                                 </Grid>
                                 <Grid item xs={1}>
                                     <Item>
-                                        <Button variant="contained" size="large" onClick={handleOpen}>Xem chi tiết</Button>
-                                        <Modal
-                                            open={open}
-                                            onClose={handleClose}
-                                        >
-                                            <Box sx={[styleModal, { width: "80vw", height: "80vh", overflow: "scroll" }]}>
-                                                <Typography variant="h4" sx={{
-                                                    fontWeight: "bold",
-                                                    paddingBottom: "10px",
-                                                    fontSize: "2.4rem",
-                                                    textAlign: "center",
-                                                }}>
-                                                    Chi tiết
-                                                </Typography>
-                                                <Grid container>
-                                                    <Grid container sx={{ padding: '0 0 8px' }}>
-                                                        <Grid item xs={2}><ItemMain>Type</ItemMain></Grid>
-                                                        <Grid item xs={10}><ItemMain>Content</ItemMain></Grid>
-                                                    </Grid>
-                                                    {item.detail?.map((d, index) => {
-                                                        return (<Grid key={index} container>
-                                                            <Grid item xs={2}>
-                                                                <Item>{d.type}</Item>
-                                                            </Grid>
-                                                            <Grid item xs={10}>
-                                                                <Item>{d.content}</Item>
-                                                            </Grid>
-                                                        </Grid>)
-                                                    })}
-                                                </Grid>
-                                            </Box>
-                                        </Modal>
+                                        <Button variant="outlined" size="large" sx={{ width: "50px" }} onClick={() => handleOpenDetailModal(item.detail)}>Xem chi tiết</Button>
                                     </Item>
                                 </Grid>
                                 <Grid item xs={1}>
@@ -303,8 +262,6 @@ function NewsManagement() {
                                             size="medium"
                                             color="error"
                                             onClick={() => {
-                                                // handleDeleteItem(item._id)
-                                                console.log(item._id);
                                                 setOpenDeleteModal(true);
                                                 setId(item._id);
                                             }}
@@ -365,7 +322,6 @@ function NewsManagement() {
                                                             setOpenDeleteModal(
                                                                 false
                                                             );
-                                                            console.log(Id);
                                                         }}
                                                         sx={{
                                                             fontSize: "14px",
@@ -381,6 +337,7 @@ function NewsManagement() {
                                 </Grid>
                             </Grid>
                         ))}
+                        {openDetailModal && <RenderDetailModel detail={selectedDetail} />}
                     </Box>
                 </div>
 
