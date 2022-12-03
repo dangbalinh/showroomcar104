@@ -12,7 +12,7 @@ function SliderCar() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        HandleApi.getAllCar().then((res) => {
+        HandleApi.getSevenCars().then((res) => {
             setData(res.cars);
           });
     }, []);
@@ -20,11 +20,11 @@ function SliderCar() {
     const options = {
         rewind: true,
         type: "loop",
-        speed: 1200,
+        speed: 1400,
         perPage: 4,
         perMove: 1,
         width: 1060,
-        isNavigation: true,
+        // isNavigation: true,
         gap: "3rem"
         // fixedWidth: 250,
         // arrows: { prev: <WestIcon />, next: <EastIcon /> }
@@ -34,8 +34,8 @@ function SliderCar() {
         <Splide hasTrack={ false } options={options} aria-label="Slider Car">
             <div className="CarSlider__Costume">
                 <SplideTrack>
-                    {data.map((product) => (
-                            <SplideSlide key={product.id}>
+                    {data.map((product, index) => (
+                            <SplideSlide key={index}>
                                 <ItemCar data={product} />
                             </SplideSlide>
                     ))}

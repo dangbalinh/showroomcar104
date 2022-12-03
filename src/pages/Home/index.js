@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import style from "./Home.module.css";
 import images from "../../assets/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SliderCar from "./components/SliderCar";
 import SliderAdvice from "./components/SliderAdvice";
 import Vehicle from "./components/Vehicle";
@@ -11,12 +11,16 @@ import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import VolunteerActivismOutlinedIcon from "@mui/icons-material/VolunteerActivismOutlined";
 import { TipsAndUpdatesOutlined } from "@mui/icons-material";
 import NewsItem from "./components/NewsItem";
-import { useEffect } from "react";
 
 import axios from "axios";
+import HandleNewsApi from "../../Apis/HandleNewsApi";
 
 function Home() {
-    
+    const [newsData, setNewsData] = useState([])
+    useEffect(() => {
+        HandleNewsApi.getThreeNews().then(res => setNewsData(res.news));
+    }, [newsData])
+
     return (
         <div>
             <div className={style.showCar}>                  
@@ -121,9 +125,9 @@ function Home() {
                 <div className={style.newsOverlay}>
                     <div className={style.newsHeading}>NEWS</div>
                     <div className={style.newsList}>
-                        <NewsItem />    
-                        <NewsItem />
-                        <NewsItem />
+                        {newsData.map((news, index) => (
+                            <NewsItem key={index} data={news} />
+                        ))}
                     </div>
                 </div>
             </div>  

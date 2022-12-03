@@ -3,6 +3,7 @@
     height: 100%;
     background-color: #fff;
     border-radius: 25px;
+    padding: 20px;
 }
 
 /* .layout {
@@ -15,7 +16,7 @@
 .identity {
     display: flex;
     align-items: center;
-    padding-top: 20px;
+    /* padding-top: 20px; */
     justify-content: center;
     
 }
@@ -33,7 +34,7 @@
 
 .name {
     color: #000;
-    font-size: 3.6rem;
+    font-size: 3rem;
     font-weight: 600;
 }
 
@@ -52,8 +53,12 @@
 }
 
 .line {
+    position: absolute;
+    top: 90%;
+    left: 8%;
+    /* transform: translateY(-50%); */
     width: 340px;
     height: 2px;
     background-color: #A30000;
-    margin: 70px auto 0;
+    /* margin: 70px auto 0; */
 }
