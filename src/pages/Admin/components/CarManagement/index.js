@@ -520,7 +520,7 @@ function CarManagement() {
                         ))}
                     </Box>
                 </div>
-                
+
                 <div className={styles.pagination}>
                     <Stack spacing={2}>
                         <Pagination

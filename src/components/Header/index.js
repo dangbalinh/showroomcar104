@@ -14,21 +14,21 @@ function Header (){
     <div className={classes.header}>
         <Link to='/'><img src={logo} alt='logo'/></Link>
         <ul className={classes.mainmenu}>
-        {menuItems.map((item) => 
-            (<Menu item={item}></Menu>)
-        )}
-        {("user" in localStorage)? 
-        <li className={classes.menu}>
-        <NavLink to='/user'
-           className={({isActive}) => (isActive ? classes.active : classes.item)}
-           end>USER</NavLink>
-        </li> :
-        <li className={classes.menu}>
-        <NavLink to='/login'
-           className={({isActive}) => (isActive ? classes.active : classes.item)}
-           end>LOGIN</NavLink>
-        </li>
-        }
+            {menuItems.map((item) => 
+                (<Menu item={item}></Menu>)
+            )}
+            {("user" in localStorage)? 
+            <li className={classes.menu}>
+            <NavLink to='/user'
+            className={({isActive}) => (isActive ? classes.active : classes.item)}
+            end>USER</NavLink>
+            </li> :
+            <li className={classes.menu}>
+            <NavLink to='/login'
+            className={({isActive}) => (isActive ? classes.active : classes.item)}
+            end>LOGIN</NavLink>
+            </li>
+            }
         </ul>
         <AutoComplete></AutoComplete>
         <div className={classes.groupicon}>
