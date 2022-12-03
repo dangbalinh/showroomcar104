@@ -46,14 +46,14 @@ function CarManagement() {
 
     const inputRef = useRef();
 
-    const gridColumn = [0.5, 0.8, 1.8, 1.5, 1.8, 2.4, 1.2, 1, 1];
+    const gridColumn = [0.5, 0.9, 0.8, 1.8, 1.6, 1.8, 1.5, 1.2, 1.9];
     const gridTitle = [
         "STT",
         "Ảnh",
+        "Mã xe",
         "Tên xe",
         "Thương hiệu",
         "Giá",
-        "Động cơ",
         "Số chỗ ngồi",
         "Số lượng",
         ""
@@ -265,12 +265,12 @@ function CarManagement() {
         }
     };
 
-    const nameActive = {
-        "cursor": 'pointer',
-        "&:active": {
-            color: 'red',
-        }
-    }
+    // const nameActive = {
+    //     "cursor": 'pointer',
+    //     "&:active": {
+    //         color: 'red',
+    //     }
+    // }
 
     return (
         <div>
@@ -376,14 +376,13 @@ function CarManagement() {
                                 </Grid>
                             ))}
                         </Grid>
-
                         {/* Render data */}
                         {newData?.map((item, index) => (
                             <Grid container key={index}>
                                 <Grid item xs={0.5}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
-                                <Grid item xs={0.8}>
+                                <Grid item xs={0.9}>
                                     <Item>
                                         <img
                                             src={item.hinhanh}
@@ -392,27 +391,32 @@ function CarManagement() {
                                         />
                                     </Item>
                                 </Grid>
-                                <Grid item xs={1.8}>
-                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.ten}</Item>
+                                <Grid item xs={0.8}>
+                                    <Item>{item.macar}</Item>
                                 </Grid>
-                                <Grid item xs={1.5}>
+                                <Grid item xs={1.8}>
+                                    <Item>{item.ten}</Item>
+                                </Grid>
+                                <Grid item xs={1.6}>
                                     <Item>{item.thuonghieu}</Item>
                                 </Grid>
                                 <Grid item xs={1.8}>
                                     <Item>{item.gia.toLocaleString() + " VNĐ"}</Item>
                                 </Grid>
-                                <Grid item xs={2.4}>
+                                {/* <Grid item xs={2.4}>
                                     <Item>{item.dongco}</Item>
-                                </Grid>
-                                <Grid item xs={1.2}>
+                                </Grid> */}
+                                <Grid item xs={1.5}>
                                     <Item>{item.socho}</Item>
                                 </Grid>
-                                <Grid item xs={1}>
+                                <Grid item xs={1.2}>
                                     <Item>{item.soluong}</Item>
                                 </Grid>
-                                <Grid item xs={1}>
+                                <Grid item xs={1.9}>
                                     {/* Update, delete button */}
                                     <Item>
+                                        <Button variant="outlined" size="large" sx={{ fontSize: "10px", marginRight: "12px" }}
+                                            onClick={() => handleReadInfo(item._id)} >Chi tiết</Button>
                                         <IconButton
                                             color="primary"
                                             size="medium"
@@ -424,7 +428,7 @@ function CarManagement() {
                                             //     justifyContent: "space-between",
                                             //     marginLeft: "-24px"
                                             // }}
-                                            sx={{ padding: "8px 6px"}}
+                                            sx={{ padding: "8px 6px" }}
                                             onClick={() => {
                                                 handleClickUpdate(item._id);
                                             }}
@@ -516,7 +520,7 @@ function CarManagement() {
                         ))}
                     </Box>
                 </div>
-
+                
                 <div className={styles.pagination}>
                     <Stack spacing={2}>
                         <Pagination
@@ -530,6 +534,7 @@ function CarManagement() {
                         />
                     </Stack>
                 </div>
+
             </div>
             <CarPopUp
                 type={type !== "" ? type : ""}

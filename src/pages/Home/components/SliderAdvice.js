@@ -16,7 +16,6 @@ function SliderAdvice() {
         perPage: 3,
         perMove: 1,
         width: 1370,
-        // height: "100%",
         autoHeight: true,
         gap: "5.4rem",
         fixedWidth: 400,

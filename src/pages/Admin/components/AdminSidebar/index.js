@@ -56,10 +56,9 @@ function AdminSidebar() {
                     <li className={styles.sidebar_item} key={index}>
                         <Link
                             to={AdminLink[index]}
-                            // className={`${styles.item_link} ${
-                            //     index === funcActive ? styles.isActive : ""
-                            // }`}
-                            className={({isActive}) => (isActive ? styles.isActive : styles.item_link)}
+                            className={`${styles.item_link} ${
+                                index === funcActive ? styles.isActive : ""}`}
+                            // className={({isActive}) => (isActive ? styles.isActive : styles.item_link)}
                             onClick={() => setFuncActive(index)}
                         >
                             {funcIcon[index]}

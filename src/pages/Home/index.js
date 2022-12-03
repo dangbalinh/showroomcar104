@@ -29,19 +29,18 @@ function Home() {
 
             <div className={style.contact}>
                 <div className={style.contactHeading}>
-                    Get a fast quote by making a call
+                    Nhận thông tin xe bằng cách liên hệ
                 </div>
                 <div className={style.contactDesc}>
-                    Note, that you need to have an active insurance package
-                    before you request a quote.
+                    Lưu ý, bạn hãy chọn ra những mẫu xe yêu thích trước khi liên hệ với chúng tôi.
                 </div>
                 <a href="/contact" className={style.contactLink}>
-                    Call Now!
+                    Liên hệ ngay!
                 </a>
             </div>
 
             <div className={style.suggest}>
-                <div className={style.suggestHeading}>OUR RECOMMENDATIONS</div>
+                <div className={style.suggestHeading}>Gợi ý sản phẩm</div>
                 <div className={style.suggestSlider}>
                     <SliderCar />
                 </div>
@@ -49,7 +48,7 @@ function Home() {
             </div>
             {/* Dang Ba Linh */}
             <div className={style.Vehicle}>
-                <h1 className={style.VehicleHeading}>OUR VEHICLE</h1>
+                <h1 className={style.VehicleHeading}>Tất cả mẫu xe</h1>
                 <Vehicle/>  
             </div>
 
@@ -65,7 +64,7 @@ function Home() {
             >
                 <div className={style.adviceOverlay}>
                     <div className={style.adviceHeading}>
-                        Let our clients speak for us!
+                        Đánh giá của khách hàng
                     </div>
                     <div className={style.adviceSlider}>
                         <SliderAdvice />
@@ -75,15 +74,13 @@ function Home() {
 
             <div className={style.reason}>
                 <div className={style.reasonHeading}>
-                    Why do you need car insurance?
+                    Tại sao bạn cần bảo hiểm xe hơi?
                 </div>
                 <div className={style.reasonParagrapth}>
-                    If you own a car, you definitely need car insurance. A car
-                    insurance policy helps provide financial protection for you
-                    and possibly others if you're involved in an accident. All
-                    it takes is 15 minutes to get a personalized car insurance
-                    quote with the best rates, discounts, and options available
-                    to you.
+                    Nếu bạn sở hữu một chiếc xe hơi, bạn chắc chắn cần bảo hiểm xe hơi. Chính sách bảo hiểm xe hơi 
+                    giúp cung cấp sự bảo vệ tài chính cho bạn và có thể cả những người khác nếu bạn gặp tai nạn. 
+                    Tất cả chỉ mất 15 phút để nhận được báo giá bảo hiểm xe hơi được cá nhân hóa với mức giá tốt 
+                    nhất, giảm giá và các tùy chọn có sẵn cho bạn.
                 </div>
                 <ul className={style.reasonList}>
                     <li className={style.reasonItem}>
@@ -91,22 +88,19 @@ function Home() {
                             className={style.reasonIcon}
                         />
                         <p className={style.reasonText}>
-                            Car insurance will protect you from expensive
-                            surprises.
+                            Bảo hiểm xe hơi sẽ bảo vệ bạn khỏi những sự cố bất ngờ.
                         </p>
                     </li>
                     <li className={style.reasonItem}>
                         <TipsAndUpdatesOutlined className={style.reasonIcon} />
                         <p className={style.reasonText}>
-                            It will cover the cost of damage or loss of the
-                            insured vehicle.
+                            Nó sẽ bao gồm chi phí thiệt hại hoặc mất mát của chiếc xe được bảo hiểm.
                         </p>
                     </li>
                     <li className={style.reasonItem}>
                         <AccessTimeOutlinedIcon className={style.reasonIcon} />
                         <p className={style.reasonText}>
-                            You will get back to normal driving after the
-                            incident quick and hassle-free.
+                            Bạn sẽ trở lại lái xe bình thường sau sự cố một cách nhanh chóng và không gặp rắc rối.
                         </p>
                     </li>
                 </ul>
@@ -123,7 +117,7 @@ function Home() {
                 }}
             >
                 <div className={style.newsOverlay}>
-                    <div className={style.newsHeading}>NEWS</div>
+                    <div className={style.newsHeading}>Tin tức</div>
                     <div className={style.newsList}>
                         {newsData.map((news, index) => (
                             <NewsItem key={index} data={news} />

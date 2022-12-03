@@ -1,51 +1,82 @@
-.contactLayout{
+.contactLayer{
+    width: 100%;
+    background-image: linear-gradient(to right,#c31432, #240b36);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    /* margin-bottom: 40px; */
     margin-top: 100px;
 }
-.contactItem{
-   margin-top: 20px;
-}
-.contactName{
+.contactLayout{
     display: flex;
-    font-size: 20px;
-    align-items: center;
-    text-transform: uppercase;
+    width: 800px;
+    background-color: white;
+    box-shadow: 0px 0px 3px #ccc;
+    border-radius: 10px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
-.contactLocation{
-     width: 280px;
-     margin-left: 40px;
-     font-size: 14px;
-     color: #777;
+.contactImage{
+   width: 50%;
+   height: auto;
+   background: url("../../assets/image/FormImage.png") no-repeat;
+   background-position: center;
+   background-size: cover;
+   border-bottom-left-radius: 10px;
+   border-top-left-radius: 10px;
+
 }
-.contactBranch{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 20px;
+.contactForm{
+   padding: 20px;
+   width: 50%;
 }
-.contactCountry{
-    width: 320px;
-    margin-top: 50px;
-}
-.contactDetail{
-    display: flex;
-    align-items: center;
-    margin-left: 30px;
-    margin-top: 10px;
+.contactTitle{
     font-size: 14px;
-    color: #777;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
-.contactDetail a{
-    text-decoration: none;
+.contactItem{
+    display: flex;
+    flex-direction: column;
+}
+.contactLabel{
+    font-size: 14px;
+    color: #777777;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
-@media(max-width: 739px){
-    .contactCountry{
-        margin-top: 20px;
-    }
+.contactInput{
+    max-width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    height: 32px;
+    background-color: #D9D9D9;
+    border: solid 1px #777777;
+    outline: none;
+    border-radius: 4px;
+}
+textarea{
+    height: 100px;
+    max-height: 120px;
+    padding: 8px;
+    font-size: 14px;
+    background-color: #D9D9D9;
+    border: solid 1px #777777;
+    outline: none;
+    border-radius: 4px;
+}
+.contactSend{
+    float: right;
+    color: white;
+    width: 80px;
+    height: 30px;
+    background-color: #A30000;
+    border-radius: 20px;
+    border: none;
+    margin-top: 8px;
+    cursor: pointer;
+    box-shadow: 2px 2px 3px #777;
+}
+.contactSend:focus{
+    box-shadow: none;
 }
