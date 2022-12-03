@@ -4,10 +4,14 @@ import { Grid } from '@mui/material'
 import UserSide from './Components/UserSide'
 import OrderSide from './Components/OrderSide'
 import DetailOrder from './Components/DetailOrder'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 
 const UserInfoPage = ({setIsLogin}) => {
+  
   const [detail, setDetail] = useState();
+  useEffect(()=>{
+    console.log(detail);
+  },[detail])
   console.log(detail);
   return (
     <div className={classes.UserPage}>

@@ -75,20 +75,22 @@
 /*-------------------------------------*/
 .DetailCard{
     background: rgb(255,255,255);
-background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.9082983535210959) 28%, rgba(91,0,0,1) 50%, rgba(138,0,0,1) 100%);
+    background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.9082983535210959) 28%, rgba(91,0,0,1) 50%, rgba(138,0,0,1) 100%);
     color: white;
     border-radius: 10px;
-    padding: 20px;
+    padding: 10px 30px;
     padding-bottom: 50px;
     margin: 20px;
 }
 .DetailCard h2{
     text-align: center;
     font-size: xx-large;
+    margin-bottom:10px ;
 }
 
 .DetailCard p{
     font-size: 15px;
+    padding: 2px;
 }
 .DetailCard img {
     height: 60px;
@@ -101,4 +103,21 @@ background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.908298353
 .DetailCard .asa
 {
     background-color: aqua;
+}
+
+.DetailCard .ListCar{
+    justify-content: center;
+    align-content: stretch;
+    padding: 10px;
+}
+
+.Listcar{
+    display:flex;
+}
+
+.ListInfo > div{
+    display: flex;
+}
+.ListInfo p{
+    width: 50%;
 }
