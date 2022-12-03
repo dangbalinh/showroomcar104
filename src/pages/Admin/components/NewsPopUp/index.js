@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { Box } from "@mui/system";
 import { Grid, Button, Modal, IconButton, Typography, styled, Paper, Select, MenuItem, TextField, FormControl, InputLabel } from "@mui/material";
 import HandleNewsApi from "../../../../Apis/HandleNewsApi";
-import { AddCircleOutline, DeleteOutline } from "@mui/icons-material";
+import { AddCircleOutline, DeleteOutline, Edit } from "@mui/icons-material";
 
 function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
     const [image, setImage] = useState();
@@ -250,8 +250,8 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                 <Grid container>
                                                     <Grid container sx={{ padding: '0 0 8px' }}>
                                                         <Grid item xs={2}><ItemMain>Type</ItemMain></Grid>
-                                                        <Grid item xs={8}><ItemMain>Content</ItemMain></Grid>
-                                                        <Grid item xs={2}>{" "}</Grid>
+                                                        <Grid item xs={9}><ItemMain>Content</ItemMain></Grid>
+                                                        <Grid item xs={1}>{" "}</Grid>
                                                     </Grid>
                                                     <Grid container>
                                                         <Grid item xs={2}>
@@ -284,7 +284,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                             />
                                                         </Grid>
                                                         <Grid item xs={1}>
-                                                            <IconButton onClick={addDetail}>
+                                                            <IconButton sx={{ margin: "auto", display: "block" }} onClick={addDetail}>
                                                                 <AddCircleOutline sx={{ fontSize: "25px" }} />
                                                             </IconButton>
                                                         </Grid>
@@ -297,18 +297,26 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                             <Grid item xs={8}>
                                                                 <Item>{d.content}</Item>
                                                             </Grid>
-                                                            <Grid item xs={1}>
-                                                                <IconButton
-                                                                    size="medium"
-                                                                    color="error"
-                                                                    onClick={() => {
-                                                                        handleDeleteDetail(d.index)
-                                                                    }}
-                                                                >
-                                                                    <DeleteOutline
-                                                                        sx={{ fontSize: "22px" }}
-                                                                    />
-                                                                </IconButton>
+                                                            <Grid item xs={2}>
+                                                                <Item>
+                                                                    <IconButton
+                                                                        color="primary"
+                                                                        size="medium"
+                                                                    >
+                                                                        <Edit sx={{ fontSize: "22px" }} />{" "}
+                                                                    </IconButton>
+                                                                    <IconButton
+                                                                        size="medium"
+                                                                        color="error"
+                                                                        onClick={() => {
+                                                                            handleDeleteDetail(d.index)
+                                                                        }}
+                                                                    >
+                                                                        <DeleteOutline
+                                                                            sx={{ fontSize: "22px" }}
+                                                                        />
+                                                                    </IconButton>
+                                                                </Item>
                                                             </Grid>
                                                         </Grid>)
                                                     })}
@@ -414,8 +422,8 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                 <Grid container>
                                                     <Grid container sx={{ padding: '0 0 8px' }}>
                                                         <Grid item xs={2}><ItemMain>Type</ItemMain></Grid>
-                                                        <Grid item xs={8}><ItemMain>Content</ItemMain></Grid>
-                                                        <Grid item xs={2}>{" "}</Grid>
+                                                        <Grid item xs={9}><ItemMain>Content</ItemMain></Grid>
+                                                        <Grid item xs={1}>{" "}</Grid>
                                                     </Grid>
                                                     <Grid container>
                                                         <Grid item xs={2}>
@@ -448,7 +456,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                             />
                                                         </Grid>
                                                         <Grid item xs={1}>
-                                                            <IconButton onClick={addDetail}>
+                                                            <IconButton sx={{ margin: "auto", display: "block" }} onClick={addDetail}>
                                                                 <AddCircleOutline sx={{ fontSize: "25px" }} />
                                                             </IconButton>
                                                         </Grid>
@@ -461,18 +469,26 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                             <Grid item xs={8}>
                                                                 <Item>{d.content}</Item>
                                                             </Grid>
-                                                            <Grid item xs={1}>
-                                                                <IconButton
-                                                                    size="medium"
-                                                                    color="error"
-                                                                    onClick={() => {
-                                                                        handleDeleteDetail(d.index)
-                                                                    }}
-                                                                >
-                                                                    <DeleteOutline
-                                                                        sx={{ fontSize: "22px" }}
-                                                                    />
-                                                                </IconButton>
+                                                            <Grid item xs={2}>
+                                                                <Item>
+                                                                    <IconButton
+                                                                        color="primary"
+                                                                        size="medium"
+                                                                    >
+                                                                        <Edit sx={{ fontSize: "22px" }} />{" "}
+                                                                    </IconButton>
+                                                                    <IconButton
+                                                                        size="medium"
+                                                                        color="error"
+                                                                        onClick={() => {
+                                                                            handleDeleteDetail(d.index)
+                                                                        }}
+                                                                    >
+                                                                        <DeleteOutline
+                                                                            sx={{ fontSize: "22px" }}
+                                                                        />
+                                                                    </IconButton>
+                                                                </Item>
                                                             </Grid>
                                                         </Grid>)
                                                     })}
