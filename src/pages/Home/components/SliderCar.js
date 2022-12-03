@@ -2,10 +2,9 @@ import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import ItemCar from "./ItemCar";
 import "./SliderCar.css";
-import WestIcon from "@mui/icons-material/West";
+// import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import HandleApi from "../../../Apis/HandleApi";
 
 function SliderCar() {
@@ -24,7 +23,7 @@ function SliderCar() {
         perPage: 4,
         perMove: 1,
         width: 1060,
-        // isNavigation: true,
+        isNavigation: true,
         gap: "3rem"
         // fixedWidth: 250,
         // arrows: { prev: <WestIcon />, next: <EastIcon /> }
@@ -54,4 +53,4 @@ function SliderCar() {
     );
 }
 
-export default SliderCar;
+export default memo(SliderCar);

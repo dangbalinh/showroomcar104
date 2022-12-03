@@ -2,7 +2,7 @@ import style from "./Vehicle.module.css";
 import ItemVehicle from "./ItemVehicle";
 import images from "../../../assets/image";
 import HandleApi from "../../../Apis/HandleApi";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 function Vehicle() {
     const [data,setData] = useState([]);
     const [branch,setBranch] = useState("Toyota");
@@ -65,4 +65,4 @@ function Vehicle() {
         
     );
 }
-export default Vehicle;
+export default memo(Vehicle);
