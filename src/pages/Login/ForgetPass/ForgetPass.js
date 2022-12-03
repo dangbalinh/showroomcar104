@@ -6,23 +6,6 @@ import Swal from 'sweetalert2'
 
 
 const ForgetPass = (props) => {
-    /*const sendRequestSU = async ()=>{
-        const res = await axios
-        .post(`someapihere/signup`,{
-          email:String(inputs.email),
-        })
-        .catch((err)=>console.log(err))
-    
-        const data = await res.data;
-        if (data.status != 201) {
-          await setMessage(true)
-        else {
-          console.log(data.message);
-          await alert("cant send!")
-        }
-        return data;
-      }
-    */
    const [message, setMessage] = useState()
       
       const sendRequestSU = async ()=>{
@@ -40,7 +23,7 @@ const ForgetPass = (props) => {
         })
         const data = await res.data;
         if (data.status == 201) {
-          console.log(data.message);
+                    console.log(data.status);
         }
         else {
           console.log(data.message);
@@ -61,6 +44,13 @@ const ForgetPass = (props) => {
           .then((data)=>{
             setMessage(data.message)
           })
+          .then(()=>{
+            Swal.fire({
+              icon: 'success',
+              title: 'Congrats',
+              text: message,
+            })
+          })
         }
 
     }
@@ -71,7 +61,7 @@ const ForgetPass = (props) => {
         
     <form className={classes.form}>
                 <h2>FORGET YOUR PASSWORD?</h2>
-                <p style={{color: "#c3aeae",padding: "20px 0",fontSize:"18px", textAlign:"center"}}>You baka but don't worry, please enter your email below and we will send you a link to recover your password!</p>
+                <p style={{color: "#c3aeae",padding: "20px 0",fontSize:"18px", textAlign:"center"}}>Don't worry, please enter your email below and we will send you a link to recover your password!</p>
                 <p>
                     <label>Email address</label><br/>
                     <input className={classes.input} onChange={props.handleChange} onBlur={props.handleBlur}

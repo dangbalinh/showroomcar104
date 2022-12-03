@@ -103,8 +103,9 @@ const Login = () => {
         sendRequestSU()
         .then((data)=>{
           localStorage.setItem("user",JSON.stringify(data.user));
-          localStorage.setItem("token",JSON.stringify(data.token));
+          localStorage.setItem("token",data.token);
         })
+        //.then(()=>setIsLogin(true))
         .then(()=>navigate("/"));
         }
     }

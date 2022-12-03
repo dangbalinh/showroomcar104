@@ -103,7 +103,7 @@ const PassReset = () => {
           .then(()=>Swal.fire({
             icon: 'success',
             title: 'Congrats',
-            text: 'Your email has been changed',
+            text: 'Your password has been changed',
           }))
           .then(()=>navigate("/login"));
         }

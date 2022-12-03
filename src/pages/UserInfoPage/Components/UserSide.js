@@ -1,8 +1,8 @@
-import React from 'react'
+import React,{useState} from 'react'
 import avatar from './avatar.jpg'
 import classes from'../UserInfoPage.module.css'
 import { useNavigate } from 'react-router-dom'
-const UserSide = () => {
+const UserSide = ({setIsLogin}) => {
     const navigate = useNavigate();
     const user ={
         "email":"20522065@gm.uit.edu.vn",
@@ -20,7 +20,8 @@ const UserSide = () => {
       onClick={()=>{
         localStorage.removeItem("user");
         localStorage.removeItem("token");
-        navigate('/');
+        //setIsLogin(false)
+        navigate('/')
       }}
       id="sub_btn" type="submit">Log out</button><br/>
       </div>
