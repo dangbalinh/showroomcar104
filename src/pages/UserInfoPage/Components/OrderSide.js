@@ -1,139 +1,45 @@
 import React, {useState,useEffect} from 'react'
 import { Grid } from '@mui/material'
 import axios from 'axios'
+import { DatePicker } from "@mui/x-date-pickers"
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs, { Dayjs } from 'dayjs';
+
+import {
+  TextField
+} from "@mui/material";
 import classes from'../UserInfoPage.module.css'
 
 const OrderSide = ({
   setDetail,
 }) => {
     const token = localStorage.getItem("token");
-    const imgcar= "https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/Toyota%2FTytCamry-trang.png?alt=media&token=b9edc460-e1cb-46a8-850c-d7a3c13683d4";
-    const bill = [{
-        "operationId": "ship1",
-        "lineItems": [
-          {
-            "productId": "online:en:US:df4sg53ds9",
-            "quantity": 1,
-            "url":imgcar
-          },
-          {
-            "productId": "online:en:US:df4sg53ds9",
-            "quantity": 9,
-            "url":imgcar
-          },
-          {
-            "productId": "online:en:US:df4sg53ds9",
-            "quantity": 10,
-            "url":imgcar
-          }
-        ],
-        "shipmentInfos":
-          {
-            "shipmentId": "shipment1",
-            "carrier": "UPS",
-            "trackingId": "1234567890"
-          }
-        ,
-        "Date": false,
-    },
-    {
-      "operationId": "ship2",
-      "lineItems": [
-        {
-          "productId": "YYFPTREDYNCZEYE",
-          "quantity": 2,
-          "url":imgcar
-        },
-        {
-          "productId": "online:en:US:df4sg53ds9",
-          "quantity": 1,
-          "url":imgcar
-        },
-        {
-          "productId": "online:en:US:df4sg53ds9",
-          "quantity": 1,
-          "url":imgcar
-        },
-        {
-          "productId": "online:en:US:df4sg53ds9",
-          "quantity": 1,
-          "url":imgcar
-        }
-      ],
-      "shipmentInfos": 
-        {
-          "shipmentId": "shipment1",
-          "carrier": "UPS",
-          "trackingId": "1234567890"
-        }
-      ,
-      "Date": false,
-  },
-  {
-    "operationId": "ship2",
-    "lineItems": [
-      {
-        "productId": "YYFPTREDYNCZEYE",
-        "quantity": 2,
-        "url":imgcar
-      },
-      {
-        "productId": "online:en:US:df4sg53ds9",
-        "quantity": 1,
-        "url":imgcar}
-    ],
-    "shipmentInfos": 
-      {
-        "shipmentId": "shipment1",
-        "carrier": "UPS",
-        "trackingId": "1234567890"
-      }
-    ,
-    "Date": true,
-},
-{
-  "operationId": "ship4",
-  "lineItems": [
-    {
-      "productId": "YYFPTREDYNCZEYE",
-      "quantity": 2,
-      "url":imgcar
-    },
-    {
-      "productId": "online:en:US:df4sg53ds9",
-      "quantity": 1,
-      "url":imgcar}
-  ],
-  "shipmentInfos": 
-    {
-      "shipmentId": "shipment1",
-      "carrier": "UPS",
-      "trackingId": "1234567890"
-    }
-  ,
-  "Date": false,}
-  ]
     const gridTitle =[
       "STT",
       "ID",
-      "PRODUCTS",
-      "ADDRESS",
+      "Quantity",
+      "Date",
+      
       "STATUS",
     ]
     const gridColumn =[
-        1,3,3,3,2
+        1,3,2,3,3
     ]
-    const [userData, setUserData] = useState(bill)
-    const [status, setStatus] = useState("all")
+    /*const filterSuggestions = suggestiondata.filter(dt =>{
+              const regex = new RegExp(`${query}`,'gi');
+              return dt.ten.match(regex);
+            }); */
+    const [userData, setUserData] = useState([])
+    const [userDataa, setUserDataa] = useState([])
+    const [value, setValue] = React.useState(dayjs());
+    const [first, setfirst] = useState();
     useEffect(() => {
-      console.log(status);
-      if(status!="all")
-      setUserData(bill.filter((item) =>{ 
-        return item.Date == status;}))
-      else
-      setUserData(bill);
-      
-    }, [status])
+        var date = new Date(value);
+        var finaldate = (parseInt(date.getMonth())<9? ("0" + (0 + date.getMonth() + 1)): (date.getMonth() + 1))  + '-' +  date.getFullYear()
+        setfirst(finaldate)
+      }, [value])
+    const [status, setStatus] = useState("all")
     const authAxios = axios.create({
       baseURL: 'https://showroomcar104.onrender.com',
       headers:{
@@ -142,29 +48,62 @@ const OrderSide = ({
     })
     const sendRequestSU = async ()=>{
       const res = await authAxios
-      .get(`/user/me`)
+      .get(`/users/me`)
       .catch((err)=>console.log(err))
   
-      const data = await res.data;
+      const data = await res.data.hoadons;
       console.log(data);
       return data;
     }
+    useEffect(() => {
+      sendRequestSU()
+      .then((data)=>{setUserData(data);setUserDataa(data)})
+    }, [])
+    useEffect(() => {
+    console.log(status);
+      if(status!="all")
+      setUserDataa(userData.filter((item) =>{ 
+        return item.tinhtrang == status;}))
+      else
+      setUserDataa(userData)
+      setUserDataa((prev)=>prev.filter((item)=>{
+        return item.ngayhd.includes(first.toString())
+      }))
+      {userDataa.map((item, index) => console.log(item.ngayhd))}
+      console.log(first);
+      console.log(status);
+    }, [status,first])
+    
     const handleTest=()=>{
       /*sendRequestSU()
       .then((data)=>console.log(data))*/
-      console.log(token.toString());
-      console.log("aaa");
+      console.log(first);
     }
-    
+
   return (
     <div className={classes.OrderSide} style={{width:"100%", height:"500px"}}>
-    {true? <><h2>YOUR BILLS</h2>
+    {userData.length!==0? <><h2>YOUR BILLS</h2>
     <div className={classes.PickStatus}>
       <button onClick={()=>setStatus("all")}>All</button>
-      <button onClick={()=>setStatus(false)}>Uncomplete</button>
-      <button onClick={()=>setStatus(true)}>Complete</button>
+      <button onClick={()=>setStatus("Chưa thanh toán")}>Uncomplete</button>
+      <button onClick={()=>setStatus("Đã thanh toán")}>Complete</button>
       <button onClick={handleTest}>test</button>
       <input className={classes.input}/>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DatePicker
+          views={['year', 'month']}
+          inputFormat="MM-YYYY"
+          label="Year and Month"
+          minDate={dayjs('2012-03-01')}
+          maxDate={dayjs('2023-06-01')}
+          value={value}
+          onChange={(newValue) => {
+            setValue(newValue)}}
+          renderInput={(params) => <TextField {...params} helperText={null} />}
+
+        />
+      </LocalizationProvider>
+      
     </div>
     <Grid container sx={{ 
     padding: '0 0',
@@ -178,28 +117,23 @@ const OrderSide = ({
         </Grid>
       ))}
     </Grid>
-      {userData.map((item, index) => (
+      {userDataa.map((item, index) => (
         <Grid container sx={index%2==0? { padding: '20px 0', backgroundColor:"white"} : { padding: '20px 0', backgroundColor:"ButtonHighlight",color:"#8a0000"}}
         key={index}>
         <Grid item xs={1}>
             <p>{index+1}</p>
           </Grid>
         <Grid item xs={3}>
-            <p onClick={()=>setDetail(item)}>{item.operationId}</p>
+            <p onClick={()=>setDetail(item)}>{item.mahd}</p>
         </Grid>
-       <Grid item xs={3}>
-          <div style={{display:"flex"}}>
-            {item.lineItems.slice(0, 3).map((img,indexx)=>(
-            <img src={img.url} key={indexx} onClick={()=>alert("car click")}/>
-          ))}
-          {item.lineItems.length>3 && <p style={{marginLeft:"5px"}}> . . .</p>}
-        </div>
-        </Grid>
-        <Grid item xs={3}>
-          <p>{item.shipmentInfos.trackingId}</p>
+        <Grid item xs={2}>
+          <p>{userData.length}</p>
       </Grid>
-      <Grid item xs={2}>
-       <p>{item.Date.toString()}</p>
+       <Grid item xs={3}>
+          <p>{item.ngayhd}</p>
+        </Grid>
+      <Grid item xs={3}>
+       <p>{item.tinhtrang}</p>
       </Grid>
       </Grid>
       ))}
@@ -209,3 +143,28 @@ const OrderSide = ({
 }
 
 export default OrderSide
+/*<div style={{display:"flex"}}>
+            {item.lineItems.slice(0, 3).map((img,indexx)=>(
+            <img src={img.url} key={indexx} onClick={()=>alert("car click")}/>
+          ))}
+          {item.lineItems.length>3 && <p style={{marginLeft:"5px"}}> . . .</p>}
+        </div> 
+        
+        
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DatePicker
+          views={['year', 'month']}
+          mask="____/__/__"
+          inputFormat="MM-YYYY"
+          label="Year and Month"
+          minDate={dayjs('2012-03-01')}
+          maxDate={dayjs('2023-06-01')}
+          value={value}
+          onChange={(newValue) => {
+            setValue(newValue);
+          }}
+          renderInput={(params) => <TextField {...params} helperText={null} />}
+
+        />
+      </LocalizationProvider>
+        */
