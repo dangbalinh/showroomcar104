@@ -8,7 +8,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import AutoComplete from './Autosearch/AutoComplete'
-import { autoCompleteData } from './Autosearch/Searchdata'
+
 function Header (){
     return (<div >
     <div className={classes.header}>
@@ -30,7 +30,7 @@ function Header (){
         </li>
         }
         </ul>
-        <AutoComplete data={autoCompleteData}></AutoComplete>
+        <AutoComplete></AutoComplete>
         <div className={classes.groupicon}>
            <a href=''><InstagramIcon fontSize="large" className={classes.icon}/></a>
            <a href=''><YouTubeIcon fontSize="large" className={classes.icon}/></a>

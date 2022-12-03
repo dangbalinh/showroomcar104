@@ -6,14 +6,14 @@ import OrderSide from './Components/OrderSide'
 import DetailOrder from './Components/DetailOrder'
 import { useState } from 'react'
 
-const UserInfoPage = () => {
+const UserInfoPage = ({setIsLogin}) => {
   const [detail, setDetail] = useState();
   console.log(detail);
   return (
     <div className={classes.UserPage}>
     <Grid container spacing={1}>
         <Grid item xs={2}>
-             <UserSide/>
+            <UserSide/>
         </Grid>
         <Grid item xs={6}>
         <OrderSide setDetail={setDetail}/>

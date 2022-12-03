@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom';
 
 
-const AutoComplete = ( {data} ) => {
+const AutoComplete = () => {
     const [suggestiondata, setSuggestiondata] = useState();
     const [suggestions, setSuggestions] = useState();
     const [suggestionsActive, setSuggestionsActive] = useState(false);
