@@ -12,7 +12,7 @@ function InformationDetailProduct(pros) {
     useEffect(() => {
         HandleApi.getCarById(productId).then(res => setData(res));
         console.log(data);
-    }, [])
+    }, [productId])
     return (
         <div className={style.information}>
             <div className={style.information__heading}>

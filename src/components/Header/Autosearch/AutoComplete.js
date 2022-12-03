@@ -1,6 +1,6 @@
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import classes from "../Header.module.css"
-import { useState, useRef,useEffect  } from "react";
+import { useState, useRef, useEffect, memo } from "react";
 import axios from 'axios';
 import { Link,useNavigate } from 'react-router-dom';
 
@@ -109,4 +109,4 @@ const handleKeyDown = (event) => {
   );
 };
 
-export default AutoComplete;
+export default memo(AutoComplete);

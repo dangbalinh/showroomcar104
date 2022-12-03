@@ -23,12 +23,12 @@ const publicRoutes = [
     { path: "/readnews/:id", component: ReadNews },
     { path: "/form", component: Form },
     { path: "/detailproduct/:productId", component: DetailProduct },
-    { path: "/register/*", component: Register, layout: null },
-    { path: "/login", component: Login, layout: null },
+    { path: "/register/*", component: Register },
+    { path: "/login", component: Login },
     { path: '/search', component: Search },
     { path: "/admin/*", component: Admin, layout: null },
     { path: "/*", component: NotFound },
-    { path: "/resetpass/:token", component: PassReset,layout:null },
+    { path: "/resetpass/:token", component: PassReset, layout:null },
     { path: "/user", component: UserInfoPage },
 
 ];

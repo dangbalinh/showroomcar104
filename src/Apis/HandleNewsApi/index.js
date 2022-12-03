@@ -8,6 +8,10 @@ const getNewsByPageIndex = async (index) => {
     return await axiosInstance.get(`/news?pageIndex=${index}`);
 };
 
+const getThreeNews = async () => {
+    return await axiosInstance.get("/news?pageIndex=0&pageSize=3");
+};
+
 const getNewsById = async (id) => {
     return await axiosInstance.get(`/news/${id}`);
 };
@@ -29,6 +33,7 @@ export default {
     getAllNews,
     getNewsByPageIndex,
     getNewsById,
+    getThreeNews,
     createNews,
     updateNews,
     deleteNews
