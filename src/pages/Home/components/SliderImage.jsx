@@ -2,6 +2,8 @@ import HeroSlider, {Slide , Overlay} from 'hero-slider';
 import style from './SliderImage.module.css';
 import Wrapper from './Wrapper';
 import images from '../../../assets/image';
+import { memo } from "react";
+
 function SliderImage() {
     return(
         <HeroSlider
@@ -25,11 +27,10 @@ function SliderImage() {
         <Overlay>
             <Wrapper>
                 <a href="/introduce" className={style.showStarted}>
-                    Get Started
+                    Giới thiệu
                 </a>
                 <div className={style.showDescription}>
-                    Twenty-four years in the market - helping people save money
-                    and time all around the states.
+                Nơi chuyên trưng bày và mua bán các loại siêu xe, siêu sang của những thương hiệu hàng đầu thế giới. Giúp mọi người tiết kiệm thời gian nhưng vẫn có được những mẫu xe ưng ý.
                 </div>
             </Wrapper>
         </Overlay>
@@ -58,4 +59,4 @@ function SliderImage() {
         </HeroSlider>
     );
 }
-export default SliderImage;
+export default memo(SliderImage);

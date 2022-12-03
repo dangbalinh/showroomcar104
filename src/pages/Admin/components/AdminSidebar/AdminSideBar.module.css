@@ -103,7 +103,20 @@
 }
 
 /* Active */
+/* .isActive {
+    background-color: #fff;
+    color: #000;
+} */
+
 .isActive {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: 300;
+    padding: 16px;
+    border-radius: 12px;
     background-color: #fff;
     color: #000;
 }

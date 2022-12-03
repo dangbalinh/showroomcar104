@@ -5,50 +5,46 @@ import style from "./SliderAdvice.module.css";
 import "./SliderAdvice.css";
 import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
+import axios from "axios";
+import { useEffect, useState, memo } from 'react';
 
 function SliderAdvice() {
     const options = {
         rewind: true,
         type: "loop",
-        speed: 1600,
+        speed: 1500,
         perPage: 3,
         perMove: 1,
         width: 1370,
-        // height: "100%",
         autoHeight: true,
         gap: "5.4rem",
         fixedWidth: 400,
         fixedHeight: 362,
         // padding: '5rem',
         focus: "center",
-        // autoplay: true,
+        autoplay: true,
+        interval: 4000,
         pauseOnHover: true,
         updateOnMove: true,
         // fixedWidth: 250,
     };
 
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+      axios.get("https://637c281172f3ce38ea9be907.mockapi.io/carapi/products").then(res => setData(res.data))
+    }, [])
+    console.log(data)
+
     return (
         <Splide className="AdviceSlider__splide" hasTrack={false} options={options} aria-label="Slider Advice">
             <div className="AdviceSlider__custome">
                 <SplideTrack>
-                    <SplideSlide>
-                        <ItemAdvice />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <ItemAdvice />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <ItemAdvice />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <ItemAdvice />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <ItemAdvice />
-                    </SplideSlide>
-                    <SplideSlide>
-                        <ItemAdvice />
-                    </SplideSlide>
+                    {data.map((item, index) => (
+                        <SplideSlide key={index}>
+                            <ItemAdvice data={item} />
+                        </SplideSlide>
+                    ))}
                 </SplideTrack>
             </div>
 
@@ -66,4 +62,4 @@ function SliderAdvice() {
     );
 }
 
-export default SliderAdvice;
+export default memo(SliderAdvice);

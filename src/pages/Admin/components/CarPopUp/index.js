@@ -25,9 +25,11 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
     const [year, setYear] = useState();
     const [size, setSize] = useState();
     const [quantity, setQuantity] = useState();
+    const [carCode, setCarCode] = useState();
 
     const inputId = [
         "name",
+        "code",
         "thumbnail",
         "brand",
         "price",
@@ -47,6 +49,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
 
     const useStateEvent = [
         setCarName,
+        setCarCode,
         setThumbnail,
         setBrand,
         setPrice,
@@ -66,6 +69,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
 
     const placeHolder = [
         "Nhập tên xe",
+        "Nhập mã xe",
         "Nhập hình ảnh",
         "Nhập thương hiệu",
         "Nhập giá xe",
@@ -85,6 +89,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
 
     const textValue = [
         "Tên xe",
+        "Mã xe",
         "Hình ảnh",
         "Thương hiệu",
         "Giá xe",
@@ -102,10 +107,11 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
         "Số lượng xe"
     ];
 
-    const inputType = ["text", "text", "text", "number", "text", "number", "text", "text", "text", "text", "text", "text", "text", "number", "text", "number"];
+    const inputType = ["text", "text", "text", "text", "number", "text", "number", "text", "text", "text", "text", "text", "text", "text", "number", "text", "number"];
 
     const inputValue = [
         carName,
+        carCode,
         thumbnail,
         brand,
         price,
@@ -126,6 +132,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
     // object data
     const data = {
         ten: carName,
+        macar: carCode,
         thuonghieu: brand,
         hinhanh: thumbnail,
         gia: Number(price),
@@ -193,6 +200,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
     useEffect(() => {
         if (updateCar !== {}) {
             setCarName(updateCar.ten);
+            setCarCode(updateCar.macar);
             setPrice(updateCar.gia);
             setThumbnail(updateCar.hinhanh);
             setBrand(updateCar.thuonghieu);
@@ -234,61 +242,57 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                         <h3>Thêm sản phẩm</h3>
                         <br />
                         <Box sx={{ flexGrow: 1 }}>
-                            <form onSubmit={handleCreateCar}>
-                                <Grid container sx={{ width: "1120px", marginTop: "16px"}}>
-                                    {inputId.map((item, index) => (
-                                        <Grid key={index} item xs={3} sx={{ height: "93px" }}>
-                                            <label htmlFor={item[index]} className={styles.label}>
-                                                {textValue[index]}
-                                            </label>
-                                            <br />
-                                            <input
-                                                id={item[index]}
-                                                name={item[index]}
-                                                type={inputType[index]}
-                                                required
-                                                placeholder={placeHolder[index]}
-                                                onChange={(e) =>
-                                                    useStateEvent[index](
-                                                        e.target.value
-                                                    )
-                                                }
-                                                onBlur={handleBlur}
-                                            />
-                                            {/* <div>{errorName}</div> */}
-                                        </Grid>
-                                    ))}
-                                </Grid>
-                                <div className={styles.btn}>
-                                    <Button
-                                        variant="contained"
-                                        color="success"
-                                        size="large"
-                                        sx={{
-                                            fontSize: "14px",
-                                            width: "160px",
-                                            margin: "24px 0 0"
-                                        }}
-                                        type={"submit"}
-                                    // onClick={handleCreateCar}
-                                    >
-                                        Thêm dữ liệu
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        color="error"
-                                        size="large"
-                                        sx={{
-                                            fontSize: "14px",
-                                            width: "100px",
-                                            margin: "24px 36px 0 20px"
-                                        }}
-                                        onClick={() => setType("")}
-                                    >
-                                        Hủy
-                                    </Button>
-                                </div>
-                            </form>
+                            <Grid container sx={{ width: "1120px", marginTop: "16px" }}>
+                                {inputId.map((item, index) => (
+                                    <Grid key={index} item xs={3} sx={{ height: "93px" }}>
+                                        <label htmlFor={item[index]} className={styles.label}>
+                                            {textValue[index]}
+                                        </label>
+                                        <br />
+                                        <input
+                                            id={item[index]}
+                                            name={item[index]}
+                                            type={inputType[index]}
+                                            required
+                                            placeholder={placeHolder[index]}
+                                            onChange={(e) =>
+                                                useStateEvent[index](
+                                                    e.target.value
+                                                )
+                                            }
+                                            onBlur={handleBlur}
+                                        />
+                                        {/* <div>{errorName}</div> */}
+                                    </Grid>
+                                ))}
+                            </Grid>
+                            <div className={styles.btn}>
+                                <Button
+                                    variant="contained"
+                                    color="success"
+                                    size="large"
+                                    sx={{
+                                        fontSize: "14px",
+                                        width: "160px",
+                                    }}
+                                    onClick={handleCreateCar}
+                                >
+                                    Thêm dữ liệu
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="error"
+                                    size="large"
+                                    sx={{
+                                        fontSize: "14px",
+                                        width: "100px",
+                                        margin: "0 36px 0 20px"
+                                    }}
+                                    onClick={() => setType("")}
+                                >
+                                    Hủy
+                                </Button>
+                            </div>
                         </Box>
                     </div>
 
@@ -305,8 +309,8 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                         />
                         <h3>Cập nhật dữ liệu xe</h3>
 
-                        <Box sx={{ flexGrow: 1, marginTop: '20px' }}>
-                            <Grid container sx={{ width: "1120px", marginTop: "16px"}}>
+                        <Box sx={{ flexGrow: 1 }}>
+                            <Grid container sx={{ width: "1120px", marginTop: "16px" }}>
                                 {inputId.map((item, index) => (
                                     <Grid key={index} item xs={3} sx={{ height: '93px' }}>
                                         <label htmlFor={item[index]}>
@@ -370,6 +374,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                                 <Grid item xs={6}>
                                     {/* <div className={styles.infoCar}> */}
                                     <Item sx={{ fontWeight: "bold" }}>{"Tên xe: " + updateCar.ten}</Item>
+                                    <Item>{"Mã xe: " + updateCar.macar}</Item>
                                     <Item>{"Thương hiệu: " + updateCar.thuonghieu}</Item>
                                     <Item>{"Động cơ: " + updateCar.dongco}</Item>
                                     <Item>{"Số chỗ ngồi: " + updateCar.socho}</Item>

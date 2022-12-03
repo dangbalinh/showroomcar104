@@ -1,23 +1,22 @@
 import style from "./NewsItem.module.css";
 import images from "../../../assets/image";
 
-function NewsItem() {
+function NewsItem({data}) {
     return (
-        <div className={style.container}>
+        <a href={`/readnews/${data._id}`} className={style.container}>
             <img
-                src={images.newsItemImg}
+                src={data.image}
                 alt="News img"
                 className={style.img}
             />
             <div className={style.content}>
-                <h1 className={style.heading}>NEWS 1</h1>
-                <div className={style.date}>12-09-2022</div>
+                <h1 className={style.heading}>{data.title.slice(0, 40)}...</h1>
+                <div className={style.date}>{data.dateSource}</div>
                 <p className={style.paragraph}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore.
+                    {data.description.slice(0,140)}...
                 </p>
             </div>
-        </div>
+        </a>
     );
 }
 

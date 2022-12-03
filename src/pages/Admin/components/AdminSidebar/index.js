@@ -11,7 +11,7 @@ import {
 } from "@mui/icons-material";
 
 import images from "../../../../assets/image";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 
 function AdminSidebar() {
@@ -54,16 +54,17 @@ function AdminSidebar() {
             <ul className={styles.sidebar_content}>
                 {AdminFunc.map((func, index) => (
                     <li className={styles.sidebar_item} key={index}>
-                        <Link
+                        <NavLink
                             to={AdminLink[index]}
-                            className={`${styles.item_link} ${
-                                index === funcActive ? styles.isActive : ""
-                            }`}
+                            // className={`${styles.item_link} ${
+                            //     index === funcActive ? styles.isActive : ""}`}
+                            className={({isActive}) => (isActive ? styles.isActive : styles.item_link)}
+                            end
                             onClick={() => setFuncActive(index)}
                         >
                             {funcIcon[index]}
                             {func}
-                        </Link>
+                        </NavLink>
                     </li>
                 ))}
             </ul>

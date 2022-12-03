@@ -160,15 +160,15 @@ function NewsManagement() {
                 </Typography>
                 <Grid container>
                     <Grid container sx={{ padding: '0 0 8px' }}>
-                        <Grid item xs={2}><ItemMain>Type</ItemMain></Grid>
-                        <Grid item xs={10}><ItemMain>Content</ItemMain></Grid>
+                        <Grid item xs={1}><ItemMain>Type</ItemMain></Grid>
+                        <Grid item xs={11}><ItemMain>Content</ItemMain></Grid>
                     </Grid>
                     {detail.map((d, index) => {
                         return (<Grid key={index} container>
-                            <Grid item xs={2}>
+                            <Grid item xs={1}>
                                 <Item>{d.type}</Item>
                             </Grid>
-                            <Grid item xs={10}>
+                            <Grid item xs={11}>
                                 <Item>{d.content}</Item>
                             </Grid>
                         </Grid>)

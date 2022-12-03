@@ -1,8 +1,8 @@
 import style from "./ItemCar.module.css";
 import images from "../../../assets/image";
+import {memo} from 'react';
 
 function ItemCar({ data }) {
-    console.log(data);
     return (
         <div className={style.carContainer}>
             <div className={style.carName}>{data.ten}</div>
@@ -16,4 +16,4 @@ function ItemCar({ data }) {
     );
 }
 
-export default ItemCar;
+export default memo(ItemCar);

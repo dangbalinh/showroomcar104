@@ -23,9 +23,10 @@
   .showDescription {
     position: absolute;
     right: 55px;
-    bottom: 55px;
+    bottom: 90px;
     width: 610px;
     height: 50px;
     font-size: 2rem;
     color: #fff;
+    line-height: 1.5;
   }

@@ -2,17 +2,16 @@ import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 import ItemCar from "./ItemCar";
 import "./SliderCar.css";
-import WestIcon from "@mui/icons-material/West";
+// import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
-import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import HandleApi from "../../../Apis/HandleApi";
 
 function SliderCar() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        HandleApi.getAllCar().then((res) => {
+        HandleApi.getSevenCars().then((res) => {
             setData(res.cars);
           });
     }, []);
@@ -20,7 +19,7 @@ function SliderCar() {
     const options = {
         rewind: true,
         type: "loop",
-        speed: 1200,
+        speed: 1400,
         perPage: 4,
         perMove: 1,
         width: 1060,
@@ -34,8 +33,8 @@ function SliderCar() {
         <Splide hasTrack={ false } options={options} aria-label="Slider Car">
             <div className="CarSlider__Costume">
                 <SplideTrack>
-                    {data.map((product) => (
-                            <SplideSlide key={product.id}>
+                    {data.map((product, index) => (
+                            <SplideSlide key={index}>
                                 <ItemCar data={product} />
                             </SplideSlide>
                     ))}
@@ -54,4 +53,4 @@ function SliderCar() {
     );
 }
 
-export default SliderCar;
+export default memo(SliderCar);
