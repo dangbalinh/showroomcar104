@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./NewsPopUp.module.css";
 import './NewsPopUp.css'
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { Box } from "@mui/system";
 import { Grid, Button, Modal, IconButton, Typography, styled, Paper, Select, MenuItem, TextField, FormControl, InputLabel } from "@mui/material";
 import HandleNewsApi from "../../../../Apis/HandleNewsApi";
-import { AddCircleOutline, DeleteOutline } from "@mui/icons-material";
+import { AddCircleOutline, DeleteOutline, Edit } from "@mui/icons-material";
 
 function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
     const [image, setImage] = useState();
@@ -15,11 +15,23 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
     const [dateSource, setDateSource] = useState();
     const [author, setAuthor] = useState();
     const [detail, setDetail] = useState([]);
-    const [tag, setTag] = useState("");
-    const [content, setContent] = useState();
-    const [open, setOpen] = React.useState(false);
+    const [tag, setTag] = useState('');
+    const [content, setContent] = useState('');
+    const [open, setOpen] = useState(false);
+    const [selectedID, setSelectedID] = useState();
+    const [editDisabled, setEditDisabled] = useState(true);
+    const [addDisabled, setAddDisabled] = useState(false);
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false)
+        setContent('');
+        setTag('');
+        setSelectedID();
+        setEditDisabled(true);
+        setAddDisabled(false);
+    };
+
+    const inputRef = useRef(null);
 
     const inputId = [
         "image",
@@ -134,9 +146,38 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
         }
     }
 
+    const editDetail = () => {
+        setDetail(detail.map(d => d.index === selectedID ? { ...d, type: tag, content: content } : d))
+        setSelectedID();
+        setContent('');
+        setEditDisabled(true);
+        setAddDisabled(false);
+    }
+
     const handleDeleteDetail = (id) => {
+        if (id === selectedID) {
+            setSelectedID();
+            setContent('');
+            setEditDisabled(true);
+            setAddDisabled(false);
+        }
         setDetail(detail.filter(i => i.index !== id))
     }
+
+    const handleEditDetail = (id) => {
+        const selected = detail.find(i => i.index === id)
+        setSelectedID(selected.index)
+        setTag(selected.type)
+        setContent(selected.content)
+        setEditDisabled(false);
+        setAddDisabled(true);
+    }
+
+    useEffect(() => {
+        if (selectedID) {
+            inputRef.current.focus();
+        }
+    }, [selectedID])
 
     const handleUpdatePost = async () => {
         HandleNewsApi.updateNews(updatePost._id, data)
@@ -194,7 +235,10 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                     <div className={styles.bPopup}>
                         <CancelIcon
                             className={styles.bPopup__close}
-                            onClick={() => setType("")}
+                            onClick={() => {
+                                setDetail([])
+                                setType("")
+                            }}
                         />
                         <h3>Thêm tin tức</h3>
                         <br />
@@ -250,8 +294,8 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                 <Grid container>
                                                     <Grid container sx={{ padding: '0 0 8px' }}>
                                                         <Grid item xs={2}><ItemMain>Type</ItemMain></Grid>
-                                                        <Grid item xs={8}><ItemMain>Content</ItemMain></Grid>
-                                                        <Grid item xs={2}>{" "}</Grid>
+                                                        <Grid item xs={9}><ItemMain>Content</ItemMain></Grid>
+                                                        <Grid item xs={1}>{" "}</Grid>
                                                     </Grid>
                                                     <Grid container>
                                                         <Grid item xs={2}>
@@ -272,6 +316,8 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                         </Grid>
                                                         <Grid item xs={9}>
                                                             <TextField
+                                                                multiline
+                                                                inputRef={inputRef}
                                                                 sx={{ width: "100%" }}
                                                                 type="text"
                                                                 required
@@ -284,9 +330,8 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                             />
                                                         </Grid>
                                                         <Grid item xs={1}>
-                                                            <IconButton onClick={addDetail}>
-                                                                <AddCircleOutline sx={{ fontSize: "25px" }} />
-                                                            </IconButton>
+                                                            <Button variant="contained" onClick={addDetail} disabled={addDisabled}>Add</Button>
+                                                            <Button variant="contained" onClick={editDetail} disabled={editDisabled}>Edit</Button>
                                                         </Grid>
                                                     </Grid>
                                                     {detail?.map((d, index) => {
@@ -297,18 +342,27 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                             <Grid item xs={8}>
                                                                 <Item>{d.content}</Item>
                                                             </Grid>
-                                                            <Grid item xs={1}>
-                                                                <IconButton
-                                                                    size="medium"
-                                                                    color="error"
-                                                                    onClick={() => {
-                                                                        handleDeleteDetail(d.index)
-                                                                    }}
-                                                                >
-                                                                    <DeleteOutline
-                                                                        sx={{ fontSize: "22px" }}
-                                                                    />
-                                                                </IconButton>
+                                                            <Grid item xs={2}>
+                                                                <Item>
+                                                                    <IconButton
+                                                                        color="primary"
+                                                                        size="medium"
+                                                                        onClick={() => handleEditDetail(d.index)}
+                                                                    >
+                                                                        <Edit sx={{ fontSize: "22px" }} />{" "}
+                                                                    </IconButton>
+                                                                    <IconButton
+                                                                        size="medium"
+                                                                        color="error"
+                                                                        onClick={() => {
+                                                                            handleDeleteDetail(d.index)
+                                                                        }}
+                                                                    >
+                                                                        <DeleteOutline
+                                                                            sx={{ fontSize: "22px" }}
+                                                                        />
+                                                                    </IconButton>
+                                                                </Item>
                                                             </Grid>
                                                         </Grid>)
                                                     })}
@@ -414,8 +468,8 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                 <Grid container>
                                                     <Grid container sx={{ padding: '0 0 8px' }}>
                                                         <Grid item xs={2}><ItemMain>Type</ItemMain></Grid>
-                                                        <Grid item xs={8}><ItemMain>Content</ItemMain></Grid>
-                                                        <Grid item xs={2}>{" "}</Grid>
+                                                        <Grid item xs={9}><ItemMain>Content</ItemMain></Grid>
+                                                        <Grid item xs={1}>{" "}</Grid>
                                                     </Grid>
                                                     <Grid container>
                                                         <Grid item xs={2}>
@@ -436,6 +490,8 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                         </Grid>
                                                         <Grid item xs={9}>
                                                             <TextField
+                                                                multiline
+                                                                inputRef={inputRef}
                                                                 sx={{ width: "100%" }}
                                                                 type="text"
                                                                 required
@@ -448,9 +504,10 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                             />
                                                         </Grid>
                                                         <Grid item xs={1}>
-                                                            <IconButton onClick={addDetail}>
-                                                                <AddCircleOutline sx={{ fontSize: "25px" }} />
-                                                            </IconButton>
+                                                            <Grid item xs={1}>
+                                                                <Button variant="contained" onClick={addDetail} disabled={addDisabled}>Add</Button>
+                                                                <Button variant="contained" onClick={editDetail} disabled={editDisabled}>Edit</Button>
+                                                            </Grid>
                                                         </Grid>
                                                     </Grid>
                                                     {detail?.map((d, index) => {
@@ -461,18 +518,27 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                             <Grid item xs={8}>
                                                                 <Item>{d.content}</Item>
                                                             </Grid>
-                                                            <Grid item xs={1}>
-                                                                <IconButton
-                                                                    size="medium"
-                                                                    color="error"
-                                                                    onClick={() => {
-                                                                        handleDeleteDetail(d.index)
-                                                                    }}
-                                                                >
-                                                                    <DeleteOutline
-                                                                        sx={{ fontSize: "22px" }}
-                                                                    />
-                                                                </IconButton>
+                                                            <Grid item xs={2}>
+                                                                <Item>
+                                                                    <IconButton
+                                                                        color="primary"
+                                                                        size="medium"
+                                                                        onClick={() => handleEditDetail(d.index)}
+                                                                    >
+                                                                        <Edit sx={{ fontSize: "22px" }} />{" "}
+                                                                    </IconButton>
+                                                                    <IconButton
+                                                                        size="medium"
+                                                                        color="error"
+                                                                        onClick={() => {
+                                                                            handleDeleteDetail(d.index)
+                                                                        }}
+                                                                    >
+                                                                        <DeleteOutline
+                                                                            sx={{ fontSize: "22px" }}
+                                                                        />
+                                                                    </IconButton>
+                                                                </Item>
                                                             </Grid>
                                                         </Grid>)
                                                     })}
