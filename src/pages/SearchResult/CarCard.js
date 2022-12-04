@@ -6,7 +6,7 @@ function CarCard({data}) {
         <div className={style.carContainer}>
             <div className={style.carName}>{data.ten}</div>
             <img className={style.carImg} src={data.hinhanh} alt={data.ten} />
-            <Link className={style.carLink} to={`/detailproduct/${data._id}`} >More Detail</Link>
+            <Link className={style.carLink} to={`/detailproduct/${data._id}`} >Chi Tiết</Link>
         </div>
      );
 }

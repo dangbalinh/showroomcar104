@@ -112,27 +112,27 @@ const Login = () => {
     
   return (
     <div className={classes.register}>
-            <h1>Login</h1>
+            <h1>Đăng Nhập</h1>
             <form className={classes.form}>
                 <p>
-                    <label>Email address</label><br/>
+                    <label>Email</label><br/>
                     <input className={classes.input} value={inputs.email}
                     type="email" name="email" onChange={handleChange} onBlur={handleBlur} required />
                     <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.emailError}</p>
                 </p>
                 <p  className={classes.forgetchoice} >
-                    <label>Password</label><br/>
+                    <label>Mật Khẩu</label><br/>
                     <input className={classes.input} value={inputs.password}
                     type="password" name="password" onChange={handleChange} onBlur={handleBlur} required />
                     <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.passwordError}</p>
                     <div className={classes.direct}>
-                    <p onClick={()=>setModal(true)}>Forget password?</p>
+                    <p onClick={()=>setModal(true)}>Quên mật khẩu?</p>
                     </div>
                 </p>
                 <p style={{ textAlign:"center", fontSize:"16px"}}>
                     <button className={classes.button} id="sub_btn" type="submit"
-                    onClick={handleSubmit}>Login</button><br/>
-                    Haven't had an account? Go to <Link to="/register">Register</Link>
+                    onClick={handleSubmit}>Đăng Nhập</button><br/>
+                    Bạn chưa có tài khoản? Đi đến <Link to="/register">Đăng kí</Link>
                 </p>
             </form>
             {modal && <ForgetPass closewindow={setModal}

@@ -52,7 +52,7 @@ function Footer() {
         </div>
         <div className={classes.todashboard}>
             <Link to="/admin"  style={{ color: 'inherit', textDecoration: 'inherit'}}>
-            Go to dashboard
+            Đến trang quản lý
             </Link>
         </div>
         </div>
