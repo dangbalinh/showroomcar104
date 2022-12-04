@@ -6,9 +6,9 @@ import Swal from "sweetalert2";
 import { Box } from "@mui/system";
 import { Grid, Button, Modal, IconButton, Typography, styled, Paper, Select, MenuItem, TextField, FormControl, InputLabel } from "@mui/material";
 import HandleNewsApi from "../../../../Apis/HandleNewsApi";
-import { AddCircleOutline, DeleteOutline, Edit } from "@mui/icons-material";
+import { DeleteOutline, Edit } from "@mui/icons-material";
 
-function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
+function NewsPopup({ token, type, setType, updatePost, setUpdatePost }) {
     const [image, setImage] = useState();
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
@@ -180,7 +180,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
     }, [selectedID])
 
     const handleUpdatePost = async () => {
-        HandleNewsApi.updateNews(updatePost._id, data)
+        HandleNewsApi.updateNews(updatePost._id, data, token)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -209,7 +209,7 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
 
     const handleCreatePost = async (e) => {
         e.preventDefault();
-        HandleNewsApi.createNews(data)
+        HandleNewsApi.createNews(data, token)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -293,19 +293,19 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                 </Typography>
                                                 <Grid container>
                                                     <Grid container sx={{ padding: '0 0 8px' }}>
-                                                        <Grid item xs={2}><ItemMain>Type</ItemMain></Grid>
-                                                        <Grid item xs={9}><ItemMain>Content</ItemMain></Grid>
+                                                        <Grid item xs={2}><ItemMain>Loại thẻ</ItemMain></Grid>
+                                                        <Grid item xs={9}><ItemMain>Nội dung</ItemMain></Grid>
                                                         <Grid item xs={1}>{" "}</Grid>
                                                     </Grid>
                                                     <Grid container>
                                                         <Grid item xs={2}>
                                                             <FormControl fullWidth>
-                                                                <InputLabel sx={{ fontSize: "14px" }} id="demo-simple-select-label">Type</InputLabel>
+                                                                <InputLabel sx={{ fontSize: "14px" }} id="demo-simple-select-label">Thẻ</InputLabel>
                                                                 <Select
                                                                     labelId="demo-simple-select-label"
                                                                     id="demo-simple-select"
                                                                     value={tag}
-                                                                    label="Type"
+                                                                    label="Thẻ"
                                                                     onChange={handleChange}
                                                                 >
                                                                     <MenuItem sx={{ fontSize: "14px" }} value="img">img</MenuItem>
@@ -467,19 +467,19 @@ function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
                                                 </Typography>
                                                 <Grid container>
                                                     <Grid container sx={{ padding: '0 0 8px' }}>
-                                                        <Grid item xs={2}><ItemMain>Type</ItemMain></Grid>
-                                                        <Grid item xs={9}><ItemMain>Content</ItemMain></Grid>
+                                                        <Grid item xs={2}><ItemMain>Loại thẻ</ItemMain></Grid>
+                                                        <Grid item xs={9}><ItemMain>Nội dung</ItemMain></Grid>
                                                         <Grid item xs={1}>{" "}</Grid>
                                                     </Grid>
                                                     <Grid container>
                                                         <Grid item xs={2}>
                                                             <FormControl fullWidth>
-                                                                <InputLabel sx={{ fontSize: "14px" }} id="demo-simple-select-label">Type</InputLabel>
+                                                                <InputLabel sx={{ fontSize: "14px" }} id="demo-simple-select-label">Thẻ</InputLabel>
                                                                 <Select
                                                                     labelId="demo-simple-select-label"
                                                                     id="demo-simple-select"
                                                                     value={tag}
-                                                                    label="Type"
+                                                                    label="Thẻ"
                                                                     onChange={handleChange}
                                                                 >
                                                                     <MenuItem sx={{ fontSize: "14px" }} value="img">img</MenuItem>

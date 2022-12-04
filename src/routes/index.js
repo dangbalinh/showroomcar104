@@ -12,22 +12,29 @@ import NotFound from "../pages/NotFound";
 import Search from "../pages/SearchResult"
 import PassReset from "../pages/Login/ForgetPass/PassReset";
 import UserInfoPage from "../pages/UserInfoPage";
+import AdminRoute from "./AdminRoute";
 
 const publicRoutes = [
-    { path: "/", component: Home },
-    { path: "/contact", component: Contact },
-    { path: "/product/:carBrand", component: Product },
-    { path: "/news", component: News },
-    { path: "/introduce", component: Introduce },
-    { path: "/readnews/:id", component: ReadNews },
-    { path: "/detailproduct/:productId", component: DetailProduct },
-    { path: "/register/*", component: Register },
-    { path: "/login", component: Login },
-    { path: '/search', component: Search },
-    { path: "/admin/*", component: Admin, layout: null },
-    { path: "/*", component: NotFound },
-    { path: "/resetpass/:token", component: PassReset, layout:null },
-    { path: "/user", component: UserInfoPage },
+    { path: "/", component: <Home /> },
+    { path: "/contact", component: <Contact /> },
+    { path: "/product/:carBrand", component: <Product /> },
+    { path: "/news", component: <News /> },
+    { path: "/introduce", component: <Introduce /> },
+    { path: "/readnews/:id", component: <ReadNews /> },
+    { path: "/detailproduct/:productId", component: <DetailProduct /> },
+    { path: "/register/*", component: <Register /> },
+    { path: "/login", component: <Login /> },
+    { path: '/search', component: <Search /> },
+    {
+        path: "/admin/*", component:
+            <AdminRoute>
+                <Admin />
+            </AdminRoute>
+        , layout: null
+    },
+    { path: "/*", component: <NotFound /> },
+    { path: "/resetpass/:token", component: <PassReset />, layout: null },
+    { path: "/user", component: <UserInfoPage /> },
 
 ];
 
