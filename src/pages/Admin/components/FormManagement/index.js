@@ -147,6 +147,8 @@ function FormManagement() {
         }
     }
 
+    console.log(selectedDay);
+
     return (
         <div>
             <header className={styles.header}>
