@@ -19,15 +19,15 @@ function Footer() {
         </div>
 
         <div className={classes.location}>
-          <p className={classes.title}>LOCATION</p>
-          <Lct city='Ha Noi City' address='132 Le Duan Street, Nguyen Du Ward, Hai Ba Trung District, City.  Hanoi.'/>
-          <Lct city='Da Nang City' address='356 Dien Bien Phu Street, Thanh Khe District, City.  Danang.'/>
-          <Lct city='Ho Chi Minh City' address='Mai Chi Tho, An Loi Dong, District 2, Ho Chi Minh City.'/>
+          <p className={classes.title}>ĐỊA CHỈ</p>
+          <Lct city='TP. Hà Nội' address='113 Lê Duẩn, Quận Hoàn Kiếm, TP Hà Nội'/>
+          <Lct city='TP. Đà Nẵng' address='356 Nguyễn Tri Phương, Quận Thanh Khê, TP Đà Nẵng'/>
+          <Lct city='TP. Hồ Chí Minh' address='19 Điện Biên Phủ, Quận Bình Thạnh, TP Hồ Chí Minh'/>
           <p className={classes.cr}>KingSpeed Viet Nam 2022 ©. All rights reserved.</p>
         </div >
 
         <div className={classes.contact}>
-        <p className={classes.title}>CONTACT</p>
+        <p className={classes.title}>LIÊN HỆ</p>
         <Stack direction="row" alignItems="center" gap={1}>
           <PhoneAndroidIcon  className={classes.icon}/>
           <p>Hotline: 0943415138</p>
@@ -40,10 +40,10 @@ function Footer() {
           <LanguageIcon   className={classes.icon}/>
           <p >Website: IECarvietnam.com.vn</p>
         </Stack>
-        <p className={classes.title}>WORKING TIME</p>
+        <p className={classes.title}>Thời Gian Làm Việc</p>
         <Stack direction="row" alignItems="center" gap={1}>
           <TimerIcon   className={classes.icon}/>
-          <p  >Monday to Friday: 8:00 - 21:00</p>
+          <p>Thứ 2 đến thứ 7: 8:00 - 21:00</p>
         </Stack>
         <div className={classes.iconlist}>
         <a href=''><InstagramIcon  style={{ color: 'white', fontSize:'25px'}}/></a>
