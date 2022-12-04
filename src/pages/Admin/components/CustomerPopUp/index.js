@@ -8,137 +8,75 @@ import { Grid, Button, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import HandleApi from "../../../../Apis/HandleApi";
 
-function CarPopup({ type, setType, updateCar, setUpdateCar }) {
+function CarPopup({ type, setType, updateCustomer, setUpdateCustomer }) {
     const [name, setName] = useState();
-    const [caremail, setEmail] = uEate();
-    const [brand, setBrand] = useState();
-    const [price, setPrice] = useState();
-    const [engine, setEngine] = useState();
-    const [seat, setSeat] = useState();
-    const [power, setPower] = useState();
-    const [capacity, setCapacity] = useState();
-    const [fuel, setFuel] = useState();
-    const [speed, setSpeed] = useState();
-    const [origin, setOrigin] = useState();
-    const [color, setColor] = useState();
-    const [desc, setDesc] = useState();
-    const [year, setYear] = useState();
-    const [size, setSize] = useState();
+    const [email, setEmail] = useState();
+    const [phoneNumber, setPhoneNumber] = useState();
+    const [dateOfBirth, setDateOfBirth] = useState();
+    const [address, setAddress] = useState();
+    const [cccd, setCccd] = useState();
+ 
 
     const inputId = [
         "name",
-        "thumbnail",
-        "brand",
-        "price",
-        "engine",
-        "seat",
-        "size",
-        "origin",
-        "speed",
-        "capacity",
-        "fuel",
-        "power",
-        "color",
-        "year",
-        "desc"
+        "email",
+        "sdt",
+        "dateOfBirth",
+        "cccd",
+        "address",
     ];
 
     const useStateEvent = [
-        setCarName,
-        setThumbnail,
-        setBrand,
-        setPrice,
-        setEngine,
-        setSeat,
-        setSize,
-        setOrigin,
-        setSpeed,
-        setCapacity,
-        setFuel,
-        setPower,
-        setColor,
-        setYear,
-        setDesc
+        setName,
+        setEmail,
+        setPhoneNumber,
+        setDateOfBirth,
+        setAddress,
+        setCccd,
     ];
 
     const placeHolder = [
-        "Nhập tên xe",
-        "Nhập hình ảnh",
-        "Nhập thương hiệu",
-        "Nhập giá xe",
-        "Nhập động cơ",
-        "Nhập số chỗ ngồi",
-        "Nhập kích thước",
-        "Nhập nguồn gốc",
-        "Nhập tốc độ tối đa",
-        "Nhập dung tích",
-        "Nhập tiêu hao nhiên liệu",
-        "Nhập công suất tối đa",
-        "Nhập màu sắc xe",
-        "Nhập năm sản xuất",
-        "Nhập mô tả"
+        "Nhập tên",
+        "Nhập email",
+        "Nhập số điện thoại",
+        "Nhập ngày sinh",
+        "Nhập địa chỉ ",
+        "Nhập số căn cước",
     ];
 
     const textValue = [
-        "Tên xe",
-        "Hình ảnh",
-        "Thương hiệu",
-        "Giá xe",
-        "Động cơ",
-        "Số chỗ ngồi",
-        "Kích thước (AxBxC)",
-        "Nguồn gốc",
-        "Tốc độ tối đa (Km/h)",
-        "Dung tích (cc)",
-        "Tiêu hao nhiên liệu (l/100km)",
-        "Công suất tối đa",
-        "Màu sắc",
-        "Năm sản xuất",
-        "Mô tả"
+        "Tên khách hàng",
+        "Email",
+        "Số điện thoại",
+        "Ngày sinh",
+        "Địa chỉ",
+        "CCCD",
     ];
 
-    const inputType = ["text", "text", "text", "number", "text", "number", "text", "text", "text", "text", "text", "text", "text", "number", "text"];
+    const inputType = ["text", "text","number", "date", "text", "number"];
 
     const inputValue = [
-        carName,
-        thumbnail,
-        brand,
-        price,
-        engine,
-        seat,
-        size,
-        origin,
-        speed,
-        capacity,
-        fuel,
-        power,
-        color,
-        year,
-        desc
+        name,
+        email,
+        phoneNumber,
+        dateOfBirth,
+        address,
+        cccd
     ];
 
     // object data
     const data = {
-        ten: carName,
-        thuonghieu: brand,
-        hinhanh: thumbnail,
-        gia: Number(price),
-        dongco: engine,
-        socho: Number(seat),
-        kichthuoc: size,
-        nguongoc: origin,
-        dungtich: capacity,
-        congsuatcucdai: power,
-        mausac: color,
-        tieuhaonhienlieu: fuel,
-        mota: desc,
-        namsanxuat: Number(year),
-        vantoctoida: speed
+        ten: name,
+        email: email,
+        sodienthoai: Number(phoneNumber),
+        ngaysinh: Date(dateOfBirth),
+        diachi: address,
+        cccd: Number(cccd),
+      
     };
 
     const handleBlur = (e) => {
         if (e.target.value === "") {
-            // setErrorName("Vui lòng nhập dữ liệu ");
             e.target.style.borderColor = "red";
         } else {
             e.target.style.borderColor = "#000";
@@ -165,8 +103,8 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
     };
 
     const handleUpdateCar = async () => {
-        console.log(updateCar._id);
-        HandleApi.updateCar(updateCar._id, data)
+        console.log(updateCustomer._id);
+        HandleApi.updateCar(updateCustomer._id, data)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -175,7 +113,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                setUpdateCar({});
+                setUpdateCustomer({});
                 window.location.reload();
             })
             .catch((err) => {
@@ -184,24 +122,14 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
     };
 
     useEffect(() => {
-        if (updateCar !== {}) {
-            setCarName(updateCar.ten);
-            setPrice(updateCar.gia);
-            setThumbnail(updateCar.hinhanh);
-            setBrand(updateCar.thuonghieu);
-            setSeat(updateCar.socho);
-            setEngine(updateCar.dongco);
-            setPower(updateCar.congsuatcucdai);
-            setCapacity(updateCar.dungtich);
-            setYear(updateCar.namsanxuat);
-            setFuel(updateCar.tieuhaonhienlieu);
-            setSize(updateCar.kichthuoc);
-            setColor(updateCar.mausac);
-            setDesc(updateCar.mota);
-            setOrigin(updateCar.nguongoc);
-            setSpeed(updateCar.vantoctoida);
+        if (updateCustomer !== {}) {
+            setName(updateCustomer.ten);
+            setEmail(updateCustomer.email);
+            setPhoneNumber(updateCustomer.sdt);
+            setDateOfBirth(updateCustomer.ngaysinh);
+            setAddress(updateCustomer.diachi);
         }
-    }, [updateCar]);
+    }, [updateCustomer]);
 
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -223,7 +151,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                             className={styles.bPopup__close}
                             onClick={() => setType("")}
                         />
-                        <h3>Thêm sản phẩm</h3>
+                        <h3>Thêm khách hàng</h3>
                         <br />
                         <Box sx={{ flexGrow: 1 }}>
                             <form onSubmit={handleCreateCar}>
@@ -361,22 +289,21 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                             <Grid container>
                                 <Grid item xs={6}>
                                     {/* <div className={styles.infoCar}> */}
-                                    <Item sx={{ fontWeight: "bold" }}>{"Tên xe: " + updateCar.ten}</Item>
-                                    <Item>{"Thương hiệu: " + updateCar.thuonghieu}</Item>
-                                    <Item>{"Động cơ: " + updateCar.dongco}</Item>
-                                    <Item>{"Số chỗ ngồi: " + updateCar.socho}</Item>
-                                    <Item>{"Kích thước: " + updateCar.kichthuoc}</Item>
-                                    <Item>{"Vận tốc tối đa: " + updateCar.vantoctoida}</Item>
-                                    <Item>{"Dung tích: " + updateCar.dungtich}</Item>
-                                    <Item>{"Tiêu hao nhiên liệu: " + updateCar.tieuhaonhienlieu}</Item>
-                                    <Item>{"Công suất cực đại: " + updateCar.congsuatcucdai}</Item>
-                                    <Item>{"Màu sắc: " + updateCar.mausac}</Item>
+                                    <Item sx={{ fontWeight: "bold" }}>{"Tên xe: " + updateCustomer.ten}</Item>
+                                    <Item>{"Thương hiệu: " + updateCustomer.thuonghieu}</Item>
+                                    <Item>{"Động cơ: " + updateCustomer.dongco}</Item>
+                                    <Item>{"Số chỗ ngồi: " + updateCustomer.socho}</Item>
+                                    <Item>{"Kích thước: " + updateCustomer.kichthuoc}</Item>
+                                    <Item>{"Vận tốc tối đa: " + updateCustomer.vantoctoida}</Item>
+                                    <Item>{"Dung tích: " + updateCustomer.dungtich}</Item>
+                                    <Item>{"Tiêu hao nhiên liệu: " + updateCustomer.tieuhaonhienlieu}</Item>
+                                    <Item>{"Công suất cực đại: " + updateCustomer.congsuatcucdai}</Item>
+                                    <Item>{"Màu sắc: " + updateCustomer.mausac}</Item>
                                     {/* </div> */}
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <img src={updateCar.hinhanh} className={styles.readImg}></img>
                                     <Item sx={{ textAlign: 'center', fontSize: '24px', color: "red", fontWeight: "bold" }}>
-                                        {"Giá: " + updateCar.gia.toLocaleString() + " VNĐ"}
+                                        {"Giá: " + updateCustomer.gia.toLocaleString() + " VNĐ"}
                                     </Item>
                                 </Grid>
                             </Grid>
