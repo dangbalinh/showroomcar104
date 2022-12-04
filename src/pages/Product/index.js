@@ -11,7 +11,8 @@ function Product() {
 console.log(carBrand);
 
   useEffect(() => {
-    HandleApi.getCarByBrand(carBrand).then((res) => {
+    HandleApi.getCarByBrand(carBrand)
+    .then((res) => {
       console.log(res);
       setData(res.cars)
     })

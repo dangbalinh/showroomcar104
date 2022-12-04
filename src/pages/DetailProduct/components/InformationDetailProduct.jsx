@@ -42,7 +42,7 @@ function InformationDetailProduct(pros) {
                 </div>
             </div>
             <div className={style.buy}>
-                <button>BUY NOW</button>
+                <button><a href='/contact'>BUY NOW</a></button>
             </div>
         </div>
         
