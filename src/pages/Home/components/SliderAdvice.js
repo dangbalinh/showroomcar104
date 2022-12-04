@@ -23,7 +23,7 @@ function SliderAdvice() {
         // padding: '5rem',
         focus: "center",
         autoplay: true,
-        interval: 4000,
+        interval: 3600,
         pauseOnHover: true,
         updateOnMove: true,
         // fixedWidth: 250,

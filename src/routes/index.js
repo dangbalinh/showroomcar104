@@ -39,7 +39,7 @@ const publicRoutes = [
     },
     { path: '/search', component: <Search /> },
     {
-        path: "/admin/*", component:
+        path: "/dashboard/*", component:
             <AdminRoute>
                 <Admin />
             </AdminRoute>
