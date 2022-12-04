@@ -127,7 +127,6 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
     // object data
     const data = {
         ten: carName,
-        macar: carCode,
         thuonghieu: brand,
         hinhanh: thumbnail,
         gia: Number(price),

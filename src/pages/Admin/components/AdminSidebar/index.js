@@ -47,6 +47,10 @@ function AdminSidebar() {
         navigate('/')
     }
 
+    const handleBackHome = () => {
+        navigate("/")
+    }
+
     return (
         <div className={styles.sidebar}>
             <div className={styles.user}>
@@ -54,6 +58,7 @@ function AdminSidebar() {
                     className={styles.avatar}
                     src={images.logoImg}
                     alt="Avatar"
+                    onClick={handleBackHome}
                 />
                 <div className={styles.username}>
                     {user.name}
