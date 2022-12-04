@@ -41,6 +41,7 @@ function FormManagement() {
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
     const pageSize = 15;
+    console.log({selectedDay});
 
     const gridColumn = [1, 2, 1.5, 2, 4.5, 1];
     const gridTitle = [
@@ -59,6 +60,14 @@ function FormManagement() {
             setDataLength(res.totalForms);
         });
     }, [pageIndex]);
+
+    useEffect(() => {
+        HandleApiForm.getFormByDate(selectedDay).then((res) => {
+            setData(res.forms);
+            setDataLength(res.totalForms);
+        });
+    }, [selectedDay]);
+
 
     // handle event
 
@@ -106,6 +115,7 @@ function FormManagement() {
 
     const handleDayChange = (e) => {
         setSelectedDay(e);
+        // console.log(e);
     }
 
     // Custome CSS MUI
@@ -147,8 +157,6 @@ function FormManagement() {
         }
     }
 
-    console.log(selectedDay);
-
     return (
         <div>
             <header className={styles.header}>
@@ -165,7 +173,7 @@ function FormManagement() {
                         <LocalizationProvider dateAdapter={AdapterDayjs} >
                             <Stack spacing={3}>
                                 <DesktopDatePicker 
-                                    inputFormat="DD/MM/YYYY"
+                                    // inputFormat="DD/MM/YYYY"
                                     value={selectedDay}
                                     onChange={handleDayChange}
                                     renderInput={(params) => <TextField {...params} />}

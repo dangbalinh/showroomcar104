@@ -29,11 +29,11 @@ import {
 } from "@mui/material";
 
 import CarPopUp from "../CarPopUp";
-import HandleApiInvoice from "../../../../Apis/HandleApiInvoice";
+import HandleInvoiceApi from "../../../../Apis/HandleInvoiceApi";
 import Swal from "sweetalert2";
 import { red } from "@mui/material/colors";
 import NewsPopup from "../NewsPopUp";
-import InvoicePopUp from "../InvoicePopUp";
+// import InvoicePopUp from "../InvoicePopUp";
 
 function InvoiceManagement() {
     const [data, setData] = useState([]);
@@ -72,7 +72,7 @@ function InvoiceManagement() {
 
     //get API
     useEffect(() => {
-        HandleApiInvoice.getInvoiceByPageIndex(pageIndex).then((res) => {
+        HandleInvoiceApi.getInvoiceByPageIndex(pageIndex).then((res) => {
             setData(res.hoadons);
             setDataLength(res.totalHoaDon);
         })
@@ -86,18 +86,18 @@ function InvoiceManagement() {
         {
             case "Tất cả":
                 setNewData(data);
-                HandleApiInvoice.getInvoiceByTinhTrang("").then((res) => {
+                HandleInvoiceApi.getInvoiceByTinhTrang("").then((res) => {
                 setDataLength(res.totalHoaDon)
                 });
                 break;
             case "Đã thanh toán":
-                    HandleApiInvoice.getInvoiceByTinhTrang("Đã thanh toán").then((res) => {
+                    HandleInvoiceApi.getInvoiceByTinhTrang("Đã thanh toán").then((res) => {
                     setNewData(res.hoadons)
                     setDataLength(res.totalHoaDon)
                 });
                 break;
             case "Chưa thanh toán":
-                HandleApiInvoice.getInvoiceByTinhTrang("Chưa thanh toán").then((res) => {
+                HandleInvoiceApi.getInvoiceByTinhTrang("Chưa thanh toán").then((res) => {
                     setNewData(res.hoadons)
                     setDataLength(res.totalHoaDon)
                 });
@@ -114,7 +114,7 @@ function InvoiceManagement() {
     };
 
     const handleDeleteItem = async (id) => {
-        HandleApiInvoice.xoaDonDatHang(id)
+        HandleInvoiceApi.xoaDonDatHang(id)
             .then((res) => {
                 console.log(id);
                 setOpenDeleteModal(false);
@@ -141,7 +141,7 @@ function InvoiceManagement() {
 
     // const handleClickUpdate = async (id, tinhtrang) => {
     //     console.log(id);
-    //     HandleApiInvoice.capnhatTinhTrang(id, tinhtrang)
+    //     HandleInvoiceApi.capnhatTinhTrang(id, tinhtrang)
     //         .then(async (res) => {
     //             await setUpdateInvoice(res);
     //             await setType("update");
