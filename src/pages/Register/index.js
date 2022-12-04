@@ -37,7 +37,7 @@ const Register = () => {
             setErrors((prev)=>{
                 return{
                 ...prev,
-                emailError:"Invalid Email"
+                emailError:"Email không hợp lệ."
               }
               })
             }
@@ -59,7 +59,7 @@ const Register = () => {
             setErrors((prev)=>{
                 return{
                 ...prev,
-                passwordError:"The password provided is not long enough."
+                passwordError:"Mật khẩu phải ít nhất 8 ký tự."
               }
               })
             }
@@ -81,7 +81,7 @@ const Register = () => {
             setErrors((prev)=>{
                 return{
                 ...prev,
-                confirmError:"The password is incorrect."
+                confirmError:"Mật khẩu không khớp."
               }
               })
             }
@@ -103,7 +103,7 @@ const Register = () => {
             setErrors((prev)=>{
                 return{
                 ...prev,
-                nameError:"Invalid name"
+                nameError:"Tên không được để trống."
               }
               })
             }
@@ -143,7 +143,7 @@ const Register = () => {
         .catch((err)=>{
           Swal.fire({
             icon: 'error',
-            title: 'Your email existed!',
+            title: 'Email đã tồn tại',
           });
           console.log(err);})
         const data = await res.data;

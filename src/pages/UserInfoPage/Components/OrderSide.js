@@ -21,7 +21,7 @@ const OrderSide = ({
     const gridTitle =[
       "STT",
       "ID",
-      "Số lượng xe",
+      "Trị Giá",
       "Ngày",
       "Tình trạng",
     ]
@@ -36,16 +36,19 @@ const OrderSide = ({
     const [userDataa, setUserDataa] = useState([])
     const [value, setValue] = React.useState(dayjs());
     const [first, setfirst] = useState("");
+    const [didMount, setDidMount] = useState(false)
     const [input, setInput] = useState("");
     const [status, setStatus] = useState("all")
     const handleChange = (e) =>{
       setInput(e.target.value.toLowerCase());
     }
     useEffect(() => {
-        var date = new Date(value);
+        if(didMount)
+        {var date = new Date(value);
         var finaldate = (parseInt(date.getMonth())<9? ("0" + (0 + date.getMonth() + 1)): (date.getMonth() + 1))  + '-' +  date.getFullYear()
-        setfirst(finaldate)
+        setfirst(finaldate)}
       }, [value])
+    useEffect(() => { setDidMount(true) }, [])
     const authAxios = axios.create({
       baseURL: 'https://showroomcar104.onrender.com',
       headers:{
@@ -100,10 +103,11 @@ const OrderSide = ({
     <div>
       <div className={classes.PickStatus}>
       <input className={classes.input} value={input} 
-      type="text" name="name" onChange={handleChange}/>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      type="text" name="name" onChange={handleChange}
+      placeholder="Tìm id hóa đơn..."/>
+      <LocalizationProvider dateAdapter={AdapterDayjs} >
       <DatePicker
-      className={classes.Picker}
+      
           views={['year', 'month']}
           inputFormat="MM-YYYY"
           label="Year and Month"
@@ -118,7 +122,7 @@ const OrderSide = ({
       <Select
            className={classes.StatusPicker}
            style={{width: "30% !important"}}
-                                labelId="input--"
+                                
                                 label="Trạng thái"
                                 defaultValue={status}
                                 value={status}
@@ -171,7 +175,7 @@ const OrderSide = ({
             >{item.mahd}</p>
         </Grid>
         <Grid item xs={2}>
-          <p>{userData.length}</p>
+          <p>{item.trigia}</p>
       </Grid>
        <Grid item xs={3}>
           <p>{item.ngayhd}</p>

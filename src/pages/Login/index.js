@@ -38,7 +38,7 @@ const Login = () => {
             setErrors((prev)=>{
                 return{
                 ...prev,
-                emailError:"Invalid Email"
+                emailError:"Email không hợp lệ"
               }
               })
             }
@@ -60,7 +60,7 @@ const Login = () => {
             setErrors((prev)=>{
                 return{
                 ...prev,
-                passwordError:"The password provided is not long enough."
+                passwordError:"Mật khẩu phải dài hơn 8 ký tự."
               }
               })
             }
@@ -86,7 +86,7 @@ const Login = () => {
         .catch((err)=>{
           Swal.fire({
           icon: 'error',
-          title: 'Your email or password is not correct',
+          title: 'Mật khẩu hoặc email không đúng',
         });
         console.log(err);})
         const data = await res.data;
