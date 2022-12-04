@@ -7,15 +7,15 @@ import {
     Newspaper,
     Group,
     DirectionsCar,
-    ContactMail
+    ContactMail,
 } from "@mui/icons-material";
+import { Button } from "@mui/material";
 
 import images from "../../../../assets/image";
-import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function AdminSidebar() {
-    const [funcActive, setFuncActive] = useState(0);
+    const navigate = useNavigate();
 
     const AdminFunc = [
         "Quản lý ô tô",
@@ -38,6 +38,15 @@ function AdminSidebar() {
         <Newspaper className={styles.icon} />,
         <ContactMail className={styles.icon} />,
     ];
+
+    let user = JSON.parse(localStorage.getItem("user"));
+
+    const handleLogOut = () => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        navigate('/')
+    }
+
     return (
         <div className={styles.sidebar}>
             <div className={styles.user}>
@@ -47,7 +56,7 @@ function AdminSidebar() {
                     alt="Avatar"
                 />
                 <div className={styles.username}>
-                    Nguyễn Thành Trung
+                    {user.name}
                     <CheckCircle className={styles.usericon} />
                 </div>
             </div>
@@ -56,11 +65,8 @@ function AdminSidebar() {
                     <li className={styles.sidebar_item} key={index}>
                         <NavLink
                             to={AdminLink[index]}
-                            // className={`${styles.item_link} ${
-                            //     index === funcActive ? styles.isActive : ""}`}
-                            className={({isActive}) => (isActive ? styles.isActive : styles.item_link)}
+                            className={({ isActive }) => (isActive ? styles.isActive : styles.item_link)}
                             end
-                            onClick={() => setFuncActive(index)}
                         >
                             {funcIcon[index]}
                             {func}
@@ -69,10 +75,12 @@ function AdminSidebar() {
                 ))}
             </ul>
             <div className={styles.logout}>
-                <button type="button" className={styles.logout_btn}>
+                <Button variant="contained" size="large" color="error"
+                    sx={{ fontSize: "14px", marginTop: "36px", textAlign: "center" }}
+                    onClick={handleLogOut}>
                     <Logout className={styles.icon} />
                     Đăng xuất
-                </button>
+                </Button>
             </div>
         </div>
     );

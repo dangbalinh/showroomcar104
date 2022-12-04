@@ -29,7 +29,6 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
 
     const inputId = [
         "name",
-        "code",
         "thumbnail",
         "brand",
         "price",
@@ -49,7 +48,6 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
 
     const useStateEvent = [
         setCarName,
-        setCarCode,
         setThumbnail,
         setBrand,
         setPrice,
@@ -69,7 +67,6 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
 
     const placeHolder = [
         "Nhập tên xe",
-        "Nhập mã xe",
         "Nhập hình ảnh",
         "Nhập thương hiệu",
         "Nhập giá xe",
@@ -89,7 +86,6 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
 
     const textValue = [
         "Tên xe",
-        "Mã xe",
         "Hình ảnh",
         "Thương hiệu",
         "Giá xe",
@@ -107,11 +103,10 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
         "Số lượng xe"
     ];
 
-    const inputType = ["text", "text", "text", "text", "number", "text", "number", "text", "text", "text", "text", "text", "text", "text", "number", "text", "number"];
+    const inputType = ["text", "text", "text", "number", "text", "number", "text", "text", "text", "text", "text", "text", "text", "number", "text", "number"];
 
     const inputValue = [
         carName,
-        carCode,
         thumbnail,
         brand,
         price,
