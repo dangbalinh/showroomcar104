@@ -1,0 +1,187 @@
+.header {
+    height: 104px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid #000;
+}
+
+.header_image {
+    width: 100px;
+    object-fit: cover;
+}
+
+.header_heading {
+    font-size: 3.2rem;
+    color: #000;
+    margin-left: 20px;
+}
+
+/* Container */
+.container {
+    margin-top: 40px;
+}
+
+.addbtn {
+    border: none;
+    background-color: #57d084;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 1.6rem;
+    border-radius: 8px;
+    float: right;
+    margin: 36px 48px 24px 0;
+    cursor: pointer;
+}
+
+.addicon {
+    width: 20px !important;
+    height: 20px !important;
+    margin-top: -2px;
+    margin-right: 6px;
+    color: #fff;
+}
+
+
+/* Header container */
+.funcContainer {
+    display: flex;
+    align-items: center;
+}
+
+.container_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+/* Search input */
+.search {
+    --search-border-radius: 4px;
+    --search-height: 44px;
+    --search-top-spacer: 8px;
+    --search-button-width: 52px;
+    position: relative;
+    width: 360px;
+    height: var(--search-height);
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(22 24 35 / 6%);
+    border: 1.5px solid transparent;
+    border-radius: 4px;
+    
+
+    /* Khi focus vào thẻ con input thì css sẽ ảnh hưởng lên thẻ cha
+    &:focus-within {
+        border-color: rgba(22, 24, 35, 0.2);
+    } */
+}
+
+.search::before {
+    content: '';
+    width: 1px;
+    display: block;
+    position: absolute;
+    right: var(--search-button-width);
+    top: var(--search-top-spacer);
+    background-color: rgba(22, 24, 35, 0.12);
+    height: calc(var(--search-height) - var(--search-top-spacer) * 2);
+}
+
+.search input {
+        flex: 1;
+        height: 100%;
+        background-color: transparent;
+        color: var(--black);
+        font-size: 1.6rem;
+        font-weight: 400;
+        padding: 2px 0;
+        caret-color: rgb(254, 44, 85);
+        border: none;
+        outline: none;
+}
+
+.clear {
+    position: absolute;
+    right: calc(var(--search-button-width) + 18px);
+    font-size: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(22, 24, 35, 0.34);
+    border: none;
+}
+
+.searchBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--search-button-width);
+    height: 100%;
+    padding: 13px;
+    margin-right: -16px;
+    border: none;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    color: rgba(22, 24, 35, 0.34);
+}
+
+.searchBtn:hover {
+    background-color: rgba(22, 24, 35, 0.03);
+    cursor: pointer;
+}
+
+.searchBtn:active {
+    background-color: rgba(22, 24, 35, 0.06);
+}
+
+.searchIcon {
+    width: 28px !important;
+    height: 28px !important;
+}
+
+/* Filter css */
+.filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 32px !important;
+}
+
+.filter_wrap {
+    width: 100%;
+    height: 100%;
+    font-size: 1.6rem !important;
+}
+
+.menuItem {
+    font-size: 1.4rem !important;
+}
+
+/* Content car */
+.content {
+    margin-top: 16px;
+}
+
+.content_image {
+    width: 48px;
+    object-fit: cover;
+}
+
+/* Modal */
+.modalBtn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 24px 0 0;
+}
+
+.modalIcon {
+    width: 80px !important;
+    height: 80px !important;
+    color: #f88686;
+    margin-bottom: 12px;
+}
