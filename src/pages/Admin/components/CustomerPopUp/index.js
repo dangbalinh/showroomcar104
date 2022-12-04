@@ -6,8 +6,7 @@ import Swal from "sweetalert2";
 import { Box } from "@mui/system";
 import { Grid, Button, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import HandleApi from "../../../../Apis/HandleApi";
-
+import HandleApisCustomer from "../../../../Apis/HandleApisCustomer";
 function CustomerPopup({ type, setType, updateCustomer, setUpdateCustomer }) {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
@@ -15,6 +14,8 @@ function CustomerPopup({ type, setType, updateCustomer, setUpdateCustomer }) {
     const [dateOfBirth, setDateOfBirth] = useState();
     const [address, setAddress] = useState();
     const [cccd, setCccd] = useState();
+    const [role] = useState(() => JSON.parse(localStorage.getItem("user")).role)
+    const [token] = useState(() => localStorage.getItem("token"))
  
 
     const inputId = [
@@ -83,9 +84,9 @@ function CustomerPopup({ type, setType, updateCustomer, setUpdateCustomer }) {
         }
     };
 
-    const handleCreateCar = async (e) => {
+    const handleCreateCustomer = async (e) => {
         e.preventDefault();
-        HandleApi.createCar(data)
+        HandleApisCustomer.createCustomer(data,token)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -102,9 +103,9 @@ function CustomerPopup({ type, setType, updateCustomer, setUpdateCustomer }) {
             });
     };
 
-    const handleUpdateCar = async () => {
+    const handleUpdateCustomer = async () => {
         console.log(updateCustomer._id);
-        HandleApi.updateCar(updateCustomer._id, data)
+        HandleApisCustomer.updateCar(updateCustomer._id, data)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -154,7 +155,7 @@ function CustomerPopup({ type, setType, updateCustomer, setUpdateCustomer }) {
                         <h3>Thêm khách hàng</h3>
                         <br />
                         <Box sx={{ flexGrow: 1 }}>
-                            <form onSubmit={handleCreateCar}>
+                            <form onSubmit={handleCreateCustomer}>
                                 <Grid container>
                                     {inputId.map((item, index) => (
                                         <Grid key={index} item xs={4} sx={{ height: "93px" }}>
@@ -223,7 +224,7 @@ function CustomerPopup({ type, setType, updateCustomer, setUpdateCustomer }) {
                             className={styles.bPopup__close}
                             onClick={() => setType("")}
                         />
-                        <h3>Cập nhật dữ liệu xe</h3>
+                        <h3>Cập nhật dữ liệu khách hàng</h3>
 
                         <Box sx={{ flexGrow: 1, marginTop: '20px' }}>
                             <Grid container>
@@ -254,7 +255,7 @@ function CustomerPopup({ type, setType, updateCustomer, setUpdateCustomer }) {
                                     fontSize: "14px",
                                     width: "160px",
                                 }}
-                                onClick={handleUpdateCar}
+                                onClick={handleUpdateCustomer}
                             >
                                 Cập nhật
                             </Button>
@@ -288,18 +289,13 @@ function CustomerPopup({ type, setType, updateCustomer, setUpdateCustomer }) {
                         <Box sx={{ flexGrow: 1, marginTop: "24px" }}>
                             <Grid container>
                                 <Grid item xs={6}>
-                                    {/* <div className={styles.infoCar}> */}
-                                    <Item sx={{ fontWeight: "bold" }}>{"Tên xe: " + updateCustomer.ten}</Item>
-                                    <Item>{"Thương hiệu: " + updateCustomer.thuonghieu}</Item>
-                                    <Item>{"Động cơ: " + updateCustomer.dongco}</Item>
-                                    <Item>{"Số chỗ ngồi: " + updateCustomer.socho}</Item>
-                                    <Item>{"Kích thước: " + updateCustomer.kichthuoc}</Item>
-                                    <Item>{"Vận tốc tối đa: " + updateCustomer.vantoctoida}</Item>
-                                    <Item>{"Dung tích: " + updateCustomer.dungtich}</Item>
-                                    <Item>{"Tiêu hao nhiên liệu: " + updateCustomer.tieuhaonhienlieu}</Item>
-                                    <Item>{"Công suất cực đại: " + updateCustomer.congsuatcucdai}</Item>
-                                    <Item>{"Màu sắc: " + updateCustomer.mausac}</Item>
-                                    {/* </div> */}
+                                    <Item sx={{ fontWeight: "bold" }}>{"Tên khách hàng: " + updateCustomer.ten}</Item>
+                                    <Item>{"Tên khách hàng: " + updateCustomer.ten}</Item>
+                                    <Item>{"Email: " + updateCustomer.email}</Item>
+                                    <Item>{"Số điện thoại: " + updateCustomer.sdt}</Item>
+                                    <Item>{"Căn cước công dân: " + updateCustomer.cccd}</Item>
+                                    <Item>{"Địa chỉ: " + updateCustomer.diachi}</Item>
+
                                 </Grid>
                                 <Grid item xs={6}>
                                     <Item sx={{ textAlign: 'center', fontSize: '24px', color: "red", fontWeight: "bold" }}>

@@ -314,7 +314,7 @@ function CarManagement() {
                                 sx={{ fontSize: "14px", fontWeight: "600" }}
                                 id="input-label"
                             >
-                                Hãng xe
+                                Tên
                             </InputLabel>
                             <Select
                                 className={styles.filter_wrap}
