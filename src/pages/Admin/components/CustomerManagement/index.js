@@ -208,15 +208,6 @@ function CarManagement() {
         setSearchValue(e.target.value);
     };
 
-    const handleSearch = async () => {
-        if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
-                await setDataLength(data.length);
-            });
-        }
-    };
-
     const handleClear = () => {
         setSearchValue("");
         inputRef.current.focus();
