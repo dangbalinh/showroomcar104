@@ -28,7 +28,7 @@ import {
     Pagination
 } from "@mui/material";
 
-import CarPopUp from "../CarPopUp";
+import CustomerPopUp from "../CustomerPopUp";
 import HandleApi from "../../../../Apis/HandleApi";
 import Swal from "sweetalert2";
 
@@ -521,12 +521,12 @@ function CarManagement() {
                     </Stack>
                 </div>
             </div>
-            <CarPopUp
+            {/* <CustomerPopUp
                 type={type !== "" ? type : ""}
                 setType={setType}
                 updateCar={updateCar}
                 setUpdateCar={setUpdateCar}
-            />
+            /> */}
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import styles from "./Customer.module.css";
-import './Customer.css'
+import styles from "./CustomerPopUp.module.css";
+import './CustomerPopUp.css'
 import CancelIcon from "@mui/icons-material/Cancel";
 import Swal from "sweetalert2";
 import { Box } from "@mui/system";
@@ -8,7 +8,7 @@ import { Grid, Button, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import HandleApi from "../../../../Apis/HandleApi";
 
-function CarPopup({ type, setType, updateCustomer, setUpdateCustomer }) {
+function CustomerPopup({ type, setType, updateCustomer, setUpdateCustomer }) {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [phoneNumber, setPhoneNumber] = useState();
@@ -331,4 +331,4 @@ function CarPopup({ type, setType, updateCustomer, setUpdateCustomer }) {
     );
 }
 
-export default CarPopup;
+export default CustomerPopup;
