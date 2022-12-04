@@ -11,10 +11,16 @@
     font-size: 25px;
     margin:15px 0;
 }
+.UserSide .SideRole{
+
+    background-color: #966e6e;
+}
 
 .UserSide .SideMail{
     color: rgb(241, 179, 179);
-    font-size: 15px;
+    font-size: 14px;
+    text-align: center;
+    word-wrap:break-word;
 }
 .UserSide .button {
     margin-top: 2rem;
@@ -54,23 +60,40 @@
 .PickStatus
 {
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
 }
 
 .PickStatus button
 {
-    color: #000000;
+    color: #a4a4a4;
     padding: 5px 10px;
     margin: 10px 10px 10px 0 ;
-    background-color: #ff000027;
+    background-color: white;
+    cursor: pointer;
+    border: none;
+
+}
+
+.OrderSide .Picker{
+    width: 30% ;
+}
+.StatusPicker
+{
+   
+        width: 30% !important;
+        height: 100%;
+        font-size: 1.6rem !important;
+
 }
 
 .PickStatus .input {
     padding-left: 25px;
     background: url("https://static.thenounproject.com/png/101791-200.png") no-repeat left;
     background-size: 20px;
-    height: 30px;
+    margin-right: 25px;
+    height: 40px;
+    width: 40%;
   }
 /*-------------------------------------*/
 .DetailCard{
@@ -79,18 +102,20 @@
     color: white;
     border-radius: 10px;
     padding: 10px 30px;
-    padding-bottom: 50px;
+    padding-bottom: 70px;
     margin: 20px;
 }
 .DetailCard h2{
     text-align: center;
     font-size: xx-large;
     margin-bottom:10px ;
+    color: rgb(255, 255, 255);
+    border-bottom: 1px solid rgb(200, 200, 200);
 }
 
 .DetailCard p{
     font-size: 15px;
-    padding: 2px;
+    padding: 5px;
 }
 .DetailCard img {
     height: 60px;

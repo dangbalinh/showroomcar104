@@ -13,9 +13,9 @@ const DetailOrder = ({item}) => {
     ])
     const gridTitle =[
       "STT",
-      "Car ID",
-      "Car Name",
-      "Quantity"
+      "ID",
+      "Tên xe",
+      "Số lượng"
     ]
     const gridColumn =[
         1,3,5,3
@@ -60,24 +60,26 @@ const DetailOrder = ({item}) => {
         
   return (
   <div className={classes.DetailCard}>
-    <h2>DETAIL ORDER</h2>
-    {detail && <div className={classes.ListInfo}>
+    <div style={{borderBottom:"white"}}>
+    <h2>CHI TIẾT HÓA ĐƠN</h2>
+    </div>
+    {detail? <><div className={classes.ListInfo}>
       <div>
-       <p>Bill ID:</p><p> {detail.hoadon.mahd}</p>
+       <p>ID hóa đơn:</p><p> {detail.hoadon.mahd}</p>
       </div>
       <div>
-       <p>Date:</p><p> {detail.hoadon.ngayhd}</p>
+       <p>Ngày hóa đơn:</p><p> {detail.hoadon.ngayhd}</p>
        </div>
        <div>
-       <p>Customer Id: </p><p>{detail.hoadon.makh}</p>
+       <p>Mã khách hàng: </p><p>{detail.hoadon.makh}</p>
        </div>
        <div>
-       <p>Staff Id: </p><p>{detail.hoadon.manv}</p>
+       <p>Mã nhân viên: </p><p>{detail.hoadon.manv}</p>
        </div>
        <div>
-       <p>Status: </p><p>{detail.hoadon.tinhtrang}</p>
+       <p>Tình trạng: </p><p>{detail.hoadon.tinhtrang}</p>
        </div>
-       <p>List of product: </p>
+       <p>Danh sách xe: </p>
        <Grid container sx={{ 
     padding: '0 0',
     borderRadius:1,
@@ -112,10 +114,10 @@ const DetailOrder = ({item}) => {
       )}
       </Grid>
        <div>
-       <p>Total:</p><p> {detail.hoadon.trigia} vnd</p>
+       <p>Trị giá hóa đơn:</p><p> {detail.hoadon.trigia} vnd</p>
        </div>
        <button onClick={()=>{console.log(cthd);console.log(detail);/*getCar()*/console.log(car);}}>test</button>
-    </div>}
+    </div></>:<p style={{textAlign:"center"}}>Chọn 1 hóa đơn để xem chi tiết</p>}
   </div>
   )
 }
