@@ -25,11 +25,11 @@ function AdminSidebar() {
         "Quản lý form",
     ];
     const AdminLink = [
-        "/admin",
-        "/admin/customer-management",
-        "/admin/staff-management",
-        "/admin/news-management",
-        "/admin/form-management",
+        "/dashboard",
+        "/dashboard/customer-management",
+        "/dashboard/staff-management",
+        "/dashboard/news-management",
+        "/dashboard/form-management",
     ];
     const funcIcon = [
         <DirectionsCar className={styles.icon} />,
