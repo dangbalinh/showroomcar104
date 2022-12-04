@@ -1,14 +1,14 @@
 export const menuItems = [
   {
-    title: "HOME",
+    title: "Trang Chủ",
     url: "/",
   },
   {
-    title: "INTRODUCTION",
+    title: "Giới Thiệu",
     url: "/introduce",
   },
   {
-    title: "PRODUCTS",
+    title: "Hãng Xe",
     url: "/product",
     submenu: [
       {
@@ -46,11 +46,11 @@ export const menuItems = [
     ],
   },
   {
-    title: "NEWS",
+    title: "Tin Tức",
     url: "/news",
   },
   {
-    title: "CONTACT",
+    title: "Liên Hệ",
     url: "/contact",
   },
 ];

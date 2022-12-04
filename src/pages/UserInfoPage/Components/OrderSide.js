@@ -5,7 +5,10 @@ import { DatePicker } from "@mui/x-date-pickers"
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
-
+import {
+  MenuItem,
+  Select,
+} from "@mui/material";
 import {
   TextField
 } from "@mui/material";
@@ -18,10 +21,9 @@ const OrderSide = ({
     const gridTitle =[
       "STT",
       "ID",
-      "Quantity",
-      "Date",
-      
-      "STATUS",
+      "Số lượng xe",
+      "Ngày",
+      "Tình trạng",
     ]
     const gridColumn =[
         1,3,2,3,3
@@ -33,13 +35,17 @@ const OrderSide = ({
     const [userData, setUserData] = useState([])
     const [userDataa, setUserDataa] = useState([])
     const [value, setValue] = React.useState(dayjs());
-    const [first, setfirst] = useState();
+    const [first, setfirst] = useState("");
+    const [input, setInput] = useState("");
+    const [status, setStatus] = useState("all")
+    const handleChange = (e) =>{
+      setInput(e.target.value.toLowerCase());
+    }
     useEffect(() => {
         var date = new Date(value);
         var finaldate = (parseInt(date.getMonth())<9? ("0" + (0 + date.getMonth() + 1)): (date.getMonth() + 1))  + '-' +  date.getFullYear()
         setfirst(finaldate)
       }, [value])
-    const [status, setStatus] = useState("all")
     const authAxios = axios.create({
       baseURL: 'https://showroomcar104.onrender.com',
       headers:{
@@ -67,30 +73,37 @@ const OrderSide = ({
       else
       setUserDataa(userData)
       setUserDataa((prev)=>prev.filter((item)=>{
-        return item.ngayhd.includes(first.toString())
+        return (item.ngayhd.includes(first.toString())&&item.mahd.toLowerCase().includes(input))
       }))
       {userDataa.map((item, index) => console.log(item.ngayhd))}
       console.log(first);
       console.log(status);
-    }, [status,first])
+      console.log(input);
+    }, [status,first,input])
     
-    const handleTest=()=>{
+    const handleTest=(e)=>{
       /*sendRequestSU()
       .then((data)=>console.log(data))*/
-      console.log(first);
+      setStatus(e.target.value);
     }
-
+    const MenuSelectProps = {
+      PaperProps: {
+          style: {
+              maxHeight: 150,
+              overflowX: "scroll"
+          }
+      }
+  };
   return (
     <div className={classes.OrderSide} style={{width:"100%", height:"500px"}}>
-    {userData.length!==0? <><h2>YOUR BILLS</h2>
-    <div className={classes.PickStatus}>
-      <button onClick={()=>setStatus("all")}>All</button>
-      <button onClick={()=>setStatus("Chưa thanh toán")}>Uncomplete</button>
-      <button onClick={()=>setStatus("Đã thanh toán")}>Complete</button>
-      <button onClick={handleTest}>test</button>
-      <input className={classes.input}/>
+    {userData.length!==0? <><h2>HÓA ĐƠN</h2>
+    <div>
+      <div className={classes.PickStatus}>
+      <input className={classes.input} value={input} 
+      type="text" name="name" onChange={handleChange}/>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
+      className={classes.Picker}
           views={['year', 'month']}
           inputFormat="MM-YYYY"
           label="Year and Month"
@@ -100,10 +113,39 @@ const OrderSide = ({
           onChange={(newValue) => {
             setValue(newValue)}}
           renderInput={(params) => <TextField {...params} helperText={null} />}
-
         />
       </LocalizationProvider>
-      
+      <Select
+           className={classes.StatusPicker}
+           style={{width: "30% !important"}}
+                                labelId="input--"
+                                label="Trạng thái"
+                                defaultValue={status}
+                                value={status}
+                                MenuProps={MenuSelectProps}
+                                onChange={handleTest}
+                            >
+                                <MenuItem
+                                    className={classes.menuItem}
+                                    value="all"
+                                    selected
+                                >
+                                    Tất cả
+                                </MenuItem>
+                                <MenuItem
+                                        value="Chưa thanh toán"
+                                        className={classes.menuItem}
+                                    >
+                                        Chưa thanh toán
+                                </MenuItem>
+                                <MenuItem
+                                        value="Đã thanh toán"
+                                        className={classes.menuItem}
+                                    >
+                                        Đã thanh toán
+                                </MenuItem>
+                            </Select>
+      </div>
     </div>
     <Grid container sx={{ 
     padding: '0 0',
@@ -124,7 +166,9 @@ const OrderSide = ({
             <p>{index+1}</p>
           </Grid>
         <Grid item xs={3}>
-            <p onClick={()=>setDetail(item)}>{item.mahd}</p>
+            <p onClick={()=>setDetail(item)}
+            style={{textDecoration:"underline", cursor:"pointer"}}
+            >{item.mahd}</p>
         </Grid>
         <Grid item xs={2}>
           <p>{userData.length}</p>
@@ -137,7 +181,7 @@ const OrderSide = ({
       </Grid>
       </Grid>
       ))}
-    </Grid></> : <h1>You dont have any bill...</h1>}
+    </Grid></> : <h1 style={{padding:"50px"}}>Bạn không có hóa đơn nào...</h1>}
 </div>
   )
 }

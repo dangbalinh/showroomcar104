@@ -25,9 +25,9 @@ function Header (){
         </li> :
         <li className={classes.menu}>
         <NavLink to='/login'
-            style={{color:"white", backgroundColor:"#ffffff67", borderRadius:"50%"}}
+            style={{color:"white", backgroundColor:"#ffffff67", borderRadius:"0%",width:"135px"}}
            className={({isActive}) => (isActive ? classes.active : classes.item)}
-           end>LOGIN</NavLink>
+           end>Đăng Nhập</NavLink>
         </li>
         }
         </ul>

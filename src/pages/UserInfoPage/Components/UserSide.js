@@ -14,8 +14,11 @@ const UserSide = ({setIsLogin}) => {
     <div style={{width:"100%",height:"800px",backgroundColor:"#8A0000"}}>
       <div className={classes.UserSide}>
         <img style={{borderRadius:"50%"}} src={avatar} alt='rr'></img>
+        <p className={classes.SideRole}>{user1.role}</p>
         <p className={classes.SideName}>{user1.name}</p>
+        <div style={{width:"100%", }}>
         <p className={classes.SideMail}>{user1.email}</p>
+        </div>
       <button className={classes.button} 
       onClick={()=>{
         localStorage.removeItem("user");
