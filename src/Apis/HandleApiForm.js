@@ -4,6 +4,10 @@ const getAllForm = async () => {
     return await axiosInstance.get("/forms");
 };
 
+const getFormByDate = async (data) => {
+    return await axiosInstance.get(`/forms?dateForm=${data.$D}-${data.$M+1}-${data.$y}`)
+}
+
 const getFormByPageIndex = async (index) => {
     return await axiosInstance.get(`/forms?pageIndex=${index}`);
 };
@@ -21,5 +25,6 @@ export default {
     getAllForm,
     getFormById,
     getFormByPageIndex,
+    getFormByDate,
     deleteForm,
 };

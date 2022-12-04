@@ -9,6 +9,7 @@ import FormManagement from "./components/FormManagement";
 import CustomerManagement from "./components/CustomerManagement";
 import StaffRoute from "./components/routes/StaffRoute";
 // import StaffManagement from './components/StaffManagement';
+import InvoiceManagement from "./components/InvoiceManagement"
 
 function Admin() {
     const Item = styled(Paper)(({ theme }) => ({
@@ -64,6 +65,10 @@ function Admin() {
                             <Route
                                 path="/form-management"
                                 element={<FormManagement />}
+                            />
+                             <Route
+                                path="/invoice-management"
+                                element={<InvoiceManagement />}
                             />
                         </Routes>
                     </Item>
