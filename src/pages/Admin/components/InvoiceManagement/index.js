@@ -29,11 +29,11 @@ import {
 } from "@mui/material";
 
 import CarPopUp from "../CarPopUp";
-import HandleInvoiceApi from "../../../../Apis/HandleInvoiceApi";
+import HandleApiInvoice from "../../../../Apis/HandleApiInvoice";
 import Swal from "sweetalert2";
 import { red } from "@mui/material/colors";
 import NewsPopup from "../NewsPopUp";
-// import InvoicePopUp from "../InvoicePopUp";
+import InvoicePopUp from "../InvoicePopUp";
 
 function InvoiceManagement() {
     const [data, setData] = useState([]);
@@ -72,7 +72,7 @@ function InvoiceManagement() {
 
     //get API
     useEffect(() => {
-        HandleInvoiceApi.getInvoiceByPageIndex(pageIndex).then((res) => {
+        HandleApiInvoice.getInvoiceByPageIndex(pageIndex).then((res) => {
             setData(res.hoadons);
             setDataLength(res.totalHoaDon);
         })
@@ -86,18 +86,18 @@ function InvoiceManagement() {
         {
             case "Tất cả":
                 setNewData(data);
-                HandleInvoiceApi.getInvoiceByTinhTrang("").then((res) => {
+                HandleApiInvoice.getInvoiceByTinhTrang("").then((res) => {
                 setDataLength(res.totalHoaDon)
                 });
                 break;
             case "Đã thanh toán":
-                    HandleInvoiceApi.getInvoiceByTinhTrang("Đã thanh toán").then((res) => {
+                    HandleApiInvoice.getInvoiceByTinhTrang("Đã thanh toán").then((res) => {
                     setNewData(res.hoadons)
                     setDataLength(res.totalHoaDon)
                 });
                 break;
             case "Chưa thanh toán":
-                HandleInvoiceApi.getInvoiceByTinhTrang("Chưa thanh toán").then((res) => {
+                HandleApiInvoice.getInvoiceByTinhTrang("Chưa thanh toán").then((res) => {
                     setNewData(res.hoadons)
                     setDataLength(res.totalHoaDon)
                 });
@@ -108,13 +108,21 @@ function InvoiceManagement() {
     },[data, tinhtrang]);
 
 
+    //function 
+    function isDonDatHang(tinhtrang){
+        if(tinhtrang=="Chưa thanh toán")
+        return true
+        else
+        return false
+    }
+
     // handle event
     const handleChange = (event) => {
         setTinhTrang(event.target.value);
     };
 
     const handleDeleteItem = async (id) => {
-        HandleInvoiceApi.xoaDonDatHang(id)
+        HandleApiInvoice.xoaDonDatHang(id)
             .then((res) => {
                 console.log(id);
                 setOpenDeleteModal(false);
@@ -139,18 +147,18 @@ function InvoiceManagement() {
             });
     };
 
-    // const handleClickUpdate = async (id, tinhtrang) => {
-    //     console.log(id);
-    //     HandleInvoiceApi.capnhatTinhTrang(id, tinhtrang)
-    //         .then(async (res) => {
-    //             await setUpdateInvoice(res);
-    //             await setType("update");
-    //             console.log(updateCar);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
-    // };
+    const handleClickUpdate = async (id, tinhtrang) => {
+        console.log(id);
+        HandleApiInvoice.capnhatTinhTrang(id, tinhtrang)
+            .then(async (res) => {
+                await setUpdateInvoice(res);
+                await setType("update");
+                console.log(updateCar);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     // const handleReadInfo = async (id) => {
     //     HandleApi.getCarById(id)
@@ -395,20 +403,20 @@ function InvoiceManagement() {
                                                 justifyContent: "space-between",
                                                 marginLeft: "-24px"
                                             }}
-                                            // onClick={() => {
-                                            //     handleClickUpdate(item._id, item.tinhtrang);
-                                            // }}
+                                            onClick={() => {
+                                                handleClickUpdate(item._id, item.tinhtrang);
+                                            }}
                                         >
                                             <Edit sx={{ fontSize: "22px" }} />
                                         </IconButton>
 
                                         <IconButton
+                                            disabled={!isDonDatHang(item.tinhtrang)}
                                             size="medium"
                                             color="error"
                                             onClick={() => {
-                                                handleDeleteItem(item._id)
                                                 console.log(item._id);
-                                                setOpenDeleteModal(true);
+                                                setOpenDeleteModal(isDonDatHang(item.tinhtrang));
                                                 setId(item._id);
                                             }}
                                         >
@@ -500,12 +508,12 @@ function InvoiceManagement() {
                     </Stack>
                 </div>
             </div>
-            {/* <InvoicePopUp
+            <InvoicePopUp
                 type={type !== "" ? type : ""}
                 setType={setType}
                 updateInvoice={updateInvoice}
                 setUpdateInvoice={setUpdateInvoice}
-            /> */}
+            />
         </div>
     );
 }
