@@ -7,10 +7,14 @@ import CarManagement from "./components/CarManagement";
 import NewsManagement from "./components/NewsManagement";
 import FormManagement from "./components/FormManagement";
 import CustomerManagement from "./components/CustomerManagement";
+<<<<<<< HEAD
+import EmployeeManagement from "./components/EmployeeManagement";
+=======
 import StaffRoute from "./components/routes/StaffRoute";
 // import StaffManagement from './components/StaffManagement';
 import InvoiceManagement from "./components/InvoiceManagement"
 
+>>>>>>> af0e6e4cd6861f90ad35065736bbd210e4dfdf79
 function Admin() {
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -54,6 +58,10 @@ function Admin() {
                                     </StaffRoute>
                                 }
                             /> */}
+                            <Route
+                                path="/staff-management"
+                                element={<EmployeeManagement/>}
+                            />
                             <Route
                                 path="/news-management"
                                 element={
