@@ -24,7 +24,7 @@ function News() {
 
   return (
     <div className={styles.container}>
-      <h1>News</h1>
+      <h1>Tin tức</h1>
       <div className={styles.newsSection}>
         <section className={styles.section}>
           <div>

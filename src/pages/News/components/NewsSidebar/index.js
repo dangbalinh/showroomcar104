@@ -13,7 +13,7 @@ export default function NewsSidebar() {
     }, []);
     return (
         <aside className={styles.aside}>
-            <h3>Most read</h3>
+            <h3>Tin nổi bật</h3>
             {allData == null ? (
                 <div>loading</div>
             ) : (
