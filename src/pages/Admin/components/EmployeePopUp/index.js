@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import styles from "./EmployeePopUp.module.css";
 import './EmployeePopUp.css'
-import Swal from "sweetalert2";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { Box } from "@mui/system";
 import { Grid, Button, Paper } from "@mui/material";
+import Swal from "sweetalert2";
 import { styled } from "@mui/material/styles";
 
-import HandleApi from "../../../../Apis/HandleApi";
+import HandleApiEmployee from "../../../../Apis/HandleApiEmployee";
 
 function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
-    const [thumbnail, setThumbnail] = useState();
     const [employeeName, setEmployeeName] = useState();
     const [sex, setSex] = useState();
     const [address, setAddress] = useState();
@@ -20,18 +19,15 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
     const [cccd, setCccd] = useState();
     const [position, setPosition] = useState();
     const [password, setPassword] = useState();
-    const [role, setRole] = useState();
 
     const inputId = [
         "name",
         "sex",
-        "thumbnail",
         "address",
         "dateofbirth",
         "phone",
         "email",
         "cccd",
-        "role",
         "position",
         "password",
     ];
@@ -39,13 +35,11 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
     const useStateEvent = [
         setEmployeeName,
         setSex,
-        setThumbnail,
         setAddress,
         setDateOfBirth,
         setPhone,
         setEmail,
         setCccd,
-        setRole,
         setPosition,
         setPassword,
     ];
@@ -53,13 +47,11 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
     const placeHolder = [
         "Nhập tên nhân viên",
         "Nhập giới tính",
-        "Nhập Link Avatar",
         "Nhập địa chỉ",
         "Nhập ngày sinh",
         "Nhập SĐT",
         "Nhập email",
         "Nhập CCCD",
-        "Nhập quyền",
         "Nhập chức vụ",
         "Nhập password",
     ];
@@ -67,46 +59,40 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
     const textValue = [
        "Tên nhân viên",
        "Giới tính (Nam / Nữ)",
-       "Link avatar",
        "Địa chỉ",
        "Ngày sinh (dd/mm/yyyy)",
        "Số điện thoại",
        "Email",
        "CCCD",
-       "Quyền(Employee)",
        "Chức vụ",
        "Password(8 charater)",
     ];
 
-    const inputType = ["text", "text", "text", "text", "text", "number", "text", "number", "text", "text", "password"];
+    const inputType = ["text", "text", "text", "date",  "number", "text", "number", "text", "password"];
 
     const inputValue = [
         employeeName,
         sex,
-        thumbnail,
         address,
         dateOfBirth,
         phone,
         email,
         cccd,
-        role,
         position,
         password,
     ];
 
     // object data
     const data = {
-       ten: employeeName,
+       name: employeeName,
        gioitinh: sex,
-       hinhanh: thumbnail,
        diachi: address,
-       ngaysinh: dateOfBirth,
+       ngaysinh: Date(dateOfBirth),
        sdt: Number(phone),
        email: email,
        cccd: Number(cccd),
-       quyen: role,
        chucvu: position,
-       matkhau: password,
+       password: password,
     };
 
     const handleBlur = (e) => {
@@ -117,9 +103,9 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
         }
     };
 
-    const handleCreateCar = async (e) => {
+    const handleCreateEmployee = async (e) => {
         e.preventDefault();
-        HandleApi.createCar(data)
+        HandleApiEmployee.createEmployee(data)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -136,9 +122,9 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
             });
     };
 
-    const handleUpdateCar = async () => {
+    const handleUpdateEmployee = async () => {
         console.log(updateEmployee._id);
-        HandleApi.updateCar(updateEmployee._id, data)
+        HandleApiEmployee.updateEmployee(updateEmployee._id, data)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -157,17 +143,15 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
 
     useEffect(() => {
         if (updateEmployee !== {}) {
-            setEmployeeName(updateEmployee.ten);
-            setSex(updateEmployee.macar);
-            setThumbnail(updateEmployee.hinhanh);
-            setAddress(updateEmployee.thuonghieu);
-            setDateOfBirth(updateEmployee.socho);
-            setPhone(updateEmployee.dongco);
-            setEmail(updateEmployee.dongco)
-            setCccd(updateEmployee.congsuatcucdai);
-            setRole(updateEmployee.dungtich);
-            setPosition(updateEmployee.namsanxuat);
-            setPassword(updateEmployee.tieuhaonhienlieu);
+            setEmployeeName(updateEmployee.name);
+            setSex(updateEmployee.gioitinh);
+            setAddress(updateEmployee.diachi);
+            setDateOfBirth(updateEmployee.ngaysinh);
+            setPhone(updateEmployee.sdt);
+            setEmail(updateEmployee.email)
+            setCccd(updateEmployee.cccd);
+            setPosition(updateEmployee.chucvu);
+            setPassword(updateEmployee.password);
         }
     }, [updateEmployee]);
 
@@ -226,7 +210,7 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
                                         fontSize: "14px",
                                         width: "160px",
                                     }}
-                                    onClick={handleCreateCar}
+                                    onClick={handleCreateEmployee}
                                 >
                                     Thêm dữ liệu
                                 </Button>
@@ -290,7 +274,7 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
                                     fontSize: "14px",
                                     width: "160px",
                                 }}
-                                onClick={handleUpdateCar}
+                                onClick={handleUpdateEmployee}
                             >
                                 Cập nhật
                             </Button>
@@ -324,16 +308,16 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
                         <Box sx={{ flexGrow: 1, marginTop: "24px" }}>
                             <Grid container>
                                 <Grid item xs={6}>
-                                    <Item sx={{ fontWeight: "bold" }}>{"Tên nhân viên: " + updateEmployee.ten}</Item>
-                                    <Item>{"Giới tính: " + updateEmployee.macar}</Item>
-                                    <Item>{"Ngày sinh: " + updateEmployee.socho}</Item>
-                                    <Item>{"Địa chỉ: " + updateEmployee.thuonghieu}</Item>
-                                    <Item>{"Số điện thoại: " + updateEmployee.socho}</Item>
-                                    <Item>{"CCCD: " + updateEmployee.kichthuoc}</Item>
-                                    <Item>{"Email: " + updateEmployee.socho}</Item>
-                                    <Item>{"Quyền: " + updateEmployee.dungtich}</Item>
-                                    <Item>{"Chức vụ: " + updateEmployee.namsanxuat}</Item>
-                                    <Item>{"Mật khẩu: " + updateEmployee.tieuhaonhienlieu}</Item>
+                                    <Item>{"Mã nhân viên: " + updateEmployee.mauser}</Item>
+                                    <Item>{"Tên nhân viên: " + updateEmployee.name}</Item>
+                                    <Item>{"Giới tính: " + updateEmployee.gioitinh}</Item>
+                                    <Item>{"Ngày sinh: " + updateEmployee.ngaysinh}</Item>
+                                    <Item>{"Địa chỉ: " + updateEmployee.diachi}</Item>
+                                    <Item>{"Số điện thoại: " + updateEmployee.sdt}</Item>
+                                    <Item>{"CCCD: " + updateEmployee.cccd}</Item>
+                                    <Item>{"Email: " + updateEmployee.email}</Item>
+                                    <Item>{"Chức vụ: " + updateEmployee.chucvu}</Item>
+                                    <Item>{"Mật khẩu: " + updateEmployee.password}</Item>
                                 </Grid>
                             </Grid>
                         </Box>
