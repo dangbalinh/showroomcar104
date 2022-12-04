@@ -64,7 +64,7 @@ const Search = () => {
     :<h1 style={{marginTop:'40px', fontSize:'40px'}}>Không có kết quả cho "{searchParams.get('find')}"</h1>}
     <div className={style.MainSearch} style={{display:"flex",padding:"20px",flexWrap:"wrap"}}>
         {cars.cars && cars.cars.map((car,index)=>
-        <CarCard data={car}/>)}
+        <CarCard data={car} key={index}/>)}
     </div>
         {cars.cars&& cars.totalCarsFilter!==0?
         <div className={style.pagination}>

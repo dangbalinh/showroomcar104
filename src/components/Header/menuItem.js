@@ -16,7 +16,7 @@ export const menuItems = [
         url: "/product/BMW",
       },
       {
-        title: "Mercedes-benz",
+        title: "Mercedes",
         url: "/product/Mercedes-Benz",
       },
       {
