@@ -15,14 +15,13 @@ const Wrapper = ({ children }) => {
 };
 
 function ReadNews() {
-  const location = useLocation();
   const [detail, setDetail] = useState(null);
   const { id } = useParams();
 
 
   useEffect(() => {
     HandleNewsApi.getNewsById(id).then(res => setDetail(res))
-  }, [location.pathname, id]);
+  }, [id]);
 
   return (
     <Wrapper>
@@ -58,6 +57,7 @@ function ReadNews() {
                       </h2>
                     );
                   }
+                  return <></>;
                 })}
               </div>
             )}

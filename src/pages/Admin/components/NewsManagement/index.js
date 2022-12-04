@@ -1,5 +1,6 @@
 import images from "../../../../assets/image";
 import styles from "./NewsManagement.module.css";
+import styleDetail from "../../../ReadNews/ReadNews.module.css";
 import "./NewsManagement.css";
 
 import { styled } from "@mui/material/styles";
@@ -37,6 +38,8 @@ function NewsManagement() {
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState(null);
     const [openDetailModal, setOpenDetailModal] = useState(false);
+    const [role] = useState(() => JSON.parse(localStorage.getItem("user")).role)
+    const [token] = useState(() => localStorage.getItem("token"))
 
     const handleOpenDetailModal = (detail) => {
         setOpenDetailModal(true);
@@ -67,7 +70,7 @@ function NewsManagement() {
 
 
     const handleDeleteItem = async (id) => {
-        HandleNewsApi.deleteNews(id)
+        HandleNewsApi.deleteNews(id, token)
             .then((res) => {
                 setOpenDeleteModal(false);
                 Swal.fire({
@@ -92,9 +95,9 @@ function NewsManagement() {
 
     const handleClickUpdate = async (id) => {
         HandleNewsApi.getNewsById(id)
-            .then(async (res) => {
-                await setUpdatePost(res);
-                await setType("update");
+            .then((res) => {
+                setUpdatePost(res);
+                setType("update");
             })
             .catch((err) => {
                 console.log(err);
@@ -137,7 +140,7 @@ function NewsManagement() {
         p: 8
     };
 
-    const RenderDetailModel = ({ detail }) => {
+    const RenderDetailModal = ({ detail }) => {
         return (<div>
             <div className={styles.overlay}></div>
             <div className={styles.bPopup}>
@@ -147,33 +150,48 @@ function NewsManagement() {
                 />
                 <Typography variant="h4" sx={{
                     fontWeight: "bold",
-                    paddingBottom: "20px",
-                    marginBottom: "20px",
+                    padding: "50px 0 30px 0",
                     fontSize: "2.4rem",
                     textAlign: "center",
                     color: "rgba(0, 0, 0, 0.6)",
                     fontFamily: "LexendRegular",
                     width: "100%",
-                    borderBottom: "1px solid rgba(0, 0, 0, 0.5)"
                 }}>
                     Chi tiết
                 </Typography>
-                <Grid container>
-                    <Grid container sx={{ padding: '0 0 8px' }}>
-                        <Grid item xs={1}><ItemMain>Type</ItemMain></Grid>
-                        <Grid item xs={11}><ItemMain>Content</ItemMain></Grid>
-                    </Grid>
-                    {detail.map((d, index) => {
-                        return (<Grid key={index} container>
-                            <Grid item xs={1}>
-                                <Item>{d.type}</Item>
-                            </Grid>
-                            <Grid item xs={11}>
-                                <Item>{d.content}</Item>
-                            </Grid>
-                        </Grid>)
+                <Box sx={{
+                    borderBottom: "1px solid rgba(0, 0, 0, 0.5)",
+                    margin: "0 50px"
+                }} />
+                <Box sx={{ padding: "50px" }}>
+                    <h3 className={styleDetail.title}>{detail.title}</h3>
+                    <p className={styleDetail.date}>{detail.dateSource}</p>
+                    {detail.detail.map((d, index) => {
+                        if (d.type === "img") {
+                            return (
+                                <img
+                                    key={d.index}
+                                    className={styleDetail.image}
+                                    src={d.content}
+                                    alt={index}
+                                />
+                            );
+                        } else if (d.type === "p") {
+                            return (
+                                <p key={d.index} className={styleDetail.paragraphText}>
+                                    {d.content}
+                                </p>
+                            );
+                        } else if (d.type === "h2") {
+                            return (
+                                <h2 key={d.index} className={styleDetail.paragraphTitle}>
+                                    {d.content}
+                                </h2>
+                            );
+                        }
+                        return <></>;
                     })}
-                </Grid>
+                </Box>
             </div>
         </div>)
     }
@@ -190,11 +208,12 @@ function NewsManagement() {
             </header>
             <div className={styles.container}>
                 <div className={styles.container_header}>
-                    <Button
+                    {role === "admin" && <Button
                         sx={{
                             height: 40,
                             fontSize: 14,
                             textTransform: "none",
+                            marginRight: 8
                         }}
                         variant="contained"
                         color="success"
@@ -202,7 +221,7 @@ function NewsManagement() {
                         onClick={() => setType("create")}
                     >
                         Thêm tin tức
-                    </Button>
+                    </Button>}
                 </div>
 
                 <div className={styles.content}>
@@ -244,11 +263,11 @@ function NewsManagement() {
                                 </Grid>
                                 <Grid item xs={1}>
                                     <Item>
-                                        <Button variant="outlined" size="large" sx={{ width: "50px" }} onClick={() => handleOpenDetailModal(item.detail)}>Xem chi tiết</Button>
+                                        <Button variant="outlined" size="large" sx={{ width: "50px" }} onClick={() => handleOpenDetailModal(item)}>Xem chi tiết</Button>
                                     </Item>
                                 </Grid>
                                 <Grid item xs={1}>
-                                    <Item>
+                                    {role === "admin" && <Item>
                                         <IconButton
                                             color="primary"
                                             size="medium"
@@ -333,11 +352,11 @@ function NewsManagement() {
                                                 </div>
                                             </Box>
                                         </Modal>
-                                    </Item>
+                                    </Item>}
                                 </Grid>
                             </Grid>
                         ))}
-                        {openDetailModal && <RenderDetailModel detail={selectedDetail} />}
+                        {openDetailModal && <RenderDetailModal detail={selectedDetail} />}
                     </Box>
                 </div>
 
@@ -356,6 +375,7 @@ function NewsManagement() {
                 </div>
             </div>
             <NewsPopUp
+                token={token}
                 type={type !== "" ? type : ""}
                 setType={setType}
                 updatePost={updatePost}

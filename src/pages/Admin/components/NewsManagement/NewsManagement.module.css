@@ -54,7 +54,7 @@
 .container_header {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: end;
 }
 
 /* Search input */
@@ -188,11 +188,10 @@
     position: fixed;
     text-align: left;
     width: 80vw;
-    height: 80vh;
+    height: 90vh;
     background: #ffffff;
     box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
-    padding: 52px 52px 40px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -216,14 +215,13 @@
 }
 
 .bPopup__close {
-    position: absolute;
+    position: sticky;
     top: 0;
-    right: 0;
-    margin-top: 12px;
+    float: right;
+    margin-top: 10px;
     margin-right: 10px;
     width: 28px !important;
     height: 28px !important;
     color: #d32f2f;
-    width: fit-content;
     cursor: pointer;
 }

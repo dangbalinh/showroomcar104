@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import style from "./Home.module.css";
 import images from "../../assets/image";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import SliderCar from "./components/SliderCar";
 import SliderAdvice from "./components/SliderAdvice";
 import Vehicle from "./components/Vehicle";
@@ -19,7 +19,7 @@ function Home() {
     const [newsData, setNewsData] = useState([])
     useEffect(() => {
         HandleNewsApi.getThreeNews().then(res => setNewsData(res.news));
-    }, [newsData])
+    }, [])
 
     return (
         <div>
@@ -130,4 +130,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default memo(Home);

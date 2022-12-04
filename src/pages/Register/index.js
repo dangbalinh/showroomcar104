@@ -37,7 +37,7 @@ const Register = () => {
             setErrors((prev)=>{
                 return{
                 ...prev,
-                emailError:"Invalid Email"
+                emailError:"Email không hợp lệ."
               }
               })
             }
@@ -59,7 +59,7 @@ const Register = () => {
             setErrors((prev)=>{
                 return{
                 ...prev,
-                passwordError:"The password provided is not long enough."
+                passwordError:"Mật khẩu phải ít nhất 8 ký tự."
               }
               })
             }
@@ -81,7 +81,7 @@ const Register = () => {
             setErrors((prev)=>{
                 return{
                 ...prev,
-                confirmError:"The password is incorrect."
+                confirmError:"Mật khẩu không khớp."
               }
               })
             }
@@ -103,7 +103,7 @@ const Register = () => {
             setErrors((prev)=>{
                 return{
                 ...prev,
-                nameError:"Invalid name"
+                nameError:"Tên không được để trống."
               }
               })
             }
@@ -143,7 +143,7 @@ const Register = () => {
         .catch((err)=>{
           Swal.fire({
             icon: 'error',
-            title: 'Your email existed!',
+            title: 'Email đã tồn tại',
           });
           console.log(err);})
         const data = await res.data;
@@ -172,28 +172,28 @@ const Register = () => {
             <div className={classes.registerlayout}>
             <div className={classes.registerimg}></div>
             <form className={classes.form}>
-              <h2>Create your personal account</h2>
+              <h2>Tạo Tài Khoản Của Bạn</h2>
                 <p>
-                    <label>Name</label><br/>
+                    <label>Tên</label><br/>
                     <input className={classes.input} value={inputs.name} 
                     type="text" name="name" onChange={handleChange} onBlur={handleBlur} required />
                     <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.nameError}</p>
                 </p>
                 
                 <p>
-                    <label>Email address</label><br/>
+                    <label>Email</label><br/>
                     <input className={classes.input} value={inputs.email}
                     type="email" name="email" onChange={handleChange} onBlur={handleBlur} required />
                     <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.emailError}</p>
                 </p>
                 <p>
-                    <label>Password</label><br/>
+                    <label>Mật Khẩu</label><br/>
                     <input className={classes.input} value={inputs.password}
                     type="password" name="password" onChange={handleChange} onBlur={handleBlur} required />
                     <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.passwordError}</p>
                 </p>
                 <p>
-                    <label>Confirm Password</label><br/>
+                    <label>Xác nhận mật khẩu</label><br/>
                     <input className={classes.input} 
                     type="password" name="password2" onBlur={handleBlur} required />
                     <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.confirmError}</p>
@@ -201,12 +201,12 @@ const Register = () => {
                 <p>
                     <input style={{ margin:"0 15px" }}type="checkbox" name="checkbox" id="checkbox" 
                      value={isSubscribed} onChange={()=>setIsSubscribed(!isSubscribed)} required />  
-                    <span>I agree all statements in <a href="https://google.com" target="_blank" rel="noopener noreferrer">terms of service</a></span>.
+                    <span>Tôi đồng ý với các <a href="https://google.com" target="_blank" rel="noopener noreferrer">điều khoản dịch vụ</a></span>.
                 </p>
                 <p style={{ textAlign:"center", fontSize:"16px"}}>
                     <button className={classes.button} id="sub_btn" type="submit"
-                    onClick={handleSubmit}>Register</button><br/>
-                    Already had a account? Go to <Link to="/login">Login</Link>
+                    onClick={handleSubmit}>Đăng Kí</button><br/>
+                    Bạn đã có 1 tài khoản? Đi đến <Link to="/login">Đăng nhập</Link>
                 </p>
             </form>
             </div>

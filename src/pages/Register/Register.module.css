@@ -9,7 +9,8 @@
 .register{
     align-content: centers;
     text-align: center;
-    padding: 90px 0; 
+    padding: 10px 0; 
+    margin-top: 100px;
 }
 .register h2{
     color: #8A0000;

@@ -12,8 +12,7 @@
     margin:15px 0;
 }
 .UserSide .SideRole{
-
-    background-color: #966e6e;
+    background-color: #824242;
 }
 
 .UserSide .SideMail{
@@ -75,8 +74,9 @@
 
 }
 
-.OrderSide .Picker{
+.Picker{
     width: 30% ;
+    box-shadow: 1px 3px 9px #aaaaaa;
 }
 .StatusPicker
 {
@@ -84,16 +84,25 @@
         width: 30% !important;
         height: 100%;
         font-size: 1.6rem !important;
-
+    box-shadow: 3px 3px 9px #aaaaaa;
 }
 
+.menuItem {
+    font-size: 1.4rem !important;
+}
+.OrderSide DatePicker
+{
+    box-shadow: 3px 3px 9px #aaaaaa;
+}
 .PickStatus .input {
     padding-left: 25px;
     background: url("https://static.thenounproject.com/png/101791-200.png") no-repeat left;
     background-size: 20px;
+    border-radius: 10px;
     margin-right: 25px;
     height: 40px;
     width: 40%;
+    box-shadow: 3px 3px 9px #aaaaaa;
   }
 /*-------------------------------------*/
 .DetailCard{
@@ -127,7 +136,7 @@
 
 .DetailCard .asa
 {
-    background-color: aqua;
+    background-color: rgba(237, 132, 132, 0.756);
 }
 
 .DetailCard .ListCar{
@@ -145,4 +154,29 @@
 }
 .ListInfo p{
     width: 50%;
+}
+
+.logout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid #fff;
+    margin-top: 80px;
+}
+
+.logout_btn {
+    border: none;
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    background-color: #dd1818;
+    border-radius: 8px;
+    color: #fff;
+    margin-top: 36px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.logout_btn:hover {
+    background-color: #ff0000;
 }

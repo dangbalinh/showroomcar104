@@ -4,22 +4,37 @@ import { Grid, Paper, Box } from "@mui/material";
 import { Routes, Route } from "react-router-dom";
 import AdminSidebar from "./components/AdminSidebar";
 import CarManagement from "./components/CarManagement";
-import NewsManagement from "./components/NewsManagement"
+import NewsManagement from "./components/NewsManagement";
 import FormManagement from "./components/FormManagement";
 import CustomerManagement from "./components/CustomerManagement";
+<<<<<<< HEAD
 import EmployeeManagement from "./components/EmployeeManagement";
+=======
+import StaffRoute from "./components/routes/StaffRoute";
+// import StaffManagement from './components/StaffManagement';
+import InvoiceManagement from "./components/InvoiceManagement"
+
+>>>>>>> af0e6e4cd6861f90ad35065736bbd210e4dfdf79
 function Admin() {
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
         color: theme.palette.text.secondary,
-        maxWidth: '100%',
+        maxWidth: "100%",
     }));
 
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container>
                 <Grid item xs={2.5}>
-                    <Item sx={{ position: 'fixed', top: 0, left: 0, bottom: 0, minWidth: '318px' }}>
+                    <Item
+                        sx={{
+                            position: "fixed",
+                            top: 0,
+                            left: 0,
+                            bottom: 0,
+                            minWidth: "318px",
+                        }}
+                    >
                         <AdminSidebar />
                     </Item>
                 </Grid>
@@ -33,19 +48,35 @@ function Admin() {
                             />
                             <Route
                                 path="/customer-management"
-                                element={<CustomerManagement/>}
-                                />
+                                element={<CustomerManagement />}
+                            />
+                            {/* <Route
+                                path="/staff-management"
+                                element={
+                                    <StaffRoute>
+                                        <StaffManagement />
+                                    </StaffRoute>
+                                }
+                            /> */}
                             <Route
                                 path="/staff-management"
                                 element={<EmployeeManagement/>}
                             />
                             <Route
                                 path="/news-management"
-                                element={<NewsManagement />}
+                                element={
+                                    <StaffRoute>
+                                        <NewsManagement />
+                                    </StaffRoute>
+                                }
                             />
                             <Route
                                 path="/form-management"
                                 element={<FormManagement />}
+                            />
+                             <Route
+                                path="/invoice-management"
+                                element={<InvoiceManagement />}
                             />
                         </Routes>
                     </Item>

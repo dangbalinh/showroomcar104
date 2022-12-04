@@ -58,18 +58,33 @@ input {
   display: block;
 }
 .header input {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: #ffffff;
   border-radius: 10px;
-  height: 26.4px;
-  width: 100%px;
+  height: 32px;
+  width: 300px;
   margin: 0 20px;
+  font-style: italic;
+  color: #777777;
+  outline: none;
+}
+.header input::placeholder {
+  color: #cdcaca;
 }
 .header img {
   width: 100px;
   height: 100px;
   margin-left: 20px;
 }
-.header .active {
+
+.header .item:hover {
+  text-decoration: none;
+  font-size: 20px;
+  color: rgb(255, 255, 255, 0.5);
+  text-align: center;
+  display: block;
+}
+
+.header .active{
   text-decoration: none;
   font-size: 20px;
   color: #ffffff;
@@ -91,9 +106,16 @@ input {
   text-align: center;
   display: list-item;
   margin: 0;
+  list-style-position: inside;
+  border-bottom: 1px solid rgba(134, 134, 134, 0.21);
 }
+.dropdownshow li {
+  padding: 5px 0;
+}
+
+
 .dropdownshow li:hover {
-  background-color: #ffffff;
+  background-color: #d8d8d8e8;
 }
 
 .dropdownshow {
@@ -101,10 +123,12 @@ input {
   left: 0;
   font-size: 20px;
   list-style: none;
-  background-color: rgba(160, 160, 160, 0.64);
+  background-color: rgb(255, 255, 255);
   border-radius: 0.5rem;
+  /*border: 2px solid rgba(0, 0, 0, 0.711);*/
   width: 100%;
   z-index: 9999;
+  box-shadow: 1px 5px 10px 3px #a3a3a39b;
 }
 .dropdown a {
   width: 100px;
