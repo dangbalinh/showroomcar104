@@ -1,7 +1,7 @@
 import { useState, useEffect, memo, useRef } from "react";
 import styles from "./EmployeeManagement.module.css";
 import "./EmployeeManagement.css";
-import HandleApi from "../../../../Apis/HandleApi";
+import HandleApiEmployee from "../../../../Apis/HandleApiEmployee";
 
 import { styled } from "@mui/material/styles";
 import {
@@ -39,32 +39,32 @@ function EmployeeManagement() {
 
     const inputRef = useRef();
 
-    const gridColumn = [0.5, 0.9, 2, 1, 1.6, 1.2, 1.5, 1.2, 2];
+    const gridColumn = [0.5, 1, 2, 1.2, 1.6, 1.5, 1.2, 0.9, 2];
     const gridTitle = [
         "STT",
-        "Ảnh",
+        "Mã NV",
         "Tên nhân viên",
         "Giới tính",
-        "Ngày sinh",
         "SĐT",
         "Địa chỉ",
         "CCCD",
+        "Chức vụ",
         ""
     ];
 
-    const pageSize = 3;
+    const pageSize = 12;
 
     // Get API
     useEffect(() => {
-        HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-            setData(res.cars);
-            setDataLength(res.totalCars);
+        HandleApiEmployee.getEmployeeByPageIndex(pageIndex).then((res) => {
+            setData(res.employees);
+            setDataLength(res.totalEmployees);
         });
     }, [pageIndex]);
 
 
     const handleDeleteItem = async (id) => {
-        HandleApi.deleteCar(id)
+        HandleApiEmployee.deleteEmployee(id)
             .then((res) => {
                 console.log(id);
                 setOpenDeleteModal(false);
@@ -75,7 +75,6 @@ function EmployeeManagement() {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                console.log(data);
                 setData(data.filter((item) => item._id !== id));
             })
             .catch((err) => {
@@ -91,7 +90,7 @@ function EmployeeManagement() {
 
     const handleClickUpdate = async (id) => {
         console.log(id);
-        HandleApi.getCarById(id)
+        HandleApiEmployee.getEmployeeById(id)
             .then(async (res) => {
                 await setUpdateEmployee(res);
                 await setType("update");
@@ -103,7 +102,7 @@ function EmployeeManagement() {
     };
 
     const handleReadInfo = async (id) => {
-        HandleApi.getCarById(id)
+        HandleApiEmployee.getEmployeeById(id)
             .then(async (res) => {
                 await setUpdateEmployee(res);
                 await setType("read");
@@ -122,29 +121,20 @@ function EmployeeManagement() {
     useEffect(() => {
         console.log(searchValue);
         if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
+            HandleApiEmployee.getEmployeeById(searchValue).then(async (res) => {
+                await setData(res.employees);
                 await setDataLength(data.length);
             });
         } else {
-            HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-                setData(res.cars);
-                setDataLength(res.totalCars);
+            HandleApiEmployee.getEmployeeByPageIndex(pageIndex).then((res) => {
+                setData(res.employees);
+                setDataLength(res.totalEmployees);
             });
         }
     }, [searchValue]);
 
     const handleInputChange = (e) => {
         setSearchValue(e.target.value);
-    };
-
-    const handleSearch = async () => {
-        if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
-                await setDataLength(data.length);
-            });
-        }
     };
 
     const handleClear = () => {
@@ -253,28 +243,27 @@ function EmployeeManagement() {
                                 <Grid item xs={0.5}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
-                                <Grid item xs={0.9}>
-                                    <Item>
-                                        <img src={item.hinhanh} className={styles.content_image} alt="EmployeeImg"/>
-                                    </Item>
+                                
+                                <Grid item xs={1}>
+                                    <Item>{item.mauser}</Item>
                                 </Grid>
                                 <Grid item xs={2}>
-                                    <Item>{item.ten}</Item>
+                                    <Item>{item.name}</Item>
                                 </Grid>
-                                <Grid item xs={1}>
-                                    <Item>{item.thuonghieu}</Item>
+                                <Grid item xs={1.2}>
+                                    <Item>{item.gioitinh}</Item>
                                 </Grid>
                                 <Grid item xs={1.6}>
-                                    <Item>{item.gia.toLocaleString() + " VNĐ"}</Item>
-                                </Grid>
-                                <Grid item xs={1.2}>
-                                    <Item>{item.dungtich}</Item>
+                                    <Item>{item.sdt}</Item>
                                 </Grid>
                                 <Grid item xs={1.5}>
-                                    <Item>{item.socho}</Item>
+                                    <Item>{item.diachi}</Item>
                                 </Grid>
                                 <Grid item xs={1.2}>
-                                    <Item>{item.soluong}</Item>
+                                    <Item>{item.cccd}</Item>
+                                </Grid>
+                                <Grid item xs={0.9}>
+                                    <Item>{item.chucvu}</Item>
                                 </Grid>
                                 <Grid item xs={2}>
                                     {/* Update, delete button */}
