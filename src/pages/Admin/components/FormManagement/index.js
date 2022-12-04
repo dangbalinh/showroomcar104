@@ -6,7 +6,7 @@ import {
     ErrorOutline,
     DeleteOutline,
 } from "@mui/icons-material";
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo, useMemo } from "react";
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -34,14 +34,13 @@ function FormManagement() {
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
     const [type, setType] = useState("");
-    const [selectedDay, setSelectedDay] = useState();
+    const [selectedDay, setSelectedDay] = useState(Date);
     const [newData, setNewData] = useState([]);
     const [updatePost, setUpdatePost] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
     const pageSize = 15;
-    console.log({selectedDay});
 
     const gridColumn = [1, 2, 1.5, 2, 4.5, 1];
     const gridTitle = [
@@ -54,6 +53,15 @@ function FormManagement() {
     ];
 
     // Get API
+    const day =  new Date(selectedDay);
+    console.log(day);
+    useEffect(() => {
+        HandleApiForm.getFormByDate(day).then((res) => {
+            setData(res.forms);
+            setDataLength(res.totalForms);
+        });
+    }, [selectedDay]);
+
     useEffect(() => {
         HandleApiForm.getFormByPageIndex(pageIndex).then((res) => {
             setData(res.forms);
@@ -61,18 +69,12 @@ function FormManagement() {
         });
     }, [pageIndex]);
 
-    useEffect(() => {
-        HandleApiForm.getFormByDate(selectedDay).then((res) => {
-            setData(res.forms);
-            setDataLength(res.totalForms);
-        });
-    }, [selectedDay]);
 
 
     // handle event
 
     const handleDeleteItem = async (id) => {
-        HandleApiForm.deleteCar(id)
+        HandleApiForm.deleteForm(id)
             .then((res) => {
                 console.log(id);
                 setOpenDeleteModal(false);
@@ -152,9 +154,12 @@ function FormManagement() {
 
     const nameActive = {
         "cursor": 'pointer',
+        "&:hover": {
+            color: "#d32f2f",
+        },
         "&:active": {
-            color: 'red',
-        }
+            color: '#ff0000',
+        },
     }
 
     return (
@@ -173,7 +178,7 @@ function FormManagement() {
                         <LocalizationProvider dateAdapter={AdapterDayjs} >
                             <Stack spacing={3}>
                                 <DesktopDatePicker 
-                                    // inputFormat="DD/MM/YYYY"
+                                    inputFormat="DD/MM/YYYY"
                                     value={selectedDay}
                                     onChange={handleDayChange}
                                     renderInput={(params) => <TextField {...params} />}
@@ -209,7 +214,7 @@ function FormManagement() {
                                     <Item>{item.email}</Item>
                                 </Grid>
                                 <Grid item xs={4.5}>
-                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.message}</Item>
+                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.message.slice(0,30)}</Item>
                                 </Grid>
                                 <Grid item xs={1}>
                                     <Item>
