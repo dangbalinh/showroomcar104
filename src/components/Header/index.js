@@ -25,7 +25,7 @@ function Header (){
         </li> :
         <li className={classes.menu}>
         <NavLink to='/login'
-            style={{color:"white", backgroundColor:"#ffffff67", borderRadius:"5%",width:"135px"}}
+            style={{color:"white", backgroundColor:"#ffffff67", borderRadius:"8px",width:"135px"}}
            className={({isActive}) => (isActive ? classes.active : classes.item)}
            end>Đăng Nhập</NavLink>
         </li>
@@ -33,9 +33,9 @@ function Header (){
         </ul>
         <AutoComplete></AutoComplete>
         <div className={classes.groupicon}>
-           <a href=''><InstagramIcon fontSize="large" className={classes.icon}/></a>
-           <a href=''><YouTubeIcon fontSize="large" className={classes.icon}/></a>
-           <a href=''><FacebookIcon fontSize="large"className={classes.icon}/></a>
+           <a href='#'><InstagramIcon fontSize="large" className={classes.icon}/></a>
+           <a href='#'><YouTubeIcon fontSize="large" className={classes.icon}/></a>
+           <a href='#'><FacebookIcon fontSize="large"className={classes.icon}/></a>
         </div>
     </div>
     </div>);

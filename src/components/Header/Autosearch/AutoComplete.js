@@ -98,7 +98,7 @@ const handleKeyDown = (event) => {
       }
   return (
     <div className={classes.wrapper}>
-      <input type="text" placeholder="Search.."
+      <input  type="text" placeholder="Search.."
        value={value}
        onChange={handleChange}
        onKeyDown={handleKeyDown}

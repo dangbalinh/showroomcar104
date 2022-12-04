@@ -58,12 +58,14 @@ input {
   display: block;
 }
 .header input {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: #ffffff;
   border-radius: 10px;
-  height: 29.4px;
-  width: 100%px;
+  height: 32px;
+  width: 300px;
   margin: 0 20px;
-  color: rgb(255, 255, 255);
+  font-style: italic;
+  color: #777777;
+  outline: none;
 }
 .header input::placeholder {
   color: #cdcaca;
