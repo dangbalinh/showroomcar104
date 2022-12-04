@@ -25,6 +25,9 @@
     color: whitesmoke;
     background-color: rgb(150, 13, 13);
 }
+.buy button a{ 
+    text-decoration: none;
+}
 .information__heading__carName {
     /* background-color: aqua; */
     margin-left: 60px;

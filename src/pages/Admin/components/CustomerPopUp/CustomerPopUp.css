@@ -1,0 +1,19 @@
+/* Override CSS MUI lib */
+.MuiInputBase-root {
+    width: 90% !important;
+    margin: 6px 0 12px !important;
+  }
+  
+  .MuiOutlinedInput-root {
+    font-size: 1.4rem !important;
+  }
+  
+  /* Select */
+  .MuiInputLabel-root {
+    /* top: 6px !important; */
+    left: 10px !important;
+  }
+  
+  /* .bPopup .MuiGrid-item {
+    height: 90px !important;
+  } */

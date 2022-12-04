@@ -6,7 +6,7 @@ import AdminSidebar from "./components/AdminSidebar";
 import CarManagement from "./components/CarManagement";
 import NewsManagement from "./components/NewsManagement"
 import FormManagement from "./components/FormManagement";
-
+import CustomerManagement from "./components/CustomerManagement";
 function Admin() {
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -30,6 +30,10 @@ function Admin() {
                                 element={<CarManagement />}
                                 exactly
                             />
+                            <Route
+                                path="/customer-management"
+                                element={<CustomerManagement/>}
+                                />
                             <Route
                                 path="/news-management"
                                 element={<NewsManagement />}
