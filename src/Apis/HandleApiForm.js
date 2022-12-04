@@ -5,8 +5,12 @@ const getAllForm = async () => {
 };
 
 const getFormByDate = async (data) => {
-    return await axiosInstance.get(`/forms?dateForm=${data.$D}-${data.$M+1}-${data.$y}`)
-}
+    return await axiosInstance.get(
+        `/forms?dateForm=${
+            data.getDate() < 10 ? "0" + data.getDate() : data.getDate()
+        }-${data.getMonth() + 1}-${data.getFullYear()}`
+    );
+};
 
 const getFormByPageIndex = async (index) => {
     return await axiosInstance.get(`/forms?pageIndex=${index}`);
