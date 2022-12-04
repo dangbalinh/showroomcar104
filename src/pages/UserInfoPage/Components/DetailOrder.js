@@ -89,14 +89,14 @@ const DetailOrder = ({item}) => {
       {gridTitle.map((title, index) => (
         
         <Grid item xs={gridColumn[index]} key={index}
-        sx={{backgroundColor:'#8a0000'}} style={{textAlign:"center"}}>
+        sx={{backgroundColor:'rgba(237, 132, 132, 0.756)'}} style={{textAlign:"center"}}>
           <p style={{fontSize:"15px", color:"white", textAglin:"center",
           width:"100%"}}>{title}</p>
         </Grid>
       ))}
     </Grid>
        {detail.cthds.map((dt,index)=>
-        <Grid container sx={index%2==0? { padding: '20px 0', backgroundColor:"white",color:"#8a0000"} : { padding: '20px 0', backgroundColor:"ButtonHighlight",color:"#8a0000"} }
+        <Grid container sx={index%2==0? { padding: '20px 0', backgroundColor:"white",color:"black"} : { padding: '20px 0', backgroundColor:"ButtonHighlight",color:"#8a0000"} }
         key={index} >
         <Grid item xs={1}>
             <p  style={{textAlign:"center", width:"100%"}}>{index+1}</p>
@@ -116,7 +116,6 @@ const DetailOrder = ({item}) => {
        <div>
        <p>Trị giá hóa đơn:</p><p> {detail.hoadon.trigia} vnd</p>
        </div>
-       <button onClick={()=>{console.log(cthd);console.log(detail);/*getCar()*/console.log(car);}}>test</button>
     </div></>:<p style={{textAlign:"center"}}>Chọn 1 hóa đơn để xem chi tiết</p>}
   </div>
   )

@@ -12,13 +12,13 @@ input {
 }
 .icon {
   color: rgb(255, 255, 255);
-  font-size: 24px;
+  font-size: large;
 }
 .icons {
   color: rgb(0, 0, 0);
   position: absolute;
-  left: 14%;
-  top: 4px;
+  left: 15%;
+  top: 2px;
 }
 .wrapper {
   text-align: center;
@@ -31,8 +31,8 @@ input {
 .groupicon {
   position: absolute;
   width: fit-content;
-  right: 55px;
-  top: 6px;
+  right: 60px;
+  top: 10px;
 }
 
 .header .mainmenu {
@@ -75,7 +75,16 @@ input {
   height: 100px;
   margin-left: 20px;
 }
-.header .active {
+
+.header .item:hover {
+  text-decoration: none;
+  font-size: 20px;
+  color: rgb(255, 255, 255, 0.5);
+  text-align: center;
+  display: block;
+}
+
+.header .active{
   text-decoration: none;
   font-size: 20px;
   color: #ffffff;
@@ -97,9 +106,16 @@ input {
   text-align: center;
   display: list-item;
   margin: 0;
+  list-style-position: inside;
+  border-bottom: 1px solid rgba(134, 134, 134, 0.21);
 }
+.dropdownshow li {
+  padding: 5px 0;
+}
+
+
 .dropdownshow li:hover {
-  background-color: #ffffff;
+  background-color: #d8d8d8e8;
 }
 
 .dropdownshow {
@@ -107,13 +123,20 @@ input {
   left: 0;
   font-size: 20px;
   list-style: none;
-  background-color: rgba(160, 160, 160, 0.64);
+  background-color: rgb(255, 255, 255);
   border-radius: 0.5rem;
+  /*border: 2px solid rgba(0, 0, 0, 0.711);*/
   width: 100%;
   z-index: 9999;
+  box-shadow: 1px 5px 10px 3px #a3a3a39b;
 }
 .dropdown a {
   width: 100px;
 }
 
-
+.todashboard {
+  color: #ffffff;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}

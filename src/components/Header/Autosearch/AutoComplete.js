@@ -13,17 +13,17 @@ const AutoComplete = () => {
     const navigate = useNavigate();
     const typingTimeoutRef = useRef(null);
 
-    const sendRequest = async()=>{
+    const sendRequest = async(query)=>{
       const res = await axios
-      .get("https://showroomcar104.onrender.com/cars")
+      .get(`https://showroomcar104.onrender.com/cars?ten=${query}`)
       .catch((err)=>console.log(err))
       const data = await res.data.cars;
       console.log(data);
       return data;
     }
-    useEffect(()=>{
+    /*useEffect(()=>{
       sendRequest().then(data=>setSuggestiondata(data))
-    },[])
+    },[])*/
     
 
     const handleChange = (e) => {
@@ -35,12 +35,10 @@ const AutoComplete = () => {
         }
         typingTimeoutRef.current = setTimeout(()=>{
           if (query.length > 1) {
-            const filterSuggestions = suggestiondata.filter(dt =>{
-              const regex = new RegExp(`${query}`,'gi');
-              return dt.ten.match(regex);
-            });
-            setSuggestions(filterSuggestions);
-            setSuggestionsActive(true);
+            sendRequest(query).
+            then(data=>setSuggestions(data))
+            /*setSuggestions(filterSuggestions);*/
+            .then(()=>setSuggestionsActive(true))
             console.log(query);
           } else {
             setSuggestionsActive(false);
@@ -71,7 +69,7 @@ const AutoComplete = () => {
 
       const Suggestions = () => {
         return (
-          <ul className={classes.dropdownshow}
+          (suggestions? <ul className={classes.dropdownshow}
           style={{left:'10%', width:'80%'} } ref={ref}
           >
             {suggestions.map((suggestion, index) => {
@@ -81,11 +79,12 @@ const AutoComplete = () => {
                   onClick={handleClick2}
                   className={classes.submenu}
                 >
-                  <Link to={`/detailproduct/${suggestion._id}`} style={{color: "black", textDecoration:"none"}}>{suggestion.ten}</Link>
+                  <Link 
+                  to={`/detailproduct/${suggestion._id}`} style={{color: "black", textDecoration:"none"}}>{suggestion.ten}</Link>
                 </li>
               );
             })}
-          </ul>
+          </ul>:<></>)
         );
       };
 const handleKeyDown = (event) => {
