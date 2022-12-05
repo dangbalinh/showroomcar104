@@ -3,6 +3,7 @@ import classes from'../UserInfoPage.module.css'
 import { DesktopDatePicker } from "@mui/x-date-pickers"
 import { Stack } from '@mui/material';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import Swal from 'sweetalert2';
 import {
   Box,
@@ -16,7 +17,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 const UpatePopUp = (props) => {
-  const token = localStorage.getItem("token");
+  const token = Cookies.get('token');
   const [didMount, setDidMount] = useState(false)
   const [birth, setBirth] = useState(props.data.ngaysinh)
   const [date, setDate] = useState(dayjs(props.data.ngaysinh,"DD:MM:YYYY"))
@@ -63,6 +64,9 @@ const UpatePopUp = (props) => {
   )
 
 function handleChange(event) {
+  if(event.target.type==="tel" && Number.isInteger(Number(event.target.value))!==true){
+    
+  }else{
     const {name, value} = event.target
     setFormData(prevFormData => {
         return {
@@ -70,6 +74,7 @@ function handleChange(event) {
             [name]: value
         }
     })
+  }
 }
  function handleSubmit(event) {
   event.preventDefault()

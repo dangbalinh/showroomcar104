@@ -20,7 +20,7 @@ const Login = () => {
         email:"",password:""
       })
       const [errors, setErrors] = useState({
-        emailError:" ",passwordError:" "
+        emailError:"",passwordError:""
       })
     const handleChange = (e) =>{
         setInputs((prev)=>{

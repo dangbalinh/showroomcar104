@@ -8,25 +8,28 @@ import dayjs, { Dayjs } from 'dayjs';
 import {
   MenuItem,
   Select,
+  Button
 } from "@mui/material";
 import {
   TextField
 } from "@mui/material";
 import classes from'../UserInfoPage.module.css'
+import Cookies from 'js-cookie';
 
 const OrderSide = ({
   setDetail,
 }) => {
-    const token = localStorage.getItem("token");
+  const token = Cookies.get('token');
     const gridTitle =[
       "STT",
       "ID",
       "Trị Giá",
       "Ngày",
       "Tình trạng",
+      " "
     ]
     const gridColumn =[
-        1,3,2,3,3
+        1,1,2,3,3,2
     ]
     /*const filterSuggestions = suggestiondata.filter(dt =>{
               const regex = new RegExp(`${query}`,'gi');
@@ -111,7 +114,9 @@ const OrderSide = ({
   return (
     <div className={classes.OrderSide} style={{width:"100%", height:"500px"}}>
     {userData.length!==0? <><h2>HÓA ĐƠN</h2>
-    <button onClick={handleClear}>Clear Filter</button>
+    <div style={{textAlign:"end"}}>
+    <button className={classes.ClearButton} onClick={handleClear}>Xóa tất cả lọc</button>
+    </div>
     <div>
       <div className={classes.PickStatus}>
       <input className={classes.input} value={input} 
@@ -182,7 +187,7 @@ const OrderSide = ({
         <Grid item xs={1}>
             <p>{index+1}</p>
           </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={1}>
             <p onClick={()=>setDetail(item)}
             style={{textDecoration:"underline", cursor:"pointer"}}
             >{item.mahd}</p>
@@ -195,6 +200,12 @@ const OrderSide = ({
         </Grid>
       <Grid item xs={3}>
        <p>{item.tinhtrang}</p>
+      </Grid>
+      <Grid item xs={2} style={{textAlign:"center"}}>
+       <Button variant="outlined" color="error"
+       style={{marginBottom:"20px"}}
+       onClick={()=>setDetail(item)}
+       >Chi tiết</Button>
       </Grid>
       </Grid>
       ))}

@@ -17,7 +17,7 @@ import BoyIcon from '@mui/icons-material/Boy';
 import { useNavigate } from 'react-router-dom'
 const UserSide = () => {
   const user1 = JSON.parse(localStorage.getItem("user"));
-  const token = localStorage.getItem("token");
+  const token = Cookies.get('token');
   const modalRef=useRef(false);
   const [userData, setUserData] = useState([])
   const [modal, setModal] = useState(false) 
@@ -91,7 +91,7 @@ const UserSide = () => {
                     <Logout className={classes.icon} />
                     Đăng xuất
                 </button>
-                <button onClick={()=>console.log(Cookies.get('token'))}>test</button>
+          
         </div>
         </div>
         {modal? <UpatePopUp closewindow={setModal}

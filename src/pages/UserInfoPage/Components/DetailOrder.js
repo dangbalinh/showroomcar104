@@ -2,15 +2,10 @@ import React,{useState,useEffect} from 'react'
 import classes from'../UserInfoPage.module.css'
 import { Grid,Box } from '@mui/material'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 const DetailOrder = ({item}) => {
-    const token = localStorage.getItem("token");
+    const token = Cookies.get('token');
     const [detail, setDetail] = useState()
-    const [cthd, setCthd] = useState([])
-    const [car, setCar] = useState([])
-    const [test, setTest] = useState([
-      "638a19baf79f21719183651d",
-      "638a19aff79f217191836519"
-    ])
     const gridTitle =[
       "STT",
       "ID",
@@ -31,6 +26,7 @@ const DetailOrder = ({item}) => {
         .get(`/hoadons/${item._id}`)
         .catch((err)=>console.log(err))
         const data = await res.data;
+        console.log(data);
         return data;
       }
       const getCar = async(cardid)=>{
