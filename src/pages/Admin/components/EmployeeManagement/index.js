@@ -1,5 +1,7 @@
-import styles from "./CustomerManagement.module.css";
-import "./CustomerManagement.css";
+import { useState, useEffect, memo, useRef } from "react";
+import styles from "./EmployeeManagement.module.css";
+import "./EmployeeManagement.css";
+import HandleApiEmployee from "../../../../Apis/HandleApiEmployee";
 
 import { styled } from "@mui/material/styles";
 import {
@@ -10,67 +12,60 @@ import {
     DeleteOutline,
     Cancel,
 } from "@mui/icons-material";
-import { useState, useEffect, memo, useRef } from "react";
 import {
     IconButton,
     Modal,
     Button,
     Grid,
+    Paper,
     Box,
     Typography,
-    Paper,
     Stack,
     Pagination
 } from "@mui/material";
 
-import CustomerPopUp from "../CustomerPopUp";
-import HandleApi from "../../../../Apis/HandleApi";
-import HandleApisCustomer from "../../../../Apis/HandleApisCustomer";
+import EmployeePopUp from "../EmployeePopUp";
 import Swal from "sweetalert2";
 
-function CarManagement() {
+function EmployeeManagement() {
     const [data, setData] = useState([]);
     const [dataLength, setDataLength] = useState();
-    const [searchValue, setSearchValue] = useState("");// gia tri search value
     const [pageIndex, setPageIndex] = useState(0);
+    const [searchValue, setSearchValue] = useState("");
     const [type, setType] = useState("");
-    const [updateCustomer, setUpdateCustomer] = useState({});
+    const [updateEmployee, setUpdateEmployee] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
-    
+    // const [token] = useState(() => localStorage.getItem("token"))
 
     const inputRef = useRef();
-    const gridColumn = [0.5, 0.9, 2, 1.5, 1.8, 2.5, 1.5, 1];
+
+    const gridColumn = [0.5, 1, 2, 1.2, 1.6, 1.5, 1.2, 0.9, 2];
     const gridTitle = [
         "STT",
-        "Mã KH",
-        "Họ và tên",
-        "Số điện thoại",
-        "Email",
+        "Mã NV",
+        "Tên nhân viên",
+        "Giới tính",
+        "SĐT",
         "Địa chỉ",
         "CCCD",
+        "Chức vụ",
         ""
     ];
-    const pageSize = 10;
+
+    const pageSize = 12;
 
     // Get API
-
-
     useEffect(() => {
-        HandleApisCustomer.getEmployeeByPageIndex(pageIndex).then((res) => {
-            setData(res.customers);
-            setDataLength(res.totalCustomers);
+        HandleApiEmployee.getEmployeeByPageIndex(pageIndex).then((res) => {
+            setData(res.employees);
+            setDataLength(res.totalEmployees);
         });
     }, [pageIndex]);
-    // handle event
 
 
-
-    const handlePageChange = (e, p) => {
-        setPageIndex(p - 1);
-    };
     const handleDeleteItem = async (id) => {
-        HandleApisCustomer.deleteCustomer(id)
+        HandleApiEmployee.deleteEmployee(id)
             .then((res) => {
                 console.log(id);
                 setOpenDeleteModal(false);
@@ -81,59 +76,61 @@ function CarManagement() {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                console.log(data);
                 setData(data.filter((item) => item._id !== id));
             })
             .catch((err) => {
                 Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: "Xóa bài viết thất bại!",
+                    title: "Xóa thất bại!",
                     showConfirmButton: false,
                     timer: 1500
                 });
             });
     };
 
-
-
-    //Update
     const handleClickUpdate = async (id) => {
         console.log(id);
-        HandleApisCustomer.getCustomerById(id)
+        HandleApiEmployee.getEmployeeById(id)
             .then(async (res) => {
-                await setUpdateCustomer(res);
+                await setUpdateEmployee(res);
                 await setType("update");
-                console.log(updateCustomer);
+                console.log(updateEmployee);
             })
             .catch((err) => {
                 console.log(err);
             });
     };
-    // Read Info
+
     const handleReadInfo = async (id) => {
-        HandleApisCustomer.getCustomerById(id)
+        HandleApiEmployee.getEmployeeById(id)
             .then(async (res) => {
-                await setUpdateCustomer(res);
+                await setUpdateEmployee(res);
                 await setType("read");
-                console.log(updateCustomer);
+                console.log(updateEmployee);
             })
             .catch((err) => {
                 console.log(err);
             });
     }
-    // handle search function
+
+    const handlePageChange = (e, p) => {
+        setPageIndex(p - 1);
+    };
+
+    // handle search event
     useEffect(() => {
         console.log(searchValue);
         if (searchValue.trim() !== "") {
-            HandleApi.getCustomerByName(searchValue).then(async (res) => {
-                await setData(res.customers);
+            HandleApiEmployee.getEmployeeById(searchValue)
+            .then(async (res) => {
+                await setData(res.employees);
                 await setDataLength(data.length);
             });
         } else {
-            HandleApisCustomer.getAllCustomers().then((res) => {
-                setData(res.customers);
-                setDataLength(res.totalCustomers);
+            HandleApiEmployee.getEmployeeByPageIndex(pageIndex).then((res) => {
+                setData(res.employees);
+                setDataLength(res.totalEmployees);
             });
         }
     }, [searchValue]);
@@ -147,9 +144,7 @@ function CarManagement() {
         inputRef.current.focus();
     };
 
-
-
-    ////////////// Custome CSS MUI
+    // Custome CSS MUI
     const ItemMain = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
         padding: theme.spacing(1),
@@ -166,7 +161,7 @@ function CarManagement() {
         textAlign: "center",
         color: "#000",
         boxShadow: "none",
-        fontSize: 16
+        fontSize: 16,
     }));
 
     const styleModal = {
@@ -180,11 +175,13 @@ function CarManagement() {
         boxShadow: 24,
         p: 8
     };
+
     return (
         <div>
             <header className={styles.header}>
-                <h1 className={styles.header_heading}>Quản lý khách hàng</h1>
+                <h1 className={styles.header_heading}>Quản lý nhân viên</h1>
             </header>
+
             <div className={styles.container}>
                 <div className={styles.container_header}>
                     <div className={styles.funcContainer}>
@@ -193,7 +190,7 @@ function CarManagement() {
                                 ref={inputRef}
                                 value={searchValue}
                                 type="text"
-                                placeholder="Tìm kiếm khách hàng"
+                                placeholder="Tìm kiếm nhân viên"
                                 spellCheck={false}
                                 onChange={handleInputChange}
                             />
@@ -213,6 +210,7 @@ function CarManagement() {
                             >
                                 <Search className={styles.searchIcon} />
                             </button>
+
                         </div>
                     </div>
 
@@ -228,7 +226,7 @@ function CarManagement() {
                         startIcon={<Add />}
                         onClick={() => setType("create")}
                     >
-                        Thêm khách hàng 
+                        Thêm nhân viên
                     </Button>
                 </div>
 
@@ -241,41 +239,43 @@ function CarManagement() {
                                 </Grid>
                             ))}
                         </Grid>
-
                         {/* Render data */}
                         {data?.map((item, index) => (
                             <Grid container key={index}>
                                 <Grid item xs={0.5}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
-                                <Grid item xs={0.9}>
-                                    <Item>
-                                        {item.mauser}
-                                    </Item>
+                                
+                                <Grid item xs={1}>
+                                    <Item>{item.mauser}</Item>
                                 </Grid>
                                 <Grid item xs={2}>
                                     <Item>{item.name}</Item>
                                 </Grid>
-                                <Grid item xs={1.5}>
+                                <Grid item xs={1.2}>
+                                    <Item>{item.gioitinh}</Item>
+                                </Grid>
+                                <Grid item xs={1.6}>
                                     <Item>{item.sdt}</Item>
                                 </Grid>
-                                <Grid item xs={1.8}>
-                                    <Item>{item.email}</Item>
-                                </Grid>
-                                <Grid item xs={2.5}>
+                                <Grid item xs={1.5}>
                                     <Item>{item.diachi}</Item>
                                 </Grid>
-                                <Grid item xs={1.5}>
+                                <Grid item xs={1.2}>
                                     <Item>{item.cccd}</Item>
                                 </Grid>
-                                <Grid item xs={1}>
+                                <Grid item xs={0.9}>
+                                    <Item>{item.chucvu}</Item>
+                                </Grid>
+                                <Grid item xs={2}>
                                     {/* Update, delete button */}
                                     <Item>
-                                    <Button variant="outlined" size="small" sx={{ fontSize: "10px",          marginRight: "12px" }}
+                                        <Button variant="outlined" size="small" sx={{ fontSize: "10px", marginRight: "12px" }}
                                             onClick={() => handleReadInfo(item._id)} >Chi tiết</Button>
                                         <IconButton
                                             color="primary"
                                             size="medium"
+                                            sx={{ padding: "8px 6px" }}
                                             onClick={() => {
                                                 handleClickUpdate(item._id);
                                             }}
@@ -314,7 +314,7 @@ function CarManagement() {
                                                     textAlign="center"
                                                 >
                                                     Bạn có chắc chắn muốn xóa dữ
-                                                    liệu khách hàng này?
+                                                    liệu nhân viên này?
                                                 </Typography>
                                                 <Typography
                                                     id="modal-modal-description"
@@ -328,9 +328,10 @@ function CarManagement() {
                                                 <div
                                                     className={styles.modalBtn}
                                                 >
+                                                    
                                                     <Button
                                                         variant="contained"
-                                                        color="error"
+                                                        color="primary"
                                                         onClick={() =>
                                                             handleDeleteItem(Id)
                                                         }
@@ -339,11 +340,12 @@ function CarManagement() {
                                                             marginRight: "12px"
                                                         }}
                                                     >
-                                                        Xóa luôn
+                                                        Đồng ý
                                                     </Button>
+
                                                     <Button
                                                         variant="contained"
-                                                        color="primary"
+                                                        color="error"
                                                         onClick={() => {
                                                             setOpenDeleteModal(
                                                                 false
@@ -357,6 +359,7 @@ function CarManagement() {
                                                     >
                                                         Hủy
                                                     </Button>
+
                                                 </div>
                                             </Box>
                                         </Modal>
@@ -366,6 +369,7 @@ function CarManagement() {
                         ))}
                     </Box>
                 </div>
+
                 <div className={styles.pagination}>
                     <Stack spacing={2}>
                         <Pagination
@@ -380,14 +384,14 @@ function CarManagement() {
                     </Stack>
                 </div>
             </div>
-            <CustomerPopUp
+            <EmployeePopUp
                 type={type !== "" ? type : ""}
                 setType={setType}
-                updateCustomer={updateCustomer}
-                setUpdateCustomer={setUpdateCustomer}
+                updateEmployee={updateEmployee}
+                setUpdateEmployee={setUpdateEmployee}
             />
         </div>
     );
 }
 
-export default memo(CarManagement);
+export default memo(EmployeeManagement);

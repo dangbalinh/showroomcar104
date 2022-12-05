@@ -53,3 +53,6 @@ fieldset {
     font-size: 2.4rem !important;
 }
 
+.swal2-styled.swal2-confirm {
+    font-size: 1.3rem !important;
+}

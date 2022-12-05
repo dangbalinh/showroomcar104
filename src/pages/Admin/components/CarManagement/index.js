@@ -25,7 +25,7 @@ import {
     Box,
     Typography,
     Stack,
-    Pagination
+    Pagination,
 } from "@mui/material";
 
 import CarPopUp from "../CarPopUp";
@@ -44,6 +44,7 @@ function CarManagement() {
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
+    let user = JSON.parse(localStorage.getItem("user"));
     const inputRef = useRef();
 
     const gridColumn = [0.5, 0.9, 0.8, 1.8, 1.6, 1.8, 1.5, 1.2, 1.9];
@@ -56,7 +57,7 @@ function CarManagement() {
         "Giá",
         "Số chỗ ngồi",
         "Số lượng",
-        ""
+        "",
     ];
 
     const valueSelect = [
@@ -65,7 +66,7 @@ function CarManagement() {
         "Vinfast",
         "Mercedes",
         "BMW",
-        "Kia"
+        "Kia",
     ];
 
     const pageSize = 15;
@@ -84,43 +85,43 @@ function CarManagement() {
             case "All":
                 setNewData(data);
                 HandleApi.getAllCar().then((res) =>
-                    setDataLength(res.totalCars),
+                    setDataLength(res.totalCars)
                 );
                 break;
             case "Honda":
                 HandleApi.getCarByBrand("Honda").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
+                    setNewData(res.cars);
+                    setDataLength(res.totalCarsFilter);
                 });
                 break;
             case "Toyota":
                 HandleApi.getCarByBrand("Toyota").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
+                    setNewData(res.cars);
+                    setDataLength(res.totalCarsFilter);
                 });
                 break;
             case "Mercedes":
                 HandleApi.getCarByBrand("Mercedes").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
+                    setNewData(res.cars);
+                    setDataLength(res.totalCarsFilter);
                 });
                 break;
             case "Vinfast":
                 HandleApi.getCarByBrand("Vinfast").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
+                    setNewData(res.cars);
+                    setDataLength(res.totalCarsFilter);
                 });
                 break;
             case "Kia":
                 HandleApi.getCarByBrand("Kia").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
+                    setNewData(res.cars);
+                    setDataLength(res.totalCarsFilter);
                 });
                 break;
             case "BMW":
                 HandleApi.getCarByBrand("BMW").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
+                    setNewData(res.cars);
+                    setDataLength(res.totalCarsFilter);
                 });
                 break;
             default:
@@ -143,7 +144,7 @@ function CarManagement() {
                     icon: "success",
                     title: "Xóa dữ liệu xe thành công!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
                 });
                 console.log(data);
                 setData(data.filter((item) => item._id !== id));
@@ -154,7 +155,7 @@ function CarManagement() {
                     icon: "error",
                     title: "Xóa bài viết thất bại!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
                 });
             });
     };
@@ -177,12 +178,11 @@ function CarManagement() {
             .then(async (res) => {
                 await setUpdateCar(res);
                 await setType("read");
-                console.log(updateCar);
             })
             .catch((err) => {
                 console.log(err);
             });
-    }
+    };
 
     const handlePageChange = (e, p) => {
         console.log("PageIndex: ", p);
@@ -209,18 +209,24 @@ function CarManagement() {
         setSearchValue(e.target.value);
     };
 
-    const handleSearch = async () => {
-        if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
-                await setDataLength(data.length);
-            });
-        }
-    };
-
     const handleClear = () => {
         setSearchValue("");
         inputRef.current.focus();
+    };
+
+    const handleErrorInform = () => {
+        Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Bạn không có quyền thêm, xóa, sửa dữ liệu!",
+            showConfirmButton: true,
+            timer: 3000,
+        });
+    };
+
+    const handleClickDelete = (id) => {
+        setOpenDeleteModal(true);
+        setId(id);
     };
 
     // Custome CSS MUI
@@ -231,7 +237,7 @@ function CarManagement() {
         color: "#000",
         boxShadow: "none",
         fontSize: 18,
-        fontWeight: "600"
+        fontWeight: "600",
     }));
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -252,17 +258,17 @@ function CarManagement() {
         bgcolor: "background.paper",
         border: "2px solid #000",
         boxShadow: 24,
-        p: 8
+        p: 8,
     };
 
     const MenuSelectProps = {
         PaperProps: {
             style: {
                 maxHeight: 150,
-                overflowX: "scroll"
+                overflowX: "scroll",
                 //   width: 250,
-            }
-        }
+            },
+        },
     };
 
     // const nameActive = {
@@ -317,7 +323,11 @@ function CarManagement() {
                             size="medium"
                         >
                             <InputLabel
-                                sx={{ fontSize: "14px", fontWeight: "600", left: "10px" }}
+                                sx={{
+                                    fontSize: "14px",
+                                    fontWeight: "600",
+                                    left: "10px",
+                                }}
                                 id="input-label"
                             >
                                 Hãng xe
@@ -356,20 +366,24 @@ function CarManagement() {
                             height: 40,
                             fontSize: 14,
                             textTransform: "none",
-                            marginLeft: "80px"
+                            marginLeft: "80px",
                         }}
                         variant="contained"
                         color="success"
                         startIcon={<Add />}
-                        onClick={() => setType("create")}
+                        onClick={() => {
+                            user.role === "employee"
+                                ? handleErrorInform()
+                                : setType("create");
+                        }}
                     >
                         Thêm sản phẩm
                     </Button>
                 </div>
 
                 <div className={styles.content}>
-                    <Box sx={{ flexGrow: 1, padding: '0 12px' }}>
-                        <Grid container sx={{ padding: '0 0 8px' }}>
+                    <Box sx={{ flexGrow: 1, padding: "0 12px" }}>
+                        <Grid container sx={{ padding: "0 0 8px" }}>
                             {gridTitle.map((title, index) => (
                                 <Grid item xs={gridColumn[index]} key={index}>
                                     <ItemMain>{title}</ItemMain>
@@ -401,7 +415,9 @@ function CarManagement() {
                                     <Item>{item.thuonghieu}</Item>
                                 </Grid>
                                 <Grid item xs={1.8}>
-                                    <Item>{item.gia.toLocaleString() + " VNĐ"}</Item>
+                                    <Item>
+                                        {item.gia.toLocaleString() + " VNĐ"}
+                                    </Item>
                                 </Grid>
                                 {/* <Grid item xs={2.4}>
                                     <Item>{item.dongco}</Item>
@@ -415,8 +431,19 @@ function CarManagement() {
                                 <Grid item xs={1.9}>
                                     {/* Update, delete button */}
                                     <Item>
-                                        <Button variant="outlined" size="large" sx={{ fontSize: "10px", marginRight: "12px" }}
-                                            onClick={() => handleReadInfo(item._id)} >Chi tiết</Button>
+                                        <Button
+                                            variant="outlined"
+                                            size="large"
+                                            sx={{
+                                                fontSize: "10px",
+                                                marginRight: "12px",
+                                            }}
+                                            onClick={() =>
+                                                handleReadInfo(item._id)
+                                            }
+                                        >
+                                            Chi tiết
+                                        </Button>
                                         <IconButton
                                             color="primary"
                                             size="medium"
@@ -430,7 +457,11 @@ function CarManagement() {
                                             // }}
                                             sx={{ padding: "8px 6px" }}
                                             onClick={() => {
-                                                handleClickUpdate(item._id);
+                                                user.role === "employee"
+                                                    ? handleErrorInform()
+                                                    : handleClickUpdate(
+                                                          item._id
+                                                      );
                                             }}
                                         >
                                             <Edit sx={{ fontSize: "22px" }} />
@@ -439,11 +470,16 @@ function CarManagement() {
                                         <IconButton
                                             size="medium"
                                             color="error"
+                                            // onClick={() => {
+                                            //     setOpenDeleteModal(true);
+                                            //     setId(item._id);
+                                            // }}
                                             onClick={() => {
-                                                // handleDeleteItem(item._id)
-                                                console.log(item._id);
-                                                setOpenDeleteModal(true);
-                                                setId(item._id);
+                                                user.role === "employee"
+                                                    ? handleErrorInform()
+                                                    : handleClickDelete(
+                                                          item._id
+                                                      );
                                             }}
                                         >
                                             <DeleteOutline
@@ -490,7 +526,7 @@ function CarManagement() {
                                                         }
                                                         sx={{
                                                             fontSize: "14px",
-                                                            marginRight: "12px"
+                                                            marginRight: "12px",
                                                         }}
                                                     >
                                                         Xóa luôn
@@ -506,7 +542,7 @@ function CarManagement() {
                                                         }}
                                                         sx={{
                                                             fontSize: "14px",
-                                                            width: "70px"
+                                                            width: "70px",
                                                         }}
                                                     >
                                                         Hủy
@@ -534,7 +570,6 @@ function CarManagement() {
                         />
                     </Stack>
                 </div>
-
             </div>
             <CarPopUp
                 type={type !== "" ? type : ""}

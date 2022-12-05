@@ -1,5 +1,5 @@
 import style from "./NewsItem.module.css";
-import images from "../../../assets/image";
+import { memo } from "react";
 
 function NewsItem({data}) {
     return (
@@ -20,4 +20,4 @@ function NewsItem({data}) {
     );
 }
 
-export default NewsItem;
+export default memo(NewsItem);
