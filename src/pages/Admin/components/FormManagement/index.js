@@ -2,14 +2,11 @@ import images from "../../../../assets/image";
 import styles from "./FormManagement.module.css";
 import "./FormManagement.css";
 import { styled } from "@mui/material/styles";
-import {
-    ErrorOutline,
-    DeleteOutline,
-} from "@mui/icons-material";
+import { ErrorOutline, DeleteOutline } from "@mui/icons-material";
 import { useState, useEffect, memo, useMemo } from "react";
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import {
     IconButton,
@@ -25,7 +22,7 @@ import {
     InputLabel,
 } from "@mui/material";
 
-import FormPopUp from "../FormPopUp"
+import FormPopUp from "../FormPopUp";
 import HandleApiForm from "../../../../Apis/HandleApiForm";
 import Swal from "sweetalert2";
 
@@ -34,7 +31,7 @@ function FormManagement() {
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
     const [type, setType] = useState("");
-    const [selectedDay, setSelectedDay] = useState(Date);
+    const [selectedDay, setSelectedDay] = useState(null);
     const [newData, setNewData] = useState([]);
     const [updatePost, setUpdatePost] = useState({});
     const [Id, setId] = useState(0);
@@ -49,17 +46,22 @@ function FormManagement() {
         "Số điện thoại",
         "Email",
         "Tin nhắn",
-        ""
+        "",
     ];
 
     // Get API
-    const day =  new Date(selectedDay);
-    console.log(day);
+    const day = selectedDay ? new Date(selectedDay) : null;
+
     useEffect(() => {
-        HandleApiForm.getFormByDate(day).then((res) => {
-            setData(res.forms);
-            setDataLength(res.totalForms);
-        });
+        day
+            ? HandleApiForm.getFormByDate(day).then((res) => {
+                  setData(res.forms);
+                  setDataLength(res.totalForms);
+              })
+            : HandleApiForm.getAllForm().then((res) => {
+                  setData(res.forms);
+                  setDataLength(res.totalForms);
+              });
     }, [selectedDay]);
 
     useEffect(() => {
@@ -68,8 +70,6 @@ function FormManagement() {
             setDataLength(res.totalForms);
         });
     }, [pageIndex]);
-
-
 
     // handle event
 
@@ -83,7 +83,7 @@ function FormManagement() {
                     icon: "success",
                     title: "Xóa dữ liệu xe thành công!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
                 });
                 console.log(data);
                 setData(data.filter((item) => item._id !== id));
@@ -94,7 +94,7 @@ function FormManagement() {
                     icon: "error",
                     title: "Xóa bài viết thất bại!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
                 });
             });
     };
@@ -113,12 +113,11 @@ function FormManagement() {
             .catch((err) => {
                 console.log(err);
             });
-    }
+    };
 
     const handleDayChange = (e) => {
         setSelectedDay(e);
-        // console.log(e);
-    }
+    };
 
     // Custome CSS MUI
     const ItemMain = styled(Paper)(({ theme }) => ({
@@ -128,7 +127,7 @@ function FormManagement() {
         color: "#000",
         boxShadow: "none",
         fontSize: 20,
-        fontWeight: "600"
+        fontWeight: "600",
     }));
 
     const Item = styled(Paper)(({ theme }) => ({
@@ -137,7 +136,7 @@ function FormManagement() {
         textAlign: "center",
         color: "#000",
         boxShadow: "none",
-        fontSize: 16
+        fontSize: 16,
     }));
 
     const styleModal = {
@@ -149,18 +148,18 @@ function FormManagement() {
         bgcolor: "background.paper",
         border: "2px solid #000",
         boxShadow: 24,
-        p: 8
+        p: 8,
     };
 
     const nameActive = {
-        "cursor": 'pointer',
+        cursor: "pointer",
         "&:hover": {
             color: "#d32f2f",
         },
         "&:active": {
-            color: '#ff0000',
+            color: "#ff0000",
         },
-    }
+    };
 
     return (
         <div>
@@ -175,13 +174,15 @@ function FormManagement() {
             <div className={styles.container}>
                 <div className={styles.container_header}>
                     <div className={styles.funcContainer}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs} >
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <Stack spacing={3}>
-                                <DesktopDatePicker 
+                                <DesktopDatePicker
                                     inputFormat="DD/MM/YYYY"
                                     value={selectedDay}
                                     onChange={handleDayChange}
-                                    renderInput={(params) => <TextField {...params} />}
+                                    renderInput={(params) => (
+                                        <TextField {...params} />
+                                    )}
                                 />
                             </Stack>
                         </LocalizationProvider>
@@ -214,7 +215,12 @@ function FormManagement() {
                                     <Item>{item.email}</Item>
                                 </Grid>
                                 <Grid item xs={4.5}>
-                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.message.slice(0,30)}</Item>
+                                    <Item
+                                        sx={nameActive}
+                                        onClick={() => handleReadInfo(item._id)}
+                                    >
+                                        {item.message.slice(0, 30)}
+                                    </Item>
                                 </Grid>
                                 <Grid item xs={1}>
                                     <Item>
@@ -272,7 +278,7 @@ function FormManagement() {
                                                         }
                                                         sx={{
                                                             fontSize: "14px",
-                                                            marginRight: "12px"
+                                                            marginRight: "12px",
                                                         }}
                                                     >
                                                         Xóa luôn
@@ -288,7 +294,7 @@ function FormManagement() {
                                                         }}
                                                         sx={{
                                                             fontSize: "14px",
-                                                            width: "70px"
+                                                            width: "70px",
                                                         }}
                                                     >
                                                         Hủy
