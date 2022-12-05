@@ -6,9 +6,10 @@ import OrderSide from './Components/OrderSide'
 import DetailOrder from './Components/DetailOrder'
 import axios from 'axios'
 import { useState,useEffect } from 'react'
+import Cookies from 'js-cookie'
 
 const UserInfoPage = ({setIsLogin}) => {
-  const token = localStorage.getItem("token");
+  const token = Cookies.get('token');
   const [detail, setDetail] = useState();
   useEffect(()=>{
     console.log(detail);

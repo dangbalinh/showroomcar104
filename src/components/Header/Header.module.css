@@ -114,10 +114,19 @@ input {
 }
 
 
+.dropdownshow li:first-child:hover {
+  background-color: #d8d8d8e8;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+.dropdownshow li:last-child:hover {
+  background-color: #d8d8d8e8;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
 .dropdownshow li:hover {
   background-color: #d8d8d8e8;
 }
-
 .dropdownshow {
   position: absolute;
   left: 0;
