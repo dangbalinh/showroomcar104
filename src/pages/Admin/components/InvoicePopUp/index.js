@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import * as React from 'react';
 import styles from "./InvoicePopUp.module.css"
 import './InvoicePopUp.css'
@@ -8,27 +8,21 @@ import { styled } from "@mui/material/styles";
 import HandleApiInvoice from "../../../../Apis/HandleApiInvoice";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import dayjs, { Dayjs } from 'dayjs';
-import HandleApi from "../../../../Apis/HandleApi";
-import { borders } from '@mui/system';
+// import { borders } from '@mui/system';
 import {
-    IconButton,
-    Modal,
+
     MenuItem,
     Button,
     Grid,
     Paper,
     Select,
     TextField,
-    InputLabel,
-    FormControl,
     Box,
     Typography,
     Stack,
-    Pagination,
 } from "@mui/material";
+
 function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
 
 
@@ -85,11 +79,11 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
 
     const inputTypeN = ["text", "text", "number"]
     
-    const inputValueN = [
-        makh, 
-        maxe,
-        soluongxe
-    ]
+    // const inputValueN = [
+    //     makh, 
+    //     maxe,
+    //     soluongxe
+    // ]
 
 
     const dataN = {
@@ -108,142 +102,10 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
         ],
     }
 
-    // CSS MUI
 
-
-    const [thumbnail, setThumbnail] = useState();
+    // const [thumbnail, setThumbnail] = useState();
     const [carName, setCarName] = useState();
-    const [brand, setBrand] = useState();
-    const [price, setPrice] = useState();
-    const [engine, setEngine] = useState();
-    const [seat, setSeat] = useState();
-    const [power, setPower] = useState();
-    const [capacity, setCapacity] = useState();
-    const [fuel, setFuel] = useState();
-    const [speed, setSpeed] = useState();
-    const [origin, setOrigin] = useState();
-    const [color, setColor] = useState();
-    const [desc, setDesc] = useState();
-    const [year, setYear] = useState();
-    const [size, setSize] = useState();
-    const [quantity, setQuantity] = useState();
-
-    const inputId = [
-        "name",
-        "thumbnail",
-        // "brand",
-        // "price",
-        // "engine",
-        // "seat",
-        // "size",
-        // "origin",
-        // "speed",
-        // "capacity",
-        // "fuel",
-        // "power",
-        // "color",
-        // "year",
-        // "desc",
-        // "quantity"
-    ];
-
-    const useStateEvent = [
-        setCarName,
-        setThumbnail,
-        // setBrand,
-        // setPrice,
-        // setEngine,
-        // setSeat,
-        // setSize,
-        // setOrigin,
-        // setSpeed,
-        // setCapacity,
-        // setFuel,
-        // setPower,
-        // setColor,
-        // setYear,
-        // setDesc,
-        // setQuantity,
-    ];
-
-    const placeHolder = [
-        "Nhập tên xe",
-        "Nhập hình ảnh",
-        // "Nhập thương hiệu",
-        // "Nhập giá xe",
-        // "Nhập động cơ",
-        // "Nhập số chỗ ngồi",
-        // "Nhập kích thước",
-        // "Nhập nguồn gốc",
-        // "Nhập tốc độ tối đa",
-        // "Nhập dung tích",
-        // "Nhập tiêu hao nhiên liệu",
-        // "Nhập công suất tối đa",
-        // "Nhập màu sắc xe",
-        // "Nhập năm sản xuất",
-        // "Nhập mô tả",
-        // "Nhập số lượng xe",
-    ];
-
-    const textValue = [
-        "Tên xe",
-        "Hình ảnh",
-        // "Thương hiệu",
-        // "Giá xe",
-        // "Động cơ",
-        // "Số chỗ ngồi",
-        // "Kích thước (AxBxC)",
-        // "Nguồn gốc",
-        // "Tốc độ tối đa (Km/h)",
-        // "Dung tích",
-        // "Tiêu hao nhiên liệu (l/100km)",
-        // "Công suất tối đa",
-        // "Màu sắc",
-        // "Năm sản xuất",
-        // "Mô tả",
-        // "Số lượng xe"
-    ];
-
-    const inputType = ["text", "text"];
-
-    const inputValue = [
-        carName,
-        thumbnail,
-        // brand,
-        // price,
-        // engine,
-        // seat,
-        // size,
-        // origin,
-        // speed,
-        // capacity,
-        // fuel,
-        // power,
-        // color,
-        // year,
-        // desc,
-        // quantity,
-    ];
-
-    // object data
-    const data = {
-        ten: carName,
-        thuonghieu: brand,
-        hinhanh: thumbnail,
-        gia: Number(price),
-        dongco: engine,
-        socho: Number(seat),
-        kichthuoc: size,
-        nguongoc: origin,
-        dungtich: capacity,
-        congsuatcucdai: power,
-        mausac: color,
-        tieuhaonhienlieu: fuel,
-        mota: desc,
-        namsanxuat: Number(year),
-        vantoctoida: speed,
-        soluong: Number(quantity),
-    };
+    
 
     const handleBlur = (e) => {
         if (e.target.value === "") {
@@ -328,11 +190,7 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                 console.log(err);
             });
     };
-    // useEffect(() => {
-    //     if (updateInvoice !== {}) {
-            
-    //     }
-    // }, [update]);
+
     const MenuSelectProps = {
         PaperProps: {
             style: {
@@ -513,7 +371,7 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                     </div>
                 </div>
             )}
-            {/* {type === "read" && (
+            {type === "read" && (
                 <div>
                     <div className={styles.overlay}></div>
                     <div className={styles.bPopup}>
@@ -525,26 +383,18 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
 
                         <Box sx={{ flexGrow: 1, marginTop: "24px" }}>
                             <Grid container>
-                                <Grid item xs={6}>
-                                    {/* <div className={styles.infoCar}> */}
-                                    {/* <Item sx={{ fontWeight: "bold" }}>{"Tên xe: " + updateCar.ten}</Item>
-                                    <Item>{"Thương hiệu: " + updateCar.thuonghieu}</Item>
-                                    <Item>{"Động cơ: " + updateCar.dongco}</Item>
-                                    <Item>{"Số chỗ ngồi: " + updateCar.socho}</Item>
-                                    <Item>{"Kích thước: " + updateCar.kichthuoc}</Item>
-                                    <Item>{"Vận tốc tối đa: " + updateCar.vantoctoida}</Item>
-                                    <Item>{"Dung tích: " + updateCar.dungtich}</Item>
-                                    <Item>{"Tiêu hao nhiên liệu: " + updateCar.tieuhaonhienlieu}</Item>
-                                    <Item>{"Công suất cực đại: " + updateCar.congsuatcucdai}</Item>
-                                    <Item>{"Màu sắc: " + updateCar.mausac}</Item>
-                                    <Item>{"Số lượng xe: " + updateCar.soluong}</Item> */}
-                                    {/* </div> */}
-                                {/* </Grid>
-                                <Grid item xs={6}>
-                                    <img src={updateCar.hinhanh} className={styles.readImg}></img>
-                                    <Item sx={{ textAlign: 'center', fontSize: '24px', color: "red", fontWeight: "bold" }}>
-                                        {"Giá: " + updateCar.gia.toLocaleString() + " VNĐ"}
-                                    </Item>
+                                <Grid item xs={12}>
+                                    <div className={styles.infor_hoadon}>
+                                    <Item sx={{ fontWeight: "bold" }}>{"Mã khách hàng: " + updateInvoice.hoadon.makh}</Item>
+                                    <Item>{"Mã nhân viên: " + updateInvoice.hoadon.manv}</Item>
+                                    <Item>{"Mã đơn hàng " + updateInvoice.hoadon.mahd}</Item>
+                                    <Item>{"Tình trạng: " + updateInvoice.hoadon.tinhtrang}</Item>
+                                    <Item>{"Ngày lập hóa đơn: " + updateInvoice.hoadon.ngayhd}</Item>
+                                    <Item>{"Trị giá: " + updateInvoice.hoadon.trigia}</Item>
+                                    <Item>{"Mã xe: " + updateInvoice.cthds[0].macar}</Item>
+                                    <Item>{"Tên xe: " + updateInvoice.cthds[0].tenxe}</Item>
+                                    <Item>{"Số lượng xe: " + updateInvoice.cthds[0].soluong}</Item>
+                                    </div>
                                 </Grid>
                             </Grid>
                         </Box>
@@ -566,7 +416,7 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                     </div>
 
                 </div>
-            )} */}
+            )}
         </>
     );
 
