@@ -1,68 +1,92 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import * as React from 'react';
 import styles from "./InvoicePopUp.module.css"
 import './InvoicePopUp.css'
 import CancelIcon from "@mui/icons-material/Cancel";
 import Swal from "sweetalert2";
-import { Box } from "@mui/system";
-import { Grid, Button, Paper, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import HandleApiInvoice from "../../../../Apis/HandleApiInvoice";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import dayjs, { Dayjs } from 'dayjs';
 import HandleApi from "../../../../Apis/HandleApi";
-
+import { borders } from '@mui/system';
+import {
+    IconButton,
+    Modal,
+    MenuItem,
+    Button,
+    Grid,
+    Paper,
+    Select,
+    TextField,
+    InputLabel,
+    FormControl,
+    Box,
+    Typography,
+    Stack,
+    Pagination,
+} from "@mui/material";
 function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
-    const [hoadon, setHoaDon] = useState();
-    const [manv, setMaNV] = useState();
+
+
+    // Format a date to DD-MM-YYYY (or any other format)
+    function padTo2Digits(num) {
+    return num.toString().padStart(2, '0');
+    }
+
+    function formatDate(date) {
+    return [
+        padTo2Digits(date.getDate()),
+        padTo2Digits(date.getMonth() + 1),
+        date.getFullYear(),
+    ].join('-');
+    }
+
+//========
     const [makh, setMaKH] = useState();
-    const [ngayhd, setngayhd] = useState();
-    const [tinhtrang, setTinhTrang] = useState();
+    const [datepicker, setdatepicker] = useState(new Date());
+    const [ngayhd, setngayhd] = useState(formatDate(new Date()))
+    const [tinhtrang, setTinhTrang] = useState("Chưa thanh toán");
     const [trigia, setTriGia] = useState();
-    const [cthd, setCTHD] = useState([]);
     const [maxe, setMaXe] = useState();
     const [soluongxe, setSoLuongXe] = useState(0);
-    const [finalData, setFinalData] = useState();
 
+    var user = JSON.parse(localStorage.getItem('user'));
+    const manv = user.mauser;
+
+    //-----------------------------------
+
+    
     const inputIdN = [
-        "manv",
         "makh",
-        "ngayhd",
-        "tinhtrang",
         "macar",
-        soluongxe
+        "soluongxe"
     ]
 
     const useStateEventN = [
-        setMaNV,
         setMaKH,
-        setngayhd,
-        setTinhTrang,
         setMaXe,
         setSoLuongXe
     ];
     const placeHolderN = [
-        "Nhập mã nhân viên",
         "Nhập mã khách hàng",
-        "Nhập ngày lập hóa đơn",
-        "Nhập tình trạng",
         "Nhập mã xe",
-        "Nhập số lượng"
+        "Nhập số lượng",
     ]
 
     const textValueN = [
-        "Mã nhân viên",
         "Mã khách hàng",
-        "Ngày lập hóa đơn",
-        "Tình trạng",
         "Mã xe",
         "Nhập số lượng"
     ]
 
-    const inputTypeN = ["text", "text", "text", "text", "text", "number"]
+    const inputTypeN = ["text", "text", "number"]
     
     const inputValueN = [
-        manv,
         makh, 
-        ngayhd,
-        tinhtrang,
         maxe,
         soluongxe
     ]
@@ -309,7 +333,26 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
             
     //     }
     // }, [update]);
+    const MenuSelectProps = {
+        PaperProps: {
+            style: {
+                maxHeight: 150,
+                overflowX: "scroll",
+                //   width: 250,
+            },
+        },
+    };
 
+    const handleChange = (event) => {
+        setTinhTrang(event.target.value);
+    };
+
+    const handleDayChange = (e) => {  
+        setdatepicker(e)
+        setngayhd(formatDate(e.$d));
+        console.log(e)
+        console.log("e la ",typeof e,"e.$d la",e.$d)
+    }
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
         padding: theme.spacing(1),
@@ -334,46 +377,106 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                         <br />
                         <Box sx={{ flexGrow: 1 }}>
                             <form onSubmit={handleCreateInvoice}>
-                                <Grid container sx={{ width: "796px", marginTop: "16px"}}>
-                                    {         
-                                    inputIdN.map((item, index) => (
-                                        <Grid key={index} item xs={4} sx={{ height: "93px" }}>
-                                            <label htmlFor={item[index]} className={styles.label}>
-                                                {textValueN[index]}
-                                            </label>
-                                            <br />
-                                            <input
-                                                id={item[index]}
-                                                name={item[index]}
-                                                type={inputTypeN[index]}
-                                                required
-                                                placeholder={placeHolderN[index]}
-                                                onChange={(e) =>
-                                                    useStateEventN[index](
-                                                        e.target.value
-                                                    )
-                                                }
-                                                onBlur={handleBlur}
-                                            />
-                                            {/* <div>{errorName}</div> */}
+                                <Grid container>
+                                    <Grid item xs={8}>
+                                    <Box sx={{ borderRight: 1, width: '90%'}}>
+                                        <Grid container sx={{ width: "420px", marginTop: "16px"}}>
+                                            {    inputIdN.map((item, index) => (
+                                                <Grid key={index} item xs={6} sx={{ height: "93px" }}>
+                                                    <label htmlFor={item[index]} className={styles.label}>
+                                                        {textValueN[index]}
+                                                    </label>
+                                                    <br />
+                                                    <input
+                                                        id={item[index]}
+                                                        name={item[index]}
+                                                        type={inputTypeN[index]}
+                                                        required
+                                                        placeholder={placeHolderN[index]}
+                                                        onChange={(e) =>
+                                                            useStateEventN[index](
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        onBlur={handleBlur}
+                                                    />
+                                                    {/* <div>{errorName}</div> */}
+                                                </Grid>
+                                                ))
+                                            }
+                                            <Grid item xs={6} sx={{height: "93px"}}>
+                                                <label className={styles.label}>Tình trạng</label>
+                                                <br/>
+                                                <Select
+                                                    className={styles.filter_wrap}
+                                                    labelId="input--"
+                                                    defaultValue={tinhtrang}
+                                                    value={tinhtrang}
+                                                    MenuProps={MenuSelectProps}
+                                                    onChange={handleChange}
+                                                >
+                                                    <MenuItem
+                                                        className={styles.menuItem}
+                                                        value="Chưa thanh toán"
+                                                        selected
+                                                    >
+                                                        Chưa thanh toán
+                                                    </MenuItem>
+                                                    <MenuItem
+                                                        className={styles.menuItem}
+                                                        value="Đã thanh toán"
+                                                    >
+                                                        Đã thanh toán
+                                                    </MenuItem>
+                                                </Select>
+                                            </Grid>
+                                            <Grid item xs={6} sx={{height: "93px"}} className={styles.nghdpicker}>
+                                                <label className={styles.label}>Ngày lập hóa đơn</label>
+                                                <br/>
+                                                <LocalizationProvider dateAdapter={AdapterDayjs} >
+                                                    <Stack spacing={3}>
+                                                        <DesktopDatePicker 
+                                                            inputFormat="DD/MM/YYYY"
+                                                            value={datepicker}
+                                                            onChange={handleDayChange}
+                                                            renderInput={(params) => <TextField {...params} />}
+                                                        />
+                                                    </Stack>
+                                                </LocalizationProvider>
+                                                
+                                            </Grid>
+
                                         </Grid>
-                                    )
-                                    )
-                                }
-                                <Grid item xs={4} sx={{height: "93px"}}>
-                                    <label className={styles.label}>Tên xe</label>
-                                    <br/>
-                                    <Box>
-                                        <Typography>{carName}</Typography>
                                     </Box>
-                                </Grid>
-                                <Grid item xs={4} sx={{height: "93px"}}>
-                                    <label className={styles.label}>Trị giá</label>
-                                    <br/>
-                                    <Box>
-                                        <Typography>{trigia}</Typography>
+                                    </Grid>
+                                    <Grid item xs={4}>
+                                    <Box sx={{ width: '100%'}}>
+                                        <Grid container sx={{ width: "100%", marginTop: "16px"}}>
+                                            <Grid item xs={12} sx={{height: "93px"}}>
+                                                <label className={styles.label}>Tên xe</label>
+                                                <br/>
+                                                <Box>
+                                                    <Typography variant="h4">{carName}</Typography>
+                                                </Box>
+                                            </Grid>
+
+                                            <Grid item xs={12} sx={{height: "93px"}}>
+                                                <label className={styles.label}>Số lượng</label>
+                                                <br/>
+                                                <Box>
+                                                    <Typography variant="h4">{soluongxe}</Typography>
+                                                </Box>
+                                            </Grid>
+                                            <Grid item xs={12} sx={{height: "93px"}}>
+                                                <label className={styles.label}>Trị giá</label>
+                                                <br/>
+                                                <Box>
+                                                    <Typography variant="h4">{trigia}</Typography>
+                                                </Box>
+                                            </Grid>
+                                        </Grid>
                                     </Box>
-                                </Grid>
+                                    </Grid>
                                 </Grid>
                                 <div className={styles.btn}>
                                     <Button
@@ -404,10 +507,10 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                                         Hủy
                                     </Button>
                                 </div>
+
                             </form>
                         </Box>
                     </div>
-
                 </div>
             )}
             {/* {type === "read" && (
