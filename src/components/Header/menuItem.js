@@ -21,27 +21,27 @@ export const menuItems = [
       },
       {
         title: "Ford",
-        url: "/product/Ford",
+        url: "/product/FORD",
       },
       {
         title: "Kia",
-        url: "/product/Kia",
+        url: "/product/KIA",
       },
       {
         title: "Vinfast",
-        url: "/product/Vinfast",
+        url: "/product/VINFAST",
       },
       {
         title: "Toyota",
-        url: "/product/Toyota",
+        url: "/product/TOYOTA",
       },
       {
         title: "Huyndai",
-        url: "/product/Huyndai",
+        url: "/product/HUYNDAI",
       },
       {
         title: "Honda",
-        url: "/product/HonDa1",
+        url: "/product/HONDA",
       },
     ],
   },
