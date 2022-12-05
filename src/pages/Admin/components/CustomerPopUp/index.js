@@ -7,13 +7,14 @@ import { Box } from "@mui/system";
 import { Grid, Button, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import HandleApisCustomer from "../../../../Apis/HandleApisCustomer";
-function CustomerPopup({ token, type, setType, updateCustomer, setUpdateCustomer }) {
+function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [phoneNumber, setPhoneNumber] = useState();
     const [dateOfBirth, setDateOfBirth] = useState();
     const [address, setAddress] = useState();
     const [cccd, setCccd] = useState();
+    const [password,setPassword] = useState();
    
  
 
@@ -24,6 +25,7 @@ function CustomerPopup({ token, type, setType, updateCustomer, setUpdateCustomer
         "dateOfBirth",
         "cccd",
         "address",
+        "password"
     ];
 
     const useStateEvent = [
@@ -33,6 +35,7 @@ function CustomerPopup({ token, type, setType, updateCustomer, setUpdateCustomer
         setDateOfBirth,
         setAddress,
         setCccd,
+        setPassword
     ];
 
     const placeHolder = [
@@ -42,6 +45,7 @@ function CustomerPopup({ token, type, setType, updateCustomer, setUpdateCustomer
         "Nhập ngày sinh",
         "Nhập địa chỉ ",
         "Nhập số căn cước",
+        "Nhập password"
     ];
 
     const textValue = [
@@ -51,9 +55,10 @@ function CustomerPopup({ token, type, setType, updateCustomer, setUpdateCustomer
         "Ngày sinh",
         "Địa chỉ",
         "CCCD",
+        "Password"
     ];
 
-    const inputType = ["text", "text","number", "date", "text", "number"];
+    const inputType = ["text", "text","number", "date", "text", "number","password"];
 
     const inputValue = [
         name,
@@ -61,17 +66,19 @@ function CustomerPopup({ token, type, setType, updateCustomer, setUpdateCustomer
         phoneNumber,
         dateOfBirth,
         address,
-        cccd
+        cccd,
+        password
     ];
 
     // object data
     const data = {
-        ten: name,
+        name: name,
         email: email,
-        sodienthoai: Number(phoneNumber),
+        sdt: Number(phoneNumber),
         ngaysinh: Date(dateOfBirth),
         diachi: address,
         cccd: Number(cccd),
+        password: password
       
     };
 
@@ -85,7 +92,7 @@ function CustomerPopup({ token, type, setType, updateCustomer, setUpdateCustomer
 
     const handleCreateCustomer = async (e) => {
         e.preventDefault();
-        HandleApisCustomer.createCustomer(data,token)
+        HandleApisCustomer.createCustomer(data)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -104,7 +111,7 @@ function CustomerPopup({ token, type, setType, updateCustomer, setUpdateCustomer
 
     const handleUpdateCustomer = async () => {
         // console.log(updateCustomer.id);
-        HandleApisCustomer.updateCar(updateCustomer.id, data)
+        HandleApisCustomer.updateCustomer(updateCustomer._id, data)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -123,7 +130,7 @@ function CustomerPopup({ token, type, setType, updateCustomer, setUpdateCustomer
 
     useEffect(() => {
         if (updateCustomer !== {}) {
-            setName(updateCustomer.ten);
+            setName(updateCustomer.name);
             setEmail(updateCustomer.email);
             setPhoneNumber(updateCustomer.sdt);
             setDateOfBirth(updateCustomer.ngaysinh);

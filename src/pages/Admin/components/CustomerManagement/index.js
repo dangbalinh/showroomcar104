@@ -19,6 +19,8 @@ import {
     Box,
     Typography,
     Paper,
+    Stack,
+    Pagination
 } from "@mui/material";
 
 import CustomerPopUp from "../CustomerPopUp";
@@ -30,16 +32,15 @@ function CarManagement() {
     const [data, setData] = useState([]);
     const [dataLength, setDataLength] = useState();
     const [searchValue, setSearchValue] = useState("");// gia tri search value
-    const [newData, setNewData] = useState([]);
+    const [pageIndex, setPageIndex] = useState(0);
     const [type, setType] = useState("");
     const [updateCustomer, setUpdateCustomer] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
-    const [role] = useState(() => JSON.parse(localStorage.getItem("user")).role)
-    const [token] = useState(() => localStorage.getItem("token"))// token cuar account
+    
 
     const inputRef = useRef();
-    const gridColumn = [0.7, 1, 2, 1.5, 1.8, 2.5, 1.5, 1];
+    const gridColumn = [0.5, 0.9, 2, 1.5, 1.8, 2.5, 1.5, 1];
     const gridTitle = [
         "STT",
         "Mã KH",
@@ -50,21 +51,26 @@ function CarManagement() {
         "CCCD",
         ""
     ];
+    const pageSize = 10;
 
     // Get API
 
 
     useEffect(() => {
-        HandleApisCustomer.getAllCustomers(token).then((res) => {
-            setData(res.cars);
+        HandleApisCustomer.getEmployeeByPageIndex(pageIndex).then((res) => {
+            setData(res.customers);
+            setDataLength(res.totalCustomers);
         });
-    }, []);
+    }, [pageIndex]);
     // handle event
-//////
 
 
-    const handleDeleteItem = async (id,token) => {
-        HandleApisCustomer.deleteCustomer(id,token)
+
+    const handlePageChange = (e, p) => {
+        setPageIndex(p - 1);
+    };
+    const handleDeleteItem = async (id) => {
+        HandleApisCustomer.deleteCustomer(id)
             .then((res) => {
                 console.log(id);
                 setOpenDeleteModal(false);
@@ -92,9 +98,9 @@ function CarManagement() {
 
 
     //Update
-    const handleClickUpdate = async (id,token) => {
+    const handleClickUpdate = async (id) => {
         console.log(id);
-        HandleApisCustomer.getCustomerById(id,token)
+        HandleApisCustomer.getCustomerById(id)
             .then(async (res) => {
                 await setUpdateCustomer(res);
                 await setType("update");
@@ -105,8 +111,8 @@ function CarManagement() {
             });
     };
     // Read Info
-    const handleReadInfo = async (id,token) => {
-        HandleApisCustomer.getCustomerById(id,token)
+    const handleReadInfo = async (id) => {
+        HandleApisCustomer.getCustomerById(id)
             .then(async (res) => {
                 await setUpdateCustomer(res);
                 await setType("read");
@@ -120,14 +126,14 @@ function CarManagement() {
     useEffect(() => {
         console.log(searchValue);
         if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
+            HandleApi.getCustomerByName(searchValue).then(async (res) => {
+                await setData(res.customers);
                 await setDataLength(data.length);
             });
         } else {
-            HandleApisCustomer.getAllCustomers(token).then((res) => {
-                setData(res.cars);
-                setDataLength(res.totalCars);
+            HandleApisCustomer.getAllCustomers().then((res) => {
+                setData(res.customers);
+                setDataLength(res.totalCustomers);
             });
         }
     }, [searchValue]);
@@ -174,13 +180,6 @@ function CarManagement() {
         boxShadow: 24,
         p: 8
     };
-    const nameActive = {
-        "cursor": 'pointer',
-        "&:active": {
-            color: 'red',
-        }
-    }
-
     return (
         <div>
             <header className={styles.header}>
@@ -215,44 +214,6 @@ function CarManagement() {
                                 <Search className={styles.searchIcon} />
                             </button>
                         </div>
-                            {/* <FormControl
-                                className={styles.filter}
-                                sx={{ m: 1, minWidth: 220, height: 44 }}
-                                size="medium"
-                            >
-                                <InputLabel
-                                    sx={{ fontSize: "14px", fontWeight: "600" }}
-                                    id="input-label"
-                                >
-                                    Tên
-                                </InputLabel>
-                                <Select
-                                    className={styles.filter_wrap}
-                                    labelId="input"
-                                    label="typ"
-                                    defaultValue={typeCustomer}
-                                    value={typeCustomer}
-                                    MenuProps={MenuSelectProps}
-                                    onChange={handleChange}
-                                >
-                                    <MenuItem
-                                        className={styles.menuItem}
-                                        value="All"
-                                        selected
-                                    >
-                                        Tất cả
-                                    </MenuItem>
-                                    {valueSelect.map((item, index) => (
-                                        <MenuItem
-                                            key={index}
-                                            value={item}
-                                            className={styles.menuItem}
-                                        >
-                                            {item}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl> */}
                     </div>
 
                     <Button
@@ -282,34 +243,36 @@ function CarManagement() {
                         </Grid>
 
                         {/* Render data */}
-                        {newData?.map((item, index) => (
+                        {data?.map((item, index) => (
                             <Grid container key={index}>
-                                <Grid item xs={0.7}>
+                                <Grid item xs={0.5}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
-                                <Grid item xs={1}>
+                                <Grid item xs={0.9}>
                                     <Item>
                                         {item.mauser}
                                     </Item>
                                 </Grid>
                                 <Grid item xs={2}>
-                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.name}</Item>
+                                    <Item>{item.name}</Item>
                                 </Grid>
                                 <Grid item xs={1.5}>
-                                    <Item>{item.email}</Item>
+                                    <Item>{item.sdt}</Item>
                                 </Grid>
                                 <Grid item xs={1.8}>
-                                    <Item>{item.gia.toLocaleString() + " VNĐ"}</Item>
+                                    <Item>{item.email}</Item>
                                 </Grid>
                                 <Grid item xs={2.5}>
-                                    <Item>{item.dongco}</Item>
+                                    <Item>{item.diachi}</Item>
                                 </Grid>
                                 <Grid item xs={1.5}>
-                                    <Item>{item.socho}</Item>
+                                    <Item>{item.cccd}</Item>
                                 </Grid>
                                 <Grid item xs={1}>
                                     {/* Update, delete button */}
                                     <Item>
+                                    <Button variant="outlined" size="small" sx={{ fontSize: "10px",          marginRight: "12px" }}
+                                            onClick={() => handleReadInfo(item._id)} >Chi tiết</Button>
                                         <IconButton
                                             color="primary"
                                             size="medium"
@@ -351,7 +314,7 @@ function CarManagement() {
                                                     textAlign="center"
                                                 >
                                                     Bạn có chắc chắn muốn xóa dữ
-                                                    liệu xe này?
+                                                    liệu khách hàng này?
                                                 </Typography>
                                                 <Typography
                                                     id="modal-modal-description"
@@ -403,10 +366,21 @@ function CarManagement() {
                         ))}
                     </Box>
                 </div>
-
+                <div className={styles.pagination}>
+                    <Stack spacing={2}>
+                        <Pagination
+                            size="large"
+                            color="primary"
+                            count={Math.ceil(dataLength / pageSize)}
+                            showFirstButton
+                            showLastButton
+                            sx={{ margin: "32px 0 56px" }}
+                            onChange={handlePageChange}
+                        />
+                    </Stack>
+                </div>
             </div>
             <CustomerPopUp
-                token = {token}
                 type={type !== "" ? type : ""}
                 setType={setType}
                 updateCustomer={updateCustomer}
