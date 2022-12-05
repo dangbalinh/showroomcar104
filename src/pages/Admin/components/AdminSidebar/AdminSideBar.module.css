@@ -40,7 +40,8 @@
     flex-direction: column;
     list-style: none;
     align-items: center;
-    margin-top: 30px;
+    margin-top: 28px;
+    min-height: 444px;
 }
 
 .sidebar_item {
