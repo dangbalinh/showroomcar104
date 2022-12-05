@@ -8,13 +8,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 30px 0;
+    padding: 30px 0 22px;
     border-bottom: 1px solid #fff;
 }
 
 .avatar {
-    width: 60px;
+    width: 70px;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .username {
@@ -82,7 +83,7 @@
     justify-content: center;
     align-items: center;
     border-top: 1px solid #fff;
-    margin-top: 80px;
+    margin-top: 20px;
 }
 
 .logout_btn {

@@ -1,5 +1,7 @@
-import styles from "./CustomerManagement.module.css";
-import "./CustomerManagement.css";
+import { useState, useEffect, memo, useRef } from "react";
+import styles from "./EmployeeManagement.module.css";
+import "./EmployeeManagement.css";
+import HandleApiEmployee from "../../../../Apis/HandleApiEmployee";
 
 import { styled } from "@mui/material/styles";
 import {
@@ -10,83 +12,69 @@ import {
     DeleteOutline,
     Cancel,
 } from "@mui/icons-material";
-import { useState, useEffect, memo, useRef } from "react";
 import {
     IconButton,
     Modal,
     Button,
     Grid,
+    Paper,
     Box,
     Typography,
-    Paper,
+    Stack,
+    Pagination
 } from "@mui/material";
 
-import CustomerPopUp from "../CustomerPopUp";
-import HandleApi from "../../../../Apis/HandleApi";
-import HandleApisCustomer from "../../../../Apis/HandleApisCustomer";
+import EmployeePopUp from "../EmployeePopUp";
 import Swal from "sweetalert2";
 
-function CarManagement() {
-    const [typeCustomer, setTypeCustomer] = useState("All");
+function EmployeeManagement() {
     const [data, setData] = useState([]);
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
     const [searchValue, setSearchValue] = useState("");
-    const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
-    const [updateCustomer, setUpdateCustomer] = useState({});
+    const [updateEmployee, setUpdateEmployee] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
-    const [role] = useState(() => JSON.parse(localStorage.getItem("user")).role)
-    const [token] = useState(() => localStorage.getItem("token"))
 
     const inputRef = useRef();
-    const gridColumn = [0.7, 1, 2, 1.5, 1.8, 2.5, 1.5, 1];
+
+    const gridColumn = [0.5, 1, 2, 1.2, 1.6, 1.5, 1.2, 0.9, 2];
     const gridTitle = [
         "STT",
-        "Mã KH",
-        "Họ và tên",
-        "Số điện thoại",
-        "Email",
+        "Mã NV",
+        "Tên nhân viên",
+        "Giới tính",
+        "SĐT",
         "Địa chỉ",
         "CCCD",
+        "Chức vụ",
         ""
     ];
 
+    const pageSize = 12;
+
     // Get API
-
-
     useEffect(() => {
-        HandleApisCustomer.getCarByPageIndex(pageIndex).then((res) => {
-            setData(res.cars);
-            setDataLength(res.totalCars);
+        HandleApiEmployee.getEmployeeByPageIndex(pageIndex).then((res) => {
+            setData(res.employees);
+            setDataLength(res.totalEmployees);
         });
     }, [pageIndex]);
 
-    
 
-
-
-    // handle event
-    const handleChange = (event) => {
-        setTypeCustomer(event.target.value);
-    };
-//////
-
-
-    const handleDeleteItem = async (id,token) => {
-        HandleApisCustomer.deleteCustomer(id,token)
+    const handleDeleteItem = async (id) => {
+        HandleApiEmployee.deleteEmployee(id)
             .then((res) => {
                 console.log(id);
                 setOpenDeleteModal(false);
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Xóa dữ liệu nhân viên thành công!",
+                    title: "Xóa dữ liệu xe thành công!",
                     showConfirmButton: false,
                     timer: 1500
                 });
-                console.log(data);
                 setData(data.filter((item) => item._id !== id));
             })
             .catch((err) => {
@@ -100,45 +88,47 @@ function CarManagement() {
             });
     };
 
-
-
-    //Update
-    const handleClickUpdate = async (id,token) => {
+    const handleClickUpdate = async (id) => {
         console.log(id);
-        HandleApisCustomer.getCustomerById(id,token)
+        HandleApiEmployee.getEmployeeById(id)
             .then(async (res) => {
-                await setUpdateCustomer(res);
+                await setUpdateEmployee(res);
                 await setType("update");
-                console.log(updateCustomer);
+                console.log(updateEmployee);
             })
             .catch((err) => {
                 console.log(err);
             });
     };
-    // Read Info
-    const handleReadInfo = async (id,token) => {
-        HandleApisCustomer.getCustomerById(id,token)
+
+    const handleReadInfo = async (id) => {
+        HandleApiEmployee.getEmployeeById(id)
             .then(async (res) => {
-                await setUpdateCustomer(res);
+                await setUpdateEmployee(res);
                 await setType("read");
-                console.log(updateCustomer);
+                console.log(updateEmployee);
             })
             .catch((err) => {
                 console.log(err);
             });
     }
-    // handle search function
+
+    const handlePageChange = (e, p) => {
+        setPageIndex(p - 1);
+    };
+
+    // handle search event
     useEffect(() => {
         console.log(searchValue);
         if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
+            HandleApiEmployee.getEmployeeById(searchValue).then(async (res) => {
+                await setData(res.employees);
                 await setDataLength(data.length);
             });
         } else {
-            HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-                setData(res.cars);
-                setDataLength(res.totalCars);
+            HandleApiEmployee.getEmployeeByPageIndex(pageIndex).then((res) => {
+                setData(res.employees);
+                setDataLength(res.totalEmployees);
             });
         }
     }, [searchValue]);
@@ -152,9 +142,7 @@ function CarManagement() {
         inputRef.current.focus();
     };
 
-
-
-    ////////////// Custome CSS MUI
+    // Custome CSS MUI
     const ItemMain = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
         padding: theme.spacing(1),
@@ -171,7 +159,7 @@ function CarManagement() {
         textAlign: "center",
         color: "#000",
         boxShadow: "none",
-        fontSize: 16
+        fontSize: 16,
     }));
 
     const styleModal = {
@@ -185,18 +173,13 @@ function CarManagement() {
         boxShadow: 24,
         p: 8
     };
-    const nameActive = {
-        "cursor": 'pointer',
-        "&:active": {
-            color: 'red',
-        }
-    }
 
     return (
         <div>
             <header className={styles.header}>
-                <h1 className={styles.header_heading}>Quản lý khách hàng</h1>
+                <h1 className={styles.header_heading}>Quản lý nhân viên</h1>
             </header>
+
             <div className={styles.container}>
                 <div className={styles.container_header}>
                     <div className={styles.funcContainer}>
@@ -205,7 +188,7 @@ function CarManagement() {
                                 ref={inputRef}
                                 value={searchValue}
                                 type="text"
-                                placeholder="Tìm kiếm khách hàng"
+                                placeholder="Tìm kiếm nhân viên"
                                 spellCheck={false}
                                 onChange={handleInputChange}
                             />
@@ -225,45 +208,8 @@ function CarManagement() {
                             >
                                 <Search className={styles.searchIcon} />
                             </button>
+
                         </div>
-                            {/* <FormControl
-                                className={styles.filter}
-                                sx={{ m: 1, minWidth: 220, height: 44 }}
-                                size="medium"
-                            >
-                                <InputLabel
-                                    sx={{ fontSize: "14px", fontWeight: "600" }}
-                                    id="input-label"
-                                >
-                                    Tên
-                                </InputLabel>
-                                <Select
-                                    className={styles.filter_wrap}
-                                    labelId="input"
-                                    label="typ"
-                                    defaultValue={typeCustomer}
-                                    value={typeCustomer}
-                                    MenuProps={MenuSelectProps}
-                                    onChange={handleChange}
-                                >
-                                    <MenuItem
-                                        className={styles.menuItem}
-                                        value="All"
-                                        selected
-                                    >
-                                        Tất cả
-                                    </MenuItem>
-                                    {valueSelect.map((item, index) => (
-                                        <MenuItem
-                                            key={index}
-                                            value={item}
-                                            className={styles.menuItem}
-                                        >
-                                            {item}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl> */}
                     </div>
 
                     <Button
@@ -278,7 +224,7 @@ function CarManagement() {
                         startIcon={<Add />}
                         onClick={() => setType("create")}
                     >
-                        Thêm khách hàng 
+                        Thêm nhân viên
                     </Button>
                 </div>
 
@@ -291,39 +237,43 @@ function CarManagement() {
                                 </Grid>
                             ))}
                         </Grid>
-
                         {/* Render data */}
-                        {newData?.map((item, index) => (
+                        {data?.map((item, index) => (
                             <Grid container key={index}>
-                                <Grid item xs={0.7}>
+                                <Grid item xs={0.5}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
+                                
                                 <Grid item xs={1}>
-                                    <Item>
-                                        {item.mauser}
-                                    </Item>
+                                    <Item>{item.mauser}</Item>
                                 </Grid>
                                 <Grid item xs={2}>
-                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.name}</Item>
+                                    <Item>{item.name}</Item>
+                                </Grid>
+                                <Grid item xs={1.2}>
+                                    <Item>{item.gioitinh}</Item>
+                                </Grid>
+                                <Grid item xs={1.6}>
+                                    <Item>{item.sdt}</Item>
                                 </Grid>
                                 <Grid item xs={1.5}>
-                                    <Item>{item.email}</Item>
+                                    <Item>{item.diachi}</Item>
                                 </Grid>
-                                <Grid item xs={1.8}>
-                                    <Item>{item.gia.toLocaleString() + " VNĐ"}</Item>
+                                <Grid item xs={1.2}>
+                                    <Item>{item.cccd}</Item>
                                 </Grid>
-                                <Grid item xs={2.5}>
-                                    <Item>{item.dongco}</Item>
+                                <Grid item xs={0.9}>
+                                    <Item>{item.chucvu}</Item>
                                 </Grid>
-                                <Grid item xs={1.5}>
-                                    <Item>{item.socho}</Item>
-                                </Grid>
-                                <Grid item xs={1}>
+                                <Grid item xs={2}>
                                     {/* Update, delete button */}
                                     <Item>
+                                        <Button variant="outlined" size="small" sx={{ fontSize: "10px", marginRight: "12px" }}
+                                            onClick={() => handleReadInfo(item._id)} >Chi tiết</Button>
                                         <IconButton
                                             color="primary"
                                             size="medium"
+                                            sx={{ padding: "8px 6px" }}
                                             onClick={() => {
                                                 handleClickUpdate(item._id);
                                             }}
@@ -376,9 +326,10 @@ function CarManagement() {
                                                 <div
                                                     className={styles.modalBtn}
                                                 >
+                                                    
                                                     <Button
                                                         variant="contained"
-                                                        color="error"
+                                                        color="primary"
                                                         onClick={() =>
                                                             handleDeleteItem(Id)
                                                         }
@@ -387,11 +338,12 @@ function CarManagement() {
                                                             marginRight: "12px"
                                                         }}
                                                     >
-                                                        Xóa luôn
+                                                        Đồng ý
                                                     </Button>
+
                                                     <Button
                                                         variant="contained"
-                                                        color="primary"
+                                                        color="error"
                                                         onClick={() => {
                                                             setOpenDeleteModal(
                                                                 false
@@ -405,6 +357,7 @@ function CarManagement() {
                                                     >
                                                         Hủy
                                                     </Button>
+
                                                 </div>
                                             </Box>
                                         </Modal>
@@ -415,16 +368,28 @@ function CarManagement() {
                     </Box>
                 </div>
 
+                <div className={styles.pagination}>
+                    <Stack spacing={2}>
+                        <Pagination
+                            size="large"
+                            color="primary"
+                            count={Math.ceil(dataLength / pageSize)}
+                            showFirstButton
+                            showLastButton
+                            sx={{ margin: "32px 0 56px" }}
+                            onChange={handlePageChange}
+                        />
+                    </Stack>
+                </div>
             </div>
-            <CustomerPopUp
-                token = {token}
+            <EmployeePopUp
                 type={type !== "" ? type : ""}
                 setType={setType}
-                updateCustomer={updateCustomer}
-                setUpdateCustomer={setUpdateCustomer}
+                updateEmployee={updateEmployee}
+                setUpdateEmployee={setUpdateEmployee}
             />
         </div>
     );
 }
 
-export default memo(CarManagement);
+export default memo(EmployeeManagement);

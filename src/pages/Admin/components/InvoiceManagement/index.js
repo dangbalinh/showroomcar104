@@ -1,5 +1,6 @@
-import styles from "./CustomerManagement.module.css";
-import "./CustomerManagement.css";
+import images from "../../../../assets/image";
+import styles from "./InvoiceManagement.module.css";
+import "./InvoiceManagement.css";
 
 import { styled } from "@mui/material/styles";
 import {
@@ -14,75 +15,121 @@ import { useState, useEffect, memo, useRef } from "react";
 import {
     IconButton,
     Modal,
+    MenuItem,
     Button,
     Grid,
+    Paper,
+    Select,
+    InputLabel,
+    FormControl,
     Box,
     Typography,
-    Paper,
+    Stack,
+    Pagination
 } from "@mui/material";
 
-import CustomerPopUp from "../CustomerPopUp";
-import HandleApi from "../../../../Apis/HandleApi";
-import HandleApisCustomer from "../../../../Apis/HandleApisCustomer";
+import CarPopUp from "../CarPopUp";
+import HandleApiInvoice from "../../../../Apis/HandleApiInvoice";
 import Swal from "sweetalert2";
+import { red } from "@mui/material/colors";
+import NewsPopup from "../NewsPopUp";
+import InvoicePopUp from "../InvoicePopUp";
 
-function CarManagement() {
-    const [typeCustomer, setTypeCustomer] = useState("All");
+function InvoiceManagement() {
     const [data, setData] = useState([]);
+    const [tinhtrang, setTinhTrang] = useState("Tất cả");
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
-    const [searchValue, setSearchValue] = useState("");
+    // const [searchValue, setSearchValue] = useState("");
     const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
-    const [updateCustomer, setUpdateCustomer] = useState({});
+    const [updateCar, setUpdateCar] = useState({});
+    const [updateInvoice, setUpdateInvoice] = useState()
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
-    const [role] = useState(() => JSON.parse(localStorage.getItem("user")).role)
-    const [token] = useState(() => localStorage.getItem("token"))
+
 
     const inputRef = useRef();
-    const gridColumn = [0.7, 1, 2, 1.5, 1.8, 2.5, 1.5, 1];
+
+    const gridColumn = [0.7, 1.6, 1.6, 1.8, 2, 2, 1.2, 1.1];
     const gridTitle = [
         "STT",
-        "Mã KH",
-        "Họ và tên",
-        "Số điện thoại",
-        "Email",
-        "Địa chỉ",
-        "CCCD",
-        ""
+        "Mã hóa đơn",
+        "Mã nhân viên",
+        "Mã khách hàng",
+        "Ngày lập hóa đơn",
+        "Tình trạng",
+        "Trị giá",
+        "",
     ];
 
-    // Get API
+    const valueSelectN = [
+        "Đã thanh toán",
+        "Chưa thanh toán",
+    ]
 
+    const pageSize = 5;
 
+    //get API
     useEffect(() => {
-        HandleApisCustomer.getCarByPageIndex(pageIndex).then((res) => {
-            setData(res.cars);
-            setDataLength(res.totalCars);
-        });
+        HandleApiInvoice.getInvoiceByPageIndex(pageIndex).then((res) => {
+            setData(res.hoadons);
+            setDataLength(res.totalHoaDon);
+        })
     }, [pageIndex]);
-
     
+    console.log("alo data ne: ", data)
+
+    // handle Filter select
+    useEffect(() => {
+        switch (tinhtrang)
+        {
+            case "Tất cả":
+                setNewData(data);
+                HandleApiInvoice.getInvoiceByTinhTrang("").then((res) => {
+                setDataLength(res.totalHoaDon)
+                });
+                break;
+            case "Đã thanh toán":
+                    HandleApiInvoice.getInvoiceByTinhTrang("Đã thanh toán").then((res) => {
+                    setNewData(res.hoadons)
+                    setDataLength(res.totalHoaDon)
+                });
+                break;
+            case "Chưa thanh toán":
+                HandleApiInvoice.getInvoiceByTinhTrang("Chưa thanh toán").then((res) => {
+                    setNewData(res.hoadons)
+                    setDataLength(res.totalHoaDon)
+                });
+                break;
+            default:
+                break;
+        }
+    },[data, tinhtrang]);
 
 
+    //function 
+    function isDonDatHang(tinhtrang){
+        if(tinhtrang=="Chưa thanh toán")
+        return true
+        else
+        return false
+    }
 
     // handle event
     const handleChange = (event) => {
-        setTypeCustomer(event.target.value);
+        setTinhTrang(event.target.value);
     };
-//////
 
-
-    const handleDeleteItem = async (id,token) => {
-        HandleApisCustomer.deleteCustomer(id,token)
+    const handleDeleteItem = async (id) => {
+        HandleApiInvoice.xoaDonDatHang(id)
             .then((res) => {
                 console.log(id);
                 setOpenDeleteModal(false);
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Xóa dữ liệu nhân viên thành công!",
+                    title: "Xóa đơn đặt hàng thành công!",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -93,68 +140,78 @@ function CarManagement() {
                 Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: "Xóa bài viết thất bại!",
+                    title: "Xóa đơn đặt hàng thất bại!",
                     showConfirmButton: false,
                     timer: 1500
                 });
             });
     };
 
-
-
-    //Update
-    const handleClickUpdate = async (id,token) => {
+    const handleClickUpdate = async (id, tinhtrang) => {
         console.log(id);
-        HandleApisCustomer.getCustomerById(id,token)
+        HandleApiInvoice.capnhatTinhTrang(id, tinhtrang)
             .then(async (res) => {
-                await setUpdateCustomer(res);
+                await setUpdateInvoice(res);
                 await setType("update");
-                console.log(updateCustomer);
+                console.log(updateCar);
             })
             .catch((err) => {
                 console.log(err);
             });
     };
-    // Read Info
-    const handleReadInfo = async (id,token) => {
-        HandleApisCustomer.getCustomerById(id,token)
-            .then(async (res) => {
-                await setUpdateCustomer(res);
-                await setType("read");
-                console.log(updateCustomer);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
-    // handle search function
-    useEffect(() => {
-        console.log(searchValue);
-        if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
-                await setDataLength(data.length);
-            });
-        } else {
-            HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-                setData(res.cars);
-                setDataLength(res.totalCars);
-            });
-        }
-    }, [searchValue]);
 
-    const handleInputChange = (e) => {
-        setSearchValue(e.target.value);
+    // const handleReadInfo = async (id) => {
+    //     HandleApi.getCarById(id)
+    //         .then(async (res) => {
+    //             await setUpdateCar(res);
+    //             await setType("read");
+    //             console.log(updateCar);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // }
+
+    const handlePageChange = (e, p) => {
+        console.log("PageIndex: ", p);
+        setPageIndex(p - 1);
     };
 
-    const handleClear = () => {
-        setSearchValue("");
-        inputRef.current.focus();
-    };
+    // handle search event
+    // useEffect(() => {
+    //     console.log(searchValue);
+    //     if (searchValue.trim() !== "") {
+    //         HandleApi.getCarByName(searchValue).then(async (res) => {
+    //             await setData(res.cars);
+    //             await setDataLength(data.length);
+    //         });
+    //     } else {
+    //         HandleApi.getCarByPageIndex(pageIndex).then((res) => {
+    //             setData(res.cars);
+    //             setDataLength(res.totalCars);
+    //         });
+    //     }
+    // }, [searchValue]);
 
+    // const handleInputChange = (e) => {
+    //     setSearchValue(e.target.value);
+    // };
 
+    // const handleSearch = async () => {
+    //     if (searchValue.trim() !== "") {
+    //         HandleApi.getCarByName(searchValue).then(async (res) => {
+    //             await setData(res.cars);
+    //             await setDataLength(data.length);
+    //         });
+    //     }
+    // };
 
-    ////////////// Custome CSS MUI
+    // const handleClear = () => {
+    //     setSearchValue("");
+    //     inputRef.current.focus();
+    // };
+
+    // Custome CSS MUI
     const ItemMain = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
         padding: theme.spacing(1),
@@ -185,6 +242,17 @@ function CarManagement() {
         boxShadow: 24,
         p: 8
     };
+
+    const MenuSelectProps = {
+        PaperProps: {
+            style: {
+                maxHeight: 150,
+                overflowX: "scroll"
+                //   width: 250,
+            }
+        }
+    };
+
     const nameActive = {
         "cursor": 'pointer',
         "&:active": {
@@ -195,29 +263,34 @@ function CarManagement() {
     return (
         <div>
             <header className={styles.header}>
-                <h1 className={styles.header_heading}>Quản lý khách hàng</h1>
+                <img
+                    src={images.bmwImg}
+                    className={styles.header_image}
+                    alt="Header img"
+                />
+                <h1 className={styles.header_heading}>Quản lý hóa đơn</h1>
             </header>
             <div className={styles.container}>
                 <div className={styles.container_header}>
                     <div className={styles.funcContainer}>
                         <div className={styles.search}>
-                            <input
+                            {/* <input
                                 ref={inputRef}
                                 value={searchValue}
                                 type="text"
-                                placeholder="Tìm kiếm khách hàng"
+                                placeholder="Tìm hóa đơn"
                                 spellCheck={false}
                                 onChange={handleInputChange}
-                            />
+                            /> */}
 
-                            {!!searchValue && (
+                            {/* {!!searchValue && (
                                 <button
                                     className={styles.clear}
                                     onClick={handleClear}
                                 >
                                     <Cancel className={styles.clearIcon} />
                                 </button>
-                            )}
+                            )} */}
 
                             <button
                                 className={styles.searchBtn}
@@ -226,44 +299,44 @@ function CarManagement() {
                                 <Search className={styles.searchIcon} />
                             </button>
                         </div>
-                            {/* <FormControl
-                                className={styles.filter}
-                                sx={{ m: 1, minWidth: 220, height: 44 }}
-                                size="medium"
+                        <FormControl
+                            className={styles.filter}
+                            sx={{ m: 1, minWidth: 220, height: 44 }}
+                            size="medium"
+                        >
+                            <InputLabel
+                                sx={{ fontSize: "14px", fontWeight: "600", left: "10px" }}
+                                id="input-label"
                             >
-                                <InputLabel
-                                    sx={{ fontSize: "14px", fontWeight: "600" }}
-                                    id="input-label"
+                                Tình trạng
+                            </InputLabel>
+                            <Select
+                                className={styles.filter_wrap}
+                                labelId="input--"
+                                label="tinhtrang"
+                                defaultValue={tinhtrang}
+                                value={tinhtrang}
+                                MenuProps={MenuSelectProps}
+                                onChange={handleChange}
+                            >
+                                <MenuItem
+                                    className={styles.menuItem}
+                                    value="Tất cả"
+                                    selected
                                 >
-                                    Tên
-                                </InputLabel>
-                                <Select
-                                    className={styles.filter_wrap}
-                                    labelId="input"
-                                    label="typ"
-                                    defaultValue={typeCustomer}
-                                    value={typeCustomer}
-                                    MenuProps={MenuSelectProps}
-                                    onChange={handleChange}
-                                >
+                                    Tất cả
+                                </MenuItem>
+                                {valueSelectN.map((item, index) => (
                                     <MenuItem
+                                        key={index}
+                                        value={item}
                                         className={styles.menuItem}
-                                        value="All"
-                                        selected
                                     >
-                                        Tất cả
+                                        {item}
                                     </MenuItem>
-                                    {valueSelect.map((item, index) => (
-                                        <MenuItem
-                                            key={index}
-                                            value={item}
-                                            className={styles.menuItem}
-                                        >
-                                            {item}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl> */}
+                                ))}
+                            </Select>
+                        </FormControl>
                     </div>
 
                     <Button
@@ -278,7 +351,7 @@ function CarManagement() {
                         startIcon={<Add />}
                         onClick={() => setType("create")}
                     >
-                        Thêm khách hàng 
+                        Thêm hóa đơn
                     </Button>
                 </div>
 
@@ -298,45 +371,52 @@ function CarManagement() {
                                 <Grid item xs={0.7}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
-                                <Grid item xs={1}>
-                                    <Item>
-                                        {item.mauser}
-                                    </Item>
+                                <Grid item xs={1.6}>
+                                    <Item>{item.mahd}</Item>
                                 </Grid>
-                                <Grid item xs={2}>
-                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.name}</Item>
-                                </Grid>
-                                <Grid item xs={1.5}>
-                                    <Item>{item.email}</Item>
+                                <Grid item xs={1.6}>
+                                    <Item>{item.manv}</Item>
                                 </Grid>
                                 <Grid item xs={1.8}>
-                                    <Item>{item.gia.toLocaleString() + " VNĐ"}</Item>
+                                    <Item>{item.makh}</Item>
                                 </Grid>
-                                <Grid item xs={2.5}>
-                                    <Item>{item.dongco}</Item>
+                                <Grid item xs={2}>
+                                    <Item>{item.ngayhd}</Item>
                                 </Grid>
-                                <Grid item xs={1.5}>
-                                    <Item>{item.socho}</Item>
+                                <Grid item xs={2}>
+                                    <Item>{item.tinhtrang}</Item>
                                 </Grid>
-                                <Grid item xs={1}>
+                                <Grid item xs={1.2}>
+                                    <Item>{item.trigia}</Item>
+                                </Grid>
+                                <Grid item xs={1.1}>
                                     {/* Update, delete button */}
                                     <Item>
                                         <IconButton
                                             color="primary"
                                             size="medium"
+                                            sx={{
+                                                width: 35,
+                                                height: 34,
+                                                borderRadius: "4px",
+                                                border: "1px solid #1976D2",
+                                                justifyContent: "space-between",
+                                                marginLeft: "-24px"
+                                            }}
                                             onClick={() => {
-                                                handleClickUpdate(item._id);
+                                                handleClickUpdate(item._id, item.tinhtrang);
                                             }}
                                         >
                                             <Edit sx={{ fontSize: "22px" }} />
                                         </IconButton>
 
                                         <IconButton
+                                            disabled={!isDonDatHang(item.tinhtrang)}
                                             size="medium"
                                             color="error"
                                             onClick={() => {
                                                 console.log(item._id);
-                                                setOpenDeleteModal(true);
+                                                setOpenDeleteModal(isDonDatHang(item.tinhtrang));
                                                 setId(item._id);
                                             }}
                                         >
@@ -361,8 +441,7 @@ function CarManagement() {
                                                     color="#d32f2f"
                                                     textAlign="center"
                                                 >
-                                                    Bạn có chắc chắn muốn xóa dữ
-                                                    liệu xe này?
+                                                    Bạn có chắc chắn muốn xóa đơn thanh toán này?
                                                 </Typography>
                                                 <Typography
                                                     id="modal-modal-description"
@@ -415,16 +494,28 @@ function CarManagement() {
                     </Box>
                 </div>
 
+                <div className={styles.pagination}>
+                    <Stack spacing={2}>
+                        <Pagination
+                            size="large"
+                            color="primary"
+                            count={Math.ceil(dataLength / pageSize)}
+                            showFirstButton
+                            showLastButton
+                            sx={{ margin: "32px 0 56px" }}
+                            onChange={handlePageChange}
+                        />
+                    </Stack>
+                </div>
             </div>
-            <CustomerPopUp
-                token = {token}
+            <InvoicePopUp
                 type={type !== "" ? type : ""}
                 setType={setType}
-                updateCustomer={updateCustomer}
-                setUpdateCustomer={setUpdateCustomer}
+                updateInvoice={updateInvoice}
+                setUpdateInvoice={setUpdateInvoice}
             />
         </div>
     );
 }
 
-export default memo(CarManagement);
+export default memo(InvoiceManagement);
