@@ -7,15 +7,14 @@ import { Box } from "@mui/system";
 import { Grid, Button, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import HandleApisCustomer from "../../../../Apis/HandleApisCustomer";
-function CustomerPopup({ type, setType, updateCustomer, setUpdateCustomer }) {
+function CustomerPopup({ token, type, setType, updateCustomer, setUpdateCustomer }) {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [phoneNumber, setPhoneNumber] = useState();
     const [dateOfBirth, setDateOfBirth] = useState();
     const [address, setAddress] = useState();
     const [cccd, setCccd] = useState();
-    const [role] = useState(() => JSON.parse(localStorage.getItem("user")).role)
-    const [token] = useState(() => localStorage.getItem("token"))
+   
  
 
     const inputId = [

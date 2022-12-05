@@ -11,6 +11,9 @@ const getCarByPageIndex = async (index) => {
 const getSevenCars = async (index) => {
     return await axiosInstance.get("/cars?pageIndex=0&pageSize=7");
 };
+const getSixCarsByBranch = async (index) => {
+    return await axiosInstance.get("/cars?pageIndex=0&pageSize=6");
+};
 
 const getCarById = async (id) => {
     return await axiosInstance.get(`/cars/${id}`);
@@ -36,7 +39,7 @@ const deleteCar = async (id) => {
     return await axiosInstance.delete(`/cars/${id}`);
 };
 
-// eslint-disable-next-line import/no-anonymous-default-export
+ //eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getAllCar,
     getCarById,

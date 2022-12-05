@@ -1,4 +1,3 @@
-import images from "../../../../assets/image";
 import styles from "./CustomerManagement.module.css";
 import "./CustomerManagement.css";
 
@@ -15,37 +14,33 @@ import { useState, useEffect, memo, useRef } from "react";
 import {
     IconButton,
     Modal,
-    MenuItem,
     Button,
     Grid,
-    Paper,
-    Select,
-    InputLabel,
-    FormControl,
     Box,
     Typography,
-    Stack,
-    Pagination
+    Paper,
 } from "@mui/material";
 
 import CustomerPopUp from "../CustomerPopUp";
 import HandleApi from "../../../../Apis/HandleApi";
+import HandleApisCustomer from "../../../../Apis/HandleApisCustomer";
 import Swal from "sweetalert2";
 
 function CarManagement() {
-    const [typeCar, setTypeCar] = useState("All");
+    const [typeCustomer, setTypeCustomer] = useState("All");
     const [data, setData] = useState([]);
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
     const [searchValue, setSearchValue] = useState("");
     const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
-    const [updateCar, setUpdateCar] = useState({});
+    const [updateCustomer, setUpdateCustomer] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
+    const [role] = useState(() => JSON.parse(localStorage.getItem("user")).role)
+    const [token] = useState(() => localStorage.getItem("token"))
 
     const inputRef = useRef();
-
     const gridColumn = [0.7, 1, 2, 1.5, 1.8, 2.5, 1.5, 1];
     const gridTitle = [
         "STT",
@@ -58,89 +53,36 @@ function CarManagement() {
         ""
     ];
 
-    const valueSelect = [
-        "Honda",
-        "Toyota",
-        "Vinfast",
-        "Mercedes",
-        "BMW",
-        "Kia"
-    ];
-
-    const pageSize = 15;
-
     // Get API
+
+
     useEffect(() => {
-        HandleApi.getCarByPageIndex(pageIndex).then((res) => {
+        HandleApisCustomer.getCarByPageIndex(pageIndex).then((res) => {
             setData(res.cars);
             setDataLength(res.totalCars);
         });
     }, [pageIndex]);
 
-    // handle Filter select
-    useEffect(() => {
-        switch (typeCar) {
-            case "All":
-                setNewData(data);
-                HandleApi.getAllCar().then((res) =>
-                    setDataLength(res.totalCars),
-                );
-                break;
-            case "Honda":
-                HandleApi.getCarByBrand("Honda").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Toyota":
-                HandleApi.getCarByBrand("Toyota").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Mercedes":
-                HandleApi.getCarByBrand("Mercedes").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Vinfast":
-                HandleApi.getCarByBrand("Vinfast").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "Kia":
-                HandleApi.getCarByBrand("Kia").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            case "BMW":
-                HandleApi.getCarByBrand("BMW").then((res) => {
-                    setNewData(res.cars)
-                    setDataLength(res.totalCarsFilter)
-                });
-                break;
-            default:
-                break;
-        }
-    }, [data, typeCar]);
+    
+
+
 
     // handle event
     const handleChange = (event) => {
-        setTypeCar(event.target.value);
+        setTypeCustomer(event.target.value);
     };
+//////
 
-    const handleDeleteItem = async (id) => {
-        HandleApi.deleteCar(id)
+
+    const handleDeleteItem = async (id,token) => {
+        HandleApisCustomer.deleteCustomer(id,token)
             .then((res) => {
                 console.log(id);
                 setOpenDeleteModal(false);
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Xóa dữ liệu xe thành công!",
+                    title: "Xóa dữ liệu nhân viên thành công!",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -158,37 +100,34 @@ function CarManagement() {
             });
     };
 
-    const handleClickUpdate = async (id) => {
+
+
+    //Update
+    const handleClickUpdate = async (id,token) => {
         console.log(id);
-        HandleApi.getCarById(id)
+        HandleApisCustomer.getCustomerById(id,token)
             .then(async (res) => {
-                await setUpdateCar(res);
+                await setUpdateCustomer(res);
                 await setType("update");
-                console.log(updateCar);
+                console.log(updateCustomer);
             })
             .catch((err) => {
                 console.log(err);
             });
     };
-
-    const handleReadInfo = async (id) => {
-        HandleApi.getCarById(id)
+    // Read Info
+    const handleReadInfo = async (id,token) => {
+        HandleApisCustomer.getCustomerById(id,token)
             .then(async (res) => {
-                await setUpdateCar(res);
+                await setUpdateCustomer(res);
                 await setType("read");
-                console.log(updateCar);
+                console.log(updateCustomer);
             })
             .catch((err) => {
                 console.log(err);
             });
     }
-
-    const handlePageChange = (e, p) => {
-        console.log("PageIndex: ", p);
-        setPageIndex(p - 1);
-    };
-
-    // handle search event
+    // handle search function
     useEffect(() => {
         console.log(searchValue);
         if (searchValue.trim() !== "") {
@@ -222,7 +161,9 @@ function CarManagement() {
         inputRef.current.focus();
     };
 
-    // Custome CSS MUI
+
+
+    ////////////// Custome CSS MUI
     const ItemMain = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
         padding: theme.spacing(1),
@@ -253,17 +194,6 @@ function CarManagement() {
         boxShadow: 24,
         p: 8
     };
-
-    const MenuSelectProps = {
-        PaperProps: {
-            style: {
-                maxHeight: 150,
-                overflowX: "scroll"
-                //   width: 250,
-            }
-        }
-    };
-
     const nameActive = {
         "cursor": 'pointer',
         "&:active": {
@@ -305,44 +235,44 @@ function CarManagement() {
                                 <Search className={styles.searchIcon} />
                             </button>
                         </div>
-                        <FormControl
-                            className={styles.filter}
-                            sx={{ m: 1, minWidth: 220, height: 44 }}
-                            size="medium"
-                        >
-                            <InputLabel
-                                sx={{ fontSize: "14px", fontWeight: "600" }}
-                                id="input-label"
+                            {/* <FormControl
+                                className={styles.filter}
+                                sx={{ m: 1, minWidth: 220, height: 44 }}
+                                size="medium"
                             >
-                                Tên
-                            </InputLabel>
-                            <Select
-                                className={styles.filter_wrap}
-                                labelId="input--"
-                                label="typecar"
-                                defaultValue={typeCar}
-                                value={typeCar}
-                                MenuProps={MenuSelectProps}
-                                onChange={handleChange}
-                            >
-                                <MenuItem
-                                    className={styles.menuItem}
-                                    value="All"
-                                    selected
+                                <InputLabel
+                                    sx={{ fontSize: "14px", fontWeight: "600" }}
+                                    id="input-label"
                                 >
-                                    Tất cả
-                                </MenuItem>
-                                {valueSelect.map((item, index) => (
+                                    Tên
+                                </InputLabel>
+                                <Select
+                                    className={styles.filter_wrap}
+                                    labelId="input"
+                                    label="typ"
+                                    defaultValue={typeCustomer}
+                                    value={typeCustomer}
+                                    MenuProps={MenuSelectProps}
+                                    onChange={handleChange}
+                                >
                                     <MenuItem
-                                        key={index}
-                                        value={item}
                                         className={styles.menuItem}
+                                        value="All"
+                                        selected
                                     >
-                                        {item}
+                                        Tất cả
                                     </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                                    {valueSelect.map((item, index) => (
+                                        <MenuItem
+                                            key={index}
+                                            value={item}
+                                            className={styles.menuItem}
+                                        >
+                                            {item}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl> */}
                     </div>
 
                     <Button
@@ -357,7 +287,7 @@ function CarManagement() {
                         startIcon={<Add />}
                         onClick={() => setType("create")}
                     >
-                        Thêm nhân viên 
+                        Thêm khách hàng 
                     </Button>
                 </div>
 
@@ -379,18 +309,14 @@ function CarManagement() {
                                 </Grid>
                                 <Grid item xs={1}>
                                     <Item>
-                                        <img
-                                            src={item.hinhanh}
-                                            className={styles.content_image}
-                                            alt="Car"
-                                        />
+                                        {item.mauser}
                                     </Item>
                                 </Grid>
                                 <Grid item xs={2}>
-                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.ten}</Item>
+                                    <Item sx={nameActive} onClick={() => handleReadInfo(item._id)}>{item.name}</Item>
                                 </Grid>
                                 <Grid item xs={1.5}>
-                                    <Item>{item.thuonghieu}</Item>
+                                    <Item>{item.email}</Item>
                                 </Grid>
                                 <Grid item xs={1.8}>
                                     <Item>{item.gia.toLocaleString() + " VNĐ"}</Item>
@@ -407,14 +333,6 @@ function CarManagement() {
                                         <IconButton
                                             color="primary"
                                             size="medium"
-                                            // sx={{
-                                            //     width: 35,
-                                            //     height: 34,
-                                            //     borderRadius: "4px",
-                                            //     border: "1px solid #1976D2",
-                                            //     justifyContent: "space-between",
-                                            //     marginLeft: "-24px"
-                                            // }}
                                             onClick={() => {
                                                 handleClickUpdate(item._id);
                                             }}
@@ -426,7 +344,6 @@ function CarManagement() {
                                             size="medium"
                                             color="error"
                                             onClick={() => {
-                                                // handleDeleteItem(item._id)
                                                 console.log(item._id);
                                                 setOpenDeleteModal(true);
                                                 setId(item._id);
@@ -507,26 +424,14 @@ function CarManagement() {
                     </Box>
                 </div>
 
-                <div className={styles.pagination}>
-                    <Stack spacing={2}>
-                        <Pagination
-                            size="large"
-                            color="primary"
-                            count={Math.ceil(dataLength / pageSize)}
-                            showFirstButton
-                            showLastButton
-                            sx={{ margin: "32px 0 56px" }}
-                            onChange={handlePageChange}
-                        />
-                    </Stack>
-                </div>
             </div>
-            {/* <CustomerPopUp
+            <CustomerPopUp
+                token = {token}
                 type={type !== "" ? type : ""}
                 setType={setType}
-                updateCar={updateCar}
-                setUpdateCar={setUpdateCar}
-            /> */}
+                updateCustomer={updateCustomer}
+                setUpdateCustomer={setUpdateCustomer}
+            />
         </div>
     );
 }
