@@ -34,7 +34,8 @@ const OrderSide = ({
             }); */
     const [userData, setUserData] = useState([])
     const [userDataa, setUserDataa] = useState([])
-    const [value, setValue] = React.useState(dayjs());
+    //const [value, setValue] = React.useState(dayjs());
+    const [value, setValue] = React.useState();
     const [first, setfirst] = useState("");
     const [didMount, setDidMount] = useState(false)
     const [input, setInput] = useState("");
@@ -87,7 +88,17 @@ const OrderSide = ({
     const handleTest=(e)=>{
       /*sendRequestSU()
       .then((data)=>console.log(data))*/
+      if(e.target.value!=="Tất cả")
       setStatus(e.target.value);
+      else{
+        setStatus(e.target.value);
+        console.log(status);
+      }
+    }
+    const handleClear=()=>{
+      setInput("");
+      setStatus("all");
+      setfirst("");
     }
     const MenuSelectProps = {
       PaperProps: {
@@ -100,6 +111,7 @@ const OrderSide = ({
   return (
     <div className={classes.OrderSide} style={{width:"100%", height:"500px"}}>
     {userData.length!==0? <><h2>HÓA ĐƠN</h2>
+    <button onClick={handleClear}>Clear Filter</button>
     <div>
       <div className={classes.PickStatus}>
       <input className={classes.input} value={input} 
@@ -107,13 +119,14 @@ const OrderSide = ({
       placeholder="Tìm id hóa đơn..."/>
       <LocalizationProvider dateAdapter={AdapterDayjs} >
       <DatePicker
-      
           views={['year', 'month']}
           inputFormat="MM-YYYY"
           label="Year and Month"
           minDate={dayjs('2012-03-01')}
           maxDate={dayjs('2023-06-01')}
           value={value}
+          clearable
+          emptyLabel="custom label" 
           onChange={(newValue) => {
             setValue(newValue)}}
           renderInput={(params) => <TextField {...params} helperText={null} />}

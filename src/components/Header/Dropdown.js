@@ -1,6 +1,6 @@
-import {NavLink,Link} from 'react-router-dom'
+
 import classes from './Header.module.css'
-import { useState, useEffect, useRef } from 'react'
+
 const Dropdown = ({ submenus, dropdownstate }) => {
     return (
       <ul 
