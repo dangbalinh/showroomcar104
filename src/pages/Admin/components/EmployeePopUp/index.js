@@ -9,7 +9,7 @@ import { styled } from "@mui/material/styles";
 
 import HandleApiEmployee from "../../../../Apis/HandleApiEmployee";
 
-function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
+function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
     const [employeeName, setEmployeeName] = useState();
     const [sex, setSex] = useState();
     const [address, setAddress] = useState();
@@ -29,7 +29,7 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
         "email",
         "cccd",
         "position",
-        "password",
+        "password"
     ];
 
     const useStateEvent = [
@@ -41,7 +41,7 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
         setEmail,
         setCccd,
         setPosition,
-        setPassword,
+        setPassword
     ];
 
     const placeHolder = [
@@ -53,7 +53,7 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
         "Nhập email",
         "Nhập CCCD",
         "Nhập chức vụ",
-        "Nhập password",
+        "Nhập password"
     ];
 
     const textValue = [
@@ -65,7 +65,7 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
        "Email",
        "CCCD",
        "Chức vụ",
-       "Password(8 charater)",
+       "Password"
     ];
 
     const inputType = ["text", "text", "text", "date",  "number", "text", "number", "text", "password"];
@@ -112,7 +112,7 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
                     icon: "success",
                     title: "Tạo dữ liệu thành công!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 500
                 });
                 setType("");
                 window.location.reload();
@@ -131,7 +131,7 @@ function EmployeePopUp({ type, setType, updateEmployee, setUpdateEmployee }) {
                     icon: "success",
                     title: "Cập nhật dữ liệu thành công!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 500
                 });
                 setUpdateEmployee({});
                 window.location.reload();

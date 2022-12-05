@@ -36,6 +36,7 @@ function EmployeeManagement() {
     const [updateEmployee, setUpdateEmployee] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
+    // const [token] = useState(() => localStorage.getItem("token"))
 
     const inputRef = useRef();
 
@@ -71,7 +72,7 @@ function EmployeeManagement() {
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Xóa dữ liệu xe thành công!",
+                    title: "Xóa dữ liệu nhân viên thành công!",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -81,7 +82,7 @@ function EmployeeManagement() {
                 Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: "Xóa bài viết thất bại!",
+                    title: "Xóa thất bại!",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -121,7 +122,8 @@ function EmployeeManagement() {
     useEffect(() => {
         console.log(searchValue);
         if (searchValue.trim() !== "") {
-            HandleApiEmployee.getEmployeeById(searchValue).then(async (res) => {
+            HandleApiEmployee.getEmployeeById(searchValue)
+            .then(async (res) => {
                 await setData(res.employees);
                 await setDataLength(data.length);
             });
@@ -312,7 +314,7 @@ function EmployeeManagement() {
                                                     textAlign="center"
                                                 >
                                                     Bạn có chắc chắn muốn xóa dữ
-                                                    liệu xe này?
+                                                    liệu nhân viên này?
                                                 </Typography>
                                                 <Typography
                                                     id="modal-modal-description"
