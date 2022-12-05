@@ -8,25 +8,28 @@ import dayjs, { Dayjs } from 'dayjs';
 import {
   MenuItem,
   Select,
+  Button
 } from "@mui/material";
 import {
   TextField
 } from "@mui/material";
 import classes from'../UserInfoPage.module.css'
+import Cookies from 'js-cookie';
 
 const OrderSide = ({
   setDetail,
 }) => {
-    const token = localStorage.getItem("token");
+  const token = Cookies.get('token');
     const gridTitle =[
       "STT",
       "ID",
       "Trị Giá",
       "Ngày",
       "Tình trạng",
+      " "
     ]
     const gridColumn =[
-        1,3,2,3,3
+        1,1,2,3,3,2
     ]
     /*const filterSuggestions = suggestiondata.filter(dt =>{
               const regex = new RegExp(`${query}`,'gi');
@@ -34,7 +37,8 @@ const OrderSide = ({
             }); */
     const [userData, setUserData] = useState([])
     const [userDataa, setUserDataa] = useState([])
-    const [value, setValue] = React.useState(dayjs());
+    //const [value, setValue] = React.useState(dayjs());
+    const [value, setValue] = React.useState();
     const [first, setfirst] = useState("");
     const [didMount, setDidMount] = useState(false)
     const [input, setInput] = useState("");
@@ -87,7 +91,17 @@ const OrderSide = ({
     const handleTest=(e)=>{
       /*sendRequestSU()
       .then((data)=>console.log(data))*/
+      if(e.target.value!=="Tất cả")
       setStatus(e.target.value);
+      else{
+        setStatus(e.target.value);
+        console.log(status);
+      }
+    }
+    const handleClear=()=>{
+      setInput("");
+      setStatus("all");
+      setfirst("");
     }
     const MenuSelectProps = {
       PaperProps: {
@@ -100,6 +114,9 @@ const OrderSide = ({
   return (
     <div className={classes.OrderSide} style={{width:"100%", height:"500px"}}>
     {userData.length!==0? <><h2>HÓA ĐƠN</h2>
+    <div style={{textAlign:"end"}}>
+    <button className={classes.ClearButton} onClick={handleClear}>Xóa tất cả lọc</button>
+    </div>
     <div>
       <div className={classes.PickStatus}>
       <input className={classes.input} value={input} 
@@ -107,13 +124,14 @@ const OrderSide = ({
       placeholder="Tìm id hóa đơn..."/>
       <LocalizationProvider dateAdapter={AdapterDayjs} >
       <DatePicker
-      
           views={['year', 'month']}
           inputFormat="MM-YYYY"
           label="Year and Month"
           minDate={dayjs('2012-03-01')}
           maxDate={dayjs('2023-06-01')}
           value={value}
+          clearable
+          emptyLabel="custom label" 
           onChange={(newValue) => {
             setValue(newValue)}}
           renderInput={(params) => <TextField {...params} helperText={null} />}
@@ -169,7 +187,7 @@ const OrderSide = ({
         <Grid item xs={1}>
             <p>{index+1}</p>
           </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={1}>
             <p onClick={()=>setDetail(item)}
             style={{textDecoration:"underline", cursor:"pointer"}}
             >{item.mahd}</p>
@@ -182,6 +200,12 @@ const OrderSide = ({
         </Grid>
       <Grid item xs={3}>
        <p>{item.tinhtrang}</p>
+      </Grid>
+      <Grid item xs={2} style={{textAlign:"center"}}>
+       <Button variant="outlined" color="error"
+       style={{marginBottom:"20px"}}
+       onClick={()=>setDetail(item)}
+       >Chi tiết</Button>
       </Grid>
       </Grid>
       ))}

@@ -1,5 +1,4 @@
-import {NavLink,Link} from 'react-router-dom'
-import {menuItems} from './menuItem.js'
+import {NavLink} from 'react-router-dom'
 import classes from './Header.module.css'
 import Dropdown from './Dropdown.js'
 import { useState, useEffect, useRef } from 'react'

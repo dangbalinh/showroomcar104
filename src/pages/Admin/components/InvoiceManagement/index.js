@@ -10,6 +10,7 @@ import {
     ErrorOutline,
     DeleteOutline,
     Cancel,
+    QuestionMark,
 } from "@mui/icons-material";
 import { useState, useEffect, memo, useRef } from "react";
 import {
@@ -47,7 +48,10 @@ function InvoiceManagement() {
     const [updateInvoice, setUpdateInvoice] = useState()
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
-
+    const [openEditModal, setOpenEditModal] = useState(false);
+    const updateData = {
+        tinhtrang: "Đã thanh toán"
+    }
 
     const inputRef = useRef();
 
@@ -77,8 +81,6 @@ function InvoiceManagement() {
             setDataLength(res.totalHoaDon);
         })
     }, [pageIndex]);
-    
-    console.log("alo data ne: ", data)
 
     // handle Filter select
     useEffect(() => {
@@ -147,18 +149,34 @@ function InvoiceManagement() {
             });
     };
 
-    const handleClickUpdate = async (id, tinhtrang) => {
+    const handleClickUpdate = async (id) => {
         console.log(id);
-        HandleApiInvoice.capnhatTinhTrang(id, tinhtrang)
+        HandleApiInvoice.capnhatTinhTrang(id, updateData)
             .then(async (res) => {
-                await setUpdateInvoice(res);
-                await setType("update");
-                console.log(updateCar);
+                console.log(id);
+                setOpenEditModal(false);
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Cập nhật đơn đặt hàng thành công! Tình trạng hiện tại: Đã thanh toán!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                console.log(data);
+                window.location.reload(); 
             })
             .catch((err) => {
                 console.log(err);
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Cập nhật tình trạng đơn đặt hàng thất bại!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             });
-    };
+        } ;         
+    
 
     // const handleReadInfo = async (id) => {
     //     HandleApi.getCarById(id)
@@ -404,12 +422,76 @@ function InvoiceManagement() {
                                                 marginLeft: "-24px"
                                             }}
                                             onClick={() => {
-                                                handleClickUpdate(item._id, item.tinhtrang);
+                                                console.log(item._id);
+                                                setOpenEditModal(isDonDatHang(item.tinhtrang));
+                                                setId(item._id);
                                             }}
                                         >
                                             <Edit sx={{ fontSize: "22px" }} />
                                         </IconButton>
-
+                                        <Modal
+                                            open={openEditModal}
+                                            onClose={() =>
+                                                setOpenEditModal(false)
+                                            }
+                                        >
+                                            <Box sx={styleModal}>
+                                                <QuestionMark
+                                                    className={styles.modalIcon}
+                                                />
+                                                <Typography
+                                                    id="modal-modal-title"
+                                                    fontSize="22px"
+                                                    fontWeight="600"
+                                                    color="#d32f2f"
+                                                    textAlign="center"
+                                                >
+                                                    Hóa đơn này đã được thanh toán phải không?
+                                                </Typography>
+                                                <Typography
+                                                    id="modal-modal-description"
+                                                    sx={{ mt: 2, mb: 1 }}
+                                                    fontSize="16px"
+                                                    textAlign="center"
+                                                >
+                                                    Sau khi xác nhận sẽ không thể
+                                                    hoàn tác!
+                                                </Typography>
+                                                <div
+                                                    className={styles.modalBtn}
+                                                >
+                                                    <Button
+                                                        variant="contained"
+                                                        color="success"
+                                                        onClick={() =>
+                                                            handleClickUpdate(Id)
+                                                        }
+                                                        sx={{
+                                                            fontSize: "14px",
+                                                            marginRight: "12px"
+                                                        }}
+                                                    >
+                                                        Đúng vậy
+                                                    </Button>
+                                                    <Button
+                                                        variant="contained"
+                                                        color="error"
+                                                        onClick={() => {
+                                                            setOpenEditModal(
+                                                                false
+                                                            );
+                                                            console.log(Id);
+                                                        }}
+                                                        sx={{
+                                                            fontSize: "14px",
+                                                            marginLeft: "12px"
+                                                        }}
+                                                    >
+                                                        Không phải
+                                                    </Button>
+                                                </div>
+                                            </Box>
+                                        </Modal>
                                         <IconButton
                                             disabled={!isDonDatHang(item.tinhtrang)}
                                             size="medium"

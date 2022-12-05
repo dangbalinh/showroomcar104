@@ -24,7 +24,7 @@ function Header (){
         <NavLink to='/user'
            className={({isActive}) => (isActive ? classes.active : classes.item)}
            end
-           style={{color:"white", backgroundColor:"#ffffff67", borderRadius:"5%",width:"135px",padding:"0px"}}
+           style={{color:"white", backgroundColor:"#ffffff67", borderRadius:"5px",width:"131px",textAlign:"center",padding:"0px"}}
            >
         <Stack direction="row" alignItems="center" gap={1} >
           <PersonIcon  style={{ color: 'white', fontSize:'23px'}}/>

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import ForgetPass from './ForgetPass/ForgetPass'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import Cookies from 'js-cookie'
 
 
 const Login = () => {
@@ -19,7 +20,7 @@ const Login = () => {
         email:"",password:""
       })
       const [errors, setErrors] = useState({
-        emailError:" ",passwordError:" "
+        emailError:"",passwordError:""
       })
     const handleChange = (e) =>{
         setInputs((prev)=>{
@@ -104,6 +105,7 @@ const Login = () => {
         .then((data)=>{
           localStorage.setItem("user",JSON.stringify(data.user));
           localStorage.setItem("token",data.token);
+          Cookies.set('token', data.token)
         })
         //.then(()=>setIsLogin(true))
         .then(()=>navigate("/"));
