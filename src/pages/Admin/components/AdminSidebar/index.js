@@ -14,6 +14,7 @@ import { Button } from "@mui/material";
 
 import images from "../../../../assets/image";
 import { NavLink, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function AdminSidebar() {
     const navigate = useNavigate();
@@ -40,20 +41,21 @@ function AdminSidebar() {
         <SupportAgent className={styles.icon} />,
         <Newspaper className={styles.icon} />,
         <ContactMail className={styles.icon} />,
-        <ReceiptLong className={styles.icon}/>
+        <ReceiptLong className={styles.icon} />,
     ];
 
     let user = JSON.parse(localStorage.getItem("user"));
 
     const handleLogOut = () => {
         localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        navigate('/')
-    }
+        // localStorage.removeItem("token");
+        Cookies.remove("token");
+        navigate("/");
+    };
 
     const handleBackHome = () => {
-        navigate("/")
-    }
+        navigate("/");
+    };
 
     return (
         <div className={styles.sidebar}>
@@ -74,7 +76,9 @@ function AdminSidebar() {
                     <li className={styles.sidebar_item} key={index}>
                         <NavLink
                             to={AdminLink[index]}
-                            className={({ isActive }) => (isActive ? styles.isActive : styles.item_link)}
+                            className={({ isActive }) =>
+                                isActive ? styles.isActive : styles.item_link
+                            }
                             end
                         >
                             {funcIcon[index]}
@@ -84,9 +88,17 @@ function AdminSidebar() {
                 ))}
             </ul>
             <div className={styles.logout}>
-                <Button variant="contained" size="large" color="error"
-                    sx={{ fontSize: "14px", marginTop: "36px", textAlign: "center" }}
-                    onClick={handleLogOut}>
+                <Button
+                    variant="contained"
+                    size="large"
+                    color="error"
+                    sx={{
+                        fontSize: "14px",
+                        marginTop: "36px",
+                        textAlign: "center",
+                    }}
+                    onClick={handleLogOut}
+                >
                     <Logout className={styles.icon} />
                     Đăng xuất
                 </Button>
