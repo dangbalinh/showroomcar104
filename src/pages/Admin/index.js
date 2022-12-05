@@ -9,8 +9,7 @@ import FormManagement from "./components/FormManagement";
 import CustomerManagement from "./components/CustomerManagement";
 import EmployeeManagement from "./components/EmployeeManagement";
 import StaffRoute from "./components/routes/StaffRoute";
-// import StaffManagement from './components/StaffManagement';
-import InvoiceManagement from "./components/InvoiceManagement"
+import InvoiceManagement from "./components/InvoiceManagement";
 
 function Admin() {
     const Item = styled(Paper)(({ theme }) => ({
@@ -47,17 +46,13 @@ function Admin() {
                                 path="/customer-management"
                                 element={<CustomerManagement />}
                             />
-                            {/* <Route
+                            <Route
                                 path="/staff-management"
                                 element={
                                     <StaffRoute>
-                                        <StaffManagement />
+                                        <EmployeeManagement />
                                     </StaffRoute>
                                 }
-                            /> */}
-                            <Route
-                                path="/staff-management"
-                                element={<EmployeeManagement/>}
                             />
                             <Route
                                 path="/news-management"
@@ -71,7 +66,7 @@ function Admin() {
                                 path="/form-management"
                                 element={<FormManagement />}
                             />
-                             <Route
+                            <Route
                                 path="/invoice-management"
                                 element={<InvoiceManagement />}
                             />

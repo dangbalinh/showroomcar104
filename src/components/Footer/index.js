@@ -93,7 +93,7 @@ function Footer() {
                         size="large"
                         className={classes.todashboard}
                         onClick={() => {
-                            user.role === "customer"
+                            (!!user === false || user.role === "customer")
                                 ? handleErrorInform()
                                 : navigate("/dashboard");
                         }}
