@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
     baseURL: "https://showroomcar104.onrender.com/",
@@ -21,7 +22,8 @@ axiosInstance.interceptors.response.use(
 );
 
 axiosInstance.interceptors.request.use(function (config) {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
+    const token = Cookies.get("token");
     config.headers.Authorization = token ? `Bearer ${token}` : "";
     return config;
 });
