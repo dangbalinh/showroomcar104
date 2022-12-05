@@ -26,7 +26,9 @@ const getInvoiceByTinhTrang = async (tinhtrang) => {
 const getInvoiceByPageIndex = async (index) => {
     return await authAxiosInstance.get(`/hoadons?pageIndex=${index}`);
 };
-
+const getInvoiceByID = async (id) => {
+    return await authAxiosInstance.get(`/hoadons/${id}`);
+}
 const xoaDonDatHang = async (id) => {
     return await authAxiosInstance.delete(`/hoadons/${id}`);
 };
@@ -45,6 +47,7 @@ const getCarByMaCar = async (macar) => {
 export default {
     getInvoiceByTinhTrang,
     getInvoiceByPageIndex,
+    getInvoiceByID,
     xoaDonDatHang,
     createInvoice,
     capnhatTinhTrang,

@@ -29,11 +29,8 @@ import {
     Pagination
 } from "@mui/material";
 
-import CarPopUp from "../CarPopUp";
 import HandleApiInvoice from "../../../../Apis/HandleApiInvoice";
 import Swal from "sweetalert2";
-import { red } from "@mui/material/colors";
-import NewsPopup from "../NewsPopUp";
 import InvoicePopUp from "../InvoicePopUp";
 
 function InvoiceManagement() {
@@ -45,7 +42,7 @@ function InvoiceManagement() {
     const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
     const [updateCar, setUpdateCar] = useState({});
-    const [updateInvoice, setUpdateInvoice] = useState()
+    const [updateInvoice, setUpdateInvoice] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [openEditModal, setOpenEditModal] = useState(false);
@@ -53,9 +50,9 @@ function InvoiceManagement() {
         tinhtrang: "Đã thanh toán"
     }
 
-    const inputRef = useRef();
+    // const inputRef = useRef();
 
-    const gridColumn = [0.7, 1.6, 1.6, 1.8, 2, 2, 1.2, 1.1];
+    const gridColumn = [0.7, 1.5, 1.5, 1.7, 1.8, 1.8, 1.2, 1.8];
     const gridTitle = [
         "STT",
         "Mã hóa đơn",
@@ -112,7 +109,7 @@ function InvoiceManagement() {
 
     //function 
     function isDonDatHang(tinhtrang){
-        if(tinhtrang=="Chưa thanh toán")
+        if(tinhtrang==="Chưa thanh toán")
         return true
         else
         return false
@@ -178,17 +175,17 @@ function InvoiceManagement() {
         } ;         
     
 
-    // const handleReadInfo = async (id) => {
-    //     HandleApi.getCarById(id)
-    //         .then(async (res) => {
-    //             await setUpdateCar(res);
-    //             await setType("read");
-    //             console.log(updateCar);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
-    // }
+    const handleReadInfo = async (id) => {
+        HandleApiInvoice.getInvoiceByID(id)
+            .then(async (res) => {
+                await setUpdateInvoice(res);
+                await setType("read");
+                console.log(updateCar);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
 
     const handlePageChange = (e, p) => {
         console.log("PageIndex: ", p);
@@ -270,13 +267,6 @@ function InvoiceManagement() {
             }
         }
     };
-
-    const nameActive = {
-        "cursor": 'pointer',
-        "&:active": {
-            color: 'red',
-        }
-    }
 
     return (
         <div>
@@ -389,38 +379,51 @@ function InvoiceManagement() {
                                 <Grid item xs={0.7}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
-                                <Grid item xs={1.6}>
+                                <Grid item xs={1.5}>
                                     <Item>{item.mahd}</Item>
                                 </Grid>
-                                <Grid item xs={1.6}>
+                                <Grid item xs={1.5}>
                                     <Item>{item.manv}</Item>
                                 </Grid>
-                                <Grid item xs={1.8}>
+                                <Grid item xs={1.7}>
                                     <Item>{item.makh}</Item>
                                 </Grid>
-                                <Grid item xs={2}>
+                                <Grid item xs={1.8}>
                                     <Item>{item.ngayhd}</Item>
                                 </Grid>
-                                <Grid item xs={2}>
+                                <Grid item xs={1.8}>
                                     <Item>{item.tinhtrang}</Item>
                                 </Grid>
                                 <Grid item xs={1.2}>
                                     <Item>{item.trigia}</Item>
                                 </Grid>
-                                <Grid item xs={1.1}>
+                                <Grid item xs={1.8}>
                                     {/* Update, delete button */}
                                     <Item>
+                                       <Button
+                                            variant="outlined"
+                                            size="medium"
+                                            sx={{
+                                                fontSize: "10px",
+                                                marginRight: "10px",
+                                            }}
+                                            onClick={() =>
+                                                handleReadInfo(item._id)
+                                            }
+                                        >
+                                            Chi tiết
+                                        </Button>
                                         <IconButton
                                             color="primary"
                                             size="medium"
-                                            sx={{
-                                                width: 35,
-                                                height: 34,
-                                                borderRadius: "4px",
-                                                border: "1px solid #1976D2",
-                                                justifyContent: "space-between",
-                                                marginLeft: "-24px"
-                                            }}
+                                            // sx={{
+                                            //     width: 35,
+                                            //     height: 34,
+                                            //     borderRadius: "4px",
+                                            //     border: "1px solid #1976D2",
+                                            //     justifyContent: "space-between",
+                                            //     marginLeft: "-24px"
+                                            // }}
                                             onClick={() => {
                                                 console.log(item._id);
                                                 setOpenEditModal(isDonDatHang(item.tinhtrang));
