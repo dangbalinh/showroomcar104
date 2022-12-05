@@ -35,11 +35,29 @@ function AdminSidebar() {
         "/dashboard/form-management",
         "/dashboard/invoice-management",
     ];
-    const funcIcon = [
+    const StaffFunc = [
+        "Quản lý ô tô",
+        "Quản lý khách hàng",
+        "Quản lý form",
+        "Quản lý hóa đơn",
+    ];
+    const StaffLink = [
+        "/dashboard",
+        "/dashboard/customer-management",
+        "/dashboard/form-management",
+        "/dashboard/invoice-management",
+    ];
+    const adminFuncIcon = [
         <DirectionsCar className={styles.icon} />,
         <Group className={styles.icon} />,
         <SupportAgent className={styles.icon} />,
         <Newspaper className={styles.icon} />,
+        <ContactMail className={styles.icon} />,
+        <ReceiptLong className={styles.icon} />,
+    ];
+    const staffFuncIcon = [
+        <DirectionsCar className={styles.icon} />,
+        <Group className={styles.icon} />,
         <ContactMail className={styles.icon} />,
         <ReceiptLong className={styles.icon} />,
     ];
@@ -72,20 +90,39 @@ function AdminSidebar() {
                 </div>
             </div>
             <ul className={styles.sidebar_content}>
-                {AdminFunc.map((func, index) => (
-                    <li className={styles.sidebar_item} key={index}>
-                        <NavLink
-                            to={AdminLink[index]}
-                            className={({ isActive }) =>
-                                isActive ? styles.isActive : styles.item_link
-                            }
-                            end
-                        >
-                            {funcIcon[index]}
-                            {func}
-                        </NavLink>
-                    </li>
-                ))}
+                {user.role === "admin"
+                    ? AdminFunc.map((func, index) => (
+                          <li className={styles.sidebar_item} key={index}>
+                              <NavLink
+                                  to={AdminLink[index]}
+                                  className={({ isActive }) =>
+                                      isActive
+                                          ? styles.isActive
+                                          : styles.item_link
+                                  }
+                                  end
+                              >
+                                  {adminFuncIcon[index]}
+                                  {func}
+                              </NavLink>
+                          </li>
+                      ))
+                    : StaffFunc.map((func, index) => (
+                          <li className={styles.sidebar_item} key={index}>
+                              <NavLink
+                                  to={StaffLink[index]}
+                                  className={({ isActive }) =>
+                                      isActive
+                                          ? styles.isActive
+                                          : styles.item_link
+                                  }
+                                  end
+                              >
+                                  {staffFuncIcon[index]}
+                                  {func}
+                              </NavLink>
+                          </li>
+                      ))}
             </ul>
             <div className={styles.logout}>
                 <Button

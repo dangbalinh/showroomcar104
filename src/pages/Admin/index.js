@@ -17,6 +17,7 @@ function Admin() {
         color: theme.palette.text.secondary,
         maxWidth: "100%",
     }));
+    let user = JSON.parse(localStorage.getItem("user"));
 
     return (
         <Box sx={{ flexGrow: 1 }}>
