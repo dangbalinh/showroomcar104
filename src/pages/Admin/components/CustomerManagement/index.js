@@ -27,18 +27,16 @@ import HandleApisCustomer from "../../../../Apis/HandleApisCustomer";
 import Swal from "sweetalert2";
 
 function CarManagement() {
-    const [typeCustomer, setTypeCustomer] = useState("All");
     const [data, setData] = useState([]);
     const [dataLength, setDataLength] = useState();
-    const [pageIndex, setPageIndex] = useState(0);
-    const [searchValue, setSearchValue] = useState("");
+    const [searchValue, setSearchValue] = useState("");// gia tri search value
     const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
     const [updateCustomer, setUpdateCustomer] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [role] = useState(() => JSON.parse(localStorage.getItem("user")).role)
-    const [token] = useState(() => localStorage.getItem("token"))
+    const [token] = useState(() => localStorage.getItem("token"))// token cuar account
 
     const inputRef = useRef();
     const gridColumn = [0.7, 1, 2, 1.5, 1.8, 2.5, 1.5, 1];
@@ -57,20 +55,11 @@ function CarManagement() {
 
 
     useEffect(() => {
-        HandleApisCustomer.getCarByPageIndex(pageIndex).then((res) => {
+        HandleApisCustomer.getAllCustomers(token).then((res) => {
             setData(res.cars);
-            setDataLength(res.totalCars);
         });
-    }, [pageIndex]);
-
-    
-
-
-
+    }, []);
     // handle event
-    const handleChange = (event) => {
-        setTypeCustomer(event.target.value);
-    };
 //////
 
 
@@ -136,7 +125,7 @@ function CarManagement() {
                 await setDataLength(data.length);
             });
         } else {
-            HandleApi.getCarByPageIndex(pageIndex).then((res) => {
+            HandleApisCustomer.getAllCustomers(token).then((res) => {
                 setData(res.cars);
                 setDataLength(res.totalCars);
             });
