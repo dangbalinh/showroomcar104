@@ -4,8 +4,10 @@ import avatar from './avatar.jpg'
 import classes from'../UserInfoPage.module.css'
 import UpatePopUp from './UpatePopUp';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import {
   Boy,
+  Cookie,
   Logout,
 } from "@mui/icons-material";
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -82,12 +84,14 @@ const UserSide = () => {
                 onClick={()=>{
                   localStorage.removeItem("user");
                   localStorage.removeItem("token");
+                  Cookies.remove('token')
                   //setIsLogin(false)
                   navigate('/')
                 }}>
                     <Logout className={classes.icon} />
                     Đăng xuất
                 </button>
+                <button onClick={()=>console.log(Cookies.get('token'))}>test</button>
         </div>
         </div>
         {modal? <UpatePopUp closewindow={setModal}

@@ -3,6 +3,7 @@ import classes from './Register.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import Cookies from 'js-cookie'
 
 const Register = () => {
   const navigate = useNavigate();
@@ -161,6 +162,7 @@ const Register = () => {
           .then((data)=>{
             localStorage.setItem("user",JSON.stringify(data.user));
             localStorage.setItem("token",data.token);
+            Cookies.set('token', data.token);
           })
           .then(()=>{const id = localStorage.getItem("userId"); console.log(id);})
           .then(()=>navigate("/"));
