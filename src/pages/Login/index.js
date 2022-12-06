@@ -104,7 +104,7 @@ const Login = () => {
         sendRequestSU()
         .then((data)=>{
           localStorage.setItem("user",JSON.stringify(data.user));
-          localStorage.setItem("token",data.token);
+          //localStorage.setItem("token",data.token);
           Cookies.set('token', data.token,{ expires: 30 })
         })
         //.then(()=>setIsLogin(true))

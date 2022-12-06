@@ -71,17 +71,17 @@ function Footer() {
                         <p>Thứ 2 đến thứ 7: 8:00 - 21:00</p>
                     </Stack>
                     <div className={classes.iconlist}>
-                        <a href="">
+                        <a  href='https://www.instagram.com/'  target="_blank">
                             <InstagramIcon
                                 style={{ color: "white", fontSize: "25px" }}
                             />
                         </a>
-                        <a href="">
+                        <a  href='https://www.youtube.com/'  target="_blank">
                             <YouTubeIcon
                                 style={{ color: "white", fontSize: "25px" }}
                             />
                         </a>
-                        <a href="">
+                        <a  href='https://www.facebook.com/'  target="_blank">
                             <FacebookIcon
                                 style={{ color: "white", fontSize: "25px" }}
                             />
