@@ -1,9 +1,8 @@
 .itemCarContainer {
-    text-align: center;
-    transition: 0.5s;
-    
+    text-align: center;       
     /* background-color: aqua; */
   }
+
 
   @font-face {
     font-family: myItemFont;
@@ -21,7 +20,7 @@
   }
   .itemCarContainer img {
     margin-top: 30px;
-    margin-left: 120px;
+    margin-left: 60px;
   }
   .itemCarContainer .buttonDiscoverMore {
       margin: 20px;

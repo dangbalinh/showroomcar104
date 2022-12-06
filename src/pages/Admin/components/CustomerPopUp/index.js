@@ -27,6 +27,15 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
         "address",
         "password"
     ];
+    const inputId1 = [
+        "name",
+        "sdt",
+        "dateOfBirth",
+        "cccd",
+        "address",
+        
+    ];
+
 
     const useStateEvent = [
         setName,
@@ -235,7 +244,7 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
 
                         <Box sx={{ flexGrow: 1, marginTop: '20px' }}>
                             <Grid container>
-                                {inputId.map((item, index) => (
+                                {inputId1.map((item, index) => (
                                     <Grid key={index} item xs={4} sx={{ height: '93px' }}>
                                         <label htmlFor={item[index]}>
                                             {textValue[index]}

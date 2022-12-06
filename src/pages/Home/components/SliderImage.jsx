@@ -36,22 +36,19 @@ function SliderImage() {
         </Overlay>
             <Slide
                 
-                shouldRenderMask
-                label="carX"
+                
                 background={{
                     
                     backgroundImageSrc: images.carXImg,
                 }}
                 />
             <Slide
-                shouldRenderMask
-                label="CarY"
+                
                 background={{
                     backgroundImageSrc: images.carYImg,
                 }}/>
             <Slide
-                shouldRenderMask
-                label="CarZ"
+                
                 background={{
                     backgroundImageSrc: images.carZImg,
                 }}/>
