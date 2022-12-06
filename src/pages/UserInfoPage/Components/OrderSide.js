@@ -6,12 +6,11 @@ import Pagination from './Pagination'
 import { DatePicker } from "@mui/x-date-pickers"
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import {
   MenuItem,
   Select,
   Button,
-  Stack,
  // Pagination
 } from "@mui/material";
 import {
@@ -41,9 +40,8 @@ const OrderSide = ({
             }); */
     const [userData, setUserData] = useState([])
     const [userDataa, setUserDataa] = useState([])
-    const [userData2, setUserData2] = useState([])
     //const [value, setValue] = React.useState(dayjs());
-    const [value, setValue] = React.useState();
+    const [value, setValue] = React.useState("");
     const [first, setfirst] = useState("");
     const [didMount, setDidMount] = useState(false)
     const [pageIndex, setPageIndex] = useState(1);
@@ -53,13 +51,21 @@ const OrderSide = ({
     const handleChange = (e) =>{
       setInput(e.target.value.toLowerCase());
     }
-    useEffect(() => {
+    /*useEffect(() => {
         if(didMount)
         {var date = new Date(value);
         var finaldate = (parseInt(date.getMonth())<9? ("0" + (0 + date.getMonth() + 1)): (date.getMonth() + 1))  + '-' +  date.getFullYear()
         setfirst(finaldate)}
-      }, [value])
-    useEffect(() => { setDidMount(true) }, [])
+      }, [value])*/
+    const Transform = (temp)=>{
+      if(temp)
+      {var date = new Date(temp);
+      var finaldate = (parseInt(date.getMonth())<9? ("0" + (0 + date.getMonth() + 1)): (date.getMonth() + 1))  + '-' +  date.getFullYear()
+      return finaldate;}
+      else
+      return "";
+    }
+    //useEffect(() => { setDidMount(true) }, [])
     const authAxios = axios.create({
       baseURL: 'https://showroomcar104.onrender.com',
       headers:{
@@ -87,16 +93,16 @@ const OrderSide = ({
       else
       setUserDataa(userData)
       setUserDataa((prev)=>prev.filter((item)=>{
-        return (item.ngayhd.includes(first.toString())&&item.mahd.toLowerCase().includes(input))
+        return (item.ngayhd.includes(Transform(value).toString())&&item.mahd.toLowerCase().includes(input))
       }))
       {userDataa.map((item, index) => console.log(item.ngayhd))}
       setPageIndex(1)
       
-      console.log(first);
+      console.log(value);
       console.log(status);
       console.log(input);
     
-    }, [status,first,input])
+    }, [status,input,value])
     /*useEffect(() => {
       setUserDataa(userDataa.slice(0,6))
     }, [pageIndex])*/
@@ -114,7 +120,7 @@ const OrderSide = ({
     const handleClear=()=>{
       setInput("");
       setStatus("all");
-      setfirst("");
+      setValue(0);
     }
     const MenuSelectProps = {
       PaperProps: {
@@ -140,10 +146,9 @@ const OrderSide = ({
       <DatePicker
           views={['year', 'month']}
           inputFormat="MM-YYYY"
-          
           minDate={dayjs('2002-01-01')}
           maxDate={dayjs('2024-01-01')}
-          value={value}
+          value={(value && value!="")?value:null}
           clearable
           emptyLabel="custom label" 
           onChange={(newValue) => {
@@ -155,7 +160,7 @@ const OrderSide = ({
            className={classes.StatusPicker}
            style={{width: "30% !important"}}
                                 
-                                label="Trạng thái"
+                                
                                 defaultValue={status}
                                 value={status}
                                 MenuProps={MenuSelectProps}
@@ -207,7 +212,7 @@ const OrderSide = ({
             >{item.mahd}</p>
         </Grid>
         <Grid item xs={2}>
-          <p>{item.trigia}</p>
+          <p>{parseInt(item.trigia).toLocaleString()}</p>
       </Grid>
        <Grid item xs={3}>
           <p>{item.ngayhd}</p>

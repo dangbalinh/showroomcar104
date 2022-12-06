@@ -59,7 +59,7 @@ const UpatePopUp = (props) => {
         diachi: (props.data.diachi !== "undefined")? props.data.diachi : "",
         sdt: (props.data.sdt !== "undefined")? props.data.sdt : "", 
         cccd: (props.data.cccd !== "undefined")? props.data.cccd : "", 
-        gioitinh: (props.data.gioitinh !== "undefined")? props.data.gioitinh : "Nam", 
+        gioitinh: (props.data.gioitinh && props.data.gioitinh!== "undefined")? props.data.gioitinh : "Nam",
     }
   )
 

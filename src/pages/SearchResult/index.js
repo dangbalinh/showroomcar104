@@ -68,14 +68,12 @@ const Search = () => {
     </div>
         {cars.cars&& cars.totalCarsFilter!==0?
         <div className={style.pagination}>
-        <button onClick={handleClick} disabled={((currentPage!=0)? false :true)} name="back">Back</button>
         <Pagination
           totalPosts={cars.totalCarsFilter}
           postsPerPage={postPerPage}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
         />
-        <button onClick={handleClick} disabled={((currentPage+1<cars.totalCarsFilter/postPerPage)? false :true)} name="next">Next</button>
         </div> : <></>
         }
     </div>}

@@ -2,7 +2,7 @@ import './Header.module.css'
 import {NavLink,Link} from 'react-router-dom'
 import classes from './Header.module.css'
 import {menuItems} from './menuItem.js'
-import logo from './logo.png'
+import logo from '../../assets/image/logo.png'
 import Menu from './Menu'
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
@@ -12,6 +12,9 @@ import PersonIcon from '@mui/icons-material/Person';
 import Stack from '@mui/material/Stack';
 
 function Header (){
+    console.log(document.cookie.indexOf('token'));
+
+
     return (<div >
     <div className={classes.header}>
         <Link to='/'><img src={logo} alt='logo'/></Link>
@@ -19,7 +22,7 @@ function Header (){
         {menuItems.map((item,index) => 
             (<Menu item={item} key={index}></Menu>)
         )}
-        {("user" in localStorage)? 
+        {(document.cookie.indexOf('token') !== -1)? 
         <li className={classes.menu}>
         <NavLink to='/user'
            className={({isActive}) => (isActive ? classes.active : classes.item)}
@@ -42,9 +45,9 @@ function Header (){
         </ul>
         <AutoComplete></AutoComplete>
         <div className={classes.groupicon}>
-           <a href='#'><InstagramIcon fontSize="large" className={classes.icon}/></a>
-           <a href='#'><YouTubeIcon fontSize="large" className={classes.icon}/></a>
-           <a href='#'><FacebookIcon fontSize="large"className={classes.icon}/></a>
+           <a href='https://www.instagram.com/'  target="_blank"><InstagramIcon fontSize="large" className={classes.icon}/></a>
+           <a href='https://www.youtube.com/'  target="_blank"><YouTubeIcon fontSize="large" className={classes.icon}/></a>
+           <a href='https://www.facebook.com/'  target="_blank"><FacebookIcon fontSize="large"className={classes.icon}/></a>
         </div>
     </div>
     </div>);

@@ -1,16 +1,15 @@
 import React,{useState,useEffect,useRef} from 'react'
 import Stack from '@mui/material/Stack';
-import avatar from './avatar.jpg'
 import classes from'../UserInfoPage.module.css'
 import UpatePopUp from './UpatePopUp';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import userimg from '../../../assets/image/avatar.jpg'
 import {
   Boy,
   Cookie,
   Logout,
 } from "@mui/icons-material";
-import IconButton from '@mui/material/IconButton';
 import PhoneIcon from '@mui/icons-material/Phone';
 import HomeIcon from '@mui/icons-material/Home';
 import CakeIcon from '@mui/icons-material/Cake';
@@ -55,11 +54,10 @@ const UserSide = () => {
   return (<>
     {userData && <div style={{width:"100%",height:"800px",backgroundColor:"#650707"}}>
       <div className={classes.UserSide}>
-        <img style={{borderRadius:"50%",marginLeft:"22px"}} src={avatar} alt='rr'></img>
+        <img style={{borderRadius:"50%",marginLeft:"22px"}} src={userimg} alt='rr'></img>
         <EditIcon onClick={handleModal}  
         style={{ color: '#ffff', fontSize:'25px',cursor:"pointer" }} />
-        <p className={classes.SideRole}>{user1.role}</p>
-        <p className={classes.SideName}>{userData.name}</p>
+        <p className={classes.SideRole}>{userData.name}</p>
         <p className={classes.SideMail}>{userData.email}</p>
         <div className={classes.Stack}>
         <Stack direction="row" alignItems="center" gap={1}>

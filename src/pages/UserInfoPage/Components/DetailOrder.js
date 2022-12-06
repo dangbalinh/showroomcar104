@@ -1,15 +1,13 @@
-import React,{useState,useEffect,useRef} from 'react'
+import React,{useState,useEffect} from 'react'
 import classes from'../UserInfoPage.module.css'
-import { Grid,Pagination } from '@mui/material'
+import { Grid} from '@mui/material'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 const DetailOrder = ({item}) => {
     const token = Cookies.get('token');
     const [detail, setDetail] = useState()
-    const [cthd, setCthd]=useState([])
     const [first, setfirst] = useState()
     const [car, setCar]=useState([])
-    const [check, setCheck] = useState()
     const gridTitle =[
       "STT",
       "Hình",
@@ -20,19 +18,20 @@ const DetailOrder = ({item}) => {
     const gridColumn =[
         1,2,3,4,2
     ]
-      const authAxios = axios.create({
+    const authAxios = axios.create({
         baseURL: 'https://showroomcar104.onrender.com',
         headers:{
           Authorization:`Bearer ${token}`
         }
       })
       const sendRequestSU = async ()=>{
+        if(item){
         const res = await authAxios
         .get(`/hoadons/${item._id}`)
         .catch((err)=>console.log(err))
         const data = await res.data;
         console.log(data);
-        return data;
+        return data;}
       }
       const getCar = async(macar)=>{
         const res = await axios
@@ -42,7 +41,7 @@ const DetailOrder = ({item}) => {
         await console.log( data);
         return data;
       }
-      const isFirstRender = useRef(true);
+
       useEffect(()=>{
         setDetail();
         setCar([]);
@@ -55,7 +54,7 @@ const DetailOrder = ({item}) => {
               .then((data)=>setCar(prev=>[...prev,data]))
           })};
         })
-        .then(()=>{isFirstRender=!isFirstRender.current})
+        
         
         /*.then(()=>{
           if(car.length==detail.cthds.length)
@@ -83,6 +82,8 @@ const DetailOrder = ({item}) => {
       
       */
   const test = (detail? detail.cthds.reverse():[]);
+  var n = 789000000;
+console.log(n.toLocaleString());
   return (
   <div className={classes.DetailCard}>
     <div style={{borderBottom:"white"}}>
@@ -134,7 +135,7 @@ const DetailOrder = ({item}) => {
           <p  style={{textAlign:"center", width:"100%"}}>{dt.ten? dt.ten :""}</p>
         </Grid>
         <Grid item xs={4}>
-          <p  style={{textAlign:"center", width:"100%"}}>{dt.gia? dt.gia : ""} vnd</p>
+          <p  style={{textAlign:"center", width:"100%"}}>{dt.gia? parseInt(dt.gia).toLocaleString() : ""}</p>
       </Grid>
         <Grid item xs={2}>
           <p  style={{textAlign:"center", width:"100%"}}>{test[parseInt(index)]?test[parseInt(index)].soluong : ""}</p>
@@ -144,7 +145,7 @@ const DetailOrder = ({item}) => {
       </Grid>
       </div>
        <div className={classes.TotalDiv}>
-       <p>Trị giá hóa đơn:</p><p className={classes.Total}> {detail.hoadon.trigia} vnd</p>
+       <p>Trị giá hóa đơn:</p><p className={classes.Total}> { parseInt(detail.hoadon.trigia).toLocaleString()} vnd</p>
        </div>
     </div></>:<p style={{textAlign:"center"}}>Chọn 1 hóa đơn để xem chi tiết</p>}
   </div>

@@ -22,7 +22,7 @@
 }
 
 .imgdiv {
-  background-image: url("../Header/logo.png");
+  background-image: url("../../assets/image/logo.png");
   background-repeat: no-repeat;
   background-position: 30%;
 }
