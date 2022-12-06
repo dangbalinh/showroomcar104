@@ -46,8 +46,8 @@ const ForgetPass = (props) => {
           .then(()=>{
             Swal.fire({
               icon: 'success',
-              title: 'Congrats',
-              text: message,
+              title: 'Hãy kiểm tra email',
+              text: 'Email xác nhận mật khẩu đả được gửi cho bạn',
             })
           })
         }
