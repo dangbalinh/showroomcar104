@@ -5,7 +5,7 @@ function ItemVehicle({data}) {
         <div className={style.itemCarContainer}>
             <p className={style.carName}>{data.ten}</p>
             <p className={style.carInfo}>{data.gia}</p>
-            <img src={data.hinhanh} alt="BMW car" width={300}/>
+            <img src={data.hinhanh} alt="BMW car" width={300} height={170}/>
             <Link to={`/detailproduct/${data._id}`}>
                 <button className={style.buttonDiscoverMore}>Discover More</button>
             </Link>

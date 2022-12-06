@@ -188,7 +188,7 @@ function CarManagement() {
             <div className={styles.container}>
                 <div className={styles.container_header}>
                     <div className={styles.funcContainer}>
-                        <div className={styles.search}>
+                        {/* <div className={styles.search}>
                             <input
                                 ref={inputRef}
                                 value={searchValue}
@@ -213,7 +213,7 @@ function CarManagement() {
                             >
                                 <Search className={styles.searchIcon} />
                             </button>
-                        </div>
+                        </div> */}
                     </div>
 
                     <Button
