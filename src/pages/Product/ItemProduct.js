@@ -1,6 +1,5 @@
 import styles from "./ItemProduct.module.css"
 function ItemProduct({data}){
-    console.log(data);
     return(
         <>
             <div className={styles.listProducts}>
@@ -11,7 +10,7 @@ function ItemProduct({data}){
                         src={data.hinhanh}
                         alt="carimg"
                     />
-                    <a className={styles.linkDiscover} href={`/detailproduct/${data._id}`}>Details</a>
+                    <a className={styles.linkDiscover} href={`/detailproduct/${data._id}`}>Chi tiết</a>
                 </div>
             </div>
         </>

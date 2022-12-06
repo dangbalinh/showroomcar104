@@ -4,7 +4,9 @@
   align-items: center;
 }
 .productImg {
-  width: 100%;
+  width: 321px;
+  height: 178px;
+  /* max-width: 100%; */
   object-fit: cover;
   transition: all linear 0.2s;
   cursor: pointer;
@@ -12,6 +14,7 @@
 .productImg:hover {
   transform: scale(1.06);
 }
+
 .itemProduct {
   width: 340px;
   height: 355px;
@@ -21,7 +24,7 @@
   font-size: 2rem;
   text-align: center;
   color: #990000;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 
 .itemProduct__Price {
@@ -38,7 +41,7 @@
   color: red;
   outline: 1px solid red;
   border-radius: 5px;
-  padding: 10px 30px;
+  padding: 11px 24px;
   position: relative;
   font-weight: bold;
   overflow: hidden;

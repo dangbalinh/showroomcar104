@@ -36,33 +36,30 @@ function EmployeeManagement() {
     const [updateEmployee, setUpdateEmployee] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
-    // const [token] = useState(() => localStorage.getItem("token"))
 
     const inputRef = useRef();
 
-    const gridColumn = [0.5, 1, 2, 1.2, 1.6, 1.5, 1.2, 0.9, 2];
+    const gridColumn = [1, 1, 2, 1, 2, 2, 3];
     const gridTitle = [
         "STT",
         "Mã NV",
         "Tên nhân viên",
         "Giới tính",
         "SĐT",
-        "Địa chỉ",
         "CCCD",
-        "Chức vụ",
         ""
     ];
 
-    const pageSize = 12;
+    const pageSize = 15;
 
     // Get API
     useEffect(() => {
-        HandleApiEmployee.getEmployeeByPageIndex(pageIndex).then((res) => {
+        HandleApiEmployee.getEmployeeByPageIndex(pageIndex)
+        .then((res) => {
             setData(res.employees);
             setDataLength(res.totalEmployees);
         });
     }, [pageIndex]);
-
 
     const handleDeleteItem = async (id) => {
         HandleApiEmployee.deleteEmployee(id)
@@ -74,7 +71,7 @@ function EmployeeManagement() {
                     icon: "success",
                     title: "Xóa dữ liệu nhân viên thành công!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 500
                 });
                 setData(data.filter((item) => item._id !== id));
             })
@@ -84,7 +81,7 @@ function EmployeeManagement() {
                     icon: "error",
                     title: "Xóa thất bại!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 500
                 });
             });
     };
@@ -122,13 +119,14 @@ function EmployeeManagement() {
     useEffect(() => {
         console.log(searchValue);
         if (searchValue.trim() !== "") {
-            HandleApiEmployee.getEmployeeById(searchValue)
+            HandleApiEmployee.getEmployeeByName(searchValue)
             .then(async (res) => {
                 await setData(res.employees);
                 await setDataLength(data.length);
             });
         } else {
-            HandleApiEmployee.getEmployeeByPageIndex(pageIndex).then((res) => {
+            HandleApiEmployee.getEmployeeByPageIndex(pageIndex)
+            .then((res) => {
                 setData(res.employees);
                 setDataLength(res.totalEmployees);
             });
@@ -190,7 +188,7 @@ function EmployeeManagement() {
                                 ref={inputRef}
                                 value={searchValue}
                                 type="text"
-                                placeholder="Tìm kiếm nhân viên"
+                                placeholder="Tìm kiếm nhân viên..."
                                 spellCheck={false}
                                 onChange={handleInputChange}
                             />
@@ -210,7 +208,6 @@ function EmployeeManagement() {
                             >
                                 <Search className={styles.searchIcon} />
                             </button>
-
                         </div>
                     </div>
 
@@ -242,33 +239,26 @@ function EmployeeManagement() {
                         {/* Render data */}
                         {data?.map((item, index) => (
                             <Grid container key={index}>
-                                <Grid item xs={0.5}>
+                                <Grid item xs={1}>
                                     <Item>{index + 1}</Item>
                                 </Grid>
-                                
                                 <Grid item xs={1}>
                                     <Item>{item.mauser}</Item>
                                 </Grid>
                                 <Grid item xs={2}>
                                     <Item>{item.name}</Item>
                                 </Grid>
-                                <Grid item xs={1.2}>
+                                <Grid item xs={1}>
                                     <Item>{item.gioitinh}</Item>
                                 </Grid>
-                                <Grid item xs={1.6}>
+                                <Grid item xs={2}>
                                     <Item>{item.sdt}</Item>
                                 </Grid>
-                                <Grid item xs={1.5}>
-                                    <Item>{item.diachi}</Item>
-                                </Grid>
-                                <Grid item xs={1.2}>
+                                <Grid item xs={2}>
                                     <Item>{item.cccd}</Item>
                                 </Grid>
-                                <Grid item xs={0.9}>
-                                    <Item>{item.chucvu}</Item>
-                                </Grid>
-                                <Grid item xs={2}>
-                                    {/* Update, delete button */}
+                               
+                                <Grid item xs={3}>
                                     <Item>
                                         <Button variant="outlined" size="small" sx={{ fontSize: "10px", marginRight: "12px" }}
                                             onClick={() => handleReadInfo(item._id)} >Chi tiết</Button>

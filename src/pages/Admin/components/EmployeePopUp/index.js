@@ -15,10 +15,11 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
     const [address, setAddress] = useState();
     const [dateOfBirth, setDateOfBirth] = useState();
     const [phone, setPhone] = useState();
-    const [email, setEmail] = useState();
-    const [cccd, setCccd] = useState();
     const [position, setPosition] = useState();
+    const [cccd, setCccd] = useState();
+    const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [passwordConfirm, setPasswordConfirm] = useState();
 
     const inputId = [
         "name",
@@ -26,23 +27,66 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
         "address",
         "dateofbirth",
         "phone",
-        "email",
-        "cccd",
         "position",
-        "password"
+        "cccd",
+        "email",
+        "password",
+        "passwordConfirm"
     ];
 
+    const inputId2 = [
+        "name",
+        "sex",
+        "address",
+        "dateofbirth",
+        "phone",
+        "cccd",
+        "position",
+    ];
     const useStateEvent = [
         setEmployeeName,
         setSex,
         setAddress,
         setDateOfBirth,
         setPhone,
+        setPosition,
+        setCccd,
         setEmail,
+        setPassword,
+        setPasswordConfirm
+    ];
+
+    const useStateEvent2 = [
+        setEmployeeName,
+        setSex,
+        setAddress,
+        setDateOfBirth,
+        setPhone,
         setCccd,
         setPosition,
-        setPassword
     ];
+
+    const textValue = [
+        "Tên nhân viên",
+        "Giới tính (Nam / Nữ)",
+        "Địa chỉ",
+        "Ngày sinh (dd/mm/yyyy)",
+        "Số điện thoại",
+        "Chức vụ",
+        "CCCD",
+        "Email",
+        "Mật khẩu",
+        "Xác nhận mật khẩu"
+     ];
+     const textValue2 = [
+        "Tên nhân viên",
+        "Giới tính (Nam / Nữ)",
+        "Địa chỉ",
+        "Ngày sinh (dd/mm/yyyy)",
+        "Số điện thoại",
+        "CCCD",
+        "Chức vụ"
+     ];
 
     const placeHolder = [
         "Nhập tên nhân viên",
@@ -50,50 +94,61 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
         "Nhập địa chỉ",
         "Nhập ngày sinh",
         "Nhập SĐT",
-        "Nhập email",
-        "Nhập CCCD",
         "Nhập chức vụ",
-        "Nhập password"
+        "Nhập CCCD",
+        "Nhập email",
+        "Nhập mật khẩu",
+        "Nhập lại mật khẩu"
     ];
 
-    const textValue = [
-       "Tên nhân viên",
-       "Giới tính (Nam / Nữ)",
-       "Địa chỉ",
-       "Ngày sinh (dd/mm/yyyy)",
-       "Số điện thoại",
-       "Email",
-       "CCCD",
-       "Chức vụ",
-       "Password"
-    ];
+    const inputType = ["text", "text", "text", "text",  "number", "text", "number", "text", "password", "password"];
 
-    const inputType = ["text", "text", "text", "date",  "number", "text", "number", "text", "password"];
-
-    const inputValue = [
+    // const inputValue = [
+    //     employeeName,
+    //     sex,
+    //     address,
+    //     dateOfBirth,
+    //     phone,
+    //     email,
+    //     cccd,
+    //     position,
+    //     password,
+    //     passwordConfirm
+    // ];
+    const inputType2 = ["text", "text", "text", "text",  "number", "number", "text"];
+    const inputValue2 = [
         employeeName,
         sex,
         address,
         dateOfBirth,
         phone,
-        email,
         cccd,
         position,
-        password,
     ];
 
     // object data
-    const data = {
+    const dataCreate = {
        name: employeeName,
        gioitinh: sex,
        diachi: address,
-       ngaysinh: Date(dateOfBirth),
+       ngaysinh: dateOfBirth,
        sdt: Number(phone),
-       email: email,
-       cccd: Number(cccd),
        chucvu: position,
+       cccd: Number(cccd),
+       email: email,
        password: password,
+       passwordConfirm: passwordConfirm
     };
+
+    const dataUpdate = {
+        name: employeeName,
+        gioitinh: sex,
+        diachi: address,
+        ngaysinh: dateOfBirth, 
+        sdt: Number(phone),
+        cccd: Number(cccd),
+        chucvu: position,
+     };
 
     const handleBlur = (e) => {
         if (e.target.value === "") {
@@ -105,7 +160,7 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
 
     const handleCreateEmployee = async (e) => {
         e.preventDefault();
-        HandleApiEmployee.createEmployee(data)
+        HandleApiEmployee.createEmployee(dataCreate)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -124,7 +179,7 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
 
     const handleUpdateEmployee = async () => {
         console.log(updateEmployee._id);
-        HandleApiEmployee.updateEmployee(updateEmployee._id, data)
+        HandleApiEmployee.updateEmployee(updateEmployee._id, dataUpdate)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -148,10 +203,11 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
             setAddress(updateEmployee.diachi);
             setDateOfBirth(updateEmployee.ngaysinh);
             setPhone(updateEmployee.sdt);
-            setEmail(updateEmployee.email)
-            setCccd(updateEmployee.cccd);
             setPosition(updateEmployee.chucvu);
+            setCccd(updateEmployee.cccd);
+            setEmail(updateEmployee.email)
             setPassword(updateEmployee.password);
+            setPasswordConfirm(updateEmployee.passwordConfirm);
         }
     }, [updateEmployee]);
 
@@ -197,7 +253,6 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
                                             }
                                             onBlur={handleBlur}
                                         />
-                                        {/* <div>{errorName}</div> */}
                                     </Grid>
                                 ))}
                             </Grid>
@@ -247,18 +302,18 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
 
                         <Box sx={{ flexGrow: 1 }}>
                             <Grid container sx={{ width: "1120px", marginTop: "16px" }}>
-                                {inputId.map((item, index) => (
+                                {inputId2.map((item, index) => (
                                     <Grid key={index} item xs={3} sx={{ height: '93px' }}>
                                         <label htmlFor={item[index]}>
-                                            {textValue[index]}
+                                            {textValue2[index]}
                                         </label>
                                         <br />
                                         <input
                                             id={item[index]}
-                                            type={inputType[index]}
-                                            value={inputValue[index]}
+                                            type={inputType2[index]}
+                                            value={inputValue2[index]}
                                             onChange={(e) =>
-                                                useStateEvent[index](e.target.value)
+                                                useStateEvent2[index](e.target.value)
                                             }
                                         />
                                     </Grid>
@@ -310,14 +365,13 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
                                 <Grid item xs={6}>
                                     <Item>{"Mã nhân viên: " + updateEmployee.mauser}</Item>
                                     <Item>{"Tên nhân viên: " + updateEmployee.name}</Item>
-                                    <Item>{"Giới tính: " + updateEmployee.gioitinh}</Item>
                                     <Item>{"Ngày sinh: " + updateEmployee.ngaysinh}</Item>
-                                    <Item>{"Địa chỉ: " + updateEmployee.diachi}</Item>
+                                    <Item>{"Giới tính: " + updateEmployee.gioitinh}</Item>
                                     <Item>{"Số điện thoại: " + updateEmployee.sdt}</Item>
                                     <Item>{"CCCD: " + updateEmployee.cccd}</Item>
+                                    <Item>{"Địa chỉ: " + updateEmployee.diachi}</Item>
                                     <Item>{"Email: " + updateEmployee.email}</Item>
-                                    <Item>{"Chức vụ: " + updateEmployee.chucvu}</Item>
-                                    <Item>{"Mật khẩu: " + updateEmployee.password}</Item>
+                                    <Item>{"Chức vụ: "+updateEmployee.chucvu}</Item>
                                 </Grid>
                             </Grid>
                         </Box>
