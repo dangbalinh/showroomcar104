@@ -27,6 +27,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import NewsPopUp from "../NewsPopUp"
 import HandleNewsApi from "../../../../Apis/HandleNewsApi"
 import Swal from "sweetalert2";
+import Cookies from "js-cookie";
 
 function NewsManagement() {
     const [data, setData] = useState([]);
@@ -38,8 +39,7 @@ function NewsManagement() {
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState(null);
     const [openDetailModal, setOpenDetailModal] = useState(false);
-    const [role] = useState(() => JSON.parse(localStorage.getItem("user")).role)
-    const [token] = useState(() => localStorage.getItem("token"))
+    const [token] = useState(() => Cookies.get("token"))
 
     const handleOpenDetailModal = (detail) => {
         setOpenDetailModal(true);
@@ -208,7 +208,7 @@ function NewsManagement() {
             </header>
             <div className={styles.container}>
                 <div className={styles.container_header}>
-                    {role === "admin" && <Button
+                    <Button
                         sx={{
                             height: 40,
                             fontSize: 14,
@@ -221,7 +221,7 @@ function NewsManagement() {
                         onClick={() => setType("create")}
                     >
                         Thêm tin tức
-                    </Button>}
+                    </Button>
                 </div>
 
                 <div className={styles.content}>
@@ -267,7 +267,7 @@ function NewsManagement() {
                                     </Item>
                                 </Grid>
                                 <Grid item xs={1}>
-                                    {role === "admin" && <Item>
+                                    <Item>
                                         <IconButton
                                             color="primary"
                                             size="medium"
@@ -352,7 +352,7 @@ function NewsManagement() {
                                                 </div>
                                             </Box>
                                         </Modal>
-                                    </Item>}
+                                    </Item>
                                 </Grid>
                             </Grid>
                         ))}
