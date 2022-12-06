@@ -1,7 +1,10 @@
 .itemCarContainer {
     text-align: center;
+    transition: 0.5s;
+    
     /* background-color: aqua; */
   }
+
   @font-face {
     font-family: myItemFont;
     src: url("../../../assets/font/CorporateALightRegular.otf");
@@ -15,6 +18,10 @@
   .itemCarContainer .carInfo {
     color: grey;
     font-size: small;
+  }
+  .itemCarContainer img {
+    margin-top: 30px;
+    margin-left: 120px;
   }
   .itemCarContainer .buttonDiscoverMore {
       margin: 20px;
