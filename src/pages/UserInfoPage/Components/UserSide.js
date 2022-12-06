@@ -64,19 +64,19 @@ const UserSide = () => {
         <div className={classes.Stack}>
         <Stack direction="row" alignItems="center" gap={1}>
           <BoyIcon  style={{ color: '#ffff', fontSize:'25px' }}/>
-          <p style={{ color: '#AFAFAF',fontSize:'14px' }}>{(userData.gioitinh)? userData.gioitinh : "Chưa thiết lập"}</p>
+          <p style={{ color: '#AFAFAF',fontSize:'14px' }}>{(userData.gioitinh && userData.gioitinh!=="undefined")? userData.gioitinh : "Chưa thiết lập"}</p>
         </Stack>
         <Stack direction="row" alignItems="center" gap={1}>
           <CakeIcon  style={{ color: '#ffff', fontSize:'25px' }}/>
-          <p style={{ color: '#AFAFAF',fontSize:'14px' }}>{(userData.ngaysinh)? userData.ngaysinh: "Chưa thiết lập"}</p>
+          <p style={{ color: '#AFAFAF',fontSize:'14px' }}>{(userData.ngaysinh && userData.ngaysinh!=="NaN-NaN-NaN")? userData.ngaysinh: "Chưa thiết lập"}</p>
         </Stack>
         <Stack direction="row" alignItems="center" gap={1}>
           <PhoneIcon  style={{ color: '#ffff', fontSize:'25px' }}/>
-          <p style={{ color: '#AFAFAF',fontSize:'14px' }}>{(userData.sdt)? userData.sdt : "Chưa thiết lập"}</p>
+          <p style={{ color: '#AFAFAF',fontSize:'14px' }}>{(userData.sdt && userData.sdt!=="undefined")? userData.sdt : "Chưa thiết lập"}</p>
         </Stack>
         <Stack direction="row" alignItems="center" gap={1}>
           <HomeIcon  style={{ color: '#ffff', fontSize:'25px' }}/>
-          <p style={{ color: '#AFAFAF',fontSize:'14px', width:"80%",wordWrap:"break-word", textAlign:"left" }}>{(userData.diachi)? userData.diachi : "Chưa thiết lập"}</p>
+          <p style={{ color: '#AFAFAF',fontSize:'14px', width:"80%",wordWrap:"break-word", textAlign:"left" }}>{(userData.diachi && userData.diachi!=="undefined")? userData.diachi : "Chưa thiết lập"}</p>
         </Stack>
         </div>
       </div>
