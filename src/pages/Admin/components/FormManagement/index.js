@@ -53,6 +53,13 @@ function FormManagement() {
     const day = selectedDay ? new Date(selectedDay) : null;
 
     useEffect(() => {
+        HandleApiForm.getFormByPageIndex(pageIndex).then((res) => {
+            setData(res.forms);
+            setDataLength(res.totalForms);
+        });
+    }, [pageIndex]);
+
+    useEffect(() => {
         day
             ? HandleApiForm.getFormByDate(day).then((res) => {
                   setData(res.forms);
@@ -63,13 +70,6 @@ function FormManagement() {
                   setDataLength(res.totalForms);
               });
     }, [selectedDay]);
-
-    useEffect(() => {
-        HandleApiForm.getFormByPageIndex(pageIndex).then((res) => {
-            setData(res.forms);
-            setDataLength(res.totalForms);
-        });
-    }, [pageIndex]);
 
     // handle event
 
@@ -214,7 +214,7 @@ function FormManagement() {
                                         sx={nameActive}
                                         onClick={() => handleReadInfo(item._id)}
                                     >
-                                        {item.message.slice(0, 30)}
+                                        {item.message ? item.message.slice(0, 30) : ""}
                                     </Item>
                                 </Grid>
                                 <Grid item xs={1}>

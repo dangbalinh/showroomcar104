@@ -17,7 +17,7 @@ function InformationDetailProduct(pros) {
             <div className={style.information__heading}>
                 <h1 className={style.information__heading__carName}>{data.ten}</h1>
                 <hr className={style.line}/>
-                <h2 className={style.information__heading__priceCar}>{data.gia + " VNĐ"}</h2>
+                <h2 className={style.information__heading__priceCar}>{data.gia ? (data.gia.toLocaleString() + " VNĐ") : ""}</h2>
                 <hr className={style.line}/>
             </div>
             <div className={style.information__content}>
@@ -40,9 +40,9 @@ function InformationDetailProduct(pros) {
                     <img src={data.hinhanh} alt="image car" />
                 </div>
             </div>
-            <div className={style.buy}>
-                <a href='/contact'><button>BUY NOW</button></a>
-            </div>
+            {/* <div className={style.buy}> */}
+                <a href='/contact' className={style.buy}>BUY NOW</a>
+            {/* </div> */}
         </div>
         
     );
