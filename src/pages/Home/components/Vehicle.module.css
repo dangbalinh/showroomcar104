@@ -3,7 +3,7 @@
 .VehicleContainer ul {
     border: 4px solid rgb(199, 191, 191);
     border-style: outset;
-    border-radius: 2px;
+    border-radius: 8px;
     margin: 30px auto;
     list-style-type: none;
     width: 1200px;
@@ -23,15 +23,13 @@
 .imageCar {
     width: 70px;
     height: 70px;
-    transition: 0.6s;
+    transition: 0.5s;
 }
 .imageCar:hover {
     width: 90px;
     height: 90px;
+    transform: rotate(5deg);
 }
-/* .VehicleContainer li a:hover {
-    color: aliceblue;
-} */
 
 .ItemVehicleCar {
     

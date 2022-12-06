@@ -37,11 +37,11 @@ function InformationDetailProduct(pros) {
                     <p className={style.information__content__equip}>{"Mô tả: " + data.mota}</p>
                 </div>  
                 <div className={style.informaton__content__img}>
-                    <img src={data.hinhanh} alt="BMW M3" />
+                    <img src={data.hinhanh} alt="image car" />
                 </div>
             </div>
             <div className={style.buy}>
-                <button><a href='/contact'>BUY NOW</a></button>
+                <a href='/contact'><button>BUY NOW</button></a>
             </div>
         </div>
         

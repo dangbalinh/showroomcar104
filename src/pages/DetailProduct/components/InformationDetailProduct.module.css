@@ -1,5 +1,6 @@
 .information{
-
+    margin-top: 200px;
+    margin-bottom: 100px;
 }
 .information__heading{
     margin-left: 200px;
@@ -7,7 +8,7 @@
 
 }
 .line {
-    width: 300px;
+    width: 500px;
     border: 2px solid black;
 }
 .information__content{
@@ -23,35 +24,41 @@
     font-size: large;
     font-weight: bold;
     color: whitesmoke;
-    background-color: rgb(150, 13, 13);
+    background-color: rgb(236, 0, 0);
+    transition: 0.5s;
 }
-.buy button a{ 
+.buy a{ 
     text-decoration: none;
+}
+.buy button :hover{
+    background-color: brown;
 }
 .information__heading__carName {
     /* background-color: aqua; */
-    margin-left: 60px;
+    margin-left: 70px;
     display: block;
     color: red;
-    font-size: 30px;
+    font-size: 40px;
 }
 .information__heading__priceCar {
     color: black;
     padding: 10px;
-    margin-left: 60px;
+    margin-left: 110px;
+    font-size: 30px;
 
 }
 .information__content__info {
     margin-left: 200px;
 }
 .information__content__info p {
-    color: gray;
+    font-size: 20px;
+    color: rgb(26, 25, 25);
     padding: 10px;
 }
 
 .informaton__content__img img {
-    margin-left: 100px;
-    width: 614px;
-    height: 360px;
+    margin-left: 10px;
+    width: 600px;
+    height: 460px;
     
 }
