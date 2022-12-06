@@ -110,7 +110,7 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
     };
 
     const handleUpdateCustomer = async () => {
-        // console.log(updateCustomer.id);
+        console.log(updateCustomer._id);
         HandleApisCustomer.updateCustomer(updateCustomer._id, data)
             .then(async (res) => {
                 await Swal.fire({
@@ -135,6 +135,7 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
             setPhoneNumber(updateCustomer.sdt);
             setDateOfBirth(updateCustomer.ngaysinh);
             setAddress(updateCustomer.diachi);
+            setPassword(updateCustomer.password)
         }
     }, [updateCustomer]);
 
@@ -295,18 +296,13 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
                         <Box sx={{ flexGrow: 1, marginTop: "24px" }}>
                             <Grid container>
                                 <Grid item xs={6}>
-                                    <Item sx={{ fontWeight: "bold" }}>{"Tên khách hàng: " + updateCustomer.ten}</Item>
-                                    <Item>{"Tên khách hàng: " + updateCustomer.ten}</Item>
+                                    <Item sx={{ fontWeight: "bold" }}>{"Tên khách hàng: " + updateCustomer.name}</Item>
+                                    <Item>{"Tên khách hàng: " + updateCustomer.name}</Item>
                                     <Item>{"Email: " + updateCustomer.email}</Item>
                                     <Item>{"Số điện thoại: " + updateCustomer.sdt}</Item>
                                     <Item>{"Căn cước công dân: " + updateCustomer.cccd}</Item>
                                     <Item>{"Địa chỉ: " + updateCustomer.diachi}</Item>
 
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Item sx={{ textAlign: 'center', fontSize: '24px', color: "red", fontWeight: "bold" }}>
-                                        {"Giá: " + updateCustomer.gia.toLocaleString() + " VNĐ"}
-                                    </Item>
                                 </Grid>
                             </Grid>
                         </Box>

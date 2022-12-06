@@ -6,14 +6,14 @@ import { useState, useEffect, memo } from "react";
 function Vehicle() {
     const [data,setData] = useState([]);
     const [branch,setBranch] = useState("Toyota");
-    const contentCar = [];
     useEffect(() => {
-        HandleApi.getCarByBrand(branch).then((res) => {
+        HandleApi.getSixCarsByBranch(branch).then((res) => {
           setData(res.cars)
         })
         .catch(err => console.log(err));
       }, [branch])
     function selectBranchCar(x) {
+        console.log(x);
         setBranch(x);
     }
     const names = [
@@ -50,15 +50,17 @@ function Vehicle() {
         img: images.logoKia
     },
 ]
-    for( let i = 0; i <= 5; i++)
-        contentCar.push(<ItemVehicle carName={data.name} carPrice={data.price} />);
     return (    
         <div className={style.VehicleContainer}>
             <ul>
                 {names.map((car) => <li onClick={() => selectBranchCar(car.branch)}><img src={car.img} alt="" className={style.imageCar}></img></li>)}     
             </ul>
             <div className={style.ItemVehicleCar}>
-                {contentCar}
+                {data.map((item, index) => (
+                <div  key={index}>
+                  <ItemVehicle data={item} />
+                </div>
+                ))}
             </div>
         </div>
         

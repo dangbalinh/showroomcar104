@@ -1,11 +1,12 @@
 import { Navigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function AdminRoute({children}) {
     let user = JSON.parse(localStorage.getItem("user"));
-
+    const token = Cookies.get("token");
     return ( 
         <div>
-            {(!!user && ((user.role === "admin" || user.role === "employee") && localStorage.getItem("token"))) ? children : <Navigate to="/" /> } 
+            {(token && !!user && ((user.role === "admin" || user.role === "employee") && localStorage.getItem("token"))) ? children : <Navigate to="/" /> } 
         </div>
      );
 }

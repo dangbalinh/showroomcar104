@@ -164,11 +164,6 @@ function FormManagement() {
     return (
         <div>
             <header className={styles.header}>
-                <img
-                    src={images.bmwImg}
-                    className={styles.header_image}
-                    alt="Header img"
-                />
                 <h1 className={styles.header_heading}>Quản lý Form phản hồi</h1>
             </header>
             <div className={styles.container}>

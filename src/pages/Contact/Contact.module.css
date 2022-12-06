@@ -66,17 +66,38 @@ textarea{
     border-radius: 4px;
 }
 .contactSend{
+    font-size: 16px;
     float: right;
     color: white;
     width: 80px;
     height: 30px;
-    background-color: #A30000;
+    background-color: #080707;
     border-radius: 20px;
     border: none;
     margin-top: 8px;
     cursor: pointer;
     box-shadow: 2px 2px 3px #777;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
 }
 .contactSend:focus{
     box-shadow: none;
 }
+.contactSend:before {
+    content: "";
+    height: 100%;
+    width: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #A30000;
+    z-index: -1;
+    transition: width 0.25s ease-in;
+    border-radius: 20px;
+  }
+.contactSend:hover:before {
+    width: 100%;
+  }
+  
+ 
