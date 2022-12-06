@@ -3,7 +3,9 @@ import axiosInstance from "./axiosInstance";
 const getAllForm = async () => {
     return await axiosInstance.get("/forms");
 };
-
+const createForm = async (data) => {
+    return await axiosInstance.post("/forms",data);
+};
 const getFormByDate = async (data) => {
     return await axiosInstance.get(
         `/forms?dateForm=${
@@ -31,6 +33,7 @@ const deleteForm = async (id) => {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getAllForm,
+    createForm,
     getFormById,
     getFormByPageIndex,
     getFormByDate,

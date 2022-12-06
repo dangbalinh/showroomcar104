@@ -1,5 +1,7 @@
 import { useState} from 'react';
 import style from './Contact.module.css'
+import HandleApiForm from '../../Apis/HandleApiForm';
+import Swal from "sweetalert2";
 
 function checkEmailFormat(email) {
     const re =/\S+@\S+\.\S+/;
@@ -14,13 +16,52 @@ function Contact() {
     const[errorMobile, setErrorMobile]=useState("");
     const[errorEmail, setErrorEmail]=useState("");
 
-    const handleSubmit=function(e){
+    const handleSubmit= async function(e){
         e.preventDefault();
         if(errorEmail!=="" || errorMobile!==""){
-            alert("Thông tin liên lạc không hợp lệ! Vui lòng điền lại ở những ô màu đỏ!")
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Thất bại!\nThông tin liên lạc không hợp lê!",
+                showConfirmButton: false,
+                timer: 2000,
+            });
         }
         else{
-            alert(`Thông tin liên lạc: \nName: ${name}\nEmail: ${email}\nMobile: ${mobile}\nMessage: ${message}`)
+            const data={name,email,mobile,message }
+            try {
+              const formData= await HandleApiForm.createForm(data)
+              if(!formData){
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Đã xảy ra lỗi!\nVui lòng thử lại!",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+              }
+            console.log(formData)
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Thành công!\nNhân viên của chúng tôi sẽ sớm liên hệ bạn. ",
+                showConfirmButton: true,
+               // timer: 1500,
+                });
+              setName("")
+              setEmail("")
+              setMobile("")
+              setMessage("")
+            } catch (error) {
+                console.log(error)
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Đã xảy ra lỗi!\nVui lòng thử lại!",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+            }
         }
     };
     const handleChange=function(e){
@@ -73,10 +114,10 @@ function Contact() {
                 <div  className={style.contactImage}>
                 </div> 
                 <div className={style.contactForm}>
-                    <p className={style.contactTitle}>Please leave your phone number to be contacted for the latest King Speed ​​car buying policy!</p>
+                    <p className={style.contactTitle}>Vui lòng để lại thông tin liên lạc để nhận tư vấn từ bộ phận chăm sóc khách hàng hoặc các chính sách của KingSpeed!</p>
                     <form onSubmit={handleSubmit}>
                         <div className={style.contactItem}>
-                            <label className={style.contactLabel}>Name</label>
+                            <label className={style.contactLabel}>Họ và tên</label>
                             <input  className={style.contactInput} type={"text"} required  onBlur={handleBlur} onChange={handleChange} value={name}></input>
                         </div>
                         <div className={style.contactItem}>
@@ -85,17 +126,16 @@ function Contact() {
                             <p style={{color: "red", padding: "4px"}}>{errorEmail}</p>
                         </div>
                         <div className={style.contactItem}>
-                            <label className={style.contactLabel}>Mobile</label>
+                            <label className={style.contactLabel}>Số điện thoại</label>
                             <input className={style.contactInput} type={"tel"} required  onBlur={handleBlur} onChange={handleChange} value={mobile}></input>
                             <p style={{color: "red", padding: "4px"}}>{errorMobile}</p>
                         </div>
                         <div className={style.contactItem}>
-                            <label className={style.contactLabel}>Message</label>
+                            <label className={style.contactLabel}>Tin nhắn</label>
                             <textarea className='textarea' onChange={handleChange} value={message}>
                             </textarea>
                         </div>
-                        <button className={style.contactSend}>Send</button>
-                       
+                        <button className={style.contactSend}>Gửi</button>
                     </form>
                 </div>
             </div>
