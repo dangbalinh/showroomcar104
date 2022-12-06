@@ -37,7 +37,7 @@ function SliderImage() {
             <Slide
                 
                 shouldRenderMask
-                label="County Clare - Ireland"
+                label="carX"
                 background={{
                     
                     backgroundImageSrc: images.carXImg,
@@ -45,13 +45,13 @@ function SliderImage() {
                 />
             <Slide
                 shouldRenderMask
-                label="County Clare - Ireland"
+                label="CarY"
                 background={{
                     backgroundImageSrc: images.carYImg,
                 }}/>
             <Slide
                 shouldRenderMask
-                label="County Clare - Ireland"
+                label="CarZ"
                 background={{
                     backgroundImageSrc: images.carZImg,
                 }}/>

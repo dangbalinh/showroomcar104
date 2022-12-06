@@ -107,7 +107,7 @@ const Item = styled(Paper)(({ theme }) => ({
                 placeholder="Tên"
                 onChange={handleChange}
                 name="name"
-                style={{width:"50%"}}
+                style={{width:"70%"}}
                 value={formData.name}
             />
     </div>
@@ -136,9 +136,7 @@ const Item = styled(Paper)(({ theme }) => ({
                 value={formData.diachi}
             />
     </div>
-    <div className={classes.NameGT2}>
     <div>
-      
       <label style={{width:"16%",display:"inline-block"}}>SDT</label>
             <input
                 type="tel"
@@ -159,7 +157,6 @@ const Item = styled(Paper)(({ theme }) => ({
                 style={{width:"84%"}}
                 value={formData.cccd}
             />
-    </div>
     </div>
     <div className={classes.NgaySinh} style={{padding:"0",display:"flex", alignItems:"baseline"}}>
       <label style={{width:"40%"}}>Ngày sinh</label>

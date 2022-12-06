@@ -14,7 +14,7 @@
     text-align: left;
     cursor: pointer;
     font-size: 10px;
-    margin:0px 0;
+    margin:px 0;
     text-decoration: underline;
 }
 .UserSide p{
@@ -93,18 +93,15 @@
 {
    
         width: 30% !important;
+        height: 52px !important;
         height: 100%;
         font-size: 1.6rem !important;
-    box-shadow: 3px 3px 9px #aaaaaa;
 }
 
 .menuItem {
     font-size: 1.4rem !important;
 }
-.OrderSide DatePicker
-{
-    box-shadow: 3px 3px 9px #aaaaaa;
-}
+
 .PickStatus .input {
     padding-left: 25px;
     background: url("https://static.thenounproject.com/png/101791-200.png") no-repeat left;
@@ -113,7 +110,11 @@
     margin-right: 25px;
     height: 40px;
     width: 40%;
-    box-shadow: 3px 3px 9px #aaaaaa;
+    border: #e40000;
+    background-color: #dad7d74a;
+}
+.PickStatus .input:focus{
+    outline: none;
 }
 .OrderSide .ClearButton{
     background-color: rgb(255, 148, 148);
@@ -137,7 +138,7 @@
     color: white;
     border-radius: 10px;
     padding: 10px 30px;
-    padding-bottom: 70px;
+    padding-bottom: 90px;
     margin: 20px;
 }
 .DetailCard h2{
@@ -156,19 +157,29 @@
     height: 60px;
     width: auto;
 }
-.DetailCard .DetailImg{
-    margin: 15px;
+.DetailCard img{
+    margin-top: 5px;
+
+    height: 40px;
+    width: 60px;
 }
 
-.DetailCard .asa
-{
-    background-color: rgba(237, 132, 132, 0.756);
+.DetailCard .TotalDiv{
+    margin-top: 10px;
+    background-color: #ea707058;
+    border-radius: 10px;
+    
 }
-
 .DetailCard .ListCar{
     justify-content: center;
     align-content: stretch;
     padding: 10px;
+}
+.DetailCard .Total{
+    color: #ffffff;
+    font-size: 24.5px;
+    font-weight: bold;
+
 }
 
 .Listcar{
@@ -187,6 +198,7 @@
     justify-content: center;
     align-items: center;
     border-top: 1px solid #fff;
+    margin-top: 63px;
 }
 
 .logout_btn {
@@ -197,7 +209,7 @@
     background-color: #dd1818;
     border-radius: 8px;
     color: #fff;
-    margin-top: 36px;
+    margin-top: 15px;
     padding: 10px 20px;
     cursor: pointer;
 }
@@ -210,7 +222,7 @@
 .form {
     width: 30%;;
     display: inline-block;
-    height: 500px;
+    height: 520px;
     background: rgba(255, 255, 255, .5);
     border-radius: 22px;
     padding: 2rem;
@@ -229,11 +241,11 @@
     padding-left: 6px;
     border-radius: 5px;
     border: none;
-    background-color: #d1d1d19e;
+    background-color: #d1d1d174;
 }
-.funcContainer input{
-    height: 20px;
-    background-color: #ffffff;
+
+.Update input:focus{
+    outline: none;
 }
 .Update .DesDate{
     width: 200px;
@@ -259,26 +271,40 @@
 }
 .Update div{
     width:100%;
-    padding: 10px 0 ;
+    padding: 20px 0 10px 0;
 }
 
 .NameGT{
     display: flex;
     align-content: flex-start;
     align-items: baseline;
+    
 }
 .NameGT div{
     width: 50%;
+    padding: 0px;
 }
 .NgaySinh
 {
     position: absolute;
-    bottom: 40px;
+    bottom: 50px;
+}
+.NgaySinh div
+{
+    padding: 0;
 }
 .NgaySinh button{
     background-color: #e8bcbc !important;
+    margin-left: 30px;
+    margin-bottom:0px;
 }
-
+.funcContainer input{
+    height: 20px;
+    background-color: #ffffff;
+    margin-left: 10px;
+    margin-bottom: 0px;
+    outline: none;
+}
 
 
 .backdrop {
@@ -291,8 +317,7 @@
     left: 0;}
 
 .form .buttonsubmit{
-
-        margin-top: 8rem;
+        margin-top: 10rem;
         padding: .6rem;
         width: 85%;
         font-size: 20px;
@@ -311,5 +336,11 @@
 .form select{
     height: 30px;
     font-size: 15px;
-    border-radius: 20px;
+    border-radius: 10px;
+    border-color: #a7a7a7;
+}
+
+
+.form select:focus{
+    outline: none;
 }
