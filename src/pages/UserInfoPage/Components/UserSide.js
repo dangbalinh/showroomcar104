@@ -10,10 +10,12 @@ import {
   Cookie,
   Logout,
 } from "@mui/icons-material";
+import IconButton from '@mui/material/IconButton';
 import PhoneIcon from '@mui/icons-material/Phone';
 import HomeIcon from '@mui/icons-material/Home';
 import CakeIcon from '@mui/icons-material/Cake';
 import BoyIcon from '@mui/icons-material/Boy';
+import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom'
 const UserSide = () => {
   const user1 = JSON.parse(localStorage.getItem("user"));
@@ -53,7 +55,9 @@ const UserSide = () => {
   return (<>
     {userData && <div style={{width:"100%",height:"800px",backgroundColor:"#650707"}}>
       <div className={classes.UserSide}>
-        <img style={{borderRadius:"50%"}} src={avatar} alt='rr'></img>
+        <img style={{borderRadius:"50%",marginLeft:"22px"}} src={avatar} alt='rr'></img>
+        <EditIcon onClick={handleModal}  
+        style={{ color: '#ffff', fontSize:'25px',cursor:"pointer" }} />
         <p className={classes.SideRole}>{user1.role}</p>
         <p className={classes.SideName}>{userData.name}</p>
         <p className={classes.SideMail}>{userData.email}</p>
@@ -76,8 +80,8 @@ const UserSide = () => {
         </Stack>
         </div>
       </div>
-      <div style={{marginTop:"80px"}}>
-      <p className={classes.Pbutton} onClick={handleModal}>Cập nhật thông tin</p>
+      <div style={{marginTop:"130px"}}>
+        
       <div className={classes.logout}>
                 
                 <button type="button" className={classes.logout_btn}

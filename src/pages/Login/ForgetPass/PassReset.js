@@ -34,7 +34,7 @@ const PassReset = () => {
             setErrors((prev)=>{
                 return{
                 ...prev,
-                passwordError:"The password provided is not long enough."
+                passwordError:"Mật khẩu phải dài hơn 8 ký tự."
               }
               })
             }
@@ -56,7 +56,7 @@ const PassReset = () => {
             setErrors((prev)=>{
                 return{
                 ...prev,
-                confirmError:"The password is incorrect."
+                confirmError:"Mật khẩu không khớp."
               }
               })
             }
@@ -102,8 +102,8 @@ const PassReset = () => {
           })
           .then(()=>Swal.fire({
             icon: 'success',
-            title: 'Congrats',
-            text: 'Your password has been changed',
+            title: 'Chúc mừng',
+            text: 'Mật khẩu của bản đã được thay đổi',
           }))
           .then(()=>navigate("/login"));
         }
@@ -114,23 +114,23 @@ const PassReset = () => {
             <div className={classes.registerlayout}>
             <div className={classes.registerimg}></div>
             <form className={classes.form}>
-              <h2 style={{color:"#8A0000",padding: "25px 0", textAlign:"center"}}>Enter your new password</h2>
+              <h2 style={{color:"#8A0000",padding: "25px 0", textAlign:"center"}}>Nhập Mật Khẩu Mới</h2>
                 <p>
-                    <label>Password</label><br/>
+                    <label>Mật khẩu</label><br/>
                     <input className={classes.input} value={inputs.password}
                     type="password" name="password" onChange={handleChange} onBlur={handleBlur} required />
                     <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.passwordError}</p>
                 </p>
                 <p>
-                    <label>Confirm Password</label><br/>
+                    <label>Xác nhận mật khẩu</label><br/>
                     <input className={classes.input} 
                     type="password" name="password2" onBlur={handleBlur} required />
                     <p style={{color: "red", padding: "10px",fontSize:"12px"}}>{errors.confirmError}</p>
                 </p>
                 <p style={{ textAlign:"center", fontSize:"16px"}}>
                     <button className={classes.button} id="sub_btn" type="submit"
-                    onClick={handleSubmit}>Submit</button><br/>
-                    <Link to="/login">Go back to Login</Link>
+                    onClick={handleSubmit}>Đổi mật khẩu</button><br/>
+                    <Link to="/login">Quay về đăng nhập</Link>
                 </p>
             </form>
             </div>
