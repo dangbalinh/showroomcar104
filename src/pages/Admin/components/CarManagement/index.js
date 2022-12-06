@@ -191,7 +191,6 @@ function CarManagement() {
 
     // handle search event
     useEffect(() => {
-        console.log(searchValue);
         if (searchValue.trim() !== "") {
             HandleApi.getCarByName(searchValue).then(async (res) => {
                 await setData(res.cars);
@@ -214,20 +213,20 @@ function CarManagement() {
         inputRef.current.focus();
     };
 
-    const handleErrorInform = () => {
-        Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Bạn không có quyền thêm, xóa, sửa dữ liệu!",
-            showConfirmButton: true,
-            timer: 3000,
-        });
-    };
+    // const handleErrorInform = () => {
+    //     Swal.fire({
+    //         position: "center",
+    //         icon: "error",
+    //         title: "Bạn không có quyền thêm, xóa, sửa dữ liệu!",
+    //         showConfirmButton: true,
+    //         timer: 3000,
+    //     });
+    // };
 
-    const handleClickDelete = (id) => {
-        setOpenDeleteModal(true);
-        setId(id);
-    };
+    // const handleClickDelete = (id) => {
+    //     setOpenDeleteModal(true);
+    //     setId(id);
+    // };
 
     // Custome CSS MUI
     const ItemMain = styled(Paper)(({ theme }) => ({
@@ -361,24 +360,26 @@ function CarManagement() {
                         </FormControl>
                     </div>
 
-                    <Button
-                        sx={{
-                            height: 40,
-                            fontSize: 14,
-                            textTransform: "none",
-                            marginLeft: "80px",
-                        }}
-                        variant="contained"
-                        color="success"
-                        startIcon={<Add />}
-                        onClick={() => {
-                            user.role === "employee"
-                                ? handleErrorInform()
-                                : setType("create");
-                        }}
-                    >
-                        Thêm sản phẩm
-                    </Button>
+                    {user.role !== "employee" ? (
+                        <Button
+                            sx={{
+                                height: 40,
+                                fontSize: 14,
+                                textTransform: "none",
+                                marginLeft: "80px",
+                            }}
+                            variant="contained"
+                            color="success"
+                            startIcon={<Add />}
+                            onClick={() => {
+                                setType("create");
+                            }}
+                        >
+                            Thêm sản phẩm
+                        </Button>
+                    ) : (
+                        ""
+                    )}
                 </div>
 
                 <div className={styles.content}>
@@ -444,48 +445,42 @@ function CarManagement() {
                                         >
                                             Chi tiết
                                         </Button>
-                                        <IconButton
-                                            color="primary"
-                                            size="medium"
-                                            // sx={{
-                                            //     width: 35,
-                                            //     height: 34,
-                                            //     borderRadius: "4px",
-                                            //     border: "1px solid #1976D2",
-                                            //     justifyContent: "space-between",
-                                            //     marginLeft: "-24px"
-                                            // }}
-                                            sx={{ padding: "8px 6px" }}
-                                            onClick={() => {
-                                                user.role === "employee"
-                                                    ? handleErrorInform()
-                                                    : handleClickUpdate(
-                                                          item._id
-                                                      );
-                                            }}
-                                        >
-                                            <Edit sx={{ fontSize: "22px" }} />
-                                        </IconButton>
+                                        {user.role !== "employee" ? (
+                                            <IconButton
+                                                color="primary"
+                                                size="medium"
+                                                sx={{ padding: "8px 6px" }}
+                                                onClick={() => {
+                                                    handleClickUpdate(item._id);
+                                                }}
+                                            >
+                                                <Edit
+                                                    sx={{ fontSize: "22px" }}
+                                                />
+                                            </IconButton>
+                                        ) : (
+                                            ""
+                                        )}
 
-                                        <IconButton
-                                            size="medium"
-                                            color="error"
-                                            // onClick={() => {
-                                            //     setOpenDeleteModal(true);
-                                            //     setId(item._id);
-                                            // }}
-                                            onClick={() => {
-                                                user.role === "employee"
-                                                    ? handleErrorInform()
-                                                    : handleClickDelete(
-                                                          item._id
-                                                      );
-                                            }}
-                                        >
-                                            <DeleteOutline
-                                                sx={{ fontSize: "22px" }}
-                                            />
-                                        </IconButton>
+                                        {user.role !== "employee" ? (
+                                            <IconButton
+                                                size="medium"
+                                                color="error"
+                                                onClick={() => {
+                                                    setOpenDeleteModal(true);
+                                                    setId(item._id);
+                                                }}
+                                                // onClick={() => {
+                                                //     handleClickDelete(item._id);
+                                                // }}
+                                            >
+                                                <DeleteOutline
+                                                    sx={{ fontSize: "22px" }}
+                                                />
+                                            </IconButton>
+                                        ) : (
+                                            ""
+                                        )}
                                         <Modal
                                             open={openDeleteModal}
                                             onClose={() =>
