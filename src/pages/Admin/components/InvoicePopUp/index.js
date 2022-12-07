@@ -6,12 +6,11 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import Swal from "sweetalert2";
 import { styled } from "@mui/material/styles";
 import HandleApiInvoice from "../../../../Apis/HandleApiInvoice";
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 // import { borders } from '@mui/system';
 import {
-
+    Add
+} from "@mui/icons-material";
+import {
     MenuItem,
     Button,
     Grid,
@@ -22,6 +21,8 @@ import {
     Typography,
     Stack,
 } from "@mui/material";
+import { width } from "@mui/system";
+import { GridFilterInputValue } from "@mui/x-data-grid";
 
 function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
 
@@ -41,13 +42,18 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
 
 //========
     const [makh, setMaKH] = useState();
-    const [datepicker, setdatepicker] = useState(new Date());
     const [ngayhd, setngayhd] = useState(formatDate(new Date()))
     const [tinhtrang, setTinhTrang] = useState("Chưa thanh toán");
     const [trigia, setTriGia] = useState();
+    const [donGiaChiTiet, setDonGiaChiTiet] = useState(0)
+    const [tongtien, setTongTien] = useState(0);
     const [maxe, setMaXe] = useState();
     const [soluongxe, setSoLuongXe] = useState(0);
-
+    const [carName, setCarName] = useState();
+    const [carArrayData, setCarArrayData] = useState([]);
+    const [carArrayDisplay, setCarArrayDisplay] = useState([]);
+    const [inputMaXe, setInputMaXe] = useState('')
+    const [inputSL, setInputSL] = useState('')
     var user = JSON.parse(localStorage.getItem('user'));
     const manv = user.mauser;
 
@@ -85,28 +91,20 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
     //     soluongxe
     // ]
 
-
     const dataN = {
         hoadon: {
             manv: manv,
             makh: makh,
             ngayhd: ngayhd,
             tinhtrang: tinhtrang,
-            trigia: trigia,  
+            trigia: tongtien,  
     },
-        cthd: [
-            {
-                macar: maxe,
-                soluong: soluongxe,
-            }
-        ],
+        cthd: carArrayData,
     }
 
 
     // const [thumbnail, setThumbnail] = useState();
-    const [carName, setCarName] = useState();
     
-
     const handleBlur = (e) => {
         if (e.target.value === "") {
             // setErrorName("Vui lòng nhập dữ liệu ");
@@ -118,19 +116,14 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
         if(maxe !== null)
         {
             HandleApiInvoice.getCarByMaCar(maxe).then((res) => {
-                if(res.cars[0].soluong >= soluongxe)
-                {
-                    setCarName(res.cars[0].ten)
-                    setTriGia(res.cars[0].gia*soluongxe)
-                }
-                else
-                Swal.fire({
+                if(res.cars[0].soluong < soluongxe)
+                    Swal.fire({
                     position: "center",
                     icon: "error",
                     title: "Số lượng xe không đủ",
                     showConfirmButton: false,
-                    timer: 1500,
-                })
+                    timer: 1500,})
+                
                 .catch((err) => {
                     Swal.fire({
                         position: "center",
@@ -145,9 +138,30 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
         }
     };
 
+    const handleAddCarToInvoice = async (e) => {
+        e.preventDefault();
+        HandleApiInvoice.getCarByMaCar(maxe).then( (res) => {
+            if(res.cars[0].soluong >= soluongxe)
+            { 
+                setTongTien(tongtien+res.cars[0].gia*soluongxe)
+                let carInforDisplay = {
+                    tenxe: res.cars[0].ten,
+                    soluong: soluongxe, 
+                    dongia: res.cars[0].gia,
+                }
+                let carData = {
+                    macar: maxe,
+                    soluong: soluongxe,
+                }
+                setCarArrayData(carArrayData => [...carArrayData, carData])
+                setCarArrayDisplay(carArrayDisplay => [...carArrayDisplay, carInforDisplay])
+                setInputMaXe('')
+                setInputSL('')
+            } 
+    })}
+
     const handleCreateInvoice = async (e) => {
         e.preventDefault();
-        // console.log(dataN)
         HandleApiInvoice.createInvoice(dataN)
             .then(async (res) => {
                 await Swal.fire({
@@ -170,25 +184,12 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                 });
                 console.log(err);
             });
-    };
-
-    const handleUpdateInvoice = async () => {
-        console.log(updateInvoice._id);
-        HandleApiInvoice.capnhatTinhTrang(updateInvoice._id, tinhtrang)
-            .then(async (res) => {
-                await Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Cập nhật dữ liệu thành công!",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                setUdateInvoice({});
-                window.location.reload();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+            setTriGia(null) 
+            setCarName("") 
+            setSoLuongXe(0)
+            setTongTien(0)
+            setCarArrayDisplay([])
+            setCarArrayData([])
     };
 
     const MenuSelectProps = {
@@ -205,12 +206,6 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
         setTinhTrang(event.target.value);
     };
 
-    const handleDayChange = (e) => {  
-        setdatepicker(e)
-        setngayhd(formatDate(e.$d));
-        console.log(e)
-        console.log("e la ",typeof e,"e.$d la",e.$d)
-    }
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
         padding: theme.spacing(1),
@@ -229,17 +224,24 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                     <div className={styles.bPopup}>
                         <CancelIcon
                             className={styles.bPopup__close}
-                            onClick={() => setType("")}
+                            onClick={() => {setType("")
+                            setTriGia(null) 
+                            setCarName("") 
+                            setSoLuongXe(0)
+                            setTongTien(0)
+                            setCarArrayDisplay([])
+                            setCarArrayData([])
+                        }}
                         />
                         <h3>Tạo hóa đơn</h3>
                         <br />
                         <Box sx={{ flexGrow: 1 }}>
                             <form onSubmit={handleCreateInvoice}>
                                 <Grid container>
-                                    <Grid item xs={8}>
-                                    <Box sx={{ borderRight: 1, width: '90%'}}>
-                                        <Grid container sx={{ width: "420px", marginTop: "16px"}}>
-                                            {    inputIdN.map((item, index) => (
+                                    <Grid item xs={6.5}>
+                                    <Box sx={{ borderRight: 1, width: '95%'}}>
+                                        <Grid container sx={{ width: "400px", marginTop: "16px"}}>
+                                            {/* {    inputIdN.map((item, index) => (
                                                 <Grid key={index} item xs={6} sx={{ height: "93px" }}>
                                                     <label htmlFor={item[index]} className={styles.label}>
                                                         {textValueN[index]}
@@ -258,10 +260,80 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                                                         }
                                                         onBlur={handleBlur}
                                                     />
-                                                    {/* <div>{errorName}</div> */}
+                                                    <div>{errorName}</div>
                                                 </Grid>
                                                 ))
-                                            }
+                                            } */}
+                                            <Grid item xs={6} sx={{height: "93px"}}>
+                                                <label className={styles.label}>Mã khách hàng</label>
+                                                <br />
+                                                <input
+                                                
+                                                    type={"text"}
+                                                    required
+                                                    placeholder={"Nhập mã khách hàng"}
+                                                    onChange={(e) => (setMaKH(e.target.value))}
+                                                    onBlur={handleBlur}
+                                                />
+                                            </Grid> 
+
+                                            <Grid item xs={6} sx={{height: "93px"}} className={styles.nghdpicker}>
+                                                <label className={styles.label}>Ngày lập hóa đơn</label>
+                                                <br/>
+                                                <input disabled value={ngayhd}/>
+                                            </Grid> 
+
+                                            <Grid item xs={6} sx={{height: "93px"}}>
+                                                <label className={styles.label}>Mã xe</label>
+                                                <br />
+                                                <input
+                                                    id="inputMaXe"
+                                                    name="inputMaXe"
+                                                    value={inputMaXe}
+                                                    type={"text"}
+                                                    required
+                                                    placeholder={"Nhập mã xe"}
+                                                    onChange={(e) => {
+                                                        setMaXe(e.target.value)
+                                                        setInputMaXe(e.target.value)}}
+                                                    onBlur={handleBlur}
+                                                />
+                                            </Grid> 
+
+                                            <Grid item xs={6} sx={{height: "93px"}}>
+                                                <label className={styles.label}>Số lượng</label>
+                                                <br />
+                                                <input
+                                                    id="inputSL"
+                                                    name="inputSL"
+                                                    value={inputSL}
+                                                    type={"number"}
+                                                    required
+                                                    placeholder={"Nhập số lượng"}
+                                                    onChange={(e) => {
+                                                        setSoLuongXe(e.target.value)
+                                                        setInputSL(e.target.value.toString())
+                                                    }}
+                                                    onBlur={handleBlur}
+                                                 />
+                                            </Grid> 
+
+                                            <Grid item xs={7} sx={{height: "50px"}}>                       
+                                            <Button
+                                                sx={{
+                                                    height: 40,
+                                                    fontSize: 14,
+                                                    textTransform: "none",
+                                                }}
+                                                variant="contained"
+                                                color="success"
+                                                startIcon={<Add />}
+                                                onClick={handleAddCarToInvoice}
+                                            >
+                                                Thêm xe
+                                            </Button>
+                                            </Grid> 
+
                                             <Grid item xs={6} sx={{height: "93px"}}>
                                                 <label className={styles.label}>Tình trạng</label>
                                                 <br/>
@@ -288,48 +360,58 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                                                     </MenuItem>
                                                 </Select>
                                             </Grid>
-                                            <Grid item xs={6} sx={{height: "93px"}} className={styles.nghdpicker}>
-                                                <label className={styles.label}>Ngày lập hóa đơn</label>
-                                                <br/>
-                                                <LocalizationProvider dateAdapter={AdapterDayjs} >
-                                                    <Stack spacing={3}>
-                                                        <DesktopDatePicker 
-                                                            inputFormat="DD/MM/YYYY"
-                                                            value={datepicker}
-                                                            onChange={handleDayChange}
-                                                            renderInput={(params) => <TextField {...params} />}
-                                                        />
-                                                    </Stack>
-                                                </LocalizationProvider>
-                                                
-                                            </Grid>
 
                                         </Grid>
                                     </Box>
                                     </Grid>
-                                    <Grid item xs={4}>
+                                    <Grid item xs={5.5}>
                                     <Box sx={{ width: '100%'}}>
                                         <Grid container sx={{ width: "100%", marginTop: "16px"}}>
-                                            <Grid item xs={12} sx={{height: "93px"}}>
+                                            <Grid item xs={2} sx={{height: "40px"}}>
+                                                <label className={styles.label}>STT</label>
+                                            </Grid>
+                                            <Grid item xs={4.7} sx={{height: "40px"}}>
                                                 <label className={styles.label}>Tên xe</label>
-                                                <br/>
+                                                {/* <br/>
                                                 <Box>
                                                     <Typography variant="h4">{carName}</Typography>
-                                                </Box>
+                                                </Box> */}
                                             </Grid>
 
-                                            <Grid item xs={12} sx={{height: "93px"}}>
+                                            <Grid item xs={2} sx={{height: "40px"}}>
                                                 <label className={styles.label}>Số lượng</label>
-                                                <br/>
+                                                {/* <br/>
                                                 <Box>
                                                     <Typography variant="h4">{soluongxe}</Typography>
-                                                </Box>
+                                                </Box> */}
                                             </Grid>
+                                            <Grid item xs={3.3} sx={{height: "40px"}}>
+                                                <label className={styles.label}>Đơn giá</label>
+                                                {/* <br/>
+                                                <Box>
+                                                    <Typography variant="h4">{soluongxe}</Typography>
+                                                </Box> */}
+                                            </Grid>
+                                            {carArrayDisplay?.map((item, index) => (
+                                            <Grid container key={index}>
+                                                <Grid item xs={1}>
+                                                    <Item>{index + 1}</Item>
+                                                </Grid>
+                                                <Grid item xs={5.7}>
+                                                    <Item>{item.tenxe}</Item>
+                                                </Grid>
+                                                <Grid item xs={1.8}>
+                                                    <Item>{item.soluong}</Item>
+                                                </Grid>
+                                                <Grid item xs={3.5}>
+                                                    <Item>{item.dongia}</Item>
+                                                </Grid>
+                                            </Grid>))}
                                             <Grid item xs={12} sx={{height: "93px"}}>
-                                                <label className={styles.label}>Trị giá</label>
+                                                <label className={styles.label}>Tổng tiền</label>
                                                 <br/>
                                                 <Box>
-                                                    <Typography variant="h4">{trigia}</Typography>
+                                                    <Typography variant="h4">{tongtien}</Typography>
                                                 </Box>
                                             </Grid>
                                         </Grid>
@@ -360,7 +442,14 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                                             width: "100px",
                                             margin: "24px 36px 0 20px"
                                         }}
-                                        onClick={() => setType("")}
+                                        onClick={() => {setType("")
+                                        setTriGia(null) 
+                                        setCarName("") 
+                                        setSoLuongXe(0)
+                                        setTongTien(0)
+                                        setCarArrayDisplay([])
+                                        setCarArrayData([])
+                                        }}
                                     >
                                         Hủy
                                     </Button>
@@ -382,8 +471,8 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                         <h3>Thông tin chi tiết</h3>
 
                         <Box sx={{ flexGrow: 1, marginTop: "24px" }}>
-                            <Grid container>
-                                <Grid item xs={12}>
+                            <Grid container columnSpacing={5}>
+                                <Grid item xs={4.5}>
                                     <div className={styles.infor_hoadon}>
                                     <Item sx={{ fontWeight: "bold" }}>{"Mã khách hàng: " + updateInvoice.hoadon.makh}</Item>
                                     <Item>{"Mã nhân viên: " + updateInvoice.hoadon.manv}</Item>
@@ -391,10 +480,59 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                                     <Item>{"Tình trạng: " + updateInvoice.hoadon.tinhtrang}</Item>
                                     <Item>{"Ngày lập hóa đơn: " + updateInvoice.hoadon.ngayhd}</Item>
                                     <Item>{"Trị giá: " + updateInvoice.hoadon.trigia}</Item>
-                                    <Item>{"Mã xe: " + updateInvoice.cthds[0].macar}</Item>
-                                    <Item>{"Tên xe: " + updateInvoice.cthds[0].tenxe}</Item>
-                                    <Item>{"Số lượng xe: " + updateInvoice.cthds[0].soluong}</Item>
                                     </div>
+                                </Grid>
+                                <Grid item xs={7.5}>
+                                    <Grid container>
+                                    <Grid item xs={2} sx={{height: "40px"}}>
+                                        <label className={styles.label}>STT</label>
+                                    </Grid>
+                                    <Grid item xs={4.7} sx={{height: "40px"}}>
+                                        <label className={styles.label}>Tên xe</label>
+                                        {/* <br/>
+                                        <Box>
+                                            <Typography variant="h4">{carName}</Typography>
+                                        </Box> */}
+                                    </Grid>
+
+                                    <Grid item xs={2} sx={{height: "40px"}}>
+                                        <label className={styles.label}>Số lượng</label>
+                                        {/* <br/>
+                                        <Box>
+                                            <Typography variant="h4">{soluongxe}</Typography>
+                                        </Box> */}
+                                    </Grid>
+                                    <Grid item xs={3.3} sx={{height: "40px"}}>
+                                        <label className={styles.label}>Đơn giá</label>
+                                        {/* <br/>
+                                        <Box>
+                                            <Typography variant="h4">{soluongxe}</Typography>
+                                        </Box> */}
+                                    </Grid>
+                                {updateInvoice.cthds?.map((item, index) => (
+                                            <Grid container key={index}>
+                                                <Grid item xs={1}>
+                                                    <Item>{index + 1}</Item>
+                                                </Grid>
+                                                <Grid item xs={5.7}>
+                                                    <Item>{item.tenxe}</Item>
+                                                </Grid>
+                                                <Grid item xs={1.8}>
+                                                    <Item>{item.soluong}</Item>
+                                                </Grid>
+                                                <Grid item xs={3.5}>
+                                                <Item>0</Item>
+                                                </Grid>
+                                            </Grid>))}
+                                            <Grid item xs={12} sx={{height: "93px"}}>
+                                                <label className={styles.label}>Tổng tiền</label>
+                                                <br/>
+                                                <Box>
+                                                    <Typography variant="h4">{updateInvoice.hoadon.trigia}</Typography>
+                                                </Box>
+                                            </Grid>
+
+                                            </Grid>
                                 </Grid>
                             </Grid>
                         </Box>
@@ -408,7 +546,8 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                                     width: "100px",
                                     margin: "24px -10px -12px 0"
                                 }}
-                                onClick={() => setType("")}
+                                onClick={() => {setType("")
+                                }}
                             >
                                 Hủy
                             </Button>
