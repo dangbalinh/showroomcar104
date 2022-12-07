@@ -17,7 +17,8 @@ const images = {
     logoVinfast: require("./logo/logoVinfast.png"),
     logoHuynhdai: require("./logo/logoHuynhdai.png"),
     logoMescedez: require("./logo/logoMescedez.png"),
-    logoToyota: require("./logo/logoToyota.png")
+    logoToyota: require("./logo/logoToyota.png"),
+    imgPageDetailEmployee: require("./imgPageDetailEmployee.png"),
 };
 
 export default images;

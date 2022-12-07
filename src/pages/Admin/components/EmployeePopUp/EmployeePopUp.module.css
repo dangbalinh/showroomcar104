@@ -164,3 +164,9 @@
   justify-content: flex-end;
   margin-top: 12px;
 }
+
+.readImg {
+  width: 100%;
+  object-fit: cover;
+  margin: 40px 0 32px;
+}

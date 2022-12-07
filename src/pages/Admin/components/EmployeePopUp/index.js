@@ -6,6 +6,7 @@ import { Box } from "@mui/system";
 import { Grid, Button, Paper } from "@mui/material";
 import Swal from "sweetalert2";
 import { styled } from "@mui/material/styles";
+import images from "../../../../assets/image";
 
 import HandleApiEmployee from "../../../../Apis/HandleApiEmployee";
 
@@ -361,6 +362,20 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
                                     <Item>{"Địa chỉ: " + updateEmployee.diachi}</Item>
                                     <Item>{"Email: " + updateEmployee.email}</Item>
                                     <Item>{"Chức vụ: "+updateEmployee.chucvu}</Item>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <img
+                                        src={images.imgPageDetailEmployee}
+                                        className={styles.readImg}
+                                    ></img>
+                                    <Item
+                                        sx={{
+                                            textAlign: "center",
+                                            fontSize: "24px",
+                                            color: "red",
+                                            fontWeight: "bold",
+                                        }}
+                                    ></Item>
                                 </Grid>
                             </Grid>
                         </Box>
