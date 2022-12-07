@@ -364,7 +364,7 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                                             <Grid item xs={2} sx={{height: "40px"}}>
                                                 <label className={styles.label}>STT</label>
                                             </Grid>
-                                            <Grid item xs={4.7} sx={{height: "40px"}}>
+                                            <Grid item xs={4.5} sx={{height: "40px"}}>
                                                 <label className={styles.label}>Tên xe</label>
                                             </Grid>
 
@@ -375,13 +375,13 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                                                 <label className={styles.label}>Đơn giá</label>
                                             </Grid>
                                             <Grid item xs={12}>
-                                                <div style={{height: "120px", overflowY: 'scroll', overflow: 'scroll'}}>
+                                                <div style={{height: "220px", overflowY: 'scroll', overflow: 'scroll'}}>
                                                 {carArrayDisplay?.map((item, index) => (
                                                 <Grid container key={index}>
                                                     <Grid item xs={1}>
                                                         <Item>{index + 1}</Item>
                                                     </Grid>
-                                                    <Grid item xs={5.7}>
+                                                    <Grid item xs={5.5}>
                                                         <Item>{item.tenxe}</Item>
                                                     </Grid>
                                                     <Grid item xs={1.8}>
@@ -473,11 +473,11 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                                 <Grid item xs={2} sx={{height: "30px"}}>
                                     <label className={styles.label}>STT</label>
                                 </Grid>
-                                <Grid item xs={4.7} sx={{height: "30px"}}>
+                                <Grid item xs={4.2} sx={{height: "30px"}}>
                                     <label className={styles.label}>Tên xe</label>
                                 </Grid>
 
-                                <Grid item xs={2} sx={{height: "30px"}}>
+                                <Grid item xs={2.5} sx={{height: "30px"}}>
                                     <label className={styles.label}>Số lượng</label>
                                 </Grid>
                                 <Grid item xs={3.3} sx={{height: "30px"}}>

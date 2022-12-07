@@ -17,19 +17,19 @@ authAxiosInstance.interceptors.response.use(
       return Promise.reject(error);
     },
   );
-const getInvoiceByTinhTrang = async (tinhtrang) => {
-    return await axiosInstance.get(`/hoadons?tinhtrang=${tinhtrang}`)
+const getInvoiceByTinhTrang = async (tinhtrang, pageIndex) => {
+    return await axiosInstance.get(`/hoadons?tinhtrang=${tinhtrang}&pageSize=${10}&pageIndex=${pageIndex}`)
 };
 
-const getInvoiceByPageIndex = async (index) => {
-    return await axiosInstance.get(`/hoadons?pageIndex=${index}`);
-};
+const getInvoiceByPageIndex = async (pageIndex) => {
+    return await axiosInstance.get(`/hoadons?pageIndex=${pageIndex}&pageSize=${10}`);
+}
 const getInvoiceByID = async (id) => {
     return await axiosInstance.get(`/hoadons/${id}`);
 }
 
 const getInvoiceByMAHD = async (mahd) => {
-    return await axiosInstance.get(`/hoadons?mahd=${mahd}`)
+    return await axiosInstance.get(`/hoadons?mahd=${mahd}&pageSize=${10}`)
 }
 const xoaDonDatHang = async (id) => {
     return await axiosInstance.delete(`/hoadons/${id}`);
@@ -54,7 +54,6 @@ const getCustomerByMaUser = async(makh) => {
  //eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getInvoiceByTinhTrang,
-    getInvoiceByPageIndex,
     getInvoiceByID,
     getInvoiceByMAHD,
     xoaDonDatHang,
@@ -62,4 +61,5 @@ export default {
     capnhatTinhTrang,
     getCarByMaCar,
     getCustomerByMaUser,
+    getInvoiceByPageIndex,
 };

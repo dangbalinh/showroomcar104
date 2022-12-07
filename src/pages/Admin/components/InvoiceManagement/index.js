@@ -67,34 +67,32 @@ function InvoiceManagement() {
         "Chưa thanh toán",
     ]
 
-    const pageSize = 5;
-
-    //get API
+    const pageSize = 10;
+    
     useEffect(() => {
         HandleApiInvoice.getInvoiceByPageIndex(pageIndex).then((res) => {
             setData(res.hoadons);
             setDataLength(res.totalHoaDon);
         })
-    }, [pageIndex]);
-
+    },[pageIndex]);
     // handle Filter select
     useEffect(() => {
         switch (tinhtrang)
         {
             case "Tất cả":
                 setNewData(data);
-                HandleApiInvoice.getInvoiceByTinhTrang("").then((res) => {
+                HandleApiInvoice.getInvoiceByTinhTrang("",pageIndex).then((res) => {
                 setDataLength(res.totalHoaDon)
                 });
                 break;
             case "Đã thanh toán":
-                    HandleApiInvoice.getInvoiceByTinhTrang("Đã thanh toán").then((res) => {
+                    HandleApiInvoice.getInvoiceByTinhTrang("Đã thanh toán",pageIndex).then((res) => {
                     setNewData(res.hoadons)
                     setDataLength(res.totalHoaDon)
                 });
                 break;
             case "Chưa thanh toán":
-                HandleApiInvoice.getInvoiceByTinhTrang("Chưa thanh toán").then((res) => {
+                HandleApiInvoice.getInvoiceByTinhTrang("Chưa thanh toán",pageIndex).then((res) => {
                     setNewData(res.hoadons)
                     setDataLength(res.totalHoaDon)
                 });
@@ -102,7 +100,7 @@ function InvoiceManagement() {
             default:
                 break;
         }
-    },[data, tinhtrang]);
+    },[data,tinhtrang,pageIndex]);
 
 
     //function dùng để kiểm tra ...
@@ -196,7 +194,7 @@ function InvoiceManagement() {
                 setDataLength(res.totalHoaDon);
             });
         }
-    }, [searchValue,data,pageIndex]);
+    }, [searchValue]);
 
     const handleInputChange = (e) => {
         setSearchValue(e.target.value);
@@ -333,7 +331,7 @@ function InvoiceManagement() {
                             height: 40,
                             fontSize: 14,
                             textTransform: "none",
-                            marginLeft: "80px"
+                            marginLeft: "170px"
                         }}
                         variant="contained"
                         color="success"
