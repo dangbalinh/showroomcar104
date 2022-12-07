@@ -38,7 +38,7 @@ function InvoiceManagement() {
     const [tinhtrang, setTinhTrang] = useState("Tất cả");
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
-    // const [searchValue, setSearchValue] = useState("");
+    const [searchValue, setSearchValue] = useState("");
     const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
     const [updateCar, setUpdateCar] = useState({});
@@ -50,7 +50,7 @@ function InvoiceManagement() {
         tinhtrang: "Đã thanh toán"
     }
 
-    // const inputRef = useRef();
+    const inputRef = useRef();
 
     const gridColumn = [0.7, 1.5, 1.5, 1.7, 1.8, 1.8, 1.2, 1.8];
     const gridTitle = [
@@ -193,38 +193,38 @@ function InvoiceManagement() {
     };
 
     // handle search event
-    // useEffect(() => {
-    //     console.log(searchValue);
-    //     if (searchValue.trim() !== "") {
-    //         HandleApi.getCarByName(searchValue).then(async (res) => {
-    //             await setData(res.cars);
-    //             await setDataLength(data.length);
-    //         });
-    //     } else {
-    //         HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-    //             setData(res.cars);
-    //             setDataLength(res.totalCars);
-    //         });
-    //     }
-    // }, [searchValue]);
+    useEffect(() => {
+        console.log(searchValue);
+        if (searchValue.trim() !== "") {
+            HandleApiInvoice.getInvoiceByMAHD(searchValue).then(async (res) => {
+                await setData(res.hoadons);
+                await setDataLength(data.length);
+            });
+        } else {
+            HandleApiInvoice.getInvoiceByPageIndex(pageIndex).then((res) => {
+                setData(res.hoadons);
+                setDataLength(res.totalHoaDon);
+            });
+        }
+    }, [searchValue]);
 
-    // const handleInputChange = (e) => {
-    //     setSearchValue(e.target.value);
-    // };
+    const handleInputChange = (e) => {
+        setSearchValue(e.target.value);
+    };
 
-    // const handleSearch = async () => {
-    //     if (searchValue.trim() !== "") {
-    //         HandleApi.getCarByName(searchValue).then(async (res) => {
-    //             await setData(res.cars);
-    //             await setDataLength(data.length);
-    //         });
-    //     }
-    // };
+    const handleSearch = async () => {
+        if (searchValue.trim() !== "") {
+            HandleApiInvoice.getInvoiceByMAHD(searchValue).then(async (res) => {
+                await setData(res.hoadons);
+                await setDataLength(data.length);
+            });
+        }
+    };
 
-    // const handleClear = () => {
-    //     setSearchValue("");
-    //     inputRef.current.focus();
-    // };
+    const handleClear = () => {
+        setSearchValue("");
+        inputRef.current.focus();
+    };
 
     // Custome CSS MUI
     const ItemMain = styled(Paper)(({ theme }) => ({
@@ -282,23 +282,23 @@ function InvoiceManagement() {
                 <div className={styles.container_header}>
                     <div className={styles.funcContainer}>
                         <div className={styles.search}>
-                            {/* <input
+                            <input
                                 ref={inputRef}
                                 value={searchValue}
                                 type="text"
                                 placeholder="Tìm hóa đơn"
                                 spellCheck={false}
                                 onChange={handleInputChange}
-                            /> */}
+                            />
 
-                            {/* {!!searchValue && (
+                            {!!searchValue && (
                                 <button
                                     className={styles.clear}
                                     onClick={handleClear}
                                 >
                                     <Cancel className={styles.clearIcon} />
                                 </button>
-                            )} */}
+                            )}
 
                             <button
                                 className={styles.searchBtn}
@@ -395,7 +395,7 @@ function InvoiceManagement() {
                                     <Item>{item.tinhtrang}</Item>
                                 </Grid>
                                 <Grid item xs={1.2}>
-                                    <Item>{item.trigia}</Item>
+                                    <Item>{item.trigia.toLocaleString() + " VNĐ"}</Item>
                                 </Grid>
                                 <Grid item xs={1.8}>
                                     {/* Update, delete button */}
