@@ -41,7 +41,6 @@ function InvoiceManagement() {
     const [searchValue, setSearchValue] = useState("");
     const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
-    const [updateCar, setUpdateCar] = useState({});
     const [updateInvoice, setUpdateInvoice] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -68,34 +67,32 @@ function InvoiceManagement() {
         "Chưa thanh toán",
     ]
 
-    const pageSize = 5;
-
-    //get API
+    const pageSize = 10;
+    
     useEffect(() => {
         HandleApiInvoice.getInvoiceByPageIndex(pageIndex).then((res) => {
             setData(res.hoadons);
             setDataLength(res.totalHoaDon);
         })
-    }, [pageIndex]);
-
+    },[pageIndex]);
     // handle Filter select
     useEffect(() => {
         switch (tinhtrang)
         {
             case "Tất cả":
                 setNewData(data);
-                HandleApiInvoice.getInvoiceByTinhTrang("").then((res) => {
+                HandleApiInvoice.getInvoiceByTinhTrang("",pageIndex).then((res) => {
                 setDataLength(res.totalHoaDon)
                 });
                 break;
             case "Đã thanh toán":
-                    HandleApiInvoice.getInvoiceByTinhTrang("Đã thanh toán").then((res) => {
+                    HandleApiInvoice.getInvoiceByTinhTrang("Đã thanh toán",pageIndex).then((res) => {
                     setNewData(res.hoadons)
                     setDataLength(res.totalHoaDon)
                 });
                 break;
             case "Chưa thanh toán":
-                HandleApiInvoice.getInvoiceByTinhTrang("Chưa thanh toán").then((res) => {
+                HandleApiInvoice.getInvoiceByTinhTrang("Chưa thanh toán",pageIndex).then((res) => {
                     setNewData(res.hoadons)
                     setDataLength(res.totalHoaDon)
                 });
@@ -103,7 +100,7 @@ function InvoiceManagement() {
             default:
                 break;
         }
-    },[data, tinhtrang]);
+    },[data,tinhtrang,pageIndex]);
 
 
     //function dùng để kiểm tra ...
@@ -122,7 +119,6 @@ function InvoiceManagement() {
     const handleDeleteItem = async (id) => {
         HandleApiInvoice.xoaDonDatHang(id)
             .then((res) => {
-                console.log(id);
                 setOpenDeleteModal(false);
                 Swal.fire({
                     position: "center",
@@ -131,7 +127,6 @@ function InvoiceManagement() {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                console.log(data);
                 setData(data.filter((item) => item._id !== id));
             })
             .catch((err) => {
@@ -146,10 +141,8 @@ function InvoiceManagement() {
     };
 
     const handleClickUpdate = async (id) => {
-        console.log(id);
         HandleApiInvoice.capnhatTinhTrang(id, updateData)
             .then(async (res) => {
-                console.log(id);
                 setOpenEditModal(false);
                 Swal.fire({
                     position: "center",
@@ -158,7 +151,6 @@ function InvoiceManagement() {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                console.log(data);
                 window.location.reload(); 
             })
             .catch((err) => {
@@ -179,7 +171,6 @@ function InvoiceManagement() {
             .then(async (res) => {
                 await setUpdateInvoice(res);
                 await setType("read");
-                console.log(updateCar);
             })
             .catch((err) => {
                 console.log(err);
@@ -187,13 +178,11 @@ function InvoiceManagement() {
     }
 
     const handlePageChange = (e, p) => {
-        console.log("PageIndex: ", p);
         setPageIndex(p - 1);
     };
 
     // handle search event
     useEffect(() => {
-        console.log(searchValue);
         if (searchValue.trim() !== "") {
             HandleApiInvoice.getInvoiceByMAHD(searchValue).then(async (res) => {
                 await setData(res.hoadons);
@@ -209,15 +198,6 @@ function InvoiceManagement() {
 
     const handleInputChange = (e) => {
         setSearchValue(e.target.value);
-    };
-
-    const handleSearch = async () => {
-        if (searchValue.trim() !== "") {
-            HandleApiInvoice.getInvoiceByMAHD(searchValue).then(async (res) => {
-                await setData(res.hoadons);
-                await setDataLength(data.length);
-            });
-        }
     };
 
     const handleClear = () => {
@@ -351,7 +331,7 @@ function InvoiceManagement() {
                             height: 40,
                             fontSize: 14,
                             textTransform: "none",
-                            marginLeft: "80px"
+                            marginLeft: "170px"
                         }}
                         variant="contained"
                         color="success"
@@ -414,7 +394,6 @@ function InvoiceManagement() {
                                             color="primary"
                                             size="medium"
                                             onClick={() => {
-                                                console.log(item._id);
                                                 setOpenEditModal(isDonDatHang(item.tinhtrang));
                                                 setId(item._id); }}
                                         >
@@ -471,7 +450,6 @@ function InvoiceManagement() {
                                                             setOpenEditModal(
                                                                 false
                                                             );
-                                                            console.log(Id);
                                                         }}
                                                         sx={{
                                                             fontSize: "14px",
@@ -488,7 +466,6 @@ function InvoiceManagement() {
                                             size="medium"
                                             color="error"
                                             onClick={() => {
-                                                console.log(item._id);
                                                 setOpenDeleteModal(isDonDatHang(item.tinhtrang));
                                                 setId(item._id);
                                             }}
@@ -548,7 +525,6 @@ function InvoiceManagement() {
                                                             setOpenDeleteModal(
                                                                 false
                                                             );
-                                                            console.log(Id);
                                                         }}
                                                         sx={{
                                                             fontSize: "14px",
