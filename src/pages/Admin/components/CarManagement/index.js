@@ -66,7 +66,9 @@ function CarManagement() {
         "Vinfast",
         "Mercedes",
         "BMW",
+        "Ford",
         "Kia",
+        "Hyundai",
     ];
 
     const pageSize = 15;
@@ -120,6 +122,18 @@ function CarManagement() {
                 break;
             case "BMW":
                 HandleApi.getCarByBrand("BMW").then((res) => {
+                    setNewData(res.cars);
+                    setDataLength(res.totalCarsFilter);
+                });
+                break;
+            case "Ford":
+                HandleApi.getCarByBrand("Ford").then((res) => {
+                    setNewData(res.cars);
+                    setDataLength(res.totalCarsFilter);
+                });
+                break;
+            case "Hyundai":
+                HandleApi.getCarByBrand("Hyundai").then((res) => {
                     setNewData(res.cars);
                     setDataLength(res.totalCarsFilter);
                 });
