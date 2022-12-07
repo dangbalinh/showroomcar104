@@ -198,12 +198,12 @@
 
 .logout {
     display: flex;
-    width: 16.5%;
+    width: 100%;
     justify-content: center;
     align-items: center;
     border-top: 1px solid #fff;
-    margin-top: 140px;
-    bottom: -105px;
+    margin-bottom: 20px;
+    bottom: 0px;
     position: absolute;
 }
 
