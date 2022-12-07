@@ -16,11 +16,15 @@
   }
   .itemCarContainer .carInfo {
     color: grey;
-    font-size: small;
+    font-size: 1.4rem;
   }
   .itemCarContainer img {
     margin-top: 30px;
     margin-left: 60px;
+    width: 350px;
+    object-fit: contain;
+    display: flex;
+    flex-direction: column;
   }
   .itemCarContainer .buttonDiscoverMore {
       margin: 20px;

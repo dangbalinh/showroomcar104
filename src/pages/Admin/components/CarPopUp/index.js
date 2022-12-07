@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./CarPopUp.module.css";
-import './CarPopUp.css'
+import "./CarPopUp.css";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Swal from "sweetalert2";
 import { Box } from "@mui/system";
@@ -43,7 +43,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
         "color",
         "year",
         "desc",
-        "quantity"
+        "quantity",
     ];
 
     const useStateEvent = [
@@ -100,10 +100,27 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
         "Màu sắc",
         "Năm sản xuất",
         "Mô tả",
-        "Số lượng xe"
+        "Số lượng xe",
     ];
 
-    const inputType = ["text", "text", "text", "number", "text", "number", "text", "text", "text", "text", "text", "text", "text", "number", "text", "number"];
+    const inputType = [
+        "text",
+        "text",
+        "text",
+        "number",
+        "text",
+        "number",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "number",
+        "text",
+        "number",
+    ];
 
     const inputValue = [
         carName,
@@ -162,13 +179,19 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                     icon: "success",
                     title: "Tạo dữ liệu thành công!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
                 });
                 setType("");
                 window.location.reload();
             })
-            .catch((err) => {
-                console.log(err);
+            .catch(() => {
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Tạo dữ liệu thất bại!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
             });
     };
 
@@ -181,7 +204,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                     icon: "success",
                     title: "Cập nhật dữ liệu thành công!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
                 });
                 setUpdateCar({});
                 window.location.reload();
@@ -236,10 +259,21 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                         <h3>Thêm sản phẩm</h3>
                         <br />
                         <Box sx={{ flexGrow: 1 }}>
-                            <Grid container sx={{ width: "1120px", marginTop: "16px" }}>
+                            <Grid
+                                container
+                                sx={{ width: "1120px", marginTop: "16px" }}
+                            >
                                 {inputId.map((item, index) => (
-                                    <Grid key={index} item xs={3} sx={{ height: "93px" }}>
-                                        <label htmlFor={item[index]} className={styles.label}>
+                                    <Grid
+                                        key={index}
+                                        item
+                                        xs={3}
+                                        sx={{ height: "93px" }}
+                                    >
+                                        <label
+                                            htmlFor={item[index]}
+                                            className={styles.label}
+                                        >
                                             {textValue[index]}
                                         </label>
                                         <br />
@@ -280,7 +314,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                                     sx={{
                                         fontSize: "14px",
                                         width: "100px",
-                                        margin: "0 36px 0 20px"
+                                        margin: "0 36px 0 20px",
                                     }}
                                     onClick={() => setType("")}
                                 >
@@ -289,7 +323,6 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                             </div>
                         </Box>
                     </div>
-
                 </div>
             )}
             {type === "update" && (
@@ -304,9 +337,17 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                         <h3>Cập nhật dữ liệu xe</h3>
 
                         <Box sx={{ flexGrow: 1 }}>
-                            <Grid container sx={{ width: "1120px", marginTop: "16px" }}>
+                            <Grid
+                                container
+                                sx={{ width: "1120px", marginTop: "16px" }}
+                            >
                                 {inputId.map((item, index) => (
-                                    <Grid key={index} item xs={3} sx={{ height: '93px' }}>
+                                    <Grid
+                                        key={index}
+                                        item
+                                        xs={3}
+                                        sx={{ height: "93px" }}
+                                    >
                                         <label htmlFor={item[index]}>
                                             {textValue[index]}
                                         </label>
@@ -316,7 +357,9 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                                             type={inputType[index]}
                                             value={inputValue[index]}
                                             onChange={(e) =>
-                                                useStateEvent[index](e.target.value)
+                                                useStateEvent[index](
+                                                    e.target.value
+                                                )
                                             }
                                         />
                                     </Grid>
@@ -343,7 +386,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                                 sx={{
                                     fontSize: "14px",
                                     width: "100px",
-                                    margin: "0 36px 0 20px"
+                                    margin: "0 36px 0 20px",
                                 }}
                                 onClick={() => setType("")}
                             >
@@ -367,24 +410,61 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                             <Grid container>
                                 <Grid item xs={6}>
                                     {/* <div className={styles.infoCar}> */}
-                                    <Item sx={{ fontWeight: "bold" }}>{"Tên xe: " + updateCar.ten}</Item>
+                                    <Item sx={{ fontWeight: "bold" }}>
+                                        {"Tên xe: " + updateCar.ten}
+                                    </Item>
                                     <Item>{"Mã xe: " + updateCar.macar}</Item>
-                                    <Item>{"Thương hiệu: " + updateCar.thuonghieu}</Item>
-                                    <Item>{"Động cơ: " + updateCar.dongco}</Item>
-                                    <Item>{"Số chỗ ngồi: " + updateCar.socho}</Item>
-                                    <Item>{"Kích thước: " + updateCar.kichthuoc}</Item>
-                                    <Item>{"Vận tốc tối đa: " + updateCar.vantoctoida}</Item>
-                                    <Item>{"Dung tích: " + updateCar.dungtich}</Item>
-                                    <Item>{"Tiêu hao nhiên liệu: " + updateCar.tieuhaonhienlieu}</Item>
-                                    <Item>{"Công suất cực đại: " + updateCar.congsuatcucdai}</Item>
-                                    <Item>{"Màu sắc: " + updateCar.mausac}</Item>
-                                    <Item>{"Số lượng xe: " + updateCar.soluong}</Item>
+                                    <Item>
+                                        {"Thương hiệu: " + updateCar.thuonghieu}
+                                    </Item>
+                                    <Item>
+                                        {"Động cơ: " + updateCar.dongco}
+                                    </Item>
+                                    <Item>
+                                        {"Số chỗ ngồi: " + updateCar.socho}
+                                    </Item>
+                                    <Item>
+                                        {"Kích thước: " + updateCar.kichthuoc}
+                                    </Item>
+                                    <Item>
+                                        {"Vận tốc tối đa: " +
+                                            updateCar.vantoctoida}
+                                    </Item>
+                                    <Item>
+                                        {"Dung tích: " + updateCar.dungtich}
+                                    </Item>
+                                    <Item>
+                                        {"Tiêu hao nhiên liệu: " +
+                                            updateCar.tieuhaonhienlieu}
+                                    </Item>
+                                    <Item>
+                                        {"Công suất cực đại: " +
+                                            updateCar.congsuatcucdai}
+                                    </Item>
+                                    <Item>
+                                        {"Màu sắc: " + updateCar.mausac}
+                                    </Item>
+                                    <Item>
+                                        {"Số lượng xe: " + updateCar.soluong}
+                                    </Item>
                                     {/* </div> */}
                                 </Grid>
                                 <Grid item xs={6}>
-                                    <img src={updateCar.hinhanh} className={styles.readImg}></img>
-                                    <Item sx={{ textAlign: 'center', fontSize: '24px', color: "red", fontWeight: "bold" }}>
-                                        {"Giá: " + updateCar.gia.toLocaleString() + " VNĐ"}
+                                    <img
+                                        src={updateCar.hinhanh}
+                                        className={styles.readImg}
+                                    ></img>
+                                    <Item
+                                        sx={{
+                                            textAlign: "center",
+                                            fontSize: "24px",
+                                            color: "red",
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        {"Giá: " +
+                                            updateCar.gia.toLocaleString() +
+                                            " VNĐ"}
                                     </Item>
                                 </Grid>
                             </Grid>
@@ -397,7 +477,7 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                                 sx={{
                                     fontSize: "14px",
                                     width: "100px",
-                                    margin: "24px -10px -12px 0"
+                                    margin: "24px -10px -12px 0",
                                 }}
                                 onClick={() => setType("")}
                             >
@@ -405,7 +485,6 @@ function CarPopup({ type, setType, updateCar, setUpdateCar }) {
                             </Button>
                         </div>
                     </div>
-
                 </div>
             )}
         </>
