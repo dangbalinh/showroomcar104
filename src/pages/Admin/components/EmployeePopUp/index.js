@@ -34,7 +34,7 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
         "passwordConfirm"
     ];
 
-    const inputId2 = [
+    const inputIdUpdate = [
         "name",
         "sex",
         "address",
@@ -56,7 +56,7 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
         setPasswordConfirm
     ];
 
-    const useStateEvent2 = [
+    const useStateEventUpdate = [
         setEmployeeName,
         setSex,
         setAddress,
@@ -78,7 +78,7 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
         "Mật khẩu",
         "Xác nhận mật khẩu"
      ];
-     const textValue2 = [
+     const textValueUpdate = [
         "Tên nhân viên",
         "Giới tính (Nam / Nữ)",
         "Địa chỉ",
@@ -103,20 +103,9 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
 
     const inputType = ["text", "text", "text", "text",  "number", "text", "number", "text", "password", "password"];
 
-    // const inputValue = [
-    //     employeeName,
-    //     sex,
-    //     address,
-    //     dateOfBirth,
-    //     phone,
-    //     email,
-    //     cccd,
-    //     position,
-    //     password,
-    //     passwordConfirm
-    // ];
-    const inputType2 = ["text", "text", "text", "text",  "number", "number", "text"];
-    const inputValue2 = [
+    const inputTypeUpdate = ["text", "text", "text", "text",  "number", "number", "text"];
+
+    const inputValueUpdate = [
         employeeName,
         sex,
         address,
@@ -302,18 +291,18 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
 
                         <Box sx={{ flexGrow: 1 }}>
                             <Grid container sx={{ width: "1120px", marginTop: "16px" }}>
-                                {inputId2.map((item, index) => (
+                                {inputIdUpdate.map((item, index) => (
                                     <Grid key={index} item xs={3} sx={{ height: '93px' }}>
                                         <label htmlFor={item[index]}>
-                                            {textValue2[index]}
+                                            {textValueUpdate[index]}
                                         </label>
                                         <br />
                                         <input
                                             id={item[index]}
-                                            type={inputType2[index]}
-                                            value={inputValue2[index]}
+                                            type={inputTypeUpdate[index]}
+                                            value={inputValueUpdate[index]}
                                             onChange={(e) =>
-                                                useStateEvent2[index](e.target.value)
+                                                useStateEventUpdate[index](e.target.value)
                                             }
                                         />
                                     </Grid>
