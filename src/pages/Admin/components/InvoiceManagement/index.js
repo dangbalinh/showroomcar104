@@ -41,7 +41,6 @@ function InvoiceManagement() {
     const [searchValue, setSearchValue] = useState("");
     const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
-    const [updateCar, setUpdateCar] = useState({});
     const [updateInvoice, setUpdateInvoice] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -122,7 +121,6 @@ function InvoiceManagement() {
     const handleDeleteItem = async (id) => {
         HandleApiInvoice.xoaDonDatHang(id)
             .then((res) => {
-                console.log(id);
                 setOpenDeleteModal(false);
                 Swal.fire({
                     position: "center",
@@ -131,7 +129,6 @@ function InvoiceManagement() {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                console.log(data);
                 setData(data.filter((item) => item._id !== id));
             })
             .catch((err) => {
@@ -146,10 +143,8 @@ function InvoiceManagement() {
     };
 
     const handleClickUpdate = async (id) => {
-        console.log(id);
         HandleApiInvoice.capnhatTinhTrang(id, updateData)
             .then(async (res) => {
-                console.log(id);
                 setOpenEditModal(false);
                 Swal.fire({
                     position: "center",
@@ -158,7 +153,6 @@ function InvoiceManagement() {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                console.log(data);
                 window.location.reload(); 
             })
             .catch((err) => {
@@ -179,7 +173,6 @@ function InvoiceManagement() {
             .then(async (res) => {
                 await setUpdateInvoice(res);
                 await setType("read");
-                console.log(updateCar);
             })
             .catch((err) => {
                 console.log(err);
@@ -187,13 +180,11 @@ function InvoiceManagement() {
     }
 
     const handlePageChange = (e, p) => {
-        console.log("PageIndex: ", p);
         setPageIndex(p - 1);
     };
 
     // handle search event
     useEffect(() => {
-        console.log(searchValue);
         if (searchValue.trim() !== "") {
             HandleApiInvoice.getInvoiceByMAHD(searchValue).then(async (res) => {
                 await setData(res.hoadons);
@@ -205,19 +196,10 @@ function InvoiceManagement() {
                 setDataLength(res.totalHoaDon);
             });
         }
-    }, [searchValue]);
+    }, [searchValue,data,pageIndex]);
 
     const handleInputChange = (e) => {
         setSearchValue(e.target.value);
-    };
-
-    const handleSearch = async () => {
-        if (searchValue.trim() !== "") {
-            HandleApiInvoice.getInvoiceByMAHD(searchValue).then(async (res) => {
-                await setData(res.hoadons);
-                await setDataLength(data.length);
-            });
-        }
     };
 
     const handleClear = () => {
@@ -414,7 +396,6 @@ function InvoiceManagement() {
                                             color="primary"
                                             size="medium"
                                             onClick={() => {
-                                                console.log(item._id);
                                                 setOpenEditModal(isDonDatHang(item.tinhtrang));
                                                 setId(item._id); }}
                                         >
@@ -471,7 +452,6 @@ function InvoiceManagement() {
                                                             setOpenEditModal(
                                                                 false
                                                             );
-                                                            console.log(Id);
                                                         }}
                                                         sx={{
                                                             fontSize: "14px",
@@ -488,7 +468,6 @@ function InvoiceManagement() {
                                             size="medium"
                                             color="error"
                                             onClick={() => {
-                                                console.log(item._id);
                                                 setOpenDeleteModal(isDonDatHang(item.tinhtrang));
                                                 setId(item._id);
                                             }}
@@ -548,7 +527,6 @@ function InvoiceManagement() {
                                                             setOpenDeleteModal(
                                                                 false
                                                             );
-                                                            console.log(Id);
                                                         }}
                                                         sx={{
                                                             fontSize: "14px",

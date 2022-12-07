@@ -1,4 +1,9 @@
 import style from "./Introduce.module.css"
+import companyImg from '../../../src/assets/image/company.jpg'
+import onlinemeeting from '../../../src/assets/image/onlinemeeting.jpg'
+import meeting from '../../../src/assets/image/meeting1.jpg'
+import teamBuildings from '../../../src/assets/image/team-building-activities-for-work.webp'
+
 function Introduce() {
     return ( 
         <div className={style.introBackground}>
@@ -22,7 +27,7 @@ function Introduce() {
                     nắm bắt cơ hội của thị trường này.
                 </p> 
                 <div>
-                    <img className={style.companyImg} src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fcompany.jpg?alt=media&token=abd08c1e-16c1-4c35-aeda-4639064d99c9"></img>
+                    <img alt="company" className={style.companyImg} src={companyImg}></img>
                 </div>
                 <p className={style.introTitle1}>
                     TẦM NHÌN, SỨ MỆNH PHỤC VỤ, GIÁ TRỊ
@@ -57,9 +62,9 @@ function Introduce() {
                     </p> 
                 </p>  
                 <div className={style.employeeImg}>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fonlinemeeting.jpg?alt=media&token=6495f1e2-c119-4d27-8f1c-3e4b43a8dbac"/>   
-                    <img src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fmeeting1.jpg?alt=media&token=b4fd9ddf-2f4f-4669-9c66-edcf5b02684f"/>
-                    <img src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fteam-building-activities-for-work.webp?alt=media&token=8f81cd8c-0f56-41d0-8abe-8b59a9eb41c3"/>
+                    <img alt="online meeting" src={onlinemeeting}/>   
+                    <img alt="meeting" src={meeting}/>
+                    <img alt="teambuildings" src={teamBuildings}/>
                 </div>    
             </div>
         </div>

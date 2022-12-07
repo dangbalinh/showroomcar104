@@ -17,32 +17,30 @@ authAxiosInstance.interceptors.response.use(
       return Promise.reject(error);
     },
   );
-console.log(authAxiosInstance)
-
 const getInvoiceByTinhTrang = async (tinhtrang) => {
-    return await authAxiosInstance.get(`/hoadons?tinhtrang=${tinhtrang}`)
+    return await axiosInstance.get(`/hoadons?tinhtrang=${tinhtrang}`)
 };
 
 const getInvoiceByPageIndex = async (index) => {
-    return await authAxiosInstance.get(`/hoadons?pageIndex=${index}`);
+    return await axiosInstance.get(`/hoadons?pageIndex=${index}`);
 };
 const getInvoiceByID = async (id) => {
-    return await authAxiosInstance.get(`/hoadons/${id}`);
+    return await axiosInstance.get(`/hoadons/${id}`);
 }
 
 const getInvoiceByMAHD = async (mahd) => {
-    return await authAxiosInstance.get(`/hoadons?mahd=${mahd}`)
+    return await axiosInstance.get(`/hoadons?mahd=${mahd}`)
 }
 const xoaDonDatHang = async (id) => {
-    return await authAxiosInstance.delete(`/hoadons/${id}`);
+    return await axiosInstance.delete(`/hoadons/${id}`);
 };
 
 const createInvoice = async (data) => {
-    return await authAxiosInstance.post("/hoadons", data);
+    return await axiosInstance.post("/hoadons", data);
 }
 
 const capnhatTinhTrang = async (id, tinhtrang) => {
-    return await authAxiosInstance.put(`/hoadons/${id}`, tinhtrang)
+    return await axiosInstance.put(`/hoadons/${id}`, tinhtrang)
 }
 
 const getCarByMaCar = async (macar) => {
@@ -52,6 +50,8 @@ const getCarByMaCar = async (macar) => {
 const getCustomerByMaUser = async(makh) => {
     return await axiosInstance.get(`/users/customers?mauser=${makh}`)
 }
+
+ //eslint-disable-next-line import/no-anonymous-default-export
 export default {
     getInvoiceByTinhTrang,
     getInvoiceByPageIndex,

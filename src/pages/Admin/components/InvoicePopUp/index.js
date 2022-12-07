@@ -38,7 +38,6 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
 
 //========
     const [makh, setMaKH] = useState();
-    const [ngayhd, setngayhd] = useState(formatDate(new Date()))
     const [tinhtrang, setTinhTrang] = useState("Chưa thanh toán");
     const [tongtien, setTongTien] = useState(0);
     const [maxe, setMaXe] = useState();
@@ -49,6 +48,8 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
     const [inputSL, setInputSL] = useState('')
     var user = JSON.parse(localStorage.getItem('user'));
     const manv = user.mauser;
+    const ngayhd = formatDate(new Date());
+
 
     //-----------------------------------
 
@@ -105,6 +106,23 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
         }
         
     };
+
+    const handleBlurSL = (e) => {
+        if (e.target.value === "" || e.target.value <= 0) {
+            e.target.style.borderColor = "red";
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Số lượng phải lớn hơn 0. Vui lòng nhập lại.",
+                showConfirmButton: false,
+                timer: 1700,})
+            setInputSL(1)
+        } 
+        else {
+            e.target.style.borderColor = "#000";
+        }
+    }
+
     const handleBlurMaKH = (e) => {
         if (e.target.value === "") {
             // setErrorName("Vui lòng nhập dữ liệu ");
@@ -283,13 +301,14 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                                                     name="inputSL"
                                                     value={inputSL}
                                                     type={"number"}
+                                                    min={"1"}
                                                     required
                                                     placeholder={"Nhập số lượng"}
                                                     onChange={(e) => {
                                                         setSoLuongXe(e.target.value)
                                                         setInputSL(e.target.value.toString())
                                                     }}
-                                                    onBlur={handleBlurMaCar}
+                                                    onBlur={handleBlurSL}
                                                  />
                                             </Grid> 
 
