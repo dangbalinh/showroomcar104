@@ -7,7 +7,8 @@ import { useParams } from 'react-router-dom'
 function Product() {
   const [data, setData] = useState([]);
   const { carBrand } = useParams();
-
+ 
+  
 console.log(carBrand);
 
   useEffect(() => {
