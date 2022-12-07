@@ -81,7 +81,7 @@ function FormManagement() {
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Xóa dữ liệu xe thành công!",
+                    title: "Xóa form phản hồi thành công!",
                     showConfirmButton: false,
                     timer: 1500,
                 });
@@ -92,7 +92,7 @@ function FormManagement() {
                 Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: "Xóa bài viết thất bại!",
+                    title: "Xóa form phản hồi thất bại!",
                     showConfirmButton: false,
                     timer: 1500,
                 });
@@ -250,8 +250,7 @@ function FormManagement() {
                                                     color="#d32f2f"
                                                     textAlign="center"
                                                 >
-                                                    Bạn có chắc chắn muốn xóa dữ
-                                                    liệu xe này?
+                                                    Bạn có chắc chắn muốn xóa form phản hồi này?
                                                 </Typography>
                                                 <Typography
                                                     id="modal-modal-description"
