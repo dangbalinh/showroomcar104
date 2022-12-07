@@ -54,19 +54,8 @@ const DetailOrder = ({item}) => {
               .then((data)=>setCar(prev=>[...prev,data]))
           })};
         })
-        
-        
-        /*.then(()=>{
-          if(car.length==detail.cthds.length)
-            {console.log(detail.cthds.length);}
-        })*/
       },[item])
       console.log(car);
-      if(car && detail){
-      if(car.length!==detail.cthds.length)
-        console.log(first);
-      else
-        console.log("con laiiiiiii");}
       /*
        useEffect(()=>{
         sendRequestSU()
@@ -81,15 +70,38 @@ const DetailOrder = ({item}) => {
         })
       
       */
-  const test = (detail? detail.cthds.reverse():[]);
-  var n = 789000000;
-console.log(n.toLocaleString());
+  const checkExist = (ma) =>{
+    for(let i=0;i<detail.cthds.length;i++)
+    {
+      if(detail.cthds[i].macar==ma)
+      return detail.cthds[i].soluong;
+        /*console.log(detail.cthds[i].macar);
+        console.log(ma);*/
+    }
+    //return 0;
+    /*detail.cthds.map((item,index)=>{
+       if (item.macar == ma)
+        return true;
+    })*/
+    return 0;
+  }
+
+  const hienthi =car.length!==0? car.filter((item,index)=>{
+    if (detail && checkExist(item.macar)!=0){
+      
+        item.sl = checkExist(item.macar)
+        return true
+    }
+  }) : false
+  console.log(hienthi);
+  console.log(detail? checkExist('OT6'):"chuaco");
+  
   return (
   <div className={classes.DetailCard}>
     <div style={{borderBottom:"white"}}>
     <h2>CHI TIẾT HÓA ĐƠN</h2>
     </div>
-    {(detail && car.length!==0)? <><div className={classes.ListInfo}>
+    {(detail)? <><div className={classes.ListInfo}>
       <div>
        <p>ID hóa đơn:</p><p> {detail.hoadon.mahd}</p>
       </div>
@@ -122,7 +134,7 @@ console.log(n.toLocaleString());
         </Grid>
       ))}
     </Grid>
-       {car.reverse().slice(0,first).map((dt,index)=>
+       {hienthi && hienthi.reverse().map((dt,index)=>
         <Grid container sx={index%2==0? { padding: '20px 0', backgroundColor:"white",color:"black"} : { padding: '20px 0', backgroundColor:"ButtonHighlight",color:"#8a0000"} }
         key={index} >
         <Grid item xs={1}>
@@ -138,7 +150,7 @@ console.log(n.toLocaleString());
           <p  style={{textAlign:"center", width:"100%"}}>{dt.gia? parseInt(dt.gia).toLocaleString() : ""}</p>
       </Grid>
         <Grid item xs={2}>
-          <p  style={{textAlign:"center", width:"100%"}}>{test[parseInt(index)]?test[parseInt(index)].soluong : ""}</p>
+          <p  style={{textAlign:"center", width:"100%"}}>{dt.sl? dt.sl :""}</p>
       </Grid>
       </Grid>
       )}

@@ -85,7 +85,7 @@ const UserSide = () => {
                 <button type="button" className={classes.logout_btn}
                 onClick={()=>{
                   localStorage.removeItem("user");
-                  localStorage.removeItem("token");
+                  //localStorage.removeItem("token");
                   Cookies.remove('token')
                   //setIsLogin(false)
                   navigate('/')

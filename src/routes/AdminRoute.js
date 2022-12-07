@@ -6,7 +6,7 @@ function AdminRoute({children}) {
     const token = Cookies.get("token");
     return ( 
         <div>
-            {(token && !!user && ((user.role === "admin" || user.role === "employee") && localStorage.getItem("token"))) ? children : <Navigate to="/" /> } 
+            {(token && !!user && ((user.role === "admin" || user.role === "employee"))) ? children : <Navigate to="/" /> } 
         </div>
      );
 }
