@@ -5,7 +5,7 @@ function ItemProduct({data}){
             <div className={styles.listProducts}>
                 <div className={styles.itemProduct}>
                     <h3 className={styles.itemProduct__Title}>{data.ten}</h3>
-                    <p className={styles.itemProduct__Price}>{"Giá: "+data.gia + " VNĐ"}</p>
+                    <p className={styles.itemProduct__Price}>{"Giá: "+ data.gia.toLocaleString() + " VNĐ"}</p>
                     <img className={styles.productImg}
                         src={data.hinhanh}
                         alt="carimg"

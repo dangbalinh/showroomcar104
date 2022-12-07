@@ -21,7 +21,7 @@ console.log(carBrand);
   console.log(data);
     return ( 
       <div className={styles.productContainer} >
-        <h1 className={styles.nameType}>{carBrand}</h1>
+        <h1 className={styles.nameType}>{carBrand.toUpperCase()}</h1>
         <div className={styles.containerLayout}>
               {data.map((item, index) => (
                 <div  key={index}>
