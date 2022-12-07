@@ -52,8 +52,8 @@ const UserSide = () => {
   }
   console.log(user1);
   return (<>
-    {userData && <div className={classes.UserSide} style={{width:"100%",height:"800px",backgroundColor:"#650707"}}>
-      <div >
+    {userData && <div className={classes.User} style={{width:"100%",height:"800px",backgroundColor:"#650707"}}>
+      <div className={classes.UserSide}>
         <img style={{borderRadius:"50%",marginLeft:"22px"}} src={userimg} alt='rr'></img>
         <EditIcon onClick={handleModal}  
         style={{ color: '#ffff', fontSize:'25px',cursor:"pointer" }} />
