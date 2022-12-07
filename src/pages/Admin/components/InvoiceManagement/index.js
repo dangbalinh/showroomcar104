@@ -52,11 +52,10 @@ function InvoiceManagement() {
 
     const inputRef = useRef();
 
-    const gridColumn = [0.7, 1.5, 1.5, 1.7, 1.8, 1.8, 1.2, 1.8];
+    const gridColumn = [0.7, 1.5, 1.7, 1.8, 1.8, 2, 2.5];
     const gridTitle = [
         "STT",
         "Mã hóa đơn",
-        "Mã nhân viên",
         "Mã khách hàng",
         "Ngày lập hóa đơn",
         "Tình trạng",
@@ -382,9 +381,6 @@ function InvoiceManagement() {
                                 <Grid item xs={1.5}>
                                     <Item>{item.mahd}</Item>
                                 </Grid>
-                                <Grid item xs={1.5}>
-                                    <Item>{item.manv}</Item>
-                                </Grid>
                                 <Grid item xs={1.7}>
                                     <Item>{item.makh}</Item>
                                 </Grid>
@@ -394,10 +390,10 @@ function InvoiceManagement() {
                                 <Grid item xs={1.8}>
                                     <Item>{item.tinhtrang}</Item>
                                 </Grid>
-                                <Grid item xs={1.2}>
+                                <Grid item xs={2}>
                                     <Item>{item.trigia.toLocaleString() + " VNĐ"}</Item>
                                 </Grid>
-                                <Grid item xs={1.8}>
+                                <Grid item xs={2.5}>
                                     {/* Update, delete button */}
                                     <Item>
                                        <Button
