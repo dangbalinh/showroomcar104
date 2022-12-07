@@ -15,8 +15,11 @@ const getAllCustomers = async () => {
 const getCustomerById = async (id) => {
     return await axiosInstance.get(`/users/customers/${id}`);
 };
-const getEmployeeByPageIndex = async (index) => {
+const getCustomerByPageIndex = async (index) => {
     return await axiosInstance.get(`/users/customers?pageIndex=${index}`);
+};
+const getCustomerByName = async (name) => {
+    return await axiosInstance.get(`/users/customers?name=${name}`);
 };
 
  //eslint-disable-next-line import/no-anonymous-default-export
@@ -26,5 +29,6 @@ export default {
     updateCustomer,
     getAllCustomers,
     getCustomerById,
-    getEmployeeByPageIndex
+    getCustomerByPageIndex,
+    getCustomerByName
 };

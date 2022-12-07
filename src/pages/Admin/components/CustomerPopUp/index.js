@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import images from "../../../../assets/image";
 import styles from "./CustomerPopUp.module.css";
 import './CustomerPopUp.css'
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -15,71 +16,49 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
     const [address, setAddress] = useState();
     const [cccd, setCccd] = useState();
     const [password,setPassword] = useState();
-   
- 
-
+    const [passwordConfirm, setPasswordConfirm] = useState();
+// Create
     const inputId = [
         "name",
+        "sdt",
+        "dateOfBirth",
+        "cccd",
+        "address",
         "email",
-        "sdt",
-        "dateOfBirth",
-        "cccd",
-        "address",
-        "password"
+        "password",
+        "passwordConfirm",
     ];
-    const inputId1 = [
-        "name",
-        "sdt",
-        "dateOfBirth",
-        "cccd",
-        "address",
-        
-    ];
-
-
     const useStateEvent = [
         setName,
-        setEmail,
         setPhoneNumber,
         setDateOfBirth,
         setAddress,
         setCccd,
-        setPassword
+        setEmail,
+        setPassword,
+        setPasswordConfirm
     ];
-
     const placeHolder = [
         "Nhập tên",
-        "Nhập email",
         "Nhập số điện thoại",
         "Nhập ngày sinh",
         "Nhập địa chỉ ",
         "Nhập số căn cước",
-        "Nhập password"
+        "Nhập email",
+        "Nhập password",
+        "Nhập lại mật khẩu"
     ];
-
     const textValue = [
         "Tên khách hàng",
-        "Email",
         "Số điện thoại",
         "Ngày sinh",
         "Địa chỉ",
         "CCCD",
-        "Password"
+        "Email",
+        "Password",
+        "Nhập lại mật khẩu"
     ];
-
-    const inputType = ["text", "text","number", "date", "text", "number","password"];
-
-    const inputValue = [
-        name,
-        email,
-        phoneNumber,
-        dateOfBirth,
-        address,
-        cccd,
-        password
-    ];
-
-    // object data
+    const inputType = ["text","number", "date", "text", "number", "text" ,"password","password"];
     const data = {
         name: name,
         email: email,
@@ -87,9 +66,52 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
         ngaysinh: Date(dateOfBirth),
         diachi: address,
         cccd: Number(cccd),
-        password: password
+        password: password,
+        passwordConfirm: passwordConfirm
       
     };
+
+
+    //UPDATE
+    const inputIdUpdate = [
+        "name",
+        "sdt",
+        "dateOfBirth",
+        "cccd",
+        "address", 
+    ];
+    const useStateEventUpdate = [
+        setName,
+        setPhoneNumber,
+        setDateOfBirth,
+        setCccd,
+        setAddress,
+    ];
+    const textValueUpdate = [
+        "Tên khách hàng",
+        "Số điện thoại",
+        "Ngày sinh",
+        "CCCD",
+        "Địa chỉ"
+    ];
+
+    const inputTypeUpdate = ["text", "number", "date", "number",  "text"];
+    const inputValueUpdate = [
+        name,
+        phoneNumber,
+        dateOfBirth,
+        cccd,
+        address
+    ];
+
+    // object data
+    const dataUpdate = {
+        name: name, 
+        sdt: Number(phoneNumber),
+        ngaysinh: Date(dateOfBirth),
+        cccd: Number(cccd),
+        diachi: address
+    }
 
     const handleBlur = (e) => {
         if (e.target.value === "") {
@@ -120,7 +142,7 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
 
     const handleUpdateCustomer = async () => {
         console.log(updateCustomer._id);
-        HandleApisCustomer.updateCustomer(updateCustomer._id, data)
+        HandleApisCustomer.updateCustomer(updateCustomer._id, dataUpdate)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -144,7 +166,8 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
             setPhoneNumber(updateCustomer.sdt);
             setDateOfBirth(updateCustomer.ngaysinh);
             setAddress(updateCustomer.diachi);
-            setPassword(updateCustomer.password)
+            setPassword(updateCustomer.password);
+            setPasswordConfirm(updateCustomer.passwordConfirm);
         }
     }, [updateCustomer]);
 
@@ -244,18 +267,18 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
 
                         <Box sx={{ flexGrow: 1, marginTop: '20px' }}>
                             <Grid container>
-                                {inputId1.map((item, index) => (
+                                {inputIdUpdate.map((item, index) => (
                                     <Grid key={index} item xs={4} sx={{ height: '93px' }}>
                                         <label htmlFor={item[index]}>
-                                            {textValue[index]}
+                                            {textValueUpdate[index]}
                                         </label>
                                         <br />
                                         <input
                                             id={item[index]}
-                                            type="text"
-                                            value={inputValue[index]}
+                                            type={inputTypeUpdate[index]}
+                                            value={inputValueUpdate[index]}
                                             onChange={(e) =>
-                                                useStateEvent[index](e.target.value)
+                                                useStateEventUpdate[index](e.target.value)
                                             }
                                         />
                                     </Grid>
@@ -306,13 +329,13 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
                             <Grid container>
                                 <Grid item xs={6}>
                                     <Item sx={{ fontWeight: "bold" }}>{"Tên khách hàng: " + updateCustomer.name}</Item>
-                                    <Item>{"Tên khách hàng: " + updateCustomer.name}</Item>
                                     <Item>{"Email: " + updateCustomer.email}</Item>
                                     <Item>{"Số điện thoại: " + updateCustomer.sdt}</Item>
                                     <Item>{"Căn cước công dân: " + updateCustomer.cccd}</Item>
                                     <Item>{"Địa chỉ: " + updateCustomer.diachi}</Item>
 
                                 </Grid>
+                                <img src={images.customer} width="250" height="300" alt="customer"></img>
                             </Grid>
                         </Box>
                         <div className={styles.btn}>

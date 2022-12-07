@@ -21,6 +21,7 @@
 
 .VehicleContainer li:hover {
     background: #d4d4d4;
+    cursor: pointer;
 }
 
 .imageCar {

@@ -1,4 +1,5 @@
 const images = {
+    customer: require('./customer.jpg'),
     carXImg: require('./carX.jpg'),
     carYImg: require('./carY.jpg'),
     carZImg: require('./carZ.jpg'),
