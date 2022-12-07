@@ -60,7 +60,7 @@ function InvoiceManagement() {
         "Mã khách hàng",
         "Ngày lập hóa đơn",
         "Tình trạng",
-        "Trị giá",
+        "Tổng tiền",
         "",
     ];
 
@@ -107,7 +107,7 @@ function InvoiceManagement() {
     },[data, tinhtrang]);
 
 
-    //function 
+    //function dùng để kiểm tra ...
     function isDonDatHang(tinhtrang){
         if(tinhtrang==="Chưa thanh toán")
         return true
@@ -414,21 +414,13 @@ function InvoiceManagement() {
                                             Chi tiết
                                         </Button>
                                         <IconButton
+                                            disabled={!isDonDatHang(item.tinhtrang)}
                                             color="primary"
                                             size="medium"
-                                            // sx={{
-                                            //     width: 35,
-                                            //     height: 34,
-                                            //     borderRadius: "4px",
-                                            //     border: "1px solid #1976D2",
-                                            //     justifyContent: "space-between",
-                                            //     marginLeft: "-24px"
-                                            // }}
                                             onClick={() => {
                                                 console.log(item._id);
                                                 setOpenEditModal(isDonDatHang(item.tinhtrang));
-                                                setId(item._id);
-                                            }}
+                                                setId(item._id); }}
                                         >
                                             <Edit sx={{ fontSize: "22px" }} />
                                         </IconButton>

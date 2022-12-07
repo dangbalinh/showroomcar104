@@ -21,6 +21,9 @@ function Introduce() {
                     chúng tôi hiểu sự phát triển nhanh chóng của thị trường xe hơi tại Việt Nam và 
                     nắm bắt cơ hội của thị trường này.
                 </p> 
+                <div>
+                    <img className={style.companyImg} src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fcompany.jpg?alt=media&token=abd08c1e-16c1-4c35-aeda-4639064d99c9"></img>
+                </div>
                 <p className={style.introTitle1}>
                     TẦM NHÌN, SỨ MỆNH PHỤC VỤ, GIÁ TRỊ
                 </p>  
@@ -52,8 +55,12 @@ function Introduce() {
                         đem tới cho khách hàng, chúng tôi tin tưởng rằng, quý khách hàng sẽ thật sự hài 
                         lòng khi sử dụng sản phẩm và dịch vụ của King Speed tại Việt Nam.
                     </p> 
-                </p>         
-
+                </p>  
+                <div className={style.employeeImg}>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fonlinemeeting.jpg?alt=media&token=6495f1e2-c119-4d27-8f1c-3e4b43a8dbac"/>   
+                    <img src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fmeeting1.jpg?alt=media&token=b4fd9ddf-2f4f-4669-9c66-edcf5b02684f"/>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fteam-building-activities-for-work.webp?alt=media&token=8f81cd8c-0f56-41d0-8abe-8b59a9eb41c3"/>
+                </div>    
             </div>
         </div>
      );
