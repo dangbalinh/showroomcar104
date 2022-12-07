@@ -4,6 +4,7 @@
 .UserSide{
     padding-top: 15px;
     text-align: center;
+    position: relative;
 }
 
 .UserSide .Stack{
@@ -197,10 +198,13 @@
 
 .logout {
     display: flex;
+    width: 16.5%;
     justify-content: center;
     align-items: center;
     border-top: 1px solid #fff;
-    margin-top: 63px;
+    margin-top: 140px;
+    bottom: -105px;
+    position: absolute;
 }
 
 .logout_btn {
