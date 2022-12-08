@@ -11,6 +11,7 @@ import {
   Logout,
 } from "@mui/icons-material";
 import PhoneIcon from '@mui/icons-material/Phone';
+import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import HomeIcon from '@mui/icons-material/Home';
 import CakeIcon from '@mui/icons-material/Cake';
 import BoyIcon from '@mui/icons-material/Boy';
@@ -60,6 +61,10 @@ const UserSide = () => {
         <p className={classes.SideRole}>{userData.name}</p>
         <p className={classes.SideMail}>{userData.email}</p>
         <div className={classes.Stack}>
+        <Stack direction="row" alignItems="center" gap={1}>
+          <Grid3x3Icon  style={{ color: '#ffff', fontSize:'25px' }}/>
+          <p style={{ color: '#AFAFAF',fontSize:'14px' }}>{(userData.mauser && userData.mauser!=="undefined")? userData.mauser : "Chưa thiết lập"}</p>
+        </Stack>
         <Stack direction="row" alignItems="center" gap={1}>
           <BoyIcon  style={{ color: '#ffff', fontSize:'25px' }}/>
           <p style={{ color: '#AFAFAF',fontSize:'14px' }}>{(userData.gioitinh && userData.gioitinh!=="undefined")? userData.gioitinh : "Chưa thiết lập"}</p>

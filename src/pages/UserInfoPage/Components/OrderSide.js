@@ -95,7 +95,7 @@ const OrderSide = ({
       }))
       {userDataa.map((item, index) => console.log(item.ngayhd))}
       setPageIndex(1)
-      
+      console.log(Math.ceil(userDataa.length/6));
       console.log(value);
       console.log(status);
       console.log(input);
@@ -231,7 +231,7 @@ const OrderSide = ({
     <div className={style.pagination} style={{margin:"10px"}}>
     <Pagination
           totalPosts={userDataa.length}
-          postsPerPage={5}
+          postsPerPage={6}
           setCurrentPage={setPageIndex}
           currentPage={pageIndex}
         />

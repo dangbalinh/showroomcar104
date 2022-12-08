@@ -134,7 +134,9 @@ const DetailOrder = ({item}) => {
         </Grid>
       ))}
     </Grid>
+    <div style={ detail.cthds.length>4?{height:"410px",width:"100%"}:{width:"100%"}} className={classes.Overcar}>
        {hienthi && hienthi.reverse().map((dt,index)=>
+       
         <Grid container sx={index%2==0? { padding: '20px 0', backgroundColor:"white",color:"black"} : { padding: '20px 0', backgroundColor:"ButtonHighlight",color:"#8a0000"} }
         key={index} >
         <Grid item xs={1}>
@@ -154,6 +156,8 @@ const DetailOrder = ({item}) => {
       </Grid>
       </Grid>
       )}
+      </div>
+      
       </Grid>
       </div>
        <div className={classes.TotalDiv}>
