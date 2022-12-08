@@ -16,8 +16,11 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
     const [address, setAddress] = useState();
     const [cccd, setCccd] = useState();
     const [password,setPassword] = useState();
-    const [passwordConfirm, setPasswordConfirm] = useState();
+    // const [passwordConfirm, setPasswordConfirm] = useState();
 // Create
+    const randomImage = [images.customer,images.customer1,images.customer2,images.customer3];
+    const number = Math.floor(Math.random()*randomImage.length);  
+    
     const inputId = [
         "name",
         "sdt",
@@ -26,7 +29,7 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
         "address",
         "email",
         "password",
-        "passwordConfirm",
+        // "passwordConfirm",
     ];
     const useStateEvent = [
         setName,
@@ -36,7 +39,7 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
         setCccd,
         setEmail,
         setPassword,
-        setPasswordConfirm
+        // setPasswordConfirm
     ];
     const placeHolder = [
         "Nhập tên",
@@ -46,7 +49,7 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
         "Nhập số căn cước",
         "Nhập email",
         "Nhập password",
-        "Nhập lại mật khẩu"
+        // "Nhập lại mật khẩu"
     ];
     const textValue = [
         "Tên khách hàng",
@@ -56,18 +59,18 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
         "CCCD",
         "Email",
         "Password",
-        "Nhập lại mật khẩu"
+        // "Nhập lại mật khẩu"
     ];
-    const inputType = ["text","number", "date", "text", "number", "text" ,"password","password"];
+    const inputType = ["text","number", "date", "text", "number", "text" ,"password",/*"password"*/];
     const data = {
         name: name,
-        email: email,
         sdt: Number(phoneNumber),
         ngaysinh: Date(dateOfBirth),
         diachi: address,
         cccd: Number(cccd),
+        email: email,
         password: password,
-        passwordConfirm: passwordConfirm
+        // passwordConfirm: passwordConfirm
       
     };
 
@@ -167,7 +170,7 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
             setDateOfBirth(updateCustomer.ngaysinh);
             setAddress(updateCustomer.diachi);
             setPassword(updateCustomer.password);
-            setPasswordConfirm(updateCustomer.passwordConfirm);
+            // setPasswordConfirm(updateCustomer.passwordConfirm);
         }
     }, [updateCustomer]);
 
@@ -215,10 +218,17 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
                                                 }
                                                 onBlur={handleBlur}
                                             />
+                                            
+                                            
                                             {/* <div>{errorName}</div> */}
                                         </Grid>
                                     ))}
                                 </Grid>
+                                <Grid>
+                                    <label style={{color: "red"}}>Password</label>
+                                    <input style={{width: 350,marginLeft: 100,borderWidth: 2}}placeholder="Nhập lại mật khẩu" type="password"/>
+                                </Grid>
+                                
                                 <div className={styles.btn}>
                                     <Button
                                         variant="contained"
@@ -335,7 +345,8 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
                                     <Item>{"Địa chỉ: " + updateCustomer.diachi}</Item>
 
                                 </Grid>
-                                <img src={images.customer} width="250" height="300" alt="customer"></img>
+                                <img src={randomImage[number]} width="250" height="250" alt="customer"
+                                style={{marginTop: "30px",marginLeft: "100px", borderRadius: "50%"}}></img>
                             </Grid>
                         </Box>
                         <div className={styles.btn}>
