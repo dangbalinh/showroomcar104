@@ -5,7 +5,7 @@
     margin-top: 100px;
 }
 .introContent {
-  padding: 75px 160px;
+  padding: 70px 160px;
 }
 
 .introTitle1 {
@@ -14,32 +14,11 @@
   font-weight: 600;
   margin-top: 25px;
 }
-.introContent h1{
-  color: #484848;
-  font-size: 50px;
-  font-weight: bold;
-  /* font-family: monospace;   */
-  /* letter-spacing: 7px; */
-  /* cursor: pointer */
+
+.introTitle1 {
+  text-shadow: 2px 2px 8px red;
 }
-.introContent h1 span{
-  transition: .5s linear
-}
-.introContent h1:hover span:nth-child(1){
-  margin-right: 5px
-}
-.introContent h1:hover span:nth-child(1):after{
-  content: "'";
-}
-.introContent h1:hover span:nth-child(2){
-  margin-left: 30px
-}
-.introContent h1:hover span{
-  color: rgb(37, 23, 23);
-  text-shadow: 0 0 10px #fff,
-               0 0 20px #fff, 
-               0 0 40px #fff;
-}
+
 .content {
   font-size: 1.6rem;
   margin: 50px;
@@ -71,7 +50,7 @@
 .employeeImg {
   display: flex;
   justify-content: space-around;
-  padding-bottom: 25px;
+  padding-bottom: 35px;
 }
 
 .employeeImg img {
