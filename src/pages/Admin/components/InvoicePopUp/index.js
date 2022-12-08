@@ -40,8 +40,8 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
     const [makh, setMaKH] = useState();
     const [tinhtrang, setTinhTrang] = useState("Chưa thanh toán");
     const [tongtien, setTongTien] = useState(0);
-    const [maxe, setMaXe] = useState();
-    const [soluongxe, setSoLuongXe] = useState(0);
+    const [maxe, setMaXe] = useState(null);
+    const [soluongxe, setSoLuongXe] = useState(1);
     const [carArrayData, setCarArrayData] = useState([]);
     const [carArrayDisplay, setCarArrayDisplay] = useState([]);
     const [inputMaXe, setInputMaXe] = useState('')
@@ -83,20 +83,12 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                     icon: "error",
                     title: "Không tồn tại mã xe này",
                     showConfirmButton: false,
-                    timer: 1600,})
-                if(res.cars[0].soluong < soluongxe && soluongxe !== 0)
-                    Swal.fire({
-                    position: "center",
-                    icon: "error",
-                    title: "Số lượng xe không đủ",
-                    showConfirmButton: false,
                     timer: 1700,})
-               
                 .catch((err) => {
                     Swal.fire({
                         position: "center",
                         icon: "error",
-                        title: "Không có mã xe nào giống mã xe đã nhập!",
+                        title: "Xảy ra lỗi!",
                         showConfirmButton: false,
                         timer: 1700,
                     });
@@ -108,7 +100,7 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
     };
 
     const handleBlurSL = (e) => {
-        if (e.target.value === "" || e.target.value <= 0) {
+        if ((e.target.value === "" || e.target.value <= 0) && maxe !== null && maxe !== "") {
             e.target.style.borderColor = "red";
             Swal.fire({
                 position: "center",
@@ -120,6 +112,28 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
         } 
         else {
             e.target.style.borderColor = "#000";
+        }
+        if(soluongxe!==null && soluongxe>0)
+        {
+            HandleApiInvoice.getCarByMaCar(maxe).then((res) => {
+                console.log(res)
+                if(res.cars[0].soluong < soluongxe)
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    title: "Số lượng xe không đủ. Vui lòng nhập lại!",
+                    showConfirmButton: false,
+                    timer: 1700,})
+                .catch((err) => {
+                    Swal.fire({
+                        position: "center",
+                        icon: "error",
+                        title: "Xảy ra lỗi!",
+                        showConfirmButton: false,
+                        timer: 1700,
+                    });
+                    console.log(err);        
+                }); })
         }
     }
 
@@ -152,14 +166,16 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                         console.log(err);        
                     });
             })
+            
         }
     }
 
     const handleAddCarToInvoice = async (e) => {
         e.preventDefault();
         HandleApiInvoice.getCarByMaCar(maxe).then( (res) => {
-            if(res.cars[0].soluong >= soluongxe)
+            if(res.totalCarsFilter > 0 && res.cars[0].soluong > soluongxe)
             { 
+                if(res.cars[0].soluong >= soluongxe)
                 setTongTien(tongtien+res.cars[0].gia*soluongxe)
                 let carInforDisplay = {
                     tenxe: res.cars[0].ten,
@@ -172,9 +188,17 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                 }
                 setCarArrayData(carArrayData => [...carArrayData, carData])
                 setCarArrayDisplay(carArrayDisplay => [...carArrayDisplay, carInforDisplay])
+                setMaXe(null)
                 setInputMaXe('')
                 setInputSL('')
             } 
+            else
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "Không thêm xe được vì mã xe hoặc số lượng không hợp lệ!",
+                showConfirmButton: false,
+                timer: 1700,})
     })}
 
     const handleCreateInvoice = async (e) => {
@@ -202,8 +226,10 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                 console.log(err);
             });
             setSoLuongXe(0)
+            setInputSL('')
             setTongTien(0)
             setInputMaXe('')
+            setMaXe(null)
             setCarArrayDisplay([])
             setCarArrayData([])
     };
@@ -242,8 +268,10 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                             className={styles.bPopup__close}
                             onClick={() => {setType("")
                             setSoLuongXe(0)
+                            setInputSL('')
                             setTongTien(0)
                             setInputMaXe('')
+                            setMaXe(null)
                             setCarArrayDisplay([])
                             setCarArrayData([])
                         }}
@@ -433,7 +461,9 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                                         onClick={() => {setType("")
                                         setSoLuongXe(0)
                                         setTongTien(0)
+                                        setInputSL('')
                                         setInputMaXe('')
+                                        setMaXe(null)
                                         setCarArrayDisplay([])
                                         setCarArrayData([])
                                         }}
@@ -462,6 +492,7 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                                 <Grid item xs={4.5}>
                                     <div className={styles.infor_hoadon}>
                                     <Item sx={{ fontWeight: "bold" }}>{"Mã khách hàng: " + updateInvoice.hoadon.makh}</Item>
+                                    <Item>{"Tên khách hàng: " + updateInvoice.hoadon.tenkh}</Item>
                                     <Item>{"Mã nhân viên: " + updateInvoice.hoadon.manv}</Item>
                                     <Item>{"Mã đơn hàng " + updateInvoice.hoadon.mahd}</Item>
                                     <Item>{"Tình trạng: " + updateInvoice.hoadon.tinhtrang}</Item>
@@ -484,7 +515,7 @@ function InvoicePopUp({type, setType, updateInvoice, setUdateInvoice}) {
                                     <label className={styles.label}>Đơn giá</label>
                                 </Grid>
                                 <Grid item xs={12} >
-                                <div style={{height: "120px", overflowY: 'scroll', overflow: 'scroll'}}>
+                                <div style={{height: "157px", overflowY: 'scroll', overflow: 'scroll'}}>
                                     <Box component="div">
                                     {updateInvoice.cthds?.map((item, index) => (
                                             <Grid container key={index}>
