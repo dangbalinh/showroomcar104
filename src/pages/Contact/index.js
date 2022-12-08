@@ -114,7 +114,7 @@ function Contact() {
                 <div  className={style.contactImage}>
                 </div> 
                 <div className={style.contactForm}>
-                    <p className={style.contactTitle}>Vui lòng để lại thông tin liên lạc để nhận tư vấn từ bộ phận chăm sóc khách hàng hoặc các chính sách của KingSpeed!</p>
+                    <p className={style.contactTitle}>Vui lòng để lại thông tin liên lạc để nhận tư vấn từ bộ phận chăm sóc khách hàng hoặc các chính sách của King Speed!</p>
                     <form onSubmit={handleSubmit}>
                         <div className={style.contactItem}>
                             <label className={style.contactLabel}>Họ và tên</label>

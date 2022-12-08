@@ -1,4 +1,9 @@
 import style from "./Introduce.module.css"
+import companyImg from '../../../src/assets/image/company.jpg'
+import onlinemeeting from '../../../src/assets/image/onlinemeeting.jpg'
+import meeting from '../../../src/assets/image/meeting1.jpg'
+import teamBuildings from '../../../src/assets/image/team-building-activities-for-work.webp'
+
 function Introduce() {
     return ( 
         <div className={style.introBackground}>
@@ -21,6 +26,9 @@ function Introduce() {
                     chúng tôi hiểu sự phát triển nhanh chóng của thị trường xe hơi tại Việt Nam và 
                     nắm bắt cơ hội của thị trường này.
                 </p> 
+                <div>
+                    <img alt="company" className={style.companyImg} src={companyImg}></img>
+                </div>
                 <p className={style.introTitle1}>
                     TẦM NHÌN, SỨ MỆNH PHỤC VỤ, GIÁ TRỊ
                 </p>  
@@ -52,8 +60,12 @@ function Introduce() {
                         đem tới cho khách hàng, chúng tôi tin tưởng rằng, quý khách hàng sẽ thật sự hài 
                         lòng khi sử dụng sản phẩm và dịch vụ của King Speed tại Việt Nam.
                     </p> 
-                </p>         
-
+                </p>  
+                <div className={style.employeeImg}>
+                    <img alt="online meeting" src={onlinemeeting}/>   
+                    <img alt="meeting" src={meeting}/>
+                    <img alt="teambuildings" src={teamBuildings}/>
+                </div>    
             </div>
         </div>
      );

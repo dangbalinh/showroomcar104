@@ -95,7 +95,7 @@ const Login = () => {
         return data;
       }
     const handleSubmit = (e) => {
-        if(errors.emailError!=""|| errors.passwordError!="")
+        if(errors.emailError!==""|| errors.passwordError!=="")
         {
             e.preventDefault();
             alert("Login failed!");

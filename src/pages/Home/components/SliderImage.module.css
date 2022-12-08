@@ -17,7 +17,8 @@
   }
   
   .showStarted:hover {
-    background-color: rgba(138, 0, 0, 0.7);
+    background-color: rgba(215, 0, 0, 0.7);
+    transition: all 0.3s linear;
   }
   
   .showDescription {

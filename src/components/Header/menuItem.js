@@ -17,31 +17,31 @@ export const menuItems = [
       },
       {
         title: "Mercedes",
-        url: "/product/Mercedes-Benz",
+        url: "/product/Mercedes",
       },
       {
         title: "Ford",
-        url: "/product/FORD",
+        url: "/product/Ford",
       },
       {
         title: "Kia",
-        url: "/product/KIA",
+        url: "/product/Kia",
       },
       {
         title: "Vinfast",
-        url: "/product/VINFAST",
+        url: "/product/Vinfast",
       },
       {
         title: "Toyota",
-        url: "/product/TOYOTA",
+        url: "/product/Toyota",
       },
       {
         title: "Huyndai",
-        url: "/product/HUYNDAI",
+        url: "/product/Hyundai",
       },
       {
         title: "Honda",
-        url: "/product/HONDA",
+        url: "/product/Honda",
       },
     ],
   },

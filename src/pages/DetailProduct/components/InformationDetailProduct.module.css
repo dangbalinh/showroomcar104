@@ -1,11 +1,10 @@
 .information{
-    margin-top: 200px;
+    margin-top: 148px;
     margin-bottom: 100px;
 }
 .information__heading{
-    margin-left: 200px;
-    
-
+    margin-left: 180px;
+    margin-bottom: 20px;
 }
 .line {
     width: 500px;
@@ -13,29 +12,33 @@
 }
 .information__content{
     display: flex;
+    justify-content: space-evenly;
 }
-.buy button{
-    margin-top: 100px;
-    margin-left: 600px;
+.buy {
+    margin: 80px auto 0;
     width: 250px;
     height: 50px;
     border: 2px solid red;
     border-radius: 10px;
-    font-size: large;
+    font-size: 2rem;
     font-weight: bold;
     color: whitesmoke;
-    background-color: rgb(236, 0, 0);
+    background-color: rgb(195, 0, 0);
     transition: 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.buy a{ 
+.buy{ 
     text-decoration: none;
+    cursor: pointer;
 }
-.buy button :hover{
-    background-color: brown;
+.buy:hover{
+    background-color: rgb(255, 0, 0);
 }
 .information__heading__carName {
     /* background-color: aqua; */
-    margin-left: 70px;
+    margin-left: 128px;
     display: block;
     color: red;
     font-size: 40px;
@@ -43,12 +46,12 @@
 .information__heading__priceCar {
     color: black;
     padding: 10px;
-    margin-left: 110px;
+    margin-left: 108px;
     font-size: 30px;
 
 }
 .information__content__info {
-    margin-left: 200px;
+    margin-left: 180px;
 }
 .information__content__info p {
     font-size: 20px;
@@ -57,8 +60,9 @@
 }
 
 .informaton__content__img img {
-    margin-left: 10px;
-    width: 600px;
-    height: 460px;
-    
+    margin-right: 40px;
+    margin-top: 28px;
+    width: 580px;
+    object-fit: cover;
+
 }
