@@ -22,7 +22,7 @@ function Contact() {
             Swal.fire({
                 position: "center",
                 icon: "error",
-                title: "Thất bại!\nThông tin liên lạc không hợp lê!",
+                title: "Thất bại!\nThông tin liên lạc không hợp lệ!",
                 showConfirmButton: false,
                 timer: 2000,
             });
