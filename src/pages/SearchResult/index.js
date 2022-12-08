@@ -17,9 +17,9 @@ const Search = () => {
 
   const test=encodeURI(searchParams.get('find')); 
   console.log(test); 
-  const sendRequest = async()=>{
+  const sendRequest = async(number=currentPage)=>{
     const res = await axios
-    .get(`https://showroomcar104.onrender.com/cars?ten=${test}&pageIndex=${currentPage}&pageSize=${postPerPage}`)
+    .get(`https://showroomcar104.onrender.com/cars?ten=${test}&pageIndex=${number}&pageSize=${postPerPage}`)
     .catch((err)=>console.log(err))
     setLoading(false);
     const data = await res.data;
@@ -27,15 +27,26 @@ const Search = () => {
     return data;
   }
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     setCurrentPage(0);
     setLoading(true);
-  },[test])
+  },[test])*/
+  /*useEffect(()=>{
+    sendRequest()
+    .then((data)=>setCars(data))
+    console.log(cars);
+  },[test,currentPage,postPerPage])*/
   useEffect(()=>{
     sendRequest()
     .then((data)=>setCars(data))
     console.log(cars);
-  },[test,currentPage,postPerPage])
+  },[currentPage,postPerPage])
+  useEffect(()=>{
+    setCurrentPage(0)
+    sendRequest(0)
+    .then((data)=>setCars(data))
+    console.log(cars);
+  },[test])
 
 
 

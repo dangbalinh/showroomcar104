@@ -199,6 +199,12 @@
     width: 50%;
 }
 
+.Overcar{
+    height: fit-content;
+    overflow-y: auto;
+}
+
+
 .logout {
     display: flex;
     width: 100%;

@@ -134,6 +134,8 @@ input {
   list-style: none;
   background-color: rgb(255, 255, 255);
   border-radius: 0.5rem;
+  height: 447px;
+  overflow-y: auto;
   /*border: 2px solid rgba(0, 0, 0, 0.711);*/
   width: 100%;
   z-index: 9999;
