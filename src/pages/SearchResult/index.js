@@ -19,7 +19,7 @@ const Search = () => {
   console.log(test); 
   const sendRequest = async(number=currentPage)=>{
     const res = await axios
-    .get(`https://showroomcar104.onrender.com/cars?ten=${test}&pageIndex=${number}&pageSize=${postPerPage}`)
+    .get(`https://showroomcar104.onrender.com/cars?search=${test}&pageIndex=${number}&pageSize=${postPerPage}`)
     .catch((err)=>console.log(err))
     setLoading(false);
     const data = await res.data;
