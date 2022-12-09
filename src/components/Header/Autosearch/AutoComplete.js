@@ -14,7 +14,7 @@ const AutoComplete = () => {
 
     const sendRequest = async(query)=>{
       const res = await axios
-      .get(`https://showroomcar104.onrender.com/cars?ten=${query}`)
+      .get(`https://showroomcar104.onrender.com/cars?search=${query}`)
       .catch((err)=>console.log(err))
       const data = await res.data.cars;
       console.log(data);
