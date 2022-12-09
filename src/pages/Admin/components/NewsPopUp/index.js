@@ -141,17 +141,21 @@ function NewsPopup({ token, type, setType, updatePost, setUpdatePost }) {
         if (detail === undefined) {
             setDetail([])
         } else {
-            setDetail([...detail, { type: tag, content: content, index: Date.now() }]);
-            setContent('');
+            if (tag !== "" && content !== "") {
+                setDetail([...detail, { type: tag, content: content, index: Date.now() }]);
+                setContent('');
+            }
         }
     }
 
     const editDetail = () => {
-        setDetail(detail.map(d => d.index === selectedID ? { ...d, type: tag, content: content } : d))
-        setSelectedID();
-        setContent('');
-        setEditDisabled(true);
-        setAddDisabled(false);
+        if (tag !== "" && content !== "") {
+            setDetail(detail.map(d => d.index === selectedID ? { ...d, type: tag, content: content } : d))
+            setSelectedID();
+            setContent('');
+            setEditDisabled(true);
+            setAddDisabled(false);
+        }
     }
 
     const handleDeleteDetail = (id) => {
@@ -199,7 +203,6 @@ function NewsPopup({ token, type, setType, updatePost, setUpdatePost }) {
 
     const handleBlur = (e) => {
         if (e.target.value === "") {
-            // setErrorName("Vui lòng nhập dữ liệu ");
             e.target.style.borderColor = "red";
         } else {
             e.target.style.borderColor = "#000";
@@ -316,11 +319,11 @@ function NewsPopup({ token, type, setType, updatePost, setUpdatePost }) {
                                                         </Grid>
                                                         <Grid item xs={9}>
                                                             <TextField
+                                                                error
                                                                 multiline
                                                                 inputRef={inputRef}
                                                                 sx={{ width: "100%" }}
                                                                 type="text"
-                                                                required
                                                                 placeholder="Nhập nội dung"
                                                                 value={content}
                                                                 onChange={(e) =>
@@ -490,11 +493,11 @@ function NewsPopup({ token, type, setType, updatePost, setUpdatePost }) {
                                                         </Grid>
                                                         <Grid item xs={9}>
                                                             <TextField
+                                                                error
                                                                 multiline
                                                                 inputRef={inputRef}
                                                                 sx={{ width: "100%" }}
                                                                 type="text"
-                                                                required
                                                                 placeholder="Nhập nội dung"
                                                                 value={content}
                                                                 onChange={(e) =>
