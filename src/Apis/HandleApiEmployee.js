@@ -13,8 +13,12 @@ const getEmployeeByName = async (name) => {
     return await axiosInstance.get(`/users/employees?name=${name}`);
 };
 
+const getEmployeeBySearch = async (search) =>{
+    return await axiosInstance.get(`/users/employees?search=${search}`);
+}
+
 const getEmployeeByMauser = async (mauser) => {
-    return await axiosInstance.get(`/users/employee?mauser=${mauser}`);
+    return await axiosInstance.get(`/users/employees?mauser=${mauser}`);
 };
 
 
@@ -43,4 +47,5 @@ export default {
     deleteEmployee,
     createEmployee,
     updateEmployee,
+    getEmployeeBySearch,
 };

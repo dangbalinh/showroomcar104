@@ -119,7 +119,7 @@ function EmployeeManagement() {
     useEffect(() => {
         console.log(searchValue);
         if (searchValue.trim() !== "") {
-            HandleApiEmployee.getEmployeeByName(searchValue)
+            HandleApiEmployee.getEmployeeBySearch(searchValue.toUpperCase())
             .then(async (res) => {
                 await setData(res.employees);
                 await setDataLength(data.length);
