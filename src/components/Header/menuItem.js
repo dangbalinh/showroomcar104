@@ -36,7 +36,7 @@ export const menuItems = [
         url: "/product/Toyota",
       },
       {
-        title: "Huyndai",
+        title: "Hyundai",
         url: "/product/Hyundai",
       },
       {
