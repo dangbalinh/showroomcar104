@@ -1,9 +1,11 @@
 import styles from "./ReadNews.module.css";
+import "./ReadNews.css"
 import { useParams, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useLayoutEffect } from "react";
 import NewsSidebar from "../News/components/NewsSidebar";
 import HandleNewsApi from "../../Apis/HandleNewsApi";
+import parse from "html-react-parser"
 
 // scroll to top when navigate
 const Wrapper = ({ children }) => {
@@ -34,31 +36,7 @@ function ReadNews() {
               <div>
                 <h3 className={styles.title}>{detail.title}</h3>
                 <p className={styles.date}>{detail.dateSource}</p>
-                {detail.detail.map((d, index) => {
-                  if (d.type === "img") {
-                    return (
-                      <img
-                        key={d.index}
-                        className={styles.image}
-                        src={d.content}
-                        alt={index}
-                      />
-                    );
-                  } else if (d.type === "p") {
-                    return (
-                      <p key={d.index} className={styles.paragraphText}>
-                        {d.content}
-                      </p>
-                    );
-                  } else if (d.type === "h2") {
-                    return (
-                      <h2 key={d.index} className={styles.paragraphTitle}>
-                        {d.content}
-                      </h2>
-                    );
-                  }
-                  return <></>;
-                })}
+                <div className={styles.detail}>{parse(detail.detail[0])}</div>
               </div>
             )}
           </section>
