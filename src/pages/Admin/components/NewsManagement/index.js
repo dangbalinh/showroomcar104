@@ -2,6 +2,7 @@ import images from "../../../../assets/image";
 import styles from "./NewsManagement.module.css";
 import styleDetail from "../../../ReadNews/ReadNews.module.css";
 import "./NewsManagement.css";
+import parse from "html-react-parser"
 
 import { styled } from "@mui/material/styles";
 import {
@@ -166,31 +167,7 @@ function NewsManagement() {
                 <Box sx={{ padding: "50px" }}>
                     <h3 className={styleDetail.title}>{detail.title}</h3>
                     <p className={styleDetail.date}>{detail.dateSource}</p>
-                    {detail.detail.map((d, index) => {
-                        if (d.type === "img") {
-                            return (
-                                <img
-                                    key={d.index}
-                                    className={styleDetail.image}
-                                    src={d.content}
-                                    alt={index}
-                                />
-                            );
-                        } else if (d.type === "p") {
-                            return (
-                                <p key={d.index} className={styleDetail.paragraphText}>
-                                    {d.content}
-                                </p>
-                            );
-                        } else if (d.type === "h2") {
-                            return (
-                                <h2 key={d.index} className={styleDetail.paragraphTitle}>
-                                    {d.content}
-                                </h2>
-                            );
-                        }
-                        return <></>;
-                    })}
+                    <div className={styleDetail.detail}>{parse(detail.detail[0])}</div>
                 </Box>
             </div>
         </div>)
