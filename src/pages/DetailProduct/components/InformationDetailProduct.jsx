@@ -41,7 +41,7 @@ function InformationDetailProduct(pros) {
                 </div>
             </div>
             {/* <div className={style.buy}> */}
-                <a href='/contact' className={style.buy}>BUY NOW</a>
+                <a href='/contact' className={style.buy}>LIÊN HỆ</a>
             {/* </div> */}
         </div>
         
