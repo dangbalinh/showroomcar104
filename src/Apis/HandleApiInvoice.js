@@ -1,22 +1,5 @@
-import axios from 'axios';
 import axiosInstance from './axiosInstance';
 
-const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzhhZjRlNzRiODlkYjI3ODYxOWIzNWMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NzAwODU1OTAsImV4cCI6MTY3MjY3NzU5MH0.Oyug93O_4rxxQGNAy-Y6hnLAFotHupPfNDhTryY4BlA';
-const apiURL = 'https://showroomcar104.onrender.com/';
-const authAxiosInstance = axios.create({
-    baseURL: apiURL,
-    headers: {
-        Authorization: `Bearer ${accessToken}`
-    }
-})
-authAxiosInstance.interceptors.response.use(
-    function (response) {
-      return response.data;
-    },
-    function (error) {
-      return Promise.reject(error);
-    },
-  );
 const getInvoiceByTinhTrang = async (tinhtrang, pageIndex) => {
     return await axiosInstance.get(`/hoadons?tinhtrang=${tinhtrang}&pageSize=${10}&pageIndex=${pageIndex}`)
 };

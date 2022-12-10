@@ -1,5 +1,5 @@
 .introBackground {
-    background-image: url('../../../src/assets/image/ảnh nền introduce.png');
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2F%E1%BA%A3nh%20n%E1%BB%81n%20introduce.png?alt=media&token=4d1ba563-1e86-4a92-bda8-340bd6589479');
     background-repeat: no-repeat;
     background-size: cover;
     margin-top: 100px;
@@ -35,9 +35,9 @@
   margin: 24px 0;
 }
 
-.companyImg {
+.showroomImg {
   width: 75%;
-  height: 450px;
+  height: 500px;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -55,7 +55,7 @@
 
 .employeeImg img {
   width: 25%;
-  height: 180px;
+  height: 200px;
   display: block;
 }
 
