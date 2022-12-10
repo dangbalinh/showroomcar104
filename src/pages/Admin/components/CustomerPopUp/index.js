@@ -61,11 +61,11 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
         "Password",
         // "Nhập lại mật khẩu"
     ];
-    const inputType = ["text","number", "date", "text", "number", "text" ,"password",/*"password"*/];
+    const inputType = ["text","number", "text", "text", "number", "text" ,"password",/*"password"*/];
     const data = {
         name: name,
         sdt: Number(phoneNumber),
-        ngaysinh: Date(dateOfBirth),
+        ngaysinh: dateOfBirth,
         diachi: address,
         cccd: Number(cccd),
         email: email,
@@ -98,7 +98,7 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
         "Địa chỉ"
     ];
 
-    const inputTypeUpdate = ["text", "number", "date", "number",  "text"];
+    const inputTypeUpdate = ["text", "number", "text", "number",  "text"];
     const inputValueUpdate = [
         name,
         phoneNumber,
@@ -111,7 +111,7 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
     const dataUpdate = {
         name: name, 
         sdt: Number(phoneNumber),
-        ngaysinh: Date(dateOfBirth),
+        ngaysinh: dateOfBirth,
         cccd: Number(cccd),
         diachi: address
     }
@@ -199,7 +199,7 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
                         <Box sx={{ flexGrow: 1 }}>
                             <form onSubmit={handleCreateCustomer}>
                                 <Grid container>
-                                    {inputId.map((item, index) => (
+                              {inputId.map((item, index) => (
                                         <Grid key={index} item xs={4} sx={{ height: "93px" }}>
                                             <label htmlFor={item[index]} className={styles.label}>
                                                 {textValue[index]}
