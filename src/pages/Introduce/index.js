@@ -1,8 +1,4 @@
 import style from "./Introduce.module.css"
-import companyImg from '../../../src/assets/image/company.jpg'
-import onlinemeeting from '../../../src/assets/image/onlinemeeting.jpg'
-import meeting from '../../../src/assets/image/meeting1.jpg'
-import teamBuildings from '../../../src/assets/image/team-building-activities-for-work.webp'
 
 function Introduce() {
     return ( 
@@ -27,7 +23,7 @@ function Introduce() {
                     nắm bắt cơ hội của thị trường này.
                 </p> 
                 <div>
-                    <img alt="company" className={style.companyImg} src={companyImg}></img>
+                    <img alt="Hình ảnh showroom" className={style.showroomImg} src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fshowroomcar.jpg?alt=media&token=34e613e6-bbe7-44ed-80dc-4086c164e473"></img>
                 </div>
                 <p className={style.introTitle1}>
                     TẦM NHÌN, SỨ MỆNH PHỤC VỤ, GIÁ TRỊ
@@ -62,9 +58,9 @@ function Introduce() {
                     </p> 
                 </p>  
                 <div className={style.employeeImg}>
-                    <img alt="online meeting" src={onlinemeeting}/>   
-                    <img alt="meeting" src={meeting}/>
-                    <img alt="teambuildings" src={teamBuildings}/>
+                    <img alt="Hình ảnh nhân viên giới thiệu xe cho khách" src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fsalecar1.jpg?alt=media&token=1311e1ae-6b9a-4e3f-9890-83904445c8ae"/>   
+                    <img alt="Hình ảnh nhân viên trong showroom" src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Femoloyee1.jpg?alt=media&token=639a3b41-9637-405a-9d8d-c43cff385de1"/>
+                    <img alt="Hình ảnh nhân viên giới thiệu xe cho khách" src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fsalecar2.jpg?alt=media&token=c63c523a-0129-4437-b6ad-fdd9794df3be"/>
                 </div>    
             </div>
         </div>
