@@ -35,7 +35,7 @@ import Swal from "sweetalert2";
 function CarManagement() {
     const [typeCar, setTypeCar] = useState("All");
     const [data, setData] = useState([]);
-    const [dataLength, setDataLength] = useState();
+    const [dataLength, setDataLength] = useState(0);
     const [pageIndex, setPageIndex] = useState(0);
     const [searchValue, setSearchValue] = useState("");
     const [newData, setNewData] = useState([]);
@@ -77,19 +77,26 @@ function CarManagement() {
     useEffect(() => {
         HandleApi.getCarByPageIndex(pageIndex).then((res) => {
             setData(res.cars);
-            setDataLength(res.totalCars);
+            setDataLength(res.totalCarsFilter);
         });
     }, [pageIndex]);
+
 
     // handle Filter select
     useEffect(() => {
         switch (typeCar) {
             case "All":
                 setNewData(data);
-                HandleApi.getAllCar().then((res) =>
-                    setDataLength(res.totalCars)
-                );
+                HandleApi.getAllCar().then((res) => {
+                    setDataLength(res.totalCarsFilter);
+                });
                 break;
+            // case "All":
+            //     HandleApi.getCarByPageIndex(pageIndex).then((res) => {
+            //         setNewData(res.cars);
+            //         setDataLength(res.totalCars);
+            //     });
+            //     break;
             case "Honda":
                 HandleApi.getCarByBrand("Honda").then((res) => {
                     setNewData(res.cars);
@@ -142,6 +149,7 @@ function CarManagement() {
                 break;
         }
     }, [data, typeCar]);
+
 
     // handle event
     const handleChange = (event) => {
@@ -208,15 +216,17 @@ function CarManagement() {
         if (searchValue.trim() !== "") {
             HandleApi.getCarByName(searchValue).then(async (res) => {
                 await setData(res.cars);
-                await setDataLength(data.length);
+                await setDataLength(res.totalCarsFilter);
             });
-        } else {
+        } 
+        else {
             HandleApi.getCarByPageIndex(pageIndex).then((res) => {
                 setData(res.cars);
                 setDataLength(res.totalCars);
             });
         }
     }, [searchValue]);
+    console.log("length",dataLength);
 
     const handleInputChange = (e) => {
         setSearchValue(e.target.value);
