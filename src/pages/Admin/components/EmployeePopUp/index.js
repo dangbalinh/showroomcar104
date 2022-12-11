@@ -71,7 +71,7 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
         "Tên nhân viên",
         "Giới tính (Nam / Nữ)",
         "Địa chỉ",
-        "Ngày sinh (dd/mm/yyyy)",
+        "Ngày sinh (dd-mm-yyyy)",
         "Số điện thoại",
         "Chức vụ",
         "CCCD",
@@ -83,7 +83,7 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
         "Tên nhân viên",
         "Giới tính (Nam / Nữ)",
         "Địa chỉ",
-        "Ngày sinh (dd/mm/yyyy)",
+        "Ngày sinh (dd-mm-yyyy)",
         "Số điện thoại",
         "CCCD",
         "Chức vụ"
@@ -349,7 +349,6 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
                             onClick={() => setType("")}
                         />
                         <h3>Thông tin chi tiết nhân viên</h3>
-
                         <Box sx={{ flexGrow: 1, marginTop: "24px" }}>
                             <Grid container>
                                 <Grid item xs={6}>
@@ -357,7 +356,7 @@ function EmployeePopUp({type, setType, updateEmployee, setUpdateEmployee }) {
                                     <Item>{"Tên nhân viên: " + updateEmployee.name}</Item>
                                     <Item>{"Ngày sinh: " + updateEmployee.ngaysinh}</Item>
                                     <Item>{"Giới tính: " + updateEmployee.gioitinh}</Item>
-                                    <Item>{"Số điện thoại: " + updateEmployee.sdt}</Item>
+                                    <Item>{"Số điện thoại: " + 0 +updateEmployee.sdt}</Item>
                                     <Item>{"CCCD: " + updateEmployee.cccd}</Item>
                                     <Item>{"Địa chỉ: " + updateEmployee.diachi}</Item>
                                     <Item>{"Email: " + updateEmployee.email}</Item>
