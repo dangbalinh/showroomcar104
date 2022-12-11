@@ -47,7 +47,7 @@ input {
   display: inline-block;
   box-sizing: content-box;
   width: calc(100% / 3);
-  padding: 30px;
+  padding: 18px;
 }
 
 .header .item {
