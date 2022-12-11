@@ -3,7 +3,7 @@ import "@splidejs/react-splide/css";
 import ItemAdvice from "./ItemAdvice";
 import style from "./SliderAdvice.module.css";
 import "./SliderAdvice.css";
-import WestIcon from "@mui/icons-material/West";
+// import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 import axios from "axios";
 import { useEffect, useState, memo } from 'react';
