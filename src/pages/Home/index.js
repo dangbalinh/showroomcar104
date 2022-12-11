@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import style from "./Home.module.css";
-import images from "../../assets/image";
 import React, { useState, useEffect, memo } from "react";
 import SliderCar from "./components/SliderCar";
 import SliderAdvice from "./components/SliderAdvice";
@@ -55,7 +54,7 @@ function Home() {
             <div
                 className={style.advice}
                 style={{
-                    backgroundImage: `url(${images.clientImg})`,
+                    backgroundImage: "url(https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/%E1%BA%A3nh%20homepage%2F%24RHPLO4O.jpg?alt=media&token=044087d4-9e0c-465d-9b02-87fe76af3e4c)",
                     backgroundSize: "cover",
                     paddingBottom: "52%",
                     // height: "100vh",
@@ -109,7 +108,7 @@ function Home() {
             <div
                 className={style.news}
                 style={{
-                    backgroundImage: `url(${images.newsImg})`,
+                    backgroundImage: "url(https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/%E1%BA%A3nh%20homepage%2Fnewsimg.png?alt=media&token=801d0ef2-1a2a-4478-820d-8a003d6aac70)",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     height: "851px",
