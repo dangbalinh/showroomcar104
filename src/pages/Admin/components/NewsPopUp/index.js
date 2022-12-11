@@ -4,9 +4,8 @@ import './NewsPopUp.css'
 import CancelIcon from "@mui/icons-material/Cancel";
 import Swal from "sweetalert2";
 import { Box } from "@mui/system";
-import { Grid, Button, Modal, IconButton, Typography, styled, Paper, Select, MenuItem, TextField, FormControl, InputLabel } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import HandleNewsApi from "../../../../Apis/HandleNewsApi";
-import { DeleteOutline, Edit } from "@mui/icons-material";
 import JoditEditor from 'jodit-react';
 import { useMemo } from "react";
 
@@ -21,18 +20,14 @@ function NewsPopup({ token, type, setType, updatePost, setUpdatePost }) {
     const config = useMemo(
         () => ({
             readonly: false,
-            buttons: ["bold", "italic", "underline", "strikethrough", "|", "ul", "ol", "|", "center", "left", "right", "justify", "|", "link", "image"],
             uploader: { insertImageAsBase64URI: true },
-            removeButtons: ["brush", "file"],
+            removeButtons: ["brush", "file", "fullsize"],
             showXPathInStatusbar: false,
             showCharsCounter: false,
             showWordsCounter: false,
-            toolbarAdaptive: false
         }),
         []
     );
-
-    const inputRef = useRef(null);
 
     const inputId = [
         "image",
