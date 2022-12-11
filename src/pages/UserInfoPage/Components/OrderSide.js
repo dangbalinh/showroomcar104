@@ -95,10 +95,10 @@ const OrderSide = ({
       }))
       {userDataa.map((item, index) => console.log(item.ngayhd))}
       setPageIndex(1)
-      console.log(Math.ceil(userDataa.length/6));
+      /*console.log(Math.ceil(userDataa.length/6));
       console.log(value);
       console.log(status);
-      console.log(input);
+      console.log(input);*/
     
     }, [status,input,value])
     /*useEffect(() => {

@@ -6,8 +6,6 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import userimg from '../../../assets/image/avatar.jpg'
 import {
-  Boy,
-  Cookie,
   Logout,
 } from "@mui/icons-material";
 import PhoneIcon from '@mui/icons-material/Phone';
