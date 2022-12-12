@@ -8,6 +8,11 @@ const getCarByPageIndex = async (index) => {
     return await axiosInstance.get(`/cars?pageIndex=${index}`);
 };
 
+const getCarByPageIndexBrand = async (brand, index) => {
+    return await axiosInstance.get(`/cars?thuonghieu=${brand}&pageIndex=${index}`);
+};
+
+
 const getSevenCars = async (index) => {
     return await axiosInstance.get("/cars?pageIndex=0&pageSize=7");
 };
@@ -55,5 +60,6 @@ export default {
     createCar,
     updateCar,
     deleteCar,  
-    getSixCarsByBranch
+    getSixCarsByBranch,
+    getCarByPageIndexBrand 
 };
