@@ -69,6 +69,7 @@ function CarManagement() {
     const handlePageChange = (e, p) => {
         setPageIndex(p - 1);
     };
+    //Delete
     const handleDeleteItem = async (id) => {
         HandleApisCustomer.deleteCustomer(id)
             .then((res) => {
