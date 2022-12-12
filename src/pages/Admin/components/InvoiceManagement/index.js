@@ -1,4 +1,4 @@
-import images from "../../../../assets/image";
+// import images from "../../../../assets/image";
 import styles from "./InvoiceManagement.module.css";
 import "./InvoiceManagement.css";
 
@@ -250,11 +250,11 @@ function InvoiceManagement() {
     return (
         <div>
             <header className={styles.header}>
-                <img
+                {/* <img
                     src={images.bmwImg}
                     className={styles.header_image}
                     alt="Header img"
-                />
+                /> */}
                 <h1 className={styles.header_heading}>Quản lý hóa đơn</h1>
             </header>
             <div className={styles.container}>

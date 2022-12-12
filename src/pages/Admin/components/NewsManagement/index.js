@@ -1,4 +1,4 @@
-import images from "../../../../assets/image";
+// import images from "../../../../assets/image";
 import styles from "./NewsManagement.module.css";
 import styleDetail from "../../../ReadNews/ReadNews.module.css";
 import "./NewsManagement.css";
@@ -176,11 +176,11 @@ function NewsManagement() {
     return (
         <div>
             <header className={styles.header}>
-                <img
+                {/* <img
                     src={images.bmwImg}
                     className={styles.header_image}
                     alt="Header img"
-                />
+                /> */}
                 <h1 className={styles.header_heading}>Quản lý tin tức</h1>
             </header>
             <div className={styles.container}>
