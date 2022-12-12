@@ -28,7 +28,6 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import NewsPopUp from "../NewsPopUp"
 import HandleNewsApi from "../../../../Apis/HandleNewsApi"
 import Swal from "sweetalert2";
-import Cookies from "js-cookie";
 
 function NewsManagement() {
     const [data, setData] = useState([]);
@@ -40,7 +39,6 @@ function NewsManagement() {
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState(null);
     const [openDetailModal, setOpenDetailModal] = useState(false);
-    const [token] = useState(() => Cookies.get("token"))
 
     const handleOpenDetailModal = (detail) => {
         setOpenDetailModal(true);
@@ -71,7 +69,7 @@ function NewsManagement() {
 
 
     const handleDeleteItem = async (id) => {
-        HandleNewsApi.deleteNews(id, token)
+        HandleNewsApi.deleteNews(id)
             .then((res) => {
                 setOpenDeleteModal(false);
                 Swal.fire({
@@ -352,7 +350,6 @@ function NewsManagement() {
                 </div>
             </div>
             <NewsPopUp
-                token={token}
                 type={type !== "" ? type : ""}
                 setType={setType}
                 updatePost={updatePost}

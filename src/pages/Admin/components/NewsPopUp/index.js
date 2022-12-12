@@ -9,7 +9,7 @@ import HandleNewsApi from "../../../../Apis/HandleNewsApi";
 import JoditEditor from 'jodit-react';
 import { useMemo } from "react";
 
-function NewsPopup({ token, type, setType, updatePost, setUpdatePost }) {
+function NewsPopup({ type, setType, updatePost, setUpdatePost }) {
     const [image, setImage] = useState();
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
@@ -98,7 +98,7 @@ function NewsPopup({ token, type, setType, updatePost, setUpdatePost }) {
 
 
     const handleUpdatePost = async () => {
-        HandleNewsApi.updateNews(updatePost._id, data, token)
+        HandleNewsApi.updateNews(updatePost._id, data)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",
@@ -126,7 +126,7 @@ function NewsPopup({ token, type, setType, updatePost, setUpdatePost }) {
 
     const handleCreatePost = async (e) => {
         e.preventDefault();
-        HandleNewsApi.createNews(data, token)
+        HandleNewsApi.createNews(data)
             .then(async (res) => {
                 await Swal.fire({
                     position: "center",

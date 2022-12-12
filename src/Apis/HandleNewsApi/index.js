@@ -16,28 +16,16 @@ const getNewsById = async (id) => {
     return await axiosInstance.get(`/news/${id}`);
 };
 
-const createNews = async (data, token) => {
-    return await axiosInstance.post("/news", data, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
+const createNews = async (data) => {
+    return await axiosInstance.post("/news", data);
 };
 
-const updateNews = async (id, data, token) => {
-    return await axiosInstance.put(`/news/${id}`, data, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
+const updateNews = async (id, data) => {
+    return await axiosInstance.put(`/news/${id}`, data);
 };
 
-const deleteNews = async (id, token) => {
-    return await axiosInstance.delete(`/news/${id}`, {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
+const deleteNews = async (id) => {
+    return await axiosInstance.delete(`/news/${id}`);
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
