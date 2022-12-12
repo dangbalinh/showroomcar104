@@ -28,28 +28,23 @@ function News() {
       <div className={styles.newsSection}>
         <section className={styles.section}>
           <div>
-            {data == null ? (
-              <div>loading</div>
-            ) : (
-              <div>
-                {data.map((news, index) => {
-                  return (
-                    <Link
-                      to={`/readnews/${news._id}`}
-                      key={index}
-                      className={styles.link}
-                    >
-                      <Card
-                        image={news.image}
-                        title={news.title}
-                        date={news.dateSource}
-                        description={news.description}
-                      />
-                    </Link>
-                  );
-                })}
-              </div>
-            )}
+
+            {data?.map((news, index) => {
+              return (
+                <Link
+                  to={`/readnews/${news._id}`}
+                  key={index}
+                  className={styles.link}
+                >
+                  <Card
+                    image={news.image}
+                    title={news.title}
+                    date={news.dateSource}
+                    description={news.description}
+                  />
+                </Link>
+              );
+            })}
           </div>
           <div className={styles.pagination}>
             <Stack spacing={2}>
