@@ -14,23 +14,17 @@ export default function NewsSidebar() {
     return (
         <aside className={styles.aside}>
             <h3>Tin nổi bật</h3>
-            {allData == null ? (
-                <div>loading</div>
-            ) : (
-                <div>
-                    {allData.slice(0, 5).map((news, index) => {
-                        return (
-                            <Link
-                                to={`/readnews/${news._id}`}
-                                key={index}
-                                className={styles.link}
-                            >
-                                <SmallerCard image={news.image} title={news.title} />
-                            </Link>
-                        );
-                    })}
-                </div>
-            )}
+            {allData?.slice(0, 5).map((news, index) => {
+                return (
+                    <Link
+                        to={`/readnews/${news._id}`}
+                        key={index}
+                        className={styles.link}
+                    >
+                        <SmallerCard image={news.image} title={news.title} />
+                    </Link>
+                );
+            })}
         </aside>
     )
 }

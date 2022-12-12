@@ -30,15 +30,13 @@ function ReadNews() {
       <div className={styles.container}>
         <div className={styles.newsSection}>
           <section className={styles.section}>
-            {detail == null ? (
-              <div>loading</div>
-            ) : (
+            {detail &&
               <div>
                 <h3 className={styles.title}>{detail.title}</h3>
                 <p className={styles.date}>{detail.dateSource}</p>
                 <div className={styles.detail}>{parse(detail.detail[0])}</div>
               </div>
-            )}
+            }
           </section>
           <div class={styles.divider}></div>
           <NewsSidebar />
