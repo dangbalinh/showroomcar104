@@ -25,7 +25,7 @@ function Contact() {
                 title: "Thất bại!",
                 html:"<h2>Thông tin liên lạc không hợp lệ!</h2>",
                 showConfirmButton: false,
-                timer: 2000,
+                timer: 3000,
             });
         }
         else{
@@ -39,7 +39,7 @@ function Contact() {
                     title: "Đã xảy ra lỗi!",
                     html:"<h2>Vui lòng thử lại!</h2>",
                     showConfirmButton: false,
-                    timer: 2000,
+                    timer: 3000,
                 });
               }
             console.log(formData)
@@ -49,7 +49,7 @@ function Contact() {
                 title: "Thành công!",
                 html:"<h2>Nhân viên của chúng tôi sẽ sớm liên hệ bạn.</h2>",
                 showConfirmButton: false,
-               // timer: 1500,
+                timer: 3000,
                 });
               setName("")
               setEmail("")
@@ -63,7 +63,7 @@ function Contact() {
                     title: "Đã xảy ra lỗi!",
                     html:"<h2>Vui lòng thử lại!</h2>",
                     showConfirmButton: false,
-                    timer: 2000,
+                    timer: 3000,
                 });
             }
         }
