@@ -45,7 +45,7 @@ function Contact() {
                 position: "center",
                 icon: "success",
                 title: "Thành công!\nNhân viên của chúng tôi sẽ sớm liên hệ bạn. ",
-                showConfirmButton: true,
+                showConfirmButton: false,
                // timer: 1500,
                 });
               setName("")
