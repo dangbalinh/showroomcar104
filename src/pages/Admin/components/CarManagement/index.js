@@ -178,15 +178,7 @@ function CarManagement() {
                 await setNewData(res.cars);
                 await setDataLength(res.totalCarsFilter);
             });
-        } 
-        // setNewData((prev) =>
-        //     prev.filter((item) => {
-        //         return (
-        //             item.ten.toLowerCase().includes(searchValue) ||
-        //             item.macar.toLowerCase().includes(searchValue)
-        //         );
-        //     })
-        // );
+        }
         setPageIndex(0);
         console.log("page: ", pageIndex);
     }, [typeCar, searchValue]);
