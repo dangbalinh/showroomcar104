@@ -54,7 +54,7 @@ function Home() {
             <div
                 className={style.advice}
                 style={{
-                    backgroundImage: "url(https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/%E1%BA%A3nh%20homepage%2F%24RHPLO4O.jpg?alt=media&token=044087d4-9e0c-465d-9b02-87fe76af3e4c)",
+                    backgroundImage: "url(https://firebasestorage.googleapis.com/v0/b/kingspeed-1ee63.appspot.com/o/homepage%2F%24RHPLO4O.jpg?alt=media&token=b853d689-6eee-490a-ab9d-20a1910dbb7b)",
                     backgroundSize: "cover",
                     paddingBottom: "52%",
                     // height: "100vh",
@@ -108,7 +108,7 @@ function Home() {
             <div
                 className={style.news}
                 style={{
-                    backgroundImage: "url(https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/%E1%BA%A3nh%20homepage%2Fnewsimg.png?alt=media&token=801d0ef2-1a2a-4478-820d-8a003d6aac70)",
+                    backgroundImage: "url(https://firebasestorage.googleapis.com/v0/b/kingspeed-1ee63.appspot.com/o/homepage%2Fnewsimg.png?alt=media&token=a6633157-390e-4df1-9935-f6887feccdd1)",
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     height: "851px",
