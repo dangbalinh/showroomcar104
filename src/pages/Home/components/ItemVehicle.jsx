@@ -4,10 +4,10 @@ function ItemVehicle({data}) {
     return(
         <div className={style.itemCarContainer}>
             <p className={style.carName}>{data.ten}</p>
-            <p className={style.carInfo}>{data.gia}</p>
-            <img src={data.hinhanh} alt="BMW car" width={300}/>
+            <p className={style.carInfo}>{data.gia.toLocaleString() + " VNĐ"}</p>
+            <img src={data.hinhanh} alt="BMW car" width={300} height={170}/>
             <Link to={`/detailproduct/${data._id}`}>
-                <button className={style.buttonDiscoverMore}>Discover More</button>
+                <button className={style.buttonDiscoverMore}>Chi tiết</button>
             </Link>
             
         </div>

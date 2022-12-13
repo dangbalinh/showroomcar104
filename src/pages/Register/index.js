@@ -161,7 +161,7 @@ const Register = () => {
           sendRequestSU()
           .then((data)=>{
             localStorage.setItem("user",JSON.stringify(data.user));
-            localStorage.setItem("token",data.token);
+            //localStorage.setItem("token",data.token);
             Cookies.set('token', data.token);
           })
           .then(()=>{const id = localStorage.getItem("userId"); console.log(id);})

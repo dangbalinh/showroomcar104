@@ -1,11 +1,12 @@
 import style from "./Introduce.module.css"
+
 function Introduce() {
     return ( 
         <div className={style.introBackground}>
             <div className={style.introContent}>
-                <h1 className={style.introTitle1}>
-                    <span>K</span>I<span>NG SPEED</span>    
-                </h1> 
+                <p className={style.introTitle1}>
+                    <span>KING SPEED</span>
+                </p> 
                 <p className={style.content}>
                     Lời đầu tiên cho phép King Speed Việt Nam được gửi tới quý khách hàng của King Speed 
                     một lời chào trân trọng, lời chúc sức khỏe, an khang và thịnh vượng. 
@@ -21,6 +22,9 @@ function Introduce() {
                     chúng tôi hiểu sự phát triển nhanh chóng của thị trường xe hơi tại Việt Nam và 
                     nắm bắt cơ hội của thị trường này.
                 </p> 
+                <div>
+                    <img alt="Hình ảnh showroom" className={style.showroomImg} src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fshowroomcar.jpg?alt=media&token=34e613e6-bbe7-44ed-80dc-4086c164e473"></img>
+                </div>
                 <p className={style.introTitle1}>
                     TẦM NHÌN, SỨ MỆNH PHỤC VỤ, GIÁ TRỊ
                 </p>  
@@ -52,8 +56,12 @@ function Introduce() {
                         đem tới cho khách hàng, chúng tôi tin tưởng rằng, quý khách hàng sẽ thật sự hài 
                         lòng khi sử dụng sản phẩm và dịch vụ của King Speed tại Việt Nam.
                     </p> 
-                </p>         
-
+                </p>  
+                <div className={style.employeeImg}>
+                    <img alt="Hình ảnh nhân viên giới thiệu xe cho khách" src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fsalecar1.jpg?alt=media&token=1311e1ae-6b9a-4e3f-9890-83904445c8ae"/>   
+                    <img alt="Hình ảnh nhân viên trong showroom" src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Femoloyee1.jpg?alt=media&token=639a3b41-9637-405a-9d8d-c43cff385de1"/>
+                    <img alt="Hình ảnh nhân viên giới thiệu xe cho khách" src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fsalecar2.jpg?alt=media&token=c63c523a-0129-4437-b6ad-fdd9794df3be"/>
+                </div>    
             </div>
         </div>
      );

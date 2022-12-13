@@ -57,7 +57,7 @@ function CarManagement() {
 
 
     useEffect(() => {
-        HandleApisCustomer.getEmployeeByPageIndex(pageIndex).then((res) => {
+        HandleApisCustomer.getCustomerByPageIndex(pageIndex).then((res) => {
             setData(res.customers);
             setDataLength(res.totalCustomers);
         });
@@ -126,12 +126,12 @@ function CarManagement() {
     useEffect(() => {
         console.log(searchValue);
         if (searchValue.trim() !== "") {
-            HandleApi.getCustomerByName(searchValue).then(async (res) => {
+            HandleApisCustomer.getCustomerByName(searchValue).then(async (res) => {
                 await setData(res.customers);
                 await setDataLength(data.length);
             });
         } else {
-            HandleApisCustomer.getAllCustomers().then((res) => {
+            HandleApisCustomer.getCustomerByPageIndex().then((res) => {
                 setData(res.customers);
                 setDataLength(res.totalCustomers);
             });

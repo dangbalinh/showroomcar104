@@ -4,14 +4,20 @@
   align-items: center;
 }
 .productImg {
-  width: 100%;
-  object-fit: cover;
+  position: relative;
+  width: 300px;
+  height: 170px;
+  /* max-width: 100%; */
+  object-fit: contain;
   transition: all linear 0.2s;
-  cursor: pointer;
+  top: 23.1px;
+  left: 18px;
 }
+
 .productImg:hover {
   transform: scale(1.06);
 }
+
 .itemProduct {
   width: 340px;
   height: 355px;
@@ -21,7 +27,7 @@
   font-size: 2rem;
   text-align: center;
   color: #990000;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 
 .itemProduct__Price {
@@ -38,12 +44,12 @@
   color: red;
   outline: 1px solid red;
   border-radius: 5px;
-  padding: 10px 30px;
+  padding: 11px 24px;
   position: relative;
   font-weight: bold;
   overflow: hidden;
   transition: color 0.5s;
-  margin: 10px 110px;
+  margin: 40px 110px;
 }
 
 .linkDiscover:hover {

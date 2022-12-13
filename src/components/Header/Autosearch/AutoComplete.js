@@ -14,7 +14,7 @@ const AutoComplete = () => {
 
     const sendRequest = async(query)=>{
       const res = await axios
-      .get(`https://showroomcar104.onrender.com/cars?ten=${query}`)
+      .get(`https://showroomcar104.onrender.com/cars?search=${query}`)
       .catch((err)=>console.log(err))
       const data = await res.data.cars;
       console.log(data);
@@ -69,7 +69,7 @@ const AutoComplete = () => {
       const Suggestions = () => {
         return (
           (suggestions.length!==0? <ul className={classes.dropdownshow}
-          style={{left:'10%', width:'80%'} } ref={ref}
+          style={(suggestions.length==13)?{left:'10%', width:'80%' }:{left:'10%', width:'80%',height:"fit-content" } } ref={ref}
           >
             {suggestions.map((suggestion, index) => {
               return (

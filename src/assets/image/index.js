@@ -1,13 +1,12 @@
 const images = {
+    customer: require('./customer.jpg'),
+    customer1: require('./customer1.jpg'),
+    customer2: require('./customer2.jpg'),
+    customer3: require('./customer3.jpg'),
     carXImg: require('./carX.jpg'),
     carYImg: require('./carY.jpg'),
     carZImg: require('./carZ.jpg'),
-    sliderImg: require('./slider.png'),
     bmwImg: require('./bmwcar.png'),
-    infoImg: require('./imginfo.jpg'),
-    clientImg: require('./clientimg.jpg'),
-    newsImg: require('./newsimg.png'),
-    newsItemImg: require('./newsItem.png'),
     logoImg: require('./carlogo.png'),
     notFoundGif: require('./notfound.gif'),
     logoBWM: require("./logo/logoBWM.png"),
@@ -17,7 +16,8 @@ const images = {
     logoVinfast: require("./logo/logoVinfast.png"),
     logoHuynhdai: require("./logo/logoHuynhdai.png"),
     logoMescedez: require("./logo/logoMescedez.png"),
-    logoToyota: require("./logo/logoToyota.png")
+    logoToyota: require("./logo/logoToyota.png"),
+    imgPageDetailEmployee: require("./imgPageDetailEmployee.png"),
 };
 
 export default images;

@@ -3,7 +3,7 @@ import "@splidejs/react-splide/css";
 import ItemAdvice from "./ItemAdvice";
 import style from "./SliderAdvice.module.css";
 import "./SliderAdvice.css";
-import WestIcon from "@mui/icons-material/West";
+// import WestIcon from "@mui/icons-material/West";
 import EastIcon from "@mui/icons-material/East";
 import axios from "axios";
 import { useEffect, useState, memo } from 'react';
@@ -23,7 +23,7 @@ function SliderAdvice() {
         // padding: '5rem',
         focus: "center",
         autoplay: true,
-        interval: 3600,
+        interval: 3500,
         pauseOnHover: true,
         updateOnMove: true,
         // fixedWidth: 250,

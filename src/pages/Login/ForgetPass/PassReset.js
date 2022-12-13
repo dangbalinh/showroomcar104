@@ -94,7 +94,7 @@ const PassReset = () => {
         if(errors.passwordError!=""||errors.confirmError!="")
         {
             e.preventDefault();
-            alert("Register failed!");
+            alert("Change failed!");
         } else {
           e.preventDefault();
           sendRequestSU()

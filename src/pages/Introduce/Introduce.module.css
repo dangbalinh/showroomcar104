@@ -1,47 +1,27 @@
 .introBackground {
-    background-image: url('https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fintroducebg.png?alt=media&token=e70f0190-bdab-446e-800d-47187e061ab6');
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2F%E1%BA%A3nh%20n%E1%BB%81n%20introduce.png?alt=media&token=4d1ba563-1e86-4a92-bda8-340bd6589479');
     background-repeat: no-repeat;
     background-size: cover;
     margin-top: 100px;
 }
 .introContent {
-  padding: 160px;
+  padding: 70px 160px;
 }
 
 .introTitle1 {
   color: #ae0d0d;
   font-size: 3.2rem;
   font-weight: 600;
+  margin-top: 25px;
 }
-h1{
-  color: #484848;
-  font-size: 50px;
-  font-weight: bold;
-  /* font-family: monospace;   */
-  /* letter-spacing: 7px; */
-  /* cursor: pointer */
+
+.introTitle1 {
+  text-shadow: 2px 2px 8px red;
 }
-h1 span{
-  transition: .5s linear
-}
-h1:hover span:nth-child(1){
-  margin-right: 5px
-}
-h1:hover span:nth-child(1):after{
-  content: "'";
-}
-h1:hover span:nth-child(2){
-  margin-left: 30px
-}
-h1:hover span{
-  color: rgb(37, 23, 23);
-  text-shadow: 0 0 10px #fff,
-               0 0 20px #fff, 
-               0 0 40px #fff;
-}
+
 .content {
   font-size: 1.6rem;
-  margin: 70px 50px;
+  margin: 50px;
   word-spacing: 2px;
   text-align: justify;
 }
@@ -54,3 +34,32 @@ h1:hover span{
 .content2 {
   margin: 24px 0;
 }
+
+.showroomImg {
+  width: 75%;
+  height: 500px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 25px;
+}
+
+/* .introContent img {
+  width: 75%;
+} */
+.employeeImg {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 35px;
+}
+
+.employeeImg img {
+  width: 25%;
+  height: 200px;
+  display: block;
+}
+
+
+
+
+

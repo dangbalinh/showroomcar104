@@ -22,7 +22,7 @@
 }
 
 .imgdiv {
-  background-image: url("../Header/logo.png");
+  background-image: url("../../assets/image/logo.png");
   background-repeat: no-repeat;
   background-position: 30%;
 }
@@ -41,6 +41,7 @@
   text-align: center;
   padding: 30px;
   position: absolute;
+  font-size: 11px;
   bottom: 0;
   right: 0;
   width: 100%;

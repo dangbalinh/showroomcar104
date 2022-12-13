@@ -55,11 +55,11 @@ const UpatePopUp = (props) => {
   useEffect(() => { setDidMount(true) }, [])
   const [formData, setFormData] = useState(
     {
-        name: props.data.name, 
-        diachi: props.data.diachi, 
-        sdt: props.data.sdt, 
-        cccd: props.data.cccd, 
-        gioitinh: props.data.gioitinh,
+        name: (props.data.name !== "undefined")? props.data.name : "" , 
+        diachi: (props.data.diachi !== "undefined" && props.data.cccd !== "null")? props.data.diachi : "",
+        sdt: (props.data.sdt !== "undefined" && props.data.cccd !== "null")? props.data.sdt : "", 
+        cccd: (props.data.cccd !== "undefined" && props.data.cccd !== "null" )? props.data.cccd : "", 
+        gioitinh: (props.data.gioitinh && props.data.gioitinh!== "undefined")? props.data.gioitinh : "Nam",
     }
   )
 

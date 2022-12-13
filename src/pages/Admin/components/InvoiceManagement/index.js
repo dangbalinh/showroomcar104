@@ -1,4 +1,4 @@
-import images from "../../../../assets/image";
+// import images from "../../../../assets/image";
 import styles from "./InvoiceManagement.module.css";
 import "./InvoiceManagement.css";
 
@@ -38,10 +38,9 @@ function InvoiceManagement() {
     const [tinhtrang, setTinhTrang] = useState("Tất cả");
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
-    // const [searchValue, setSearchValue] = useState("");
+    const [searchValue, setSearchValue] = useState("");
     const [newData, setNewData] = useState([]);
     const [type, setType] = useState("");
-    const [updateCar, setUpdateCar] = useState({});
     const [updateInvoice, setUpdateInvoice] = useState({});
     const [Id, setId] = useState(0);
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
@@ -50,17 +49,16 @@ function InvoiceManagement() {
         tinhtrang: "Đã thanh toán"
     }
 
-    // const inputRef = useRef();
+    const inputRef = useRef();
 
-    const gridColumn = [0.7, 1.5, 1.5, 1.7, 1.8, 1.8, 1.2, 1.8];
+    const gridColumn = [0.7, 1.5, 1.7, 1.8, 1.8, 2, 2.5];
     const gridTitle = [
         "STT",
         "Mã hóa đơn",
-        "Mã nhân viên",
         "Mã khách hàng",
         "Ngày lập hóa đơn",
         "Tình trạng",
-        "Trị giá",
+        "Tổng tiền",
         "",
     ];
 
@@ -69,34 +67,32 @@ function InvoiceManagement() {
         "Chưa thanh toán",
     ]
 
-    const pageSize = 5;
-
-    //get API
+    const pageSize = 10;
+    
     useEffect(() => {
         HandleApiInvoice.getInvoiceByPageIndex(pageIndex).then((res) => {
             setData(res.hoadons);
             setDataLength(res.totalHoaDon);
         })
-    }, [pageIndex]);
-
+    },[pageIndex]);
     // handle Filter select
     useEffect(() => {
         switch (tinhtrang)
         {
             case "Tất cả":
                 setNewData(data);
-                HandleApiInvoice.getInvoiceByTinhTrang("").then((res) => {
+                HandleApiInvoice.getInvoiceByTinhTrang("",pageIndex).then((res) => {
                 setDataLength(res.totalHoaDon)
                 });
                 break;
             case "Đã thanh toán":
-                    HandleApiInvoice.getInvoiceByTinhTrang("Đã thanh toán").then((res) => {
+                    HandleApiInvoice.getInvoiceByTinhTrang("Đã thanh toán",pageIndex).then((res) => {
                     setNewData(res.hoadons)
                     setDataLength(res.totalHoaDon)
                 });
                 break;
             case "Chưa thanh toán":
-                HandleApiInvoice.getInvoiceByTinhTrang("Chưa thanh toán").then((res) => {
+                HandleApiInvoice.getInvoiceByTinhTrang("Chưa thanh toán",pageIndex).then((res) => {
                     setNewData(res.hoadons)
                     setDataLength(res.totalHoaDon)
                 });
@@ -104,10 +100,10 @@ function InvoiceManagement() {
             default:
                 break;
         }
-    },[data, tinhtrang]);
+    },[data,tinhtrang,pageIndex]);
 
 
-    //function 
+    //function dùng để kiểm tra ...
     function isDonDatHang(tinhtrang){
         if(tinhtrang==="Chưa thanh toán")
         return true
@@ -123,7 +119,6 @@ function InvoiceManagement() {
     const handleDeleteItem = async (id) => {
         HandleApiInvoice.xoaDonDatHang(id)
             .then((res) => {
-                console.log(id);
                 setOpenDeleteModal(false);
                 Swal.fire({
                     position: "center",
@@ -132,7 +127,6 @@ function InvoiceManagement() {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                console.log(data);
                 setData(data.filter((item) => item._id !== id));
             })
             .catch((err) => {
@@ -147,10 +141,8 @@ function InvoiceManagement() {
     };
 
     const handleClickUpdate = async (id) => {
-        console.log(id);
         HandleApiInvoice.capnhatTinhTrang(id, updateData)
             .then(async (res) => {
-                console.log(id);
                 setOpenEditModal(false);
                 Swal.fire({
                     position: "center",
@@ -159,7 +151,6 @@ function InvoiceManagement() {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                console.log(data);
                 window.location.reload(); 
             })
             .catch((err) => {
@@ -180,7 +171,6 @@ function InvoiceManagement() {
             .then(async (res) => {
                 await setUpdateInvoice(res);
                 await setType("read");
-                console.log(updateCar);
             })
             .catch((err) => {
                 console.log(err);
@@ -188,43 +178,32 @@ function InvoiceManagement() {
     }
 
     const handlePageChange = (e, p) => {
-        console.log("PageIndex: ", p);
         setPageIndex(p - 1);
     };
 
     // handle search event
-    // useEffect(() => {
-    //     console.log(searchValue);
-    //     if (searchValue.trim() !== "") {
-    //         HandleApi.getCarByName(searchValue).then(async (res) => {
-    //             await setData(res.cars);
-    //             await setDataLength(data.length);
-    //         });
-    //     } else {
-    //         HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-    //             setData(res.cars);
-    //             setDataLength(res.totalCars);
-    //         });
-    //     }
-    // }, [searchValue]);
+    useEffect(() => {
+        if (searchValue.trim() !== "") {
+            HandleApiInvoice.getInvoiceByMAHD(searchValue).then(async (res) => {
+                await setData(res.hoadons);
+                await setDataLength(data.length);
+            });
+        } else {
+            HandleApiInvoice.getInvoiceByPageIndex(pageIndex).then((res) => {
+                setData(res.hoadons);
+                setDataLength(res.totalHoaDon);
+            });
+        }
+    }, [searchValue]);
 
-    // const handleInputChange = (e) => {
-    //     setSearchValue(e.target.value);
-    // };
+    const handleInputChange = (e) => {
+        setSearchValue(e.target.value);
+    };
 
-    // const handleSearch = async () => {
-    //     if (searchValue.trim() !== "") {
-    //         HandleApi.getCarByName(searchValue).then(async (res) => {
-    //             await setData(res.cars);
-    //             await setDataLength(data.length);
-    //         });
-    //     }
-    // };
-
-    // const handleClear = () => {
-    //     setSearchValue("");
-    //     inputRef.current.focus();
-    // };
+    const handleClear = () => {
+        setSearchValue("");
+        inputRef.current.focus();
+    };
 
     // Custome CSS MUI
     const ItemMain = styled(Paper)(({ theme }) => ({
@@ -271,34 +250,34 @@ function InvoiceManagement() {
     return (
         <div>
             <header className={styles.header}>
-                <img
+                {/* <img
                     src={images.bmwImg}
                     className={styles.header_image}
                     alt="Header img"
-                />
+                /> */}
                 <h1 className={styles.header_heading}>Quản lý hóa đơn</h1>
             </header>
             <div className={styles.container}>
                 <div className={styles.container_header}>
                     <div className={styles.funcContainer}>
                         <div className={styles.search}>
-                            {/* <input
+                            <input
                                 ref={inputRef}
                                 value={searchValue}
                                 type="text"
                                 placeholder="Tìm hóa đơn"
                                 spellCheck={false}
                                 onChange={handleInputChange}
-                            /> */}
+                            />
 
-                            {/* {!!searchValue && (
+                            {!!searchValue && (
                                 <button
                                     className={styles.clear}
                                     onClick={handleClear}
                                 >
                                     <Cancel className={styles.clearIcon} />
                                 </button>
-                            )} */}
+                            )}
 
                             <button
                                 className={styles.searchBtn}
@@ -352,7 +331,7 @@ function InvoiceManagement() {
                             height: 40,
                             fontSize: 14,
                             textTransform: "none",
-                            marginLeft: "80px"
+                            marginLeft: "170px"
                         }}
                         variant="contained"
                         color="success"
@@ -382,9 +361,6 @@ function InvoiceManagement() {
                                 <Grid item xs={1.5}>
                                     <Item>{item.mahd}</Item>
                                 </Grid>
-                                <Grid item xs={1.5}>
-                                    <Item>{item.manv}</Item>
-                                </Grid>
                                 <Grid item xs={1.7}>
                                     <Item>{item.makh}</Item>
                                 </Grid>
@@ -394,10 +370,10 @@ function InvoiceManagement() {
                                 <Grid item xs={1.8}>
                                     <Item>{item.tinhtrang}</Item>
                                 </Grid>
-                                <Grid item xs={1.2}>
-                                    <Item>{item.trigia}</Item>
+                                <Grid item xs={2}>
+                                    <Item>{item.trigia.toLocaleString() + " VNĐ"}</Item>
                                 </Grid>
-                                <Grid item xs={1.8}>
+                                <Grid item xs={2.5}>
                                     {/* Update, delete button */}
                                     <Item>
                                        <Button
@@ -414,21 +390,12 @@ function InvoiceManagement() {
                                             Chi tiết
                                         </Button>
                                         <IconButton
+                                            disabled={!isDonDatHang(item.tinhtrang)}
                                             color="primary"
                                             size="medium"
-                                            // sx={{
-                                            //     width: 35,
-                                            //     height: 34,
-                                            //     borderRadius: "4px",
-                                            //     border: "1px solid #1976D2",
-                                            //     justifyContent: "space-between",
-                                            //     marginLeft: "-24px"
-                                            // }}
                                             onClick={() => {
-                                                console.log(item._id);
                                                 setOpenEditModal(isDonDatHang(item.tinhtrang));
-                                                setId(item._id);
-                                            }}
+                                                setId(item._id); }}
                                         >
                                             <Edit sx={{ fontSize: "22px" }} />
                                         </IconButton>
@@ -483,7 +450,6 @@ function InvoiceManagement() {
                                                             setOpenEditModal(
                                                                 false
                                                             );
-                                                            console.log(Id);
                                                         }}
                                                         sx={{
                                                             fontSize: "14px",
@@ -500,7 +466,6 @@ function InvoiceManagement() {
                                             size="medium"
                                             color="error"
                                             onClick={() => {
-                                                console.log(item._id);
                                                 setOpenDeleteModal(isDonDatHang(item.tinhtrang));
                                                 setId(item._id);
                                             }}
@@ -560,7 +525,6 @@ function InvoiceManagement() {
                                                             setOpenDeleteModal(
                                                                 false
                                                             );
-                                                            console.log(Id);
                                                         }}
                                                         sx={{
                                                             fontSize: "14px",

@@ -22,7 +22,7 @@ function Vehicle() {
         img: images.logoToyota      
     },
     {
-        branch: 'Bwm',
+        branch: 'BMW',
         img: images.logoBWM
     },
     {
@@ -34,11 +34,11 @@ function Vehicle() {
         img: images.logoHonda
     },
     {
-        branch: 'Huynhdai',
+        branch: 'Hyundai',
         img: images.logoHuynhdai
     },
     {
-        branch: 'Mercedez',
+        branch: 'Mercedes',
         img: images.logoMescedez
     },
     {

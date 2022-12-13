@@ -1,7 +1,8 @@
-import images from "../../../../assets/image";
+// import images from "../../../../assets/image";
 import styles from "./NewsManagement.module.css";
 import styleDetail from "../../../ReadNews/ReadNews.module.css";
 import "./NewsManagement.css";
+import parse from "html-react-parser"
 
 import { styled } from "@mui/material/styles";
 import {
@@ -38,8 +39,6 @@ function NewsManagement() {
     const [openDeleteModal, setOpenDeleteModal] = useState(false);
     const [selectedDetail, setSelectedDetail] = useState(null);
     const [openDetailModal, setOpenDetailModal] = useState(false);
-    const [role] = useState(() => JSON.parse(localStorage.getItem("user")).role)
-    const [token] = useState(() => localStorage.getItem("token"))
 
     const handleOpenDetailModal = (detail) => {
         setOpenDetailModal(true);
@@ -70,7 +69,7 @@ function NewsManagement() {
 
 
     const handleDeleteItem = async (id) => {
-        HandleNewsApi.deleteNews(id, token)
+        HandleNewsApi.deleteNews(id)
             .then((res) => {
                 setOpenDeleteModal(false);
                 Swal.fire({
@@ -166,31 +165,7 @@ function NewsManagement() {
                 <Box sx={{ padding: "50px" }}>
                     <h3 className={styleDetail.title}>{detail.title}</h3>
                     <p className={styleDetail.date}>{detail.dateSource}</p>
-                    {detail.detail.map((d, index) => {
-                        if (d.type === "img") {
-                            return (
-                                <img
-                                    key={d.index}
-                                    className={styleDetail.image}
-                                    src={d.content}
-                                    alt={index}
-                                />
-                            );
-                        } else if (d.type === "p") {
-                            return (
-                                <p key={d.index} className={styleDetail.paragraphText}>
-                                    {d.content}
-                                </p>
-                            );
-                        } else if (d.type === "h2") {
-                            return (
-                                <h2 key={d.index} className={styleDetail.paragraphTitle}>
-                                    {d.content}
-                                </h2>
-                            );
-                        }
-                        return <></>;
-                    })}
+                    <div className={styleDetail.detail}>{parse(detail.detail[0])}</div>
                 </Box>
             </div>
         </div>)
@@ -199,16 +174,16 @@ function NewsManagement() {
     return (
         <div>
             <header className={styles.header}>
-                <img
+                {/* <img
                     src={images.bmwImg}
                     className={styles.header_image}
                     alt="Header img"
-                />
+                /> */}
                 <h1 className={styles.header_heading}>Quản lý tin tức</h1>
             </header>
             <div className={styles.container}>
                 <div className={styles.container_header}>
-                    {role === "admin" && <Button
+                    <Button
                         sx={{
                             height: 40,
                             fontSize: 14,
@@ -221,7 +196,7 @@ function NewsManagement() {
                         onClick={() => setType("create")}
                     >
                         Thêm tin tức
-                    </Button>}
+                    </Button>
                 </div>
 
                 <div className={styles.content}>
@@ -267,7 +242,7 @@ function NewsManagement() {
                                     </Item>
                                 </Grid>
                                 <Grid item xs={1}>
-                                    {role === "admin" && <Item>
+                                    <Item>
                                         <IconButton
                                             color="primary"
                                             size="medium"
@@ -352,7 +327,7 @@ function NewsManagement() {
                                                 </div>
                                             </Box>
                                         </Modal>
-                                    </Item>}
+                                    </Item>
                                 </Grid>
                             </Grid>
                         ))}
@@ -375,7 +350,6 @@ function NewsManagement() {
                 </div>
             </div>
             <NewsPopUp
-                token={token}
                 type={type !== "" ? type : ""}
                 setType={setType}
                 updatePost={updatePost}

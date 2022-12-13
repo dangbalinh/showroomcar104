@@ -11,7 +11,7 @@ function SliderCar() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        HandleApi.getSevenCars().then((res) => {
+        HandleApi.getCarAdvice(true).then((res) => {
             setData(res.cars);
           });
     }, []);

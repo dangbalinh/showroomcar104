@@ -2,7 +2,7 @@
   display: flex;
   padding: 10px;
   box-shadow: 5px 4px 18px 0px #00000040;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
   height: 150px;
   border-radius: 10px;
 }
@@ -10,6 +10,7 @@
 .image {
   object-fit: cover;
   margin-right: 20px;
+  width: 200px;
 }
 
 .detail {

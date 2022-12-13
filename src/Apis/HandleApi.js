@@ -8,6 +8,11 @@ const getCarByPageIndex = async (index) => {
     return await axiosInstance.get(`/cars?pageIndex=${index}`);
 };
 
+const getCarByPageIndexBrand = async (brand, index) => {
+    return await axiosInstance.get(`/cars?thuonghieu=${brand}&pageIndex=${index}`);
+};
+
+
 const getSevenCars = async (index) => {
     return await axiosInstance.get("/cars?pageIndex=0&pageSize=7");
 };
@@ -20,11 +25,15 @@ const getCarById = async (id) => {
 };
 
 const getCarByName = async (name) => {
-    return await axiosInstance.get(`/cars?ten=${name}`);
+    return await axiosInstance.get(`/cars?search=${name}`);
 };
 
 const getCarByBrand = async (brand) => {
     return await axiosInstance.get(`/cars?thuonghieu=${brand}`);
+};
+
+const getCarAdvice = async (advice) => {
+    return await axiosInstance.get(`/cars?advice=${advice}`);
 };
 
 const createCar = async (data) => {
@@ -47,8 +56,10 @@ export default {
     getCarByPageIndex,
     getCarByName,
     getCarByBrand,
+    getCarAdvice,
     createCar,
     updateCar,
     deleteCar,  
-    getSixCarsByBranch
+    getSixCarsByBranch,
+    getCarByPageIndexBrand 
 };

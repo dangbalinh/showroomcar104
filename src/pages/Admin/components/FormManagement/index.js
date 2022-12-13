@@ -31,7 +31,8 @@ function FormManagement() {
     const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
     const [type, setType] = useState("");
-    const [selectedDay, setSelectedDay] = useState(null);
+    // const [selectedDay, setSelectedDay] = useState(null);
+    const [selectedDay, setSelectedDay] = useState("");
     const [newData, setNewData] = useState([]);
     const [updatePost, setUpdatePost] = useState({});
     const [Id, setId] = useState(0);
@@ -50,19 +51,24 @@ function FormManagement() {
     ];
 
     // Get API
-    const day = selectedDay ? new Date(selectedDay) : null;
+    // const day = selectedDay ? new Date(selectedDay) : null;
 
-    useEffect(() => {
-        day
-            ? HandleApiForm.getFormByDate(day).then((res) => {
-                  setData(res.forms);
-                  setDataLength(res.totalForms);
-              })
-            : HandleApiForm.getAllForm().then((res) => {
-                  setData(res.forms);
-                  setDataLength(res.totalForms);
-              });
-    }, [selectedDay]);
+    const Transform = (temp) => {
+        if (temp) {
+            var date = new Date(temp);
+            var finaldate =
+                (date.getDate() < 10
+                    ? "0" + (0 + date.getDate())
+                    : date.getDate()) +
+                "-" +
+                (date.getMonth() < 10
+                    ? "0" + (0 + date.getMonth() + 1)
+                    : date.getMonth() + 1) +
+                "-" +
+                date.getFullYear();
+            return finaldate;
+        } else return "";
+    };
 
     useEffect(() => {
         HandleApiForm.getFormByPageIndex(pageIndex).then((res) => {
@@ -71,8 +77,22 @@ function FormManagement() {
         });
     }, [pageIndex]);
 
+    useEffect(() => {
+        // day
+        selectedDay
+            ? HandleApiForm.getFormByDate(Transform(selectedDay)).then(
+                  (res) => {
+                      setData(res.forms);
+                      setDataLength(res.totalForms);
+                  }
+              )
+            : HandleApiForm.getAllForm().then((res) => {
+                  setData(res.forms);
+                  setDataLength(res.totalForms);
+              });
+    }, [selectedDay]);
+    console.log(Transform(selectedDay));
     // handle event
-
     const handleDeleteItem = async (id) => {
         HandleApiForm.deleteForm(id)
             .then((res) => {
@@ -81,7 +101,7 @@ function FormManagement() {
                 Swal.fire({
                     position: "center",
                     icon: "success",
-                    title: "Xóa dữ liệu xe thành công!",
+                    title: "Xóa form phản hồi thành công!",
                     showConfirmButton: false,
                     timer: 1500,
                 });
@@ -92,7 +112,7 @@ function FormManagement() {
                 Swal.fire({
                     position: "center",
                     icon: "error",
-                    title: "Xóa bài viết thất bại!",
+                    title: "Xóa form phản hồi thất bại!",
                     showConfirmButton: false,
                     timer: 1500,
                 });
@@ -214,7 +234,9 @@ function FormManagement() {
                                         sx={nameActive}
                                         onClick={() => handleReadInfo(item._id)}
                                     >
-                                        {item.message.slice(0, 30)}
+                                        {item.message
+                                            ? item.message.slice(0, 30)
+                                            : ""}
                                     </Item>
                                 </Grid>
                                 <Grid item xs={1}>
@@ -250,8 +272,8 @@ function FormManagement() {
                                                     color="#d32f2f"
                                                     textAlign="center"
                                                 >
-                                                    Bạn có chắc chắn muốn xóa dữ
-                                                    liệu xe này?
+                                                    Bạn có chắc chắn muốn xóa
+                                                    form phản hồi này?
                                                 </Typography>
                                                 <Typography
                                                     id="modal-modal-description"
