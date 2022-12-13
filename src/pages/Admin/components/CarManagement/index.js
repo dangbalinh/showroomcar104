@@ -35,7 +35,7 @@ import Swal from "sweetalert2";
 function CarManagement() {
     const [typeCar, setTypeCar] = useState("All");
     const [data, setData] = useState([]);
-    const [dataLength, setDataLength] = useState(0);
+    const [dataLength, setDataLength] = useState();
     const [pageIndex, setPageIndex] = useState(0);
     const [searchValue, setSearchValue] = useState("");
     const [newData, setNewData] = useState([]);
@@ -75,85 +75,132 @@ function CarManagement() {
 
     // Get API
     useEffect(() => {
-        HandleApi.getCarByPageIndex(pageIndex).then((res) => {
+        if (typeCar === "All") {
+            HandleApi.getCarByPageIndex(pageIndex).then((res) => {
+                setData(res.cars);
+                setNewData(res.cars);
+                setDataLength(res.totalCarsFilter);
+            });
+        } else {
+            HandleApi.getCarByPageIndexBrand(typeCar, pageIndex).then((res) => {
+                setData(res.cars);
+                setNewData(res.cars);
+                setDataLength(res.totalCarsFilter);
+            });
+        }
+    }, [pageIndex, typeCar]);
+
+    useEffect(() => {
+        HandleApi.getCarByPageIndex(0).then((res) => {
             setData(res.cars);
+            setNewData(res.cars);
             setDataLength(res.totalCarsFilter);
         });
-    }, [pageIndex]);
-
+    }, []);
 
     // handle Filter select
     useEffect(() => {
-        switch (typeCar) {
-            case "All":
-                setNewData(data);
-                HandleApi.getAllCar().then((res) => {
-                    setDataLength(res.totalCarsFilter);
-                });
-                break;
-            // case "All":
-            //     HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-            //         setNewData(res.cars);
-            //         setDataLength(res.totalCars);
-            //     });
-            //     break;
-            case "Honda":
-                HandleApi.getCarByBrand("Honda").then((res) => {
-                    setNewData(res.cars);
-                    setDataLength(res.totalCarsFilter);
-                });
-                break;
-            case "Toyota":
-                HandleApi.getCarByBrand("Toyota").then((res) => {
-                    setNewData(res.cars);
-                    setDataLength(res.totalCarsFilter);
-                });
-                break;
-            case "Mercedes":
-                HandleApi.getCarByBrand("Mercedes").then((res) => {
-                    setNewData(res.cars);
-                    setDataLength(res.totalCarsFilter);
-                });
-                break;
-            case "Vinfast":
-                HandleApi.getCarByBrand("Vinfast").then((res) => {
-                    setNewData(res.cars);
-                    setDataLength(res.totalCarsFilter);
-                });
-                break;
-            case "Kia":
-                HandleApi.getCarByBrand("Kia").then((res) => {
-                    setNewData(res.cars);
-                    setDataLength(res.totalCarsFilter);
-                });
-                break;
-            case "BMW":
-                HandleApi.getCarByBrand("BMW").then((res) => {
-                    setNewData(res.cars);
-                    setDataLength(res.totalCarsFilter);
-                });
-                break;
-            case "Ford":
-                HandleApi.getCarByBrand("Ford").then((res) => {
-                    setNewData(res.cars);
-                    setDataLength(res.totalCarsFilter);
-                });
-                break;
-            case "Hyundai":
-                HandleApi.getCarByBrand("Hyundai").then((res) => {
-                    setNewData(res.cars);
-                    setDataLength(res.totalCarsFilter);
-                });
-                break;
-            default:
-                break;
+        // switch (typeCar) {
+        //     case "All":
+        //         setNewData(data);
+        //         HandleApi.getAllCar().then((res) => {
+        //             setDataLength(res.totalCarsFilter);
+        //         });
+        //         break;
+        //     // case "All":
+        //     //     HandleApi.getCarByPageIndex(pageIndex).then((res) => {
+        //     //         setNewData(res.cars);
+        //     //         setDataLength(res.totalCars);
+        //     //     });
+        //     //     break;
+        //     case "Honda":
+        //         HandleApi.getCarByBrand("Honda").then((res) => {
+        //             setNewData(res.cars);
+        //             setDataLength(res.totalCarsFilter);
+        //         });
+        //         break;
+        //     case "Toyota":
+        //         HandleApi.getCarByBrand("Toyota").then((res) => {
+        //             setNewData(res.cars);
+        //             setDataLength(res.totalCarsFilter);
+        //         });
+        //         break;
+        //     case "Mercedes":
+        //         HandleApi.getCarByBrand("Mercedes").then((res) => {
+        //             setNewData(res.cars);
+        //             setDataLength(res.totalCarsFilter);
+        //         });
+        //         break;
+        //     case "Vinfast":
+        //         HandleApi.getCarByBrand("Vinfast").then((res) => {
+        //             setNewData(res.cars);
+        //             setDataLength(res.totalCarsFilter);
+        //         });
+        //         break;
+        //     case "Kia":
+        //         HandleApi.getCarByBrand("Kia").then((res) => {
+        //             setNewData(res.cars);
+        //             setDataLength(res.totalCarsFilter);
+        //         });
+        //         break;
+        //     case "BMW":
+        //         HandleApi.getCarByBrand("BMW").then((res) => {
+        //             setNewData(res.cars);
+        //             setDataLength(res.totalCarsFilter);
+        //         });
+        //         break;
+        //     case "Ford":
+        //         HandleApi.getCarByBrand("Ford").then((res) => {
+        //             setNewData(res.cars);
+        //             setDataLength(res.totalCarsFilter);
+        //         });
+        //         break;
+        //     case "Hyundai":
+        //         HandleApi.getCarByBrand("Hyundai").then((res) => {
+        //             setNewData(res.cars);
+        //             setDataLength(res.totalCarsFilter);
+        //         });
+        //         break;
+        //     default:
+        //         break;
+        // }
+        if (typeCar !== "All") {
+            setNewData(
+                data.filter((item) => {
+                    return item.thuonghieu == typeCar;
+                })
+            );
+            setPageIndex(0);
         }
-    }, [data, typeCar]);
-
+        else setNewData(data);
+        if (searchValue.trim() !== "") {
+            HandleApi.getCarByName(searchValue.trim()).then(async (res) => {
+                await setNewData(res.cars);
+                await setDataLength(res.totalCarsFilter);
+            });
+        } 
+        // setNewData((prev) =>
+        //     prev.filter((item) => {
+        //         return (
+        //             item.ten.toLowerCase().includes(searchValue) ||
+        //             item.macar.toLowerCase().includes(searchValue)
+        //         );
+        //     })
+        // );
+        setPageIndex(0);
+        console.log("page: ", pageIndex);
+    }, [typeCar, searchValue]);
 
     // handle event
-    const handleChange = (event) => {
-        setTypeCar(event.target.value);
+    // const handleChange = (event) => {
+    //     setTypeCar(event.target.value);
+    // };
+
+    const handleChange = (e) => {
+        if (e.target.value !== "Tất cả") setTypeCar(e.target.value);
+        else {
+            setTypeCar(e.target.value);
+        }
     };
 
     const handleDeleteItem = async (id) => {
@@ -169,7 +216,7 @@ function CarManagement() {
                     timer: 1500,
                 });
                 console.log(data);
-                setData(data.filter((item) => item._id !== id));
+                setNewData(data.filter((item) => item._id !== id));
             })
             .catch((err) => {
                 Swal.fire({
@@ -212,21 +259,20 @@ function CarManagement() {
     };
 
     // handle search event
-    useEffect(() => {
-        if (searchValue.trim() !== "") {
-            HandleApi.getCarByName(searchValue).then(async (res) => {
-                await setData(res.cars);
-                await setDataLength(res.totalCarsFilter);
-            });
-        } 
-        else {
-            HandleApi.getCarByPageIndex(pageIndex).then((res) => {
-                setData(res.cars);
-                setDataLength(res.totalCars);
-            });
-        }
-    }, [searchValue]);
-    console.log("length",dataLength);
+    // useEffect(() => {
+    //     if (searchValue.trim() !== "") {
+    //         HandleApi.getCarByName(searchValue).then(async (res) => {
+    //             await setData(res.cars);
+    //             await setDataLength(res.totalCarsFilter);
+    //         });
+    //     } else {
+    //         HandleApi.getCarByPageIndex(pageIndex).then((res) => {
+    //             setData(res.cars);
+    //             setDataLength(res.totalCars);
+    //         });
+    //     }
+    // }, [searchValue]);
+    // console.log("length: ", dataLength);
 
     const handleInputChange = (e) => {
         setSearchValue(e.target.value);
@@ -300,6 +346,7 @@ function CarManagement() {
     //         color: 'red',
     //     }
     // }
+    const currentPost = newData.slice(pageIndex * 15 - 15, pageIndex * 15);
 
     return (
         <div>
@@ -416,6 +463,7 @@ function CarManagement() {
                             ))}
                         </Grid>
                         {/* Render data */}
+                        {/* newData */}
                         {newData?.map((item, index) => (
                             <Grid container key={index}>
                                 <Grid item xs={0.5}>
