@@ -23,7 +23,7 @@ function Introduce() {
                     nắm bắt cơ hội của thị trường này.
                 </p> 
                 <div>
-                    <img alt="Hình ảnh showroom" className={style.showroomImg} src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fshowroomcar.jpg?alt=media&token=34e613e6-bbe7-44ed-80dc-4086c164e473"></img>
+                    <img alt="Hình ảnh showroom" className={style.showroomImg} src="https://firebasestorage.googleapis.com/v0/b/kingspeed-1ee63.appspot.com/o/Introduction%2Fshowroomcar.jpg?alt=media&token=b93ba144-d9b4-49b7-ac83-4fb107a1a7cf"></img>
                 </div>
                 <p className={style.introTitle1}>
                     TẦM NHÌN, SỨ MỆNH PHỤC VỤ, GIÁ TRỊ
@@ -58,9 +58,9 @@ function Introduce() {
                     </p> 
                 </p>  
                 <div className={style.employeeImg}>
-                    <img alt="Hình ảnh nhân viên giới thiệu xe cho khách" src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fsalecar1.jpg?alt=media&token=1311e1ae-6b9a-4e3f-9890-83904445c8ae"/>   
-                    <img alt="Hình ảnh nhân viên trong showroom" src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Femoloyee1.jpg?alt=media&token=639a3b41-9637-405a-9d8d-c43cff385de1"/>
-                    <img alt="Hình ảnh nhân viên giới thiệu xe cho khách" src="https://firebasestorage.googleapis.com/v0/b/showroomcar-6961d.appspot.com/o/VinFast%2Fsalecar2.jpg?alt=media&token=c63c523a-0129-4437-b6ad-fdd9794df3be"/>
+                    <img alt="Hình ảnh nhân viên giới thiệu xe cho khách" src="https://firebasestorage.googleapis.com/v0/b/kingspeed-1ee63.appspot.com/o/Introduction%2Fsalecar1.jpg?alt=media&token=dc0e6fd8-1486-4d68-ab52-473883664258"/>   
+                    <img alt="Hình ảnh nhân viên trong showroom" src="https://firebasestorage.googleapis.com/v0/b/kingspeed-1ee63.appspot.com/o/Introduction%2Femoloyee1.jpg?alt=media&token=41f611c4-bb89-4bb9-bd0f-f8338792c97f"/>
+                    <img alt="Hình ảnh nhân viên giới thiệu xe cho khách" src="https://firebasestorage.googleapis.com/v0/b/kingspeed-1ee63.appspot.com/o/Introduction%2Fsalecar2.jpg?alt=media&token=0fb8bf7f-976f-4c6f-85f7-7fcd8fec8422"/>
                 </div>    
             </div>
         </div>
