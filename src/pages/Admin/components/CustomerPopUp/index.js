@@ -346,7 +346,7 @@ function CustomerPopup({type, setType, updateCustomer, setUpdateCustomer }) {
 
                                 </Grid>
                                 <img src={randomImage[number]} width="250" height="250" alt="customer"
-                                style={{marginTop: "30px",marginLeft: "100px", borderRadius: "50%"}}></img>
+                                style={{marginTop: "30px",marginLeft: "100px", borderRadius: "50%", objectFit: 'cover'}}></img>
                             </Grid>
                         </Box>
                         <div className={styles.btn}>
