@@ -34,7 +34,7 @@ function Vehicle() {
         img: images.logoHonda
     },
     {
-        branch: 'Huyndai',
+        branch: 'Hyundai',
         img: images.logoHuynhdai
     },
     {
