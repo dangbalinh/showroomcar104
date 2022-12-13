@@ -19,7 +19,7 @@ console.log(carBrand);
     })
     .catch(err => console.log(err));
   }, [])
-  console.log(data);
+  
     return ( 
       <div className={styles.productContainer} >
         <h1 className={styles.nameType}>{carBrand.toUpperCase()}</h1>

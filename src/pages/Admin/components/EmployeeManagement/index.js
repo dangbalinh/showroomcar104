@@ -61,6 +61,7 @@ function EmployeeManagement() {
         });
     }, [pageIndex]);
 
+    //Function hanlde Delete
     const handleDeleteItem = async (id) => {
         HandleApiEmployee.deleteEmployee(id)
             .then((res) => {
@@ -85,7 +86,8 @@ function EmployeeManagement() {
                 });
             });
     };
-
+    
+  //Function hanlde Update
     const handleClickUpdate = async (id) => {
         console.log(id);
         HandleApiEmployee.getEmployeeById(id)
@@ -99,6 +101,7 @@ function EmployeeManagement() {
             });
     };
 
+    //Function hanlde Read
     const handleReadInfo = async (id) => {
         HandleApiEmployee.getEmployeeById(id)
             .then(async (res) => {
@@ -115,7 +118,7 @@ function EmployeeManagement() {
         setPageIndex(p - 1);
     };
 
-    // handle search event
+    // Handle search event
     useEffect(() => {
         console.log(searchValue);
         if (searchValue.trim() !== "") {
